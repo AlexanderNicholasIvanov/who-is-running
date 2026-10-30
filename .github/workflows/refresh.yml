@@ -64,6 +64,9 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git commit -m "data: refresh $(date -u +%Y-%m-%d)" -m "$(git diff --cached --stat | tail -1)"
+          # Another run (e.g. a different source) may have pushed meanwhile; each
+          # source writes its own files, so rebasing onto it is safe.
+          git pull --rebase
           git push
 
       - name: Fail if a source failed
