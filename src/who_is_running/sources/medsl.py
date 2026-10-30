@@ -172,6 +172,9 @@ def parse_with_results(lines: Iterable[str]) -> tuple[list[Candidacy], list[Coun
     header = next(reader, [])
     for row in reader:
         r = dict(zip(header, row, strict=False))
+        # Wisconsin 2018 uses MEDSL's older column names.
+        r.setdefault("county_name", r.get("county", ""))
+        r.setdefault("party_detailed", r.get("party", ""))
         if r.get("writein", "").upper() == "TRUE":
             continue
         # A few files carry HTML entities ("SCHOOLS&#39;").

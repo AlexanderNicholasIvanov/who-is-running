@@ -168,6 +168,27 @@ def test_file_without_counties_still_gives_statewide_totals() -> None:
     assert _votes(results) == {("", "TAMMY BALDWIN"): 1000}
 
 
+def test_older_column_names() -> None:
+    # Wisconsin 2018: "party" and "county" instead of party_detailed and county_name.
+    header = "precinct,office,party,mode,votes,county,candidate,district,dataverse,state_po,year"
+    rows = [
+        f"Ward {n},US Senate,{party},total,{votes},{county},{name},statewide,senate,WI,2018"
+        for n, party, votes, county, name in (
+            (1, "democrat", 300, "Wood", "Tammy Baldwin"),
+            (2, "republican", 200, "Adams", "Leah Vukmir"),
+        )
+    ]
+
+    candidacies, results = parse_with_results([header, *rows])
+
+    assert {(c.candidate_name, c.party, c.counties) for c in candidacies} == {
+        ("Tammy Baldwin", "DEM", "*"),
+        ("Leah Vukmir", "REP", "*"),
+    }
+    # No county codes, so the votes count statewide only.
+    assert _votes(sorted(results)) == {("", "Tammy Baldwin"): 300, ("", "Leah Vukmir"): 200}
+
+
 def test_na_is_not_a_county() -> None:
     # Rhode Island 2022 has US House rows in a county named "NA"; the
     # governor's race is still in every county.
