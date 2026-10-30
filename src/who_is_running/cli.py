@@ -8,6 +8,7 @@ import sys
 from datetime import date
 from pathlib import Path
 
+from who_is_running.build_site import build
 from who_is_running.pipeline import run
 from who_is_running.sources import SOURCES, get_source
 
@@ -40,12 +41,23 @@ def main(argv: list[str] | None = None) -> int:
     when.add_argument("--all-years", action="store_true", help="backfill everything available")
     fetch.add_argument("--data-dir", type=Path, default=Path("data"))
 
+    site = sub.add_parser("build-site", help="build the static website from data/")
+    site.add_argument("--data-dir", type=Path, default=Path("data"))
+    site.add_argument("--web-dir", type=Path, default=Path("web"))
+    site.add_argument("--out", type=Path, default=Path("_site"))
+
     args = parser.parse_args(argv)
     logging.basicConfig(level=logging.INFO, format="%(levelname)s %(message)s")
 
     if args.command == "sources":
         for name, cls in sorted(SOURCES.items()):
             print(f"{name:8} {cls.description}")
+        return 0
+
+    if args.command == "build-site":
+        manifest = build(args.data_dir, args.web_dir, args.out)
+        rows = sum(f["rows"] for f in manifest["files"])
+        logging.info("built %s: %d files, %d rows", args.out, len(manifest["files"]), rows)
         return 0
 
     failed = False
