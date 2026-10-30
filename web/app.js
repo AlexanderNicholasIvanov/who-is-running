@@ -139,15 +139,27 @@ async function load() {
   render();
 }
 
-// Sources spell counties differently ("Allegany County" vs "ALLEGANY"), so match on a key.
-const countyKey = (name) => name.trim().toUpperCase().replace(/\s+COUNTY$/, "");
+// Sources spell counties differently ("Allegany County" vs "ALLEGANY", "ST. BERNARD" vs
+// "ST BERNARD", "DE KALB" vs "DEKALB", "Doña Ana" vs "DONA ANA"), so match on a key that
+// keeps only letters and digits. "Baltimore City" and "Baltimore County" stay distinct.
+const countyLabel = (name) => name.trim().toUpperCase().replace(/\s+(COUNTY|PARISH)$/, "");
+const countyKey = (name) =>
+  countyLabel(name.normalize("NFKD").replace(/[̀-ͯ]/g, ""))
+    .replace(/^SAINT(E?)\s/, "ST$1 ")
+    .replace(/[^A-Z0-9]/g, "");
+const countyLabels = new Map(); // key -> how to show it
 
 // Counties whose ballot has this race: null = every county, [] = the source doesn't say.
 function countiesOf(r) {
   if (r.counties === STATEWIDE || r.state === "US") return null;
-  if (r.counties) return r.counties.split(";").map(countyKey);
-  return r.jurisdiction ? [countyKey(r.jurisdiction)] : [];
+  const names = r.counties ? r.counties.split(";") : r.jurisdiction ? [r.jurisdiction] : [];
+  return names.map((name) => {
+    const key = countyKey(name);
+    if (!countyLabels.has(key)) countyLabels.set(key, countyLabel(name));
+    return key;
+  });
 }
+const labelOf = (key) => countyLabels.get(key) || key;
 
 // Rows from the sources we show (see the preference toggle), before the user's filters.
 function sourceRows() {
@@ -169,8 +181,9 @@ function sourceRows() {
 
 function populateCounties(rows) {
   const current = els.county.value;
-  const counties = [...new Set(rows.flatMap((r) => r.countyKeys || []))].sort(collator.compare);
-  els.county.replaceChildren(new Option("All counties", ""), ...counties.map((c) => new Option(c, c)));
+  const counties = [...new Set(rows.flatMap((r) => r.countyKeys || []))]
+    .sort((a, b) => collator.compare(labelOf(a), labelOf(b)));
+  els.county.replaceChildren(new Option("All counties", ""), ...counties.map((c) => new Option(labelOf(c), c)));
   els.county.disabled = counties.length === 0;
   if (counties.includes(current)) els.county.value = current;
 }
@@ -246,7 +259,7 @@ function raceHTML(g) {
   if (g.district && !/\b(DISTRICT|CIRCUIT)\b/i.test(g.office)) meta.push(`District ${g.district}`);
   if (g.state === "US") meta.push("Nationwide");
   if (g.jurisdiction) meta.push(g.jurisdiction);
-  else if (g.countyKeys?.length === 1) meta.push(g.countyKeys[0]);
+  else if (g.countyKeys?.length === 1) meta.push(labelOf(g.countyKeys[0]));
   else if (g.countyKeys?.length > 1) meta.push(`${g.countyKeys.length} counties`);
   const when = [g.election_type && g.election_type[0].toUpperCase() + g.election_type.slice(1), formatDate(g.election_date)]
     .filter(Boolean).join(" ");
@@ -312,7 +325,7 @@ function render() {
   const people = rows.length.toLocaleString("en-US");
   const races = groups.length.toLocaleString("en-US");
   const county = els.county.value;
-  const where = county ? ` on the ballot in ${county},` : ",";
+  const where = county ? ` on the ballot in ${labelOf(county)},` : ",";
   els.status.textContent = rows.length
     ? `${people} candidacies in ${races} races${where} ${stateName(els.state.value)} ${els.year.value}.`
     : "No candidates match these filters.";
