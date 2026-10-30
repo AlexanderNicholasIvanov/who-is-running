@@ -33,6 +33,7 @@ def test_statewide_list_is_federal_or_state() -> None:
     assert moore.office == "Governor / Lt. Governor"
     assert moore.party == "DEM"
     assert moore.jurisdiction == ""
+    assert moore.counties == "*"  # run by "State Of Maryland"
     assert moore.election_date == "2026-11-03"
     assert moore.election_type == "general"
     assert moore.candidate_status == "active"
@@ -41,6 +42,7 @@ def test_statewide_list_is_federal_or_state() -> None:
     assert rep.level is Level.FEDERAL
     assert rep.district == "3"
     assert rep.candidate_status == "withdrawn"
+    assert rep.counties == ""  # the list doesn't say which counties a district covers
 
     assert rows["Dana Delegate"].district == "11B"
     assert rows["Dana Delegate"].party == "UNA"
@@ -53,6 +55,7 @@ def test_county_list_is_local_with_county() -> None:
     boor = rows["Chelsea Boor"]
     assert boor.level is Level.LOCAL
     assert boor.jurisdiction == "Allegany County"
+    assert boor.counties == "Allegany County"
     assert boor.district == ""
 
     assert rows["Tammy Fraley"].district == "4"

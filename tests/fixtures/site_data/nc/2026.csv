@@ -1,6 +1,6 @@
-state,election_year,election_date,level,office,district,jurisdiction,candidate_name,party,election_type,incumbent_status,candidate_status,source,source_candidate_id
-NC,2026,2026-03-03,federal,US HOUSE OF REPRESENTATIVES DISTRICT 01,01,,Asa Buck,REP,primary,,,nc,
-NC,2026,2026-03-03,federal,US HOUSE OF REPRESENTATIVES DISTRICT 01,01,,Ashley-Nicole Russell,REP,primary,,,nc,
-NC,2026,2026-03-03,federal,US HOUSE OF REPRESENTATIVES DISTRICT 01,01,,Bobby Hanig,REP,primary,,,nc,
-NC,2026,2026-03-03,federal,US HOUSE OF REPRESENTATIVES DISTRICT 01,01,,Eric Rouse,REP,primary,,,nc,
-NC,2026,2026-03-03,federal,US HOUSE OF REPRESENTATIVES DISTRICT 01,01,,Laurie Buckhout,REP,primary,,,nc,
+state,election_year,election_date,level,office,district,jurisdiction,counties,candidate_name,party,election_type,incumbent_status,candidate_status,source,source_candidate_id
+NC,2026,2026-03-03,federal,US HOUSE OF REPRESENTATIVES DISTRICT 01,01,,BERTIE;CAMDEN;CHOWAN;EDGECOMBE,Asa Buck,REP,primary,,,nc,
+NC,2026,2026-03-03,federal,US HOUSE OF REPRESENTATIVES DISTRICT 01,01,,BERTIE;CAMDEN;CHOWAN;EDGECOMBE,Ashley-Nicole Russell,REP,primary,,,nc,
+NC,2026,2026-03-03,federal,US HOUSE OF REPRESENTATIVES DISTRICT 01,01,,BERTIE;CAMDEN;CHOWAN;EDGECOMBE,Bobby Hanig,REP,primary,,,nc,
+NC,2026,2026-03-03,federal,US HOUSE OF REPRESENTATIVES DISTRICT 01,01,,BERTIE;CAMDEN;CHOWAN;EDGECOMBE,Eric Rouse,REP,primary,,,nc,
+NC,2026,2026-03-03,federal,US HOUSE OF REPRESENTATIVES DISTRICT 01,01,,BERTIE;CAMDEN;CHOWAN;EDGECOMBE,Laurie Buckhout,REP,primary,,,nc,

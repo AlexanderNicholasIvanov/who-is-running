@@ -22,7 +22,7 @@ from dataclasses import dataclass
 from datetime import date
 
 from who_is_running.http import NotFound
-from who_is_running.models import Candidacy, Level
+from who_is_running.models import STATEWIDE, Candidacy, Level
 from who_is_running.sources.base import Source
 from who_is_running.text import decode
 
@@ -132,6 +132,13 @@ def parse(text: str, *, election: Election, local: bool) -> list[Candidacy]:
         first = row["Candidate First Name and Middle Name"].strip()
         run_by = row["Contest Run By District Name and Number"].strip()
         party = row["Office Political Party"].strip()
+        residence = row["Candidate Residential Jurisdiction"].strip()
+        if local:
+            counties = residence
+        elif run_by.lower() == "state of maryland":
+            counties = STATEWIDE
+        else:
+            counties = ""  # e.g. "Congressional District 3": the list doesn't say which counties
         if office.startswith(FEDERAL_OFFICES):
             level = Level.FEDERAL
         elif local:
@@ -148,7 +155,8 @@ def parse(text: str, *, election: Election, local: bool) -> list[Candidacy]:
                 district=district_of(run_by),
                 # County races require living in the county, so the residence
                 # column is the race's county; it is blank only when suppressed.
-                jurisdiction=row["Candidate Residential Jurisdiction"].strip() if local else "",
+                jurisdiction=residence if local else "",
+                counties=counties,
                 candidate_name=f"{first} {last}".strip(),
                 party=PARTIES.get(party, party),
                 election_type=election.kind,

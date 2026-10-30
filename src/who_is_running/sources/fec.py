@@ -13,7 +13,7 @@ import io
 import zipfile
 from datetime import date
 
-from who_is_running.models import Candidacy, Level
+from who_is_running.models import STATEWIDE, Candidacy, Level
 from who_is_running.sources.base import Source
 from who_is_running.text import decode
 
@@ -80,6 +80,9 @@ def parse(text: str, *, cycle: int) -> list[Candidacy]:
                 office=OFFICES.get(office, office),
                 district=district if office == "H" else "",
                 jurisdiction="",
+                # Senate, president and at-large House seats are statewide by
+                # definition; the FEC doesn't say which counties a district covers.
+                counties=STATEWIDE if office != "H" or district in ("00", "") else "",
                 candidate_name=name.strip(),
                 party=party,
                 election_type="",

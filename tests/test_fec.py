@@ -29,10 +29,12 @@ def test_parse_normalizes_fields() -> None:
     assert house.incumbent_status == "open_seat"
     assert house.candidate_status == "statutory_candidate"
     assert house.candidate_name == "CARL, JERRY LEE, JR"
+    assert house.counties == ""  # the FEC doesn't say which counties a district covers
 
     senate = rows["S6NC00001"]
     assert senate.office == "US Senate"
     assert senate.district == ""  # FEC uses "00" for statewide offices
+    assert senate.counties == "*"
 
     assert rows["H6TX18001"].election_year == 2025
 

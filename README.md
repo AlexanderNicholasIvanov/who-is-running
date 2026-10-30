@@ -4,7 +4,7 @@ An open dataset of **who is running in US elections**, covering federal, state a
 
 Each source writes one normalized CSV per year to `data/<source>/<year>.csv`, all with the same columns.
 
-**Browse it:** https://alexandernicholasivanov.github.io/who-is-running/. Pick a state and year to see every race and who's running. Filter by level, county, primary/general, or a name or office search. Filtered views have shareable links, e.g. [`#state=NC&year=2026&level=local&county=WAKE`](https://alexandernicholasivanov.github.io/who-is-running/#state=NC&year=2026&level=local&county=WAKE).
+**Browse it:** https://alexandernicholasivanov.github.io/who-is-running/. Pick a state and year to see every race and who's running. Pick a county to see everything on that county's ballot: statewide races, the districts that include it, and its local races. Filter by level, primary/general, or a name or office search. Filtered views have shareable links, e.g. [`#state=NC&year=2026&county=WAKE`](https://alexandernicholasivanov.github.io/who-is-running/#state=NC&year=2026&county=WAKE).
 
 ## Sources
 
@@ -36,6 +36,7 @@ There is no free national source of *upcoming* state and local candidates. `meds
 | `office` | Office or contest name as the source words it (FEC offices normalized to `US House` / `US Senate` / `US President`) |
 | `district` | District or seat identifier, when there is one |
 | `jurisdiction` | County (MEDSL: town in New England), when the race is confined to one. Wording varies by source, e.g. `WAKE` vs `Allegany County` |
+| `counties` | Counties whose ballot has the race, `;`-separated (e.g. `DURHAM;WAKE`). `*` means every county in the state. Empty means the source doesn't say, as with FEC and MD congressional and legislative districts |
 | `candidate_name` | Name as the source gives it (FEC: `LAST, FIRST`; NC: as printed on the ballot) |
 | `party` | Party code from the source (e.g. `DEM`, `REP`, `LIB`, `GRE`, `UNA`) |
 | `election_type` | `primary`, `general`, `runoff`, or empty when the source doesn't say |
