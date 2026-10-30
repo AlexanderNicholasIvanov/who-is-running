@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListBucketResult xmlns="http://s3.amazonaws.com/doc/2006-03-01/"><Name>dl.ncsbe.gov</Name><Prefix>Elections/2014/Candidate Filing/</Prefix><KeyCount>3</KeyCount><MaxKeys>1000</MaxKeys><IsTruncated>false</IsTruncated><Contents><Key>Elections/2014/Candidate Filing/</Key></Contents><Contents><Key>Elections/2014/Candidate Filing/Candidate_Listing_2014.pdf</Key></Contents><Contents><Key>Elections/2014/Candidate Filing/Candidate_Listing_2014_rev1.csv</Key></Contents></ListBucketResult>
