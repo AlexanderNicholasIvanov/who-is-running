@@ -58,7 +58,7 @@
       <fieldset class="toggles">
         <legend class="visually-hidden">Options</legend>
         <label><input type="checkbox" id="statutory" checked> Hide FEC filers below the $5,000 candidate threshold</label>
-        <label><input type="checkbox" id="prefer-ballot" checked> Prefer state ballot lists over FEC registrations</label>
+        <label><input type="checkbox" id="prefer-ballot" checked> Prefer official candidate lists, then election results, over FEC registrations</label>
         <label><input type="checkbox" id="president" checked> Include presidential candidates</label>
       </fieldset>
     </form>
@@ -73,12 +73,14 @@
     <div class="wrap">
       <p>
         Data from the <a href="https://www.fec.gov/data/browse-data/?tab=bulk-data">FEC</a>,
-        the <a href="https://www.ncsbe.gov/results-data/candidate-lists">NC State Board of Elections</a> and the
-        <a href="https://elections.maryland.gov/candidacy/index.html">Maryland State Board of Elections</a>,
+        the <a href="https://www.ncsbe.gov/results-data/candidate-lists">NC State Board of Elections</a>, the
+        <a href="https://elections.maryland.gov/candidacy/index.html">Maryland State Board of Elections</a> and the
+        <a href="https://electionlab.mit.edu/data">MIT Election Data + Science Lab</a>,
         refreshed daily. <span id="generated"></span>
       </p>
       <p>
         FEC data lists people who <em>registered</em> as federal candidates. Not all of them appear on a ballot.
+        MIT Election Lab results cover every state's November general elections in 2018, 2022 and 2024.
         Open source on <a href="https://github.com/AlexanderNicholasIvanov/who-is-running">GitHub</a>.
       </p>
     </div>

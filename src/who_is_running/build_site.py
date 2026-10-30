@@ -4,8 +4,10 @@ Output layout (served as-is by GitHub Pages)::
 
     _site/index.html, app.js, style.css       copied from web/
     _site/data/manifest.json                  what exists, for the page's pickers
-    _site/data/<source>/<year>.json           {"columns": [...], "rows": [[...], ...]}
+    _site/data/<source>/<year>/<state>.json   {"columns": [...], "rows": [[...], ...]}
     _site/data/<source>/<year>.csv            the original CSV, for download
+
+JSON is split by state so viewing one state never downloads a nationwide file.
 """
 
 from __future__ import annotations
@@ -39,16 +41,19 @@ def build(data_dir: Path, web_dir: Path, out_dir: Path) -> dict[str, Any]:
 
         state_col, year_col = columns.index("state"), columns.index("election_year")
         coverage: defaultdict[str, Counter[str]] = defaultdict(Counter)
+        by_state: defaultdict[str, list[list[str]]] = defaultdict(list)
         for row in rows:
             coverage[row[state_col]][row[year_col]] += 1
+            by_state[row[state_col]].append(row)
 
         dest = out_dir / "data" / source
-        dest.mkdir(parents=True, exist_ok=True)
+        (dest / str(year)).mkdir(parents=True, exist_ok=True)
         shutil.copyfile(csv_path, dest / csv_path.name)
-        (dest / f"{year}.json").write_text(
-            json.dumps({"columns": columns, "rows": rows}, separators=(",", ":")),
-            encoding="utf-8",
-        )
+        for state, state_rows in by_state.items():
+            (dest / str(year) / f"{state}.json").write_text(
+                json.dumps({"columns": columns, "rows": state_rows}, separators=(",", ":")),
+                encoding="utf-8",
+            )
         files.append(
             {
                 "source": source,

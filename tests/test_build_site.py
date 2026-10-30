@@ -31,10 +31,18 @@ def test_build_writes_site_manifest_and_json(tmp_path: Path) -> None:
     on_disk = json.loads((out / "data" / "manifest.json").read_text(encoding="utf-8"))
     assert on_disk["files"] == manifest["files"]
 
-    payload = json.loads((out / "data" / "nc" / "2026.json").read_text(encoding="utf-8"))
+    payload = json.loads((out / "data" / "nc" / "2026" / "NC.json").read_text(encoding="utf-8"))
     assert payload["columns"] == Candidacy.columns()
     assert len(payload["rows"]) == 5
     assert (out / "data" / "nc" / "2026.csv").exists()
+
+    # One JSON per state, so a page only downloads the state it shows.
+    fec_dir = out / "data" / "fec" / "2026"
+    assert sorted(p.name for p in fec_dir.iterdir()) == [
+        f"{s}.json" for s in sorted(fec["coverage"])
+    ]
+    us = json.loads((fec_dir / "US.json").read_text(encoding="utf-8"))
+    assert [row[0] for row in us["rows"]] == ["US"]
 
 
 def test_build_replaces_previous_output(tmp_path: Path) -> None:
