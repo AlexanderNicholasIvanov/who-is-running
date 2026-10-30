@@ -9,7 +9,7 @@ Each source writes one normalized CSV per year to `data/<source>/<year>.csv`, al
 | Source | Coverage | Years | What it is |
 |---|---|---|---|
 | `fec` | President, US Senate, US House, all states | 2000–present (2-year cycles) | [FEC candidate master file](https://www.fec.gov/campaign-finance-data/candidate-master-file-description/) |
-| `md` | Maryland: federal, state, legislative, judicial, county offices, school board, party central committees | 2022�present | [Maryland State Board of Elections candidate lists](https://elections.maryland.gov/candidacy/index.html) |
+| `md` | Maryland: federal, state, legislative, judicial, county offices, school board, party central committees | 2022–present | [Maryland State Board of Elections candidate lists](https://elections.maryland.gov/candidacy/index.html) |
 | `nc` | North Carolina, every level: federal, state, judicial, county, municipal, school board, special districts | 2010–present | [NC State Board of Elections candidate lists](https://www.ncsbe.gov/results-data/candidate-lists) |
 
 There is no free national source for state and local candidates, so coverage grows one state at a time. See [Adding a source](#adding-a-source).
@@ -36,7 +36,7 @@ There is no free national source for state and local candidates, so coverage gro
 | `party` | Party code from the source (e.g. `DEM`, `REP`, `LIB`, `GRE`, `UNA`) |
 | `election_type` | `primary`, `general`, or empty when the source doesn't say |
 | `incumbent_status` | `incumbent`, `challenger`, `open_seat` (FEC only) |
-| `candidate_status` | Source-specific status (FEC: registration status; MD: `active`, `withdrawn`, `disqualified`, �) |
+| `candidate_status` | Source-specific status (FEC: registration status; MD: `active`, `withdrawn`, `disqualified`, …) |
 | `source` | Which source the row came from |
 | `source_candidate_id` | The source's ID for the candidate (FEC `CAND_ID`) |
 
