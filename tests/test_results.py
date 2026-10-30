@@ -133,6 +133,69 @@ def test_ballot_question_answers_are_not_candidates() -> None:
     assert results == []
 
 
+def test_tally_lines_are_not_candidates() -> None:
+    # New York 2018 files these under each race's candidates.
+    results = _results(
+        _row("1", "US SENATE", "KIRSTEN E GILLIBRAND", "DEMOCRAT", "TOTAL", 5, "ALBANY", "36001"),
+        *(
+            _row("1", "US SENATE", line, "", "TOTAL", 5, "ALBANY", "36001")
+            for line in ("VOIDS", "ELIGIBLE", "MANUALLY COUNTED EMERGENCY", "BLANK/VOID")
+        ),
+    )
+
+    assert {r.candidate_name for r in results} == {"KIRSTEN E GILLIBRAND"}
+
+
+def test_file_without_counties_still_gives_statewide_totals() -> None:
+    # Wisconsin 2018 and Alaska 2022 have no county columns filled in.
+    results = _results(
+        _row("WARD 1", "US SENATE", "TAMMY BALDWIN", "DEMOCRAT", "TOTAL", 600, "", ""),
+        _row("WARD 2", "US SENATE", "TAMMY BALDWIN", "DEMOCRAT", "TOTAL", 400, "", ""),
+        _row(
+            "WARD 1",
+            "STATE ASSEMBLY",
+            "ROBIN VOS",
+            "REPUBLICAN",
+            "TOTAL",
+            9,
+            "",
+            "",
+            "063",
+            "STATE",
+        ),
+    )
+
+    assert _votes(results) == {("", "TAMMY BALDWIN"): 1000}
+
+
+def test_na_is_not_a_county() -> None:
+    # Rhode Island 2022 has US House rows in a county named "NA"; the
+    # governor's race is still in every county.
+    rows = [
+        _row(
+            "1",
+            "GOVERNOR",
+            "DANIEL J MCKEE",
+            "DEMOCRAT",
+            "TOTAL",
+            5,
+            "BRISTOL",
+            "44001",
+            "",
+            "STATE",
+        ),
+        _row(
+            "2", "GOVERNOR", "DANIEL J MCKEE", "DEMOCRAT", "TOTAL", 5, "KENT", "44003", "", "STATE"
+        ),
+        _row("3", "US HOUSE", "SETH MAGAZINER", "DEMOCRAT", "TOTAL", 5, "NA", "NA", "002", "HOUSE"),
+    ]
+
+    candidacies, results = parse_with_results([HEADER, *rows])
+
+    assert {c.office: c.counties for c in candidacies}["GOVERNOR"] == "*"
+    assert {r.county_fips for r in results} == {"44001", "44003"}
+
+
 def test_write_csv_round_trip(tmp_path: Path) -> None:
     row = CountyResult("DE", 2024, "GOVERNOR", "10001", "KENT", "MATT MEYER", "DEM", 43179, "medsl")
     path = results_path(tmp_path, "medsl", 2024)
@@ -192,6 +255,43 @@ def test_build_results_draws_renamed_counties_on_the_map_shapes(tmp_path: Path) 
 
     sd = json.loads((out / "2024" / "SD.json").read_text(encoding="utf-8"))
     assert sd["races"][0]["counties"]["46102"][0] == "OGLALA LAKOTA"
+
+
+def test_build_results_counts_state_level_tallies_as_not_by_county(tmp_path: Path) -> None:
+    # From MEDSL's 2018 Maine file: overseas and military ballots are tallied statewide.
+    path = results_path(tmp_path / "data", "medsl", 2018)
+    write_csv(
+        path,
+        [
+            CountyResult(
+                "ME",
+                2018,
+                "GOVERNOR",
+                "23000",
+                "STATE UOCAVA",
+                "JANET T MILLS",
+                "DEM",
+                1978,
+                "medsl",
+            ),
+            CountyResult(
+                "ME",
+                2018,
+                "GOVERNOR",
+                "23001",
+                "ANDROSCOGGIN",
+                "JANET T MILLS",
+                "DEM",
+                22906,
+                "medsl",
+            ),
+        ],
+    )
+
+    build_results(tmp_path / "data" / "results", tmp_path / "out")
+
+    me = json.loads((tmp_path / "out" / "2018" / "ME.json").read_text(encoding="utf-8"))
+    assert me["races"][0]["counties"] == {"": ["", [1978]], "23001": ["ANDROSCOGGIN", [22906]]}
 
 
 def test_site_manifest_lists_results(tmp_path: Path) -> None:

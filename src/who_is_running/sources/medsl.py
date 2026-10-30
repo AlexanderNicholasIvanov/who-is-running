@@ -64,7 +64,8 @@ NO_PARTY = {"", '""', "NONPARTISAN", "NON", "OTHER", "NONE", "NO"}
 # they were candidates (sometimes per candidate: "JANE DOE - OVERVOTES"), and
 # straight-ticket lines named after a party.
 NOT_CANDIDATES = re.compile(
-    r"^$|^(YES|NO|FOR|AGAINST|APPROVE|REJECT|REJECTED|VOID|SPOILED|EXHAUSTED|NONE|TOTAL|"
+    r"^$|^(YES|NO|FOR|AGAINST|APPROVE|REJECT|REJECTED|VOIDS?|SPOILED|EXHAUSTED|NONE|TOTAL|"
+    r"ELIGIBLE|MANUALLY COUNTED EMERGENCY|"
     r"BLANKS?|BLANK/VOID|ALL OTHERS|OTHERS|NONE OF THESE CANDIDATES|SCATTER(ING|ED)?|"
     r"TURNOUT|SPANISH SURNAME TURNOUT|AFFIDAVIT|FEDERAL|PUBLIC COUNTER|ABSENTEE / MILITARY|"
     r"OTHER|NO VOTE|NO CANDIDATE FILED|CONTEST TOTAL|"
@@ -182,6 +183,8 @@ def parse_with_results(lines: Iterable[str]) -> tuple[list[Candidacy], list[Coun
         level = level_of(dataverse, office)
         state = r.get("state_po", "")
         county = r.get("county_name", "").strip()
+        if county.upper() == "NA":
+            county = ""  # Rhode Island 2022's US House rows outside any county
         if level is Level.LOCAL:
             town = r.get("jurisdiction_name", "").strip()
             jurisdiction = (town or county) if state in TOWN_STATES else (county or town)
@@ -245,7 +248,9 @@ def parse_with_results(lines: Iterable[str]) -> tuple[list[Candidacy], list[Coun
     county_votes: Counter[tuple[Candidacy, str]] = Counter()
     for precinct in totals.keys() | by_mode.keys():
         key, fips = precinct[0], precinct[1]
-        if candidacies[key].counties == STATEWIDE:
+        # A file with no counties at all (Wisconsin 2018, Alaska 2022) still
+        # gives statewide totals; they're all filed as not reported by county.
+        if candidacies[key].counties == STATEWIDE or not all_counties:
             county_votes[key, fips] += totals[precinct] if precinct in totals else by_mode[precinct]
     results = [
         CountyResult(

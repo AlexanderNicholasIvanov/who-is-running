@@ -24,6 +24,7 @@ from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
+from who_is_running.districts import STATE_FIPS
 from who_is_running.models import Candidacy
 from who_is_running.results import CountyResult
 from who_is_running.sources import SOURCES
@@ -122,6 +123,8 @@ def build_results(results_dir: Path, out_dir: Path) -> list[dict[str, Any]]:
         county_names: dict[str, str] = {}
         for r in rows:
             fips, county = MAP_COUNTIES.get(r["county_fips"], (r["county_fips"], r["county"]))
+            if fips[2:] == "000" and STATE_FIPS.get(fips[:2]) == r["state"]:
+                fips = county = ""  # a state-level tally, e.g. Maine's overseas ballots
             races[r["state"]][r["office"]][r["candidate_name"], r["party"]][fips] += int(r["votes"])
             county_names[fips] = county
 
