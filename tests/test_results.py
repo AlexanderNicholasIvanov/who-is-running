@@ -429,3 +429,26 @@ def test_dc_shadow_senator_is_not_a_senate_race() -> None:
 
     assert candidacy.office == result.office == "US Senate (shadow)"
     assert not any(p.match(result.office) for p in NATIONAL_RACES["US Senate"])
+
+
+def test_senate_races_have_no_district() -> None:
+    # Arizona 2024 files one county's US Senate rows under district "007".
+    results = _results(
+        _row(
+            "1", "US SENATE", "RUBEN GALLEGO", "DEMOCRAT", "TOTAL", 5, "PIMA", "4019", "", "SENATE"
+        ),
+        _row(
+            "2",
+            "US SENATE",
+            "RUBEN GALLEGO",
+            "DEMOCRAT",
+            "TOTAL",
+            7,
+            "SANTA CRUZ",
+            "4023",
+            "007",
+            "SENATE",
+        ),
+    )
+
+    assert _votes(results) == {("04019", "RUBEN GALLEGO"): 5, ("04023", "RUBEN GALLEGO"): 7}

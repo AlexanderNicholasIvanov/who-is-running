@@ -206,7 +206,11 @@ def parse_with_results(lines: Iterable[str]) -> tuple[list[Candidacy], list[Coun
             election_date=when,
             level=level,
             office=office,
-            district=district_of(r.get("district", "")),
+            # Senate and presidential races have no districts, though Arizona
+            # 2024 gives Santa Cruz County's Senate rows "007".
+            district=""
+            if dataverse in ("SENATE", "PRESIDENT")
+            else district_of(r.get("district", "")),
             jurisdiction=jurisdiction,
             counties="",
             candidate_name=candidate,
