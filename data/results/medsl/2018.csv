@@ -1,4 +1,10 @@
 state,election_year,office,county_fips,county,candidate_name,party,votes,source
+AK,2018,GOVERNOR,,,BILL WALKER,IND,5757,medsl
+AK,2018,GOVERNOR,,,MARK BEGICH,DEM,125739,medsl
+AK,2018,GOVERNOR,,,MIKE DUNLEAVY,REP,145631,medsl
+AK,2018,GOVERNOR,,,WILLIAM TOIEN,LIB,5402,medsl
+AK,2018,US House,,,ALYSE S GALVIN,DEM,131199,medsl
+AK,2018,US House,,,DON YOUNG,REP,149779,medsl
 AL,2018,ATTORNEY GENERAL,01001,AUTAUGA,JOSEPH SIEGELMAN,DEM,6262,medsl
 AL,2018,ATTORNEY GENERAL,01001,AUTAUGA,STEVE MARSHALL,REP,13397,medsl
 AL,2018,ATTORNEY GENERAL,01003,BALDWIN,JOSEPH SIEGELMAN,DEM,20532,medsl
@@ -48637,6 +48643,22 @@ WA,2018,US Senate,53075,WHITMAN,MARIA CANTWELL,DEM,9372,medsl
 WA,2018,US Senate,53075,WHITMAN,SUSAN HUTCHISON,REP,7825,medsl
 WA,2018,US Senate,53077,YAKIMA,MARIA CANTWELL,DEM,29473,medsl
 WA,2018,US Senate,53077,YAKIMA,SUSAN HUTCHISON,REP,40939,medsl
+WI,2018,Attorney General,,,Brad Schimel,,1288712,medsl
+WI,2018,Attorney General,,,Josh Kaul,,1305902,medsl
+WI,2018,Attorney General,,,Terry Larson,,47038,medsl
+WI,2018,Governor / Lt. Governor,,,Arnie Enz,,2745,medsl
+WI,2018,Governor / Lt. Governor,,,Maggie Turnbull,,18884,medsl
+WI,2018,Governor / Lt. Governor,,,Michael J. White,,11087,medsl
+WI,2018,Governor / Lt. Governor,,,Phillip Anderson,,20225,medsl
+WI,2018,Governor / Lt. Governor,,,Scott Walker,,1295080,medsl
+WI,2018,Governor / Lt. Governor,,,Tony Evers,,1324307,medsl
+WI,2018,Secretary of State,,,Doug La Follette,,1380752,medsl
+WI,2018,Secretary of State,,,Jay Schroeder,,1235034,medsl
+WI,2018,State Treasurer,,,Andrew Zuelke,,59570,medsl
+WI,2018,State Treasurer,,,Sarah Godlewski,,1324110,medsl
+WI,2018,State Treasurer,,,Travis Hartwig,,1216811,medsl
+WI,2018,US Senate,,,Leah Vukmir,,1184885,medsl
+WI,2018,US Senate,,,Tammy Baldwin,,1472914,medsl
 WV,2018,US Senate,54001,BARBOUR,JOSEPH MANCHIN III,DEM,2121,medsl
 WV,2018,US Senate,54001,BARBOUR,PATRICK MORRISEY,REP,2562,medsl
 WV,2018,US Senate,54001,BARBOUR,RUSTY HOLLEN,LIB,252,medsl
