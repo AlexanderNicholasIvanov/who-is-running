@@ -92,7 +92,8 @@ NATIONAL_RACES = {
     # Map choice -> the matching office in each state, regular election first.
     "US President": [re.compile(r"^US President$")],
     "US Senate": [re.compile(r"^US Senate$"), re.compile(r"^US Senate \(special\)$")],
-    "Governor": [re.compile(r"^GOVERNOR(/LIEUTENANT GOVERNOR)?$")],
+    # "GOVERNOR", "GOVERNOR/LIEUTENANT GOVERNOR", "Governor / Lt. Governor" (Wisconsin 2018)
+    "Governor": [re.compile(r"^GOVERNOR( ?(/|AND) ?(LIEUTENANT|LT\.?) GOVERNOR)?$", re.I)],
 }
 
 

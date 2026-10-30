@@ -195,6 +195,8 @@ def parse_with_results(lines: Iterable[str]) -> tuple[list[Candidacy], list[Coun
             jurisdiction = ""
         if dataverse in FEDERAL:
             office = FEDERAL[dataverse]
+            if state == "DC" and office == "US Senate":
+                office = "US Senate (shadow)"  # DC elects a non-voting "shadow" senator
         if r.get("special", "").upper() == "TRUE":
             office += " (special)"
         when = iso_date(r.get("date", ""))

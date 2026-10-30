@@ -7,7 +7,7 @@ from typing import Any
 from conftest import FIXTURES, FakeWeb, fixture_bytes
 
 from who_is_running import geo
-from who_is_running.build_site import build, build_results
+from who_is_running.build_site import NATIONAL_RACES, build, build_results
 from who_is_running.results import CountyResult, results_path, write_csv
 from who_is_running.sources.medsl import parse_with_results
 
@@ -408,3 +408,24 @@ def test_build_geo_writes_states_and_counties(tmp_path: Path) -> None:
     assert list(md["shapes"]) == ["24001"]
     assert md["shapes"]["24001"]["name"] == "Allegany"
     assert md["outline"] == "M11 20l1 0 0 1 -1 0 0 -1z"
+
+
+def test_governor_spellings() -> None:
+    (governor,) = NATIONAL_RACES["Governor"]
+    for office in ("GOVERNOR", "GOVERNOR/LIEUTENANT GOVERNOR", "Governor / Lt. Governor"):
+        assert governor.match(office), office
+    assert not governor.match("MEMBER OF THE WAYNE STATE UNIVERSITY BOARD OF GOVERNORS")
+    assert not governor.match("LIEUTENANT GOVERNOR")
+
+
+def test_dc_shadow_senator_is_not_a_senate_race() -> None:
+    row = (
+        "1,US SENATE,DEMOCRAT,DEMOCRAT,TOTAL,5,DISTRICT OF COLUMBIA,11001,DISTRICT OF COLUMBIA,"
+        "11001,MICHAEL D BROWN,STATEWIDE,SENATE,2018,GEN,DISTRICT OF COLUMBIA,FALSE,FALSE,DC,11,"
+        "53,55,2018-11-06,1"
+    )
+
+    (candidacy,), (result,) = parse_with_results([HEADER, row])
+
+    assert candidacy.office == result.office == "US Senate (shadow)"
+    assert not any(p.match(result.office) for p in NATIONAL_RACES["US Senate"])
