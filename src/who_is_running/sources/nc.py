@@ -17,11 +17,12 @@ from datetime import date, datetime
 from xml.etree import ElementTree
 
 from who_is_running.http import NotFound
-from who_is_running.models import Candidacy, Level
+from who_is_running.models import STATEWIDE, Candidacy, Level, join_counties
 from who_is_running.sources.base import Source
 from who_is_running.text import decode
 
 FIRST_YEAR = 2010
+COUNTY_COUNT = 100
 BUCKET = "https://s3.amazonaws.com/dl.ncsbe.gov"
 # File names vary by year (Candidate_listing_2010.csv, Candidate_Listing_2014_rev1.csv),
 # so list the year's folder and pick the CSV instead of guessing the name.
@@ -97,8 +98,9 @@ def parse(text: str) -> list[Candidacy]:
     """Parse one year's listing.
 
     The file has one row per candidate per county the contest appears in, so
-    a statewide race is repeated ~100 times. Collapse those, and record the
-    county as the jurisdiction only when the race is confined to one county.
+    a statewide race is repeated ~100 times. Collapse those, keeping the
+    counties the race appears in; the county is also the jurisdiction when
+    the race is confined to one.
     """
     counties: defaultdict[tuple[str, ...], set[str]] = defaultdict(set)
     for row in csv.DictReader(io.StringIO(text)):
@@ -129,6 +131,7 @@ def parse(text: str) -> list[Candidacy]:
                 office=contest,
                 district=district_of(contest),
                 jurisdiction=next(iter(seen_in)) if len(seen_in) == 1 else "",
+                counties=STATEWIDE if len(seen_in) >= COUNTY_COUNT else join_counties(seen_in),
                 candidate_name=name,
                 party=party,
                 election_type=election_type,

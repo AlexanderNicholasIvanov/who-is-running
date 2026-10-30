@@ -170,3 +170,31 @@ def test_ballot_question_offices() -> None:
         "FRANKLIN TOWNSHIP ADVISORY BOARD",
     ):
         assert not NOT_OFFICES.search(office), office
+
+
+def test_races_record_their_counties() -> None:
+    rows = _by_name()
+    # The fixture's precincts are in KENT, NEW CASTLE and SUSSEX.
+    assert rows["SARAH MCBRIDE"].counties == "NEW CASTLE;SUSSEX"
+    # Counties are per race, so every candidate in it gets the same list.
+    assert rows["JOHN J WHALEN III"].counties == "NEW CASTLE;SUSSEX"
+    assert rows["DANIEL B SHORT"].counties == "SUSSEX"
+    assert rows["PAT ONE"].counties == "KENT"
+
+
+def test_race_in_every_county_is_statewide() -> None:
+    header = fixture_bytes("medsl_precincts.csv").decode().splitlines()[0]
+    row = (
+        "1,GOVERNOR,DEMOCRAT,DEMOCRAT,TOTAL,5,{county},1,{county},1,MATT MEYER,STATEWIDE,STATE,"
+        "2024,GEN,DELAWARE,FALSE,FALSE,DE,10,51,11,2024-11-05,1"
+    )
+    lines = [header, *(row.format(county=c) for c in ("KENT", "NEW CASTLE", "SUSSEX"))]
+
+    (governor,) = parse(lines)
+
+    assert governor.counties == "*"
+
+
+def test_new_england_town_races_keep_their_county() -> None:
+    (row,) = _parse("medsl_town.csv")
+    assert (row.jurisdiction, row.counties) == ("BURLINGTON", "*")  # the file's only county

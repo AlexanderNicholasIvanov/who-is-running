@@ -18,11 +18,13 @@ from __future__ import annotations
 import csv
 import io
 import re
-from dataclasses import dataclass
+from collections.abc import Iterable
+from dataclasses import dataclass, replace
 from datetime import date
 
+from who_is_running.districts import Districts, Plan
 from who_is_running.http import NotFound
-from who_is_running.models import Candidacy, Level
+from who_is_running.models import STATEWIDE, Candidacy, Level
 from who_is_running.sources.base import Source
 from who_is_running.text import decode
 
@@ -102,7 +104,7 @@ class MdSource(Source):
                 text = self._first_available(urls)
                 if text is not None:
                     out.update(parse(text, election=election, local=local))
-        return sorted(out)
+        return sorted(place(out, Districts(self.fetch)))
 
     def _first_available(self, urls: tuple[str, ...]) -> str | None:
         for url in urls:
@@ -132,6 +134,18 @@ def parse(text: str, *, election: Election, local: bool) -> list[Candidacy]:
         first = row["Candidate First Name and Middle Name"].strip()
         run_by = row["Contest Run By District Name and Number"].strip()
         party = row["Office Political Party"].strip()
+        residence = row["Candidate Residential Jurisdiction"].strip()
+        # County races require living in the county, so the residence column
+        # is the race's county; it is blank only when suppressed. Circuit court
+        # judges are listed by circuit but stand for election in the county
+        # they sit in, and the list gives that county as their residence.
+        county_race = local or run_by.startswith("Judicial Circuit")
+        if county_race:
+            counties = residence
+        elif run_by.lower() == "state of maryland":
+            counties = STATEWIDE
+        else:
+            counties = ""  # e.g. "Congressional District 3": see place()
         if office.startswith(FEDERAL_OFFICES):
             level = Level.FEDERAL
         elif local:
@@ -146,9 +160,8 @@ def parse(text: str, *, election: Election, local: bool) -> list[Candidacy]:
                 level=level,
                 office=office,
                 district=district_of(run_by),
-                # County races require living in the county, so the residence
-                # column is the race's county; it is blank only when suppressed.
-                jurisdiction=row["Candidate Residential Jurisdiction"].strip() if local else "",
+                jurisdiction=residence if county_race else "",
+                counties=counties,
                 candidate_name=f"{first} {last}".strip(),
                 party=PARTIES.get(party, party),
                 election_type=election.kind,
@@ -158,4 +171,29 @@ def parse(text: str, *, election: Election, local: bool) -> list[Candidacy]:
                 source_candidate_id="",
             )
         )
+    return out
+
+
+def place(rows: Iterable[Candidacy], districts: Districts) -> list[Candidacy]:
+    """Fill in the counties of district races from the Census district lines.
+
+    Legislative seats are elected in 2022 and 2026, both on the map adopted
+    in 2022, which is also what the Census 2024 lines record.
+    """
+
+    def lines(row: Candidacy) -> Plan | None:
+        if row.office == "Representative in Congress" or "National Convention" in row.office:
+            return districts.house(row.election_year)  # delegates are elected by district
+        if row.office == "State Senator":
+            return districts.state_senate()
+        if row.office == "House of Delegates":
+            return districts.state_house()
+        return None
+
+    out = []
+    for row in rows:
+        plan = None if row.counties else lines(row)
+        if plan is not None:
+            row = replace(row, counties=plan.counties(row.state, row.district))
+        out.append(row)
     return out

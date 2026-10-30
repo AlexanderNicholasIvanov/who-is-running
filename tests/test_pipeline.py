@@ -23,6 +23,7 @@ def _candidacy(name: str, state: str = "NC") -> Candidacy:
         office="MAYOR",
         district="",
         jurisdiction="WAKE",
+        counties="WAKE",
         candidate_name=name,
         party="",
         election_type="general",

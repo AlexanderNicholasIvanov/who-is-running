@@ -2,12 +2,14 @@ from __future__ import annotations
 
 import io
 import zipfile
+from dataclasses import replace
 from datetime import date
 
 from conftest import FakeWeb, fixture_bytes
 
+from who_is_running.districts import CD119, Districts
 from who_is_running.models import Level
-from who_is_running.sources.fec import FecSource, current_cycle, parse
+from who_is_running.sources.fec import FecSource, current_cycle, parse, place
 
 
 def test_parse_keeps_only_elections_in_the_cycle() -> None:
@@ -29,10 +31,12 @@ def test_parse_normalizes_fields() -> None:
     assert house.incumbent_status == "open_seat"
     assert house.candidate_status == "statutory_candidate"
     assert house.candidate_name == "CARL, JERRY LEE, JR"
+    assert house.counties == ""  # the FEC doesn't say which counties a district covers; see place()
 
     senate = rows["S6NC00001"]
     assert senate.office == "US Senate"
     assert senate.district == ""  # FEC uses "00" for statewide offices
+    assert senate.counties == "*"
 
     assert rows["H6TX18001"].election_year == 2025
 
@@ -46,12 +50,26 @@ def test_candidacies_downloads_the_cycle_zip() -> None:
     buf = io.BytesIO()
     with zipfile.ZipFile(buf, "w") as zf:
         zf.writestr("cn.txt", fixture_bytes("cn.txt"))
-    web = FakeWeb({"/2026/cn26.zip": buf.getvalue()})
+    web = FakeWeb({"/2026/cn26.zip": buf.getvalue(), CD119: fixture_bytes("census_cd119.txt")})
 
     rows = FecSource(web).candidacies(2026)
 
-    assert web.requested == ["https://www.fec.gov/files/bulk-downloads/2026/cn26.zip"]
+    assert web.requested == ["https://www.fec.gov/files/bulk-downloads/2026/cn26.zip", CD119]
     assert len(rows) == 3
+
+
+def test_house_districts_get_their_counties_from_census_lines() -> None:
+    web = FakeWeb({CD119: fixture_bytes("census_cd119.txt")})
+    house = parse(fixture_bytes("cn.txt").decode(), cycle=2026)[0]
+    rows = [
+        replace(house, state="MD", election_year=2024),
+        replace(house, state="TX", election_year=2026),  # new map for 2026
+        replace(house, office="US Senate", counties="*"),
+    ]
+
+    placed = place(rows, Districts(web))
+
+    assert [r.counties for r in placed] == ["BALTIMORE;CAROLINE;CECIL", "", "*"]
 
 
 def test_odd_years_are_not_cycles() -> None:

@@ -21,12 +21,13 @@ import io
 import logging
 import re
 import zipfile
+from collections import defaultdict
 from collections.abc import Iterable
 from dataclasses import replace
 from datetime import date
 
 from who_is_running.http import NotFound
-from who_is_running.models import Candidacy, Level
+from who_is_running.models import STATEWIDE, Candidacy, Level, join_counties
 from who_is_running.sources.base import Source
 from who_is_running.text import decode_lines
 
@@ -129,8 +130,12 @@ def parse(lines: Iterable[str]) -> list[Candidacy]:
 
     A candidate on several party lines of the same race (fusion voting in
     New York, Connecticut, ...) becomes one row with the parties joined by "/".
+    Each race records the counties its precincts are in, or "*" when that is
+    every county in the file (one file is one state).
     """
     parties: dict[Candidacy, list[str]] = {}
+    race_counties: defaultdict[Candidacy, set[str]] = defaultdict(set)
+    all_counties: set[str] = set()
     reader = csv.reader(lines)
     header = next(reader, [])
     for row in reader:
@@ -145,8 +150,8 @@ def parse(lines: Iterable[str]) -> list[Candidacy]:
         dataverse = r.get("dataverse", "").upper()
         level = level_of(dataverse, office)
         state = r.get("state_po", "")
+        county = r.get("county_name", "").strip()
         if level is Level.LOCAL:
-            county = r.get("county_name", "").strip()
             town = r.get("jurisdiction_name", "").strip()
             jurisdiction = (town or county) if state in TOWN_STATES else (county or town)
         else:
@@ -164,6 +169,7 @@ def parse(lines: Iterable[str]) -> list[Candidacy]:
             office=office,
             district=district_of(r.get("district", "")),
             jurisdiction=jurisdiction,
+            counties="",
             candidate_name=candidate,
             party="",
             election_type=STAGES.get(r.get("stage", "").upper(), ""),
@@ -176,7 +182,23 @@ def parse(lines: Iterable[str]) -> list[Candidacy]:
         seen = parties.setdefault(key, [])
         if party and party not in seen:
             seen.append(party)
-    return [replace(key, party="/".join(sorted(p))) for key, p in parties.items()]
+        if county:
+            race_counties[_race(key)].add(county)
+            all_counties.add(county)
+
+    def counties_of(key: Candidacy) -> str:
+        seen_in = race_counties.get(_race(key), set())
+        return STATEWIDE if seen_in and seen_in >= all_counties else join_counties(seen_in)
+
+    return [
+        replace(key, party="/".join(sorted(p)), counties=counties_of(key))
+        for key, p in parties.items()
+    ]
+
+
+def _race(candidacy: Candidacy) -> Candidacy:
+    """The race a candidacy belongs to (it with the candidate blanked out)."""
+    return replace(candidacy, candidate_name="")
 
 
 def level_of(dataverse: str, office: str) -> Level:

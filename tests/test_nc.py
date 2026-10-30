@@ -16,6 +16,7 @@ def test_statewide_race_is_collapsed_across_counties() -> None:
 
     assert len(cooper) == 1
     assert cooper[0].jurisdiction == ""  # appears in more than one county
+    assert cooper[0].counties == "ALAMANCE;WAKE"
     assert cooper[0].level is Level.FEDERAL
     assert cooper[0].election_type == "general"
     assert cooper[0].election_date == "2026-11-03"
@@ -24,6 +25,7 @@ def test_statewide_race_is_collapsed_across_counties() -> None:
 def test_single_county_race_records_the_county() -> None:
     hills = _by_name()["Ted Hills"]
     assert hills.jurisdiction == "WAKE"
+    assert hills.counties == "WAKE"
     assert hills.level is Level.LOCAL
     assert hills.district == "05"
 
@@ -31,6 +33,7 @@ def test_single_county_race_records_the_county() -> None:
 def test_multi_county_city_race_has_no_single_jurisdiction() -> None:
     doe = _by_name()["Jane Doe"]
     assert doe.jurisdiction == ""
+    assert doe.counties == "DURHAM;WAKE"
     assert doe.level is Level.LOCAL
     assert doe.district == "E"
 
@@ -91,3 +94,13 @@ def test_missing_year_yields_nothing() -> None:
         b'<ListBucketResult xmlns="http://s3.amazonaws.com/doc/2006-03-01/"></ListBucketResult>'
     )
     assert NcSource(FakeWeb({"list-type=2": empty})).candidacies(2005) == []
+
+
+def test_race_in_every_county_is_statewide() -> None:
+    header, row = fixture_bytes("nc_listing.csv").decode().splitlines()[:2]
+    county = row.split(",")[1]
+    rows = [row.replace(county, f'"C{i:03d}"', 1) for i in range(100)]
+
+    (senate,) = parse("\n".join([header, *rows]))
+
+    assert senate.counties == "*"

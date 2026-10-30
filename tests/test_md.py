@@ -4,6 +4,7 @@ from datetime import date
 
 from conftest import FakeWeb, fixture_bytes
 
+from who_is_running.districts import CD119, SLDL_2024
 from who_is_running.models import Candidacy, Level
 from who_is_running.sources.md import ELECTIONS, MdSource, district_of
 
@@ -20,6 +21,8 @@ def _web(**routes: bytes) -> FakeWeb:
         {
             f"{CURRENT_2026_GENERAL}2026_GG_statewide": fixture_bytes("md_statewide.csv"),
             f"{CURRENT_2026_GENERAL}2026_GG_all_counties": fixture_bytes("md_counties.csv"),
+            CD119: fixture_bytes("census_cd119.txt"),
+            SLDL_2024: fixture_bytes("census_sldl.txt"),
             **routes,
         }
     )
@@ -33,6 +36,7 @@ def test_statewide_list_is_federal_or_state() -> None:
     assert moore.office == "Governor / Lt. Governor"
     assert moore.party == "DEM"
     assert moore.jurisdiction == ""
+    assert moore.counties == "*"  # run by "State Of Maryland"
     assert moore.election_date == "2026-11-03"
     assert moore.election_type == "general"
     assert moore.candidate_status == "active"
@@ -41,10 +45,21 @@ def test_statewide_list_is_federal_or_state() -> None:
     assert rep.level is Level.FEDERAL
     assert rep.district == "3"
     assert rep.candidate_status == "withdrawn"
+    # The list doesn't say which counties a district covers; the Census lines do.
+    assert rep.counties == "ANNE ARUNDEL;CARROLL;HOWARD"
 
     assert rows["Dana Delegate"].district == "11B"
     assert rows["Dana Delegate"].party == "UNA"
-    assert rows["Robin Bench"].party == ""  # "Judicial" isn't a party
+    assert rows["Dana Delegate"].counties == "BALTIMORE"
+
+    judge = rows["Robin Bench"]
+    assert judge.party == ""  # "Judicial" isn't a party
+    # Listed by circuit, but elected in the county the judge sits in.
+    assert (judge.district, judge.jurisdiction, judge.counties) == (
+        "1",
+        "Wicomico County",
+        "Wicomico County",
+    )
 
 
 def test_county_list_is_local_with_county() -> None:
@@ -53,6 +68,7 @@ def test_county_list_is_local_with_county() -> None:
     boor = rows["Chelsea Boor"]
     assert boor.level is Level.LOCAL
     assert boor.jurisdiction == "Allegany County"
+    assert boor.counties == "Allegany County"
     assert boor.district == ""
 
     assert rows["Tammy Fraley"].district == "4"
