@@ -1,0 +1,73 @@
+name: Refresh data
+
+on:
+  schedule:
+    - cron: "17 9 * * *" # daily, ~5am US Eastern
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "refresh = recent years, all-years = full backfill, years = the list below"
+        type: choice
+        options: [refresh, all-years, years]
+        default: refresh
+      years:
+        description: "Only for mode=years, e.g. 2026 or 2000-2026"
+        required: false
+      source:
+        description: "Limit to one source (blank = all)"
+        required: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: refresh-data
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v10
+        with:
+          python-version: "3.12"
+      - run: uv sync --locked --no-dev
+
+      - name: Fetch
+        id: fetch
+        env:
+          MODE: ${{ inputs.mode || 'refresh' }}
+          YEARS: ${{ inputs.years }}
+          SOURCE: ${{ inputs.source }}
+        run: |
+          args=(fetch)
+          case "$MODE" in
+            refresh) args+=(--refresh) ;;
+            all-years) args+=(--all-years) ;;
+            years) args+=(--years "$YEARS") ;;
+          esac
+          if [ -n "$SOURCE" ]; then args+=(--source "$SOURCE"); fi
+          # Keep going on failure so sources that did succeed still get committed.
+          set +e
+          uv run who-is-running "${args[@]}"
+          echo "status=$?" >> "$GITHUB_OUTPUT"
+
+      - name: Commit changes
+        run: |
+          git add data
+          if git diff --cached --quiet; then
+            echo "No data changes."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "data: refresh $(date -u +%Y-%m-%d)" -m "$(git diff --cached --stat | tail -1)"
+          git push
+
+      - name: Fail if a source failed
+        if: steps.fetch.outputs.status != '0'
+        run: |
+          echo "::error::One or more sources failed; see the Fetch step log."
+          exit 1
