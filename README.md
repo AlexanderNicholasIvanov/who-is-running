@@ -4,6 +4,8 @@ An open dataset of **who is running in US elections**, covering federal, state a
 
 Each source writes one normalized CSV per year to `data/<source>/<year>.csv`, all with the same columns.
 
+**Browse it:** https://alexandernicholasivanov.github.io/who-is-running/. Pick a state and year to see every race and who's running. Filter by level, county, primary/general, or a name or office search. Filtered views have shareable links, e.g. [`#state=NC&year=2026&level=local&county=WAKE`](https://alexandernicholasivanov.github.io/who-is-running/#state=NC&year=2026&level=local&county=WAKE).
+
 ## Sources
 
 | Source | Coverage | Years | What it is |
@@ -58,10 +60,21 @@ uv run who-is-running fetch --all-years               # full historical backfill
 
 [`.github/workflows/refresh.yml`](.github/workflows/refresh.yml) runs daily, re-pulls each source's current and previous year, and commits any changes to `main`. To backfill history, run it manually with `mode = all-years`. If one source fails, the others still commit, and the run is then marked failed.
 
+## Website
+
+The site is static: plain HTML, CSS and JS in [`web/`](web/), with no framework or build tooling. `who-is-running build-site` copies `web/` to `_site/`. It converts each CSV to compact JSON and writes `data/manifest.json`, which lists every file and the states and years it covers, so the page downloads only what it needs. [`.github/workflows/pages.yml`](.github/workflows/pages.yml) deploys to GitHub Pages on every push to `main` and after every data refresh.
+
+Preview locally:
+
+```sh
+uv run who-is-running build-site --out _site
+python -m http.server 8000 --directory _site   # then open http://localhost:8000
+```
+
 ## Adding a source
 
 1. Create `src/who_is_running/sources/<state>.py` with a `Source` subclass. It implements `available_years`, `refresh_years` and `candidacies(year)`, which returns `Candidacy` records. Accept the injected `fetch` callable instead of calling the network directly.
-2. Register it in `src/who_is_running/sources/__init__.py`.
+2. Register it in `src/who_is_running/sources/__init__.py`, and add a short label in `SOURCE_LABELS` in `web/app.js` and a link in the footer of `web/index.html`.
 3. Add a small fixture made from real rows to `tests/fixtures/`, plus tests that use `FakeWeb`.
 
 Good candidates are states whose election office publishes a statewide, machine-readable candidate list that includes local races at a stable URL.

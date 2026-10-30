@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Who is running? US election candidates</title>
+  <meta name="description" content="Browse who is running in US elections: federal, state and local races, from free public data.">
+  <link rel="stylesheet" href="style.css">
+  <script type="module" src="app.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <h1>Who is running?</h1>
+      <p class="tagline">Candidates in US elections: federal, state and local, from public election records.</p>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <form id="filters" class="filters" autocomplete="off">
+      <div class="field field-state">
+        <label for="state">State</label>
+        <select id="state" name="state" required>
+          <option value="">Choose a state…</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="year">Year</label>
+        <select id="year" name="year" disabled></select>
+      </div>
+      <div class="field">
+        <label for="level">Level</label>
+        <select id="level" name="level">
+          <option value="">All levels</option>
+          <option value="federal">Federal</option>
+          <option value="state">State</option>
+          <option value="local">Local</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="type">Election</label>
+        <select id="type" name="type">
+          <option value="">Primary &amp; general</option>
+          <option value="primary">Primary</option>
+          <option value="general">General</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="county">County</label>
+        <select id="county" name="county">
+          <option value="">All counties</option>
+        </select>
+      </div>
+      <div class="field field-wide">
+        <label for="q">Search</label>
+        <input id="q" name="q" type="search" placeholder="Candidate, office or district">
+      </div>
+      <fieldset class="toggles">
+        <legend class="visually-hidden">Options</legend>
+        <label><input type="checkbox" id="statutory" checked> Hide FEC filers below the $5,000 candidate threshold</label>
+        <label><input type="checkbox" id="prefer-ballot" checked> Prefer state ballot lists over FEC registrations</label>
+        <label><input type="checkbox" id="president" checked> Include presidential candidates</label>
+      </fieldset>
+    </form>
+
+    <p id="coverage" class="coverage"></p>
+    <div id="status" class="status" role="status" aria-live="polite"></div>
+    <div id="results"></div>
+    <button id="more" class="more" type="button" hidden>Show more races</button>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>
+        Data from the <a href="https://www.fec.gov/data/browse-data/?tab=bulk-data">FEC</a>,
+        the <a href="https://www.ncsbe.gov/results-data/candidate-lists">NC State Board of Elections</a> and the
+        <a href="https://elections.maryland.gov/candidacy/index.html">Maryland State Board of Elections</a>,
+        refreshed daily. <span id="generated"></span>
+      </p>
+      <p>
+        FEC data lists people who <em>registered</em> as federal candidates. Not all of them appear on a ballot.
+        Open source on <a href="https://github.com/AlexanderNicholasIvanov/who-is-running">GitHub</a>.
+      </p>
+    </div>
+  </footer>
+</body>
+</html>

@@ -25,3 +25,7 @@ jobs:
         run: uv run mypy
       - name: Test
         run: uv run pytest -q
+      - name: Check web JS syntax
+        run: node --check web/app.js
+      - name: Build site
+        run: uv run who-is-running build-site --data-dir tests/fixtures/site_data --out _site

@@ -1,0 +1,8 @@
+state,election_year,election_date,level,office,district,jurisdiction,candidate_name,party,election_type,incumbent_status,candidate_status,source,source_candidate_id
+NC,2025,,federal,US House,08,,"PRINCE, BRIANNA",REP,,challenger,not_yet_statutory_candidate,fec,H6NC08160
+NC,2025,,federal,US House,08,,"PRINCE, BRIANNA",REP,,challenger,not_yet_statutory_candidate,fec,H6NC08178
+NC,2025,,federal,US Senate,,,"DONG, YUHONG",OTH,,challenger,not_yet_statutory_candidate,fec,S6NC00332
+NC,2026,,federal,US House,01,,"BAILEY, TOM",LIB,,challenger,not_yet_statutory_candidate,fec,H8NC13075
+NC,2026,,federal,US House,01,,"BUCK, ASA BRYANT III",REP,,challenger,statutory_candidate,fec,H6NC01165
+NC,2026,,federal,US House,01,,"BUCKHOUT, LAURIE",REP,,challenger,statutory_candidate,fec,H4NC01137
+US,2026,,federal,US President,,,"ATHANS, JAMES N/A JR.",REP,,challenger,not_yet_statutory_candidate,fec,P60024668
