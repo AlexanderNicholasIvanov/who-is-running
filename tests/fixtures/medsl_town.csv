@@ -1,0 +1,2 @@
+precinct,office,party_detailed,party_simplified,mode,votes,county_name,county_fips,jurisdiction_name,jurisdiction_fips,candidate,district,magnitude,dataverse,year,stage,state,special,writein,state_po,state_fips,state_cen,state_ic,date,readme_check
+"BURLINGTON WARD 1","SELECTBOARD","","","TOTAL",120,"CHITTENDEN","50007","BURLINGTON","5000710675","ALEX SMITH","000",1.0,"LOCAL",2018,"GEN","VERMONT","FALSE","FALSE","VT","50","13","6","2018-11-06","FALSE"

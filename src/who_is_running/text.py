@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from collections.abc import Iterable, Iterator
+
 
 def decode(raw: bytes) -> str:
     """Decode as UTF-8 (dropping any BOM), falling back to cp1252 line by line.
@@ -15,6 +17,16 @@ def decode(raw: bytes) -> str:
         return raw.decode("utf-8")
     except UnicodeDecodeError:
         return "".join(_decode_line(line) for line in raw.splitlines(keepends=True))
+
+
+def decode_lines(lines: Iterable[bytes]) -> Iterator[str]:
+    """Streaming ``decode`` for files too big to hold as one string (e.g. a binary file handle)."""
+    first = True
+    for line in lines:
+        if first:
+            line = line.removeprefix(b"\xef\xbb\xbf")
+            first = False
+        yield _decode_line(line)
 
 
 def _decode_line(line: bytes) -> str:

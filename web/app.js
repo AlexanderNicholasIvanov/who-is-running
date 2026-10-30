@@ -1,4 +1,4 @@
-// Who is running? Static front end over data/manifest.json and data/<source>/<year>.json.
+// Who is running? Static front end over data/manifest.json and data/<source>/<year>/<state>.json.
 // Plain ES module, no build step.
 
 const STATE_NAMES = {
@@ -15,7 +15,16 @@ const STATE_NAMES = {
   VT: "Vermont", VI: "US Virgin Islands", VA: "Virginia", WA: "Washington",
   WV: "West Virginia", WI: "Wisconsin", WY: "Wyoming",
 };
-const SOURCE_LABELS = { fec: "FEC registration", nc: "NC State Board of Elections", md: "MD State Board of Elections" };
+const SOURCE_LABELS = {
+  fec: "FEC registration",
+  nc: "NC State Board of Elections",
+  md: "MD State Board of Elections",
+  medsl: "Election results, MIT Election Lab",
+};
+// Sources ranked by how directly they say who is running: an official candidate
+// list beats who appeared on the ballot (results), which beats FEC registrations.
+const RESULTS = "medsl";
+const FEC = "fec";
 const LEVELS = ["federal", "state", "local"];
 const INACTIVE = ["withdrawn", "declined", "disqualified", "deceased", "failed"];
 const PAGE_SIZE = 150; // races rendered per "page"
@@ -55,19 +64,24 @@ async function fetchJSON(path) {
 
 const stateName = (code) => STATE_NAMES[code] || code;
 
-function statesWithBallotLists() {
-  return new Set(manifest.files.filter((f) => f.source !== "fec").flatMap((f) => Object.keys(f.coverage)));
+// Sources with state and local races (everything but the FEC) covering a state, by year.
+function stateLevelSources(state) {
+  const byYear = new Map();
+  for (const f of manifest.files) {
+    if (f.source === FEC) continue;
+    for (const y of Object.keys(f.coverage[state] || {})) {
+      if (!byYear.has(y)) byYear.set(y, new Set());
+      byYear.get(y).add(f.source);
+    }
+  }
+  return byYear;
 }
 
 function populateStates() {
-  const full = statesWithBallotLists();
   const states = new Set(manifest.files.flatMap((f) => Object.keys(f.coverage)));
   states.delete("US");
   const sorted = [...states].sort((a, b) => collator.compare(stateName(a), stateName(b)));
-  for (const code of sorted) {
-    const label = full.has(code) ? `${stateName(code)} (all levels)` : stateName(code);
-    els.state.add(new Option(label, code));
-  }
+  for (const code of sorted) els.state.add(new Option(stateName(code), code));
 }
 
 function yearsFor(state) {
@@ -102,9 +116,9 @@ async function load() {
   }
   els.status.textContent = "Loading…";
   try {
-    const datasets = await Promise.all(
-      filesFor(state, year).map((f) => fetchJSON(`data/${f.source}/${f.year}.json`)),
-    );
+    const paths = filesFor(state, year).flatMap((f) =>
+      [state, "US"].filter((s) => f.coverage[s]?.[year]).map((s) => `data/${f.source}/${f.year}/${s}.json`));
+    const datasets = await Promise.all(paths.map(fetchJSON));
     if (token !== loadToken) return; // a newer selection superseded this one
     for (const { columns, rows } of datasets) {
       const idx = Object.fromEntries(columns.map((c, i) => [c, i]));
@@ -134,14 +148,18 @@ function populateCounties() {
 
 function visibleRows() {
   const state = els.state.value;
-  const hasBallotFederal = loaded.some((r) => r.source !== "fec" && r.level === "federal");
+  const prefer = els.preferBallot.checked;
+  const hasStateList = loaded.some((r) => r.source !== FEC && r.source !== RESULTS);
+  const hasBallotFederal = loaded.some((r) => r.source !== FEC && r.level === "federal");
   const q = els.q.value.trim().toLowerCase();
   return loaded.filter((r) => {
-    if (r.source === "fec") {
-      if (els.preferBallot.checked && hasBallotFederal) return false;
+    if (r.source === RESULTS && prefer && hasStateList) return false;
+    if (r.source === FEC) {
+      if (prefer && hasBallotFederal) return false;
       if (els.statutory.checked && r.candidate_status === "not_yet_statutory_candidate") return false;
     }
     if (r.state === "US" && (!els.president.checked || state === "US")) return false;
+    if (!els.president.checked && /^US PRESIDENT/i.test(r.office)) return false;
     if (els.level.value && r.level !== els.level.value) return false;
     if (els.type.value && r.election_type !== els.type.value) return false;
     if (els.county.value && r.jurisdiction !== els.county.value) return false;
@@ -229,13 +247,21 @@ function renderMore() {
 
 function renderCoverage() {
   const state = els.state.value;
-  if (!state || statesWithBallotLists().has(state)) {
-    els.coverage.textContent = "";
-    return;
+  const year = els.year.value;
+  els.coverage.textContent = "";
+  if (!state || !year) return;
+  const byYear = stateLevelSources(state);
+  const here = byYear.get(year) || new Set();
+  const name = stateName(state);
+  if (here.size === 0) {
+    const others = [...byYear.keys()].sort((a, b) => b - a);
+    els.coverage.textContent = `For ${name} ${year} we only have federal candidates, from FEC registrations.`
+      + (others.length ? ` State and local races are available for ${others.join(", ")}.` : "");
+  } else if (here.size === 1 && here.has(RESULTS)) {
+    els.coverage.textContent = `${name} ${year} races come from general-election results: everyone who appeared `
+      + "on the November ballot. Primary candidates and anyone who dropped out earlier aren't included, "
+      + "and some states don't report every local race.";
   }
-  const full = [...statesWithBallotLists()].map(stateName).sort().join(" and ");
-  els.coverage.textContent = `For ${stateName(state)} we only have federal candidates, from FEC registrations. `
-    + `State and local races are currently covered for ${full}.`;
 }
 
 function render() {
