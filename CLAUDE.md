@@ -14,6 +14,7 @@ Python pipeline that pulls US candidate lists from free public sources and write
 - `src/who_is_running/sources/`: one module per publisher, registered in `sources/__init__.py`.
 - `src/who_is_running/pipeline.py`: writes CSVs. It never overwrites a file with an empty result.
 - `src/who_is_running/sources/medsl.py`: all-states results. Precinct files are big (up to ~3M rows), so they're streamed with `text.decode_lines`, never loaded whole.
+- `src/who_is_running/districts.py`: Census district-to-county lines, used to fill `counties` for district races. `HOUSE_LINES` maps each election year to its Congress; `REDRAWN` lists states whose map that year has no Census file yet. Keep the JS `countyKey` in `web/app.js` matching how sources and Census spell counties.
 - `web/`: the static site (vanilla JS, no build step). `build_site.py` turns `data/` into `_site/` for GitHub Pages. Preview it with `build-site` then `python -m http.server --directory _site`.
 - `data/`: generated, and committed by the `Refresh data` workflow. Don't hand-edit it.
 

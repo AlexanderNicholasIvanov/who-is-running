@@ -11,8 +11,11 @@ from __future__ import annotations
 
 import io
 import zipfile
+from collections.abc import Iterable
+from dataclasses import replace
 from datetime import date
 
+from who_is_running.districts import Districts
 from who_is_running.models import STATEWIDE, Candidacy, Level
 from who_is_running.sources.base import Source
 from who_is_running.text import decode
@@ -51,7 +54,7 @@ class FecSource(Source):
         archive = self.fetch(URL.format(cycle=year, yy=year % 100))
         with zipfile.ZipFile(io.BytesIO(archive)) as zf:
             raw = zf.read("cn.txt")
-        return parse(decode(raw), cycle=year)
+        return place(parse(decode(raw), cycle=year), Districts(self.fetch))
 
 
 def parse(text: str, *, cycle: int) -> list[Candidacy]:
@@ -81,7 +84,8 @@ def parse(text: str, *, cycle: int) -> list[Candidacy]:
                 district=district if office == "H" else "",
                 jurisdiction="",
                 # Senate, president and at-large House seats are statewide by
-                # definition; the FEC doesn't say which counties a district covers.
+                # definition. The FEC doesn't say which counties a district covers;
+                # place() fills that in from the Census district lines.
                 counties=STATEWIDE if office != "H" or district in ("00", "") else "",
                 candidate_name=name.strip(),
                 party=party,
@@ -93,3 +97,13 @@ def parse(text: str, *, cycle: int) -> list[Candidacy]:
             )
         )
     return sorted(out)
+
+
+def place(rows: Iterable[Candidacy], districts: Districts) -> list[Candidacy]:
+    """Fill in the counties of House districts from the Census district lines."""
+    return [
+        replace(r, counties=districts.house(r.election_year).counties(r.state, r.district))
+        if r.office == "US House" and not r.counties
+        else r
+        for r in rows
+    ]
