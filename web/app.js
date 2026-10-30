@@ -1,6 +1,8 @@
 // Who is running? Static front end over data/manifest.json and data/<source>/<year>/<state>.json.
 // Plain ES module, no build step.
 
+import { initMap } from "./map.js";
+
 const STATE_NAMES = {
   AL: "Alabama", AK: "Alaska", AS: "American Samoa", AZ: "Arizona", AR: "Arkansas",
   CA: "California", CO: "Colorado", CT: "Connecticut", DE: "Delaware",
@@ -40,6 +42,7 @@ const els = {
 
 const cache = new Map();
 let manifest = null;
+let map = { showState() {} }; // the results map, see map.js
 let loaded = []; // candidacy objects for the selected state + year
 let groups = []; // filtered races, sorted
 let shown = 0;
@@ -369,6 +372,7 @@ async function applyHash() {
     els[k].checked = p.has(k) ? p.get(k) === "1" : def;
   }
   populateYears(Number(p.get("year")));
+  map.showState(els.state.value);
   await load();
   if (p.get("county")) {
     els.county.value = countyKey(p.get("county"));
@@ -387,12 +391,29 @@ async function init() {
   }
   els.generated.textContent = `Last updated ${manifest.generated.replace("T", " ").replace("Z", " UTC")}.`;
   populateStates();
+  map = initMap({
+    manifest,
+    fetchJSON,
+    stateName,
+    // A state picked on the map drives the page's own state picker.
+    onState(state) {
+      els.state.value = state;
+      els.state.dispatchEvent(new Event("change"));
+    },
+    // "Who's running in <county>" in a county's tooltip.
+    onCounty(state, county) {
+      els.county.value = countyKey(county);
+      if (els.county.value) render();
+      els.status.scrollIntoView({ behavior: "smooth", block: "start" });
+    },
+  });
   await applyHash();
 
   els.form.addEventListener("submit", (e) => e.preventDefault());
   els.state.addEventListener("change", async () => {
     els.county.value = "";
     populateYears(Number(els.year.value));
+    map.showState(els.state.value);
     await load();
   });
   els.year.addEventListener("change", load);

@@ -1,4 +1,4 @@
-"""Command-line entry point: ``who-is-running fetch``, ``who-is-running sources``."""
+"""Command-line entry point: ``who-is-running fetch|sources|build-site|build-geo``."""
 
 from __future__ import annotations
 
@@ -8,7 +8,9 @@ import sys
 from datetime import date
 from pathlib import Path
 
+from who_is_running import geo
 from who_is_running.build_site import build
+from who_is_running.http import http_get
 from who_is_running.pipeline import run
 from who_is_running.sources import SOURCES, get_source
 
@@ -46,6 +48,9 @@ def main(argv: list[str] | None = None) -> int:
     site.add_argument("--web-dir", type=Path, default=Path("web"))
     site.add_argument("--out", type=Path, default=Path("_site"))
 
+    shapes = sub.add_parser("build-geo", help="regenerate the map's state and county shapes")
+    shapes.add_argument("--out", type=Path, default=Path("web/geo"))
+
     args = parser.parse_args(argv)
     logging.basicConfig(level=logging.INFO, format="%(levelname)s %(message)s")
 
@@ -58,6 +63,11 @@ def main(argv: list[str] | None = None) -> int:
         manifest = build(args.data_dir, args.web_dir, args.out)
         rows = sum(f["rows"] for f in manifest["files"])
         logging.info("built %s: %d files, %d rows", args.out, len(manifest["files"]), rows)
+        return 0
+
+    if args.command == "build-geo":
+        written = geo.fetch_and_build(http_get, args.out)
+        logging.info("wrote %s: states and %d county files", args.out, written)
         return 0
 
     failed = False

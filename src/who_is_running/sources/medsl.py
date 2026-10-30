@@ -4,6 +4,7 @@ MEDSL publishes precinct-level returns for all 50 states and DC in one schema,
 covering federal, state and (where the state reports them) local offices. We
 reduce each file to the unique candidates per race, so this is who *appeared
 on the ballot* in a past November general election, not who filed to run.
+Statewide races also keep their vote totals by county, for the results map.
 
 https://github.com/MEDSL  (one repository per election year)
 
@@ -21,13 +22,15 @@ import io
 import logging
 import re
 import zipfile
-from collections import defaultdict
+from collections import Counter, defaultdict
 from collections.abc import Iterable
 from dataclasses import replace
 from datetime import date
+from typing import Any
 
 from who_is_running.http import NotFound
 from who_is_running.models import STATEWIDE, Candidacy, Level, join_counties
+from who_is_running.results import CountyResult
 from who_is_running.sources.base import Source
 from who_is_running.text import decode_lines
 
@@ -67,14 +70,15 @@ NOT_CANDIDATES = re.compile(
     r"OTHER|NO VOTE|NO CANDIDATE FILED|CONTEST TOTAL|"
     r"DEM|REP|LIB|DEMOCRAT|DEMOCRATIC|REPUBLICAN|LIBERTARIAN)$|"
     r"\b(VOTES|VOTERS|BALLOTS|VOTER REGISTRATION|TIMES BLANK VOTED|OVER ?VOTES?|UNDER ?VOTES?|"
-    r"WRITE[- ]?INS?|STRAIGHT (TICKET|PARTY))\b"
+    r"WRITE[- ]?INS?|STRAIGHT (TICKET|PARTY))\b|"
+    r"^(YES|NO) TO\b"  # "YES TO APPROVE"
 )
 # Ballot questions and ticket/turnout lines filed under an "office".
 NOT_OFFICES = re.compile(
     r"^(STRAIGHT[ -](PARTY|TICKET)|TOTAL |REGISTERED VOTERS|BALLOTS (CAST|COUNTED)|\d+\. |"
     r"PROPOSED )|"
     r"\b(QUESTION|PROPOSITION|AMENDMENTS?|AMENDS|BONDS|REFERENDUM|MEASURE|ISSUE|"
-    r"ADVISORY (VOTE|NO)|BOND PROCEEDS)\b|"
+    r"ADVISORY (VOTE|NO)|BOND PROCEEDS|INITIATIVE)\b|"
     # "... OVERRIDE LEVY", "... REVENUE BOND", but not Delaware's LEVY COURT or Bond County.
     r"\b(LEVY|BOND)$"
 )
@@ -106,7 +110,12 @@ class MedslSource(Source):
         # Past elections, revised rarely. Backfill with `fetch --all-years --source medsl`.
         return []
 
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
+        super().__init__(*args, **kwargs)
+        self._results: dict[int, list[CountyResult]] = {}
+
     def candidacies(self, year: int) -> list[Candidacy]:
+        self._results[year] = []
         if year not in FILES:
             return []
         out: list[Candidacy] = []
@@ -121,20 +130,42 @@ class MedslSource(Source):
                 for member in zf.namelist():
                     if member.lower().endswith(".csv") and not member.startswith("__MACOSX"):
                         with zf.open(member) as fh:
-                            out.extend(parse(decode_lines(fh)))
+                            candidacies, results = parse_with_results(decode_lines(fh))
+                        out.extend(candidacies)
+                        self._results[year].extend(results)
         return sorted(out)
+
+    def results(self, year: int) -> list[CountyResult]:
+        # Both come from the same (large) download, so it's parsed once.
+        if year not in self._results:
+            self.candidacies(year)
+        return sorted(self._results[year])
 
 
 def parse(lines: Iterable[str]) -> list[Candidacy]:
+    return parse_with_results(lines)[0]
+
+
+def parse_with_results(lines: Iterable[str]) -> tuple[list[Candidacy], list[CountyResult]]:
     """Reduce precinct rows (header first) to one Candidacy per candidate per race.
 
     A candidate on several party lines of the same race (fusion voting in
     New York, Connecticut, ...) becomes one row with the parties joined by "/".
     Each race records the counties its precincts are in, or "*" when that is
     every county in the file (one file is one state).
+
+    Statewide races also yield each candidate's votes per county. States
+    split a precinct's votes by how they were cast ("ELECTION DAY",
+    "ABSENTEE", ...), and some also give a "TOTAL" row for the same
+    precinct, so a precinct's TOTAL is used when there is one and its other
+    rows are added up when there isn't.
     """
     parties: dict[Candidacy, list[str]] = {}
+    totals: Counter[tuple[Candidacy, str, str, str]] = Counter()
+    by_mode: Counter[tuple[Candidacy, str, str, str]] = Counter()
+    county_names: dict[str, str] = {}
     race_counties: defaultdict[Candidacy, set[str]] = defaultdict(set)
+    voted_in: defaultdict[Candidacy, set[str]] = defaultdict(set)
     all_counties: set[str] = set()
     reader = csv.reader(lines)
     header = next(reader, [])
@@ -182,18 +213,63 @@ def parse(lines: Iterable[str]) -> list[Candidacy]:
         seen = parties.setdefault(key, [])
         if party and party not in seen:
             seen.append(party)
+        votes = votes_of(r.get("votes", ""))
         if county:
             race_counties[_race(key)].add(county)
             all_counties.add(county)
+            if votes > 0:
+                voted_in[_race(key)].add(county)
+        if level is not Level.LOCAL and key.district in ("", "AT-LARGE"):
+            # Alaska reports early and absentee votes by legislative district,
+            # with no county: they count toward the state total under "".
+            fips = r.get("county_fips", "").strip()
+            fips = fips.zfill(5) if fips.isdigit() else ""
+            county_names[fips] = county if fips else ""
+            precinct = (key, fips, r.get("precinct", ""), r.get("party_detailed", ""))
+            if r.get("mode", "").upper() == "TOTAL":
+                totals[precinct] += votes
+            else:
+                by_mode[precinct] += votes
 
     def counties_of(key: Candidacy) -> str:
-        seen_in = race_counties.get(_race(key), set())
+        # Some files list a race's candidates with 0 votes in every precinct
+        # of the state (Ohio's state house), so a county counts only if the
+        # race got votes there, unless no county reported any.
+        seen_in = voted_in.get(_race(key)) or race_counties.get(_race(key), set())
         return STATEWIDE if seen_in and seen_in >= all_counties else join_counties(seen_in)
 
-    return [
-        replace(key, party="/".join(sorted(p)), counties=counties_of(key))
+    candidacies = {
+        key: replace(key, party="/".join(sorted(p)), counties=counties_of(key))
         for key, p in parties.items()
+    }
+    county_votes: Counter[tuple[Candidacy, str]] = Counter()
+    for precinct in totals.keys() | by_mode.keys():
+        key, fips = precinct[0], precinct[1]
+        if candidacies[key].counties == STATEWIDE:
+            county_votes[key, fips] += totals[precinct] if precinct in totals else by_mode[precinct]
+    results = [
+        CountyResult(
+            state=key.state,
+            election_year=key.election_year,
+            office=key.office,
+            county_fips=fips,
+            county=county_names[fips],
+            candidate_name=key.candidate_name,
+            party=candidacies[key].party,
+            votes=votes,
+            source="medsl",
+        )
+        for (key, fips), votes in county_votes.items()
     ]
+    return list(candidacies.values()), results
+
+
+def votes_of(raw: str) -> int:
+    """Vote counts are integers, sometimes written "12.0"; blanks and "*" (suppressed) are 0."""
+    try:
+        return int(float(raw))
+    except (ValueError, OverflowError):
+        return 0
 
 
 def _race(candidacy: Candidacy) -> Candidacy:

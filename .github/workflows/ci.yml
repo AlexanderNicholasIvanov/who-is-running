@@ -25,7 +25,7 @@ jobs:
         run: uv run mypy
       - name: Test
         run: uv run pytest -q
-      - name: Check web JS syntax
-        run: node --check web/app.js
+      - name: Check web JS syntax (as ES modules)
+        run: node --input-type=module --check < web/app.js && node --input-type=module --check < web/map.js
       - name: Build site
         run: uv run who-is-running build-site --data-dir tests/fixtures/site_data --out _site

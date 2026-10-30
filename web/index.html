@@ -17,6 +17,33 @@
   </header>
 
   <main class="wrap">
+    <section id="map-section" class="map-section" aria-labelledby="map-title" hidden>
+      <div class="map-head">
+        <h2 id="map-title">Who won</h2>
+        <div class="map-controls">
+          <button id="map-back" class="map-back" type="button" hidden>← All states</button>
+          <div class="field">
+            <label for="map-race">Race</label>
+            <select id="map-race"></select>
+          </div>
+          <div class="field">
+            <label for="map-year">Results year</label>
+            <select id="map-year"></select>
+          </div>
+        </div>
+      </div>
+      <div class="map-frame">
+        <svg id="map" class="map" role="group" aria-labelledby="map-caption"></svg>
+        <div id="map-tip" class="map-tip" role="status" hidden></div>
+      </div>
+      <div id="map-legend" class="map-legend"></div>
+      <p id="map-note" class="map-note"></p>
+      <details class="map-details">
+        <summary>Table view</summary>
+        <table id="map-table" class="map-table"><caption id="map-caption"></caption></table>
+      </details>
+    </section>
+
     <form id="filters" class="filters" autocomplete="off">
       <div class="field field-state">
         <label for="state">State</label>
@@ -81,6 +108,7 @@
       <p>
         FEC data lists people who <em>registered</em> as federal candidates. Not all of them appear on a ballot.
         MIT Election Lab results cover every state's November general elections in 2018, 2022 and 2024.
+        Map shapes from <a href="https://github.com/topojson/us-atlas">us-atlas</a> (Census Bureau boundaries, ISC license).
         Open source on <a href="https://github.com/AlexanderNicholasIvanov/who-is-running">GitHub</a>.
       </p>
     </div>

@@ -68,6 +68,15 @@ uv run who-is-running fetch --all-years               # full historical backfill
 
 The site is static: plain HTML, CSS and JS in [`web/`](web/), with no framework or build tooling. `who-is-running build-site` copies `web/` to `_site/`. It converts each CSV to compact JSON, one file per state (`data/<source>/<year>/<state>.json`), and writes `data/manifest.json`, which lists every file and the states and years it covers, so the page downloads only the state it shows. Where sources overlap, the page by default prefers an official candidate list, then MEDSL results, then FEC registrations. [`.github/workflows/pages.yml`](.github/workflows/pages.yml) deploys to GitHub Pages on every push to `main` and after every data refresh.
 
+### Results map
+
+Above the candidate search, a map shows who won each state in past November general elections (2018, 2022 and 2024, from MEDSL): president, US Senate or governor, shaded by the winner's party and margin (under 5, 5–10, 10–20 and 20+ points). Pick a state, on the map or in the state picker, to see that state's counties for any of its statewide races, with each county's winner, margin and top candidates on hover or tap. A table view lists the same numbers.
+
+- County totals are summed from MEDSL's precinct returns, using each precinct's `TOTAL` row when it has one and otherwise adding up its vote modes.
+- Some votes aren't reported by county (most of Alaska's early and absentee ballots, for example). They count toward the statewide result, and the map's note says what share the county shading leaves out. Places that report apart from their county, such as Kansas City, Missouri, are listed rather than drawn.
+- There are no 2020 results (MEDSL publishes them only on Harvard Dataverse) and none for 2026 until MEDSL publishes them.
+- Shapes come from [us-atlas](https://github.com/topojson/us-atlas) (Census Bureau 1:10M boundaries, ISC license). `who-is-running build-geo` regenerates `web/geo/` from it.
+
 Preview locally:
 
 ```sh
