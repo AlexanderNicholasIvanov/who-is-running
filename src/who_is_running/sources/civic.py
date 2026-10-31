@@ -53,8 +53,8 @@ KEY_ENV = "GOOGLE_CIVIC_API_KEY"
 GOVT_UNITS = "https://www2.census.gov/programs-surveys/gus/datasets/2022/govt_units_2022.ZIP"
 """Census of Governments 2022: name, mailing address and county of every US government."""
 FIRST_YEAR = 2026
-OFFICIAL_LISTS = frozenset({"MD", "NC"})
-"""States with an official candidate-list source (``md``, ``nc``): not sampled, to avoid
+OFFICIAL_LISTS = frozenset({"MD", "NC", "VA"})
+"""States with an official candidate-list source (``md``, ``nc``, ``va``): not sampled, to avoid
 listing their races twice."""
 
 MAX_CALLS = 4000
