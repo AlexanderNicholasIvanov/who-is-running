@@ -324,6 +324,40 @@ def test_measures_do_not_change_which_races_are_statewide() -> None:
     assert [c.counties for c in candidacies] == ["*"]
     # ...and the amendment, never in "KING AND QUEEN", isn't on every ballot.
     assert {r.office for r in results} == {"US Senate"}
+    assert {r.county for r in results} == {"KING AND QUEEN"}
+
+
+def test_measure_lines_do_not_join_a_race_of_the_same_name() -> None:
+    # Michigan 2022 has a STATE SENATE race with no district, and "YES" lines
+    # under STATE SENATE elsewhere must not put it on that county's ballot.
+    candidacies = parse_with_results(
+        [
+            HEADER,
+            *(
+                _row("1", "GOVERNOR", "GRETCHEN WHITMER", "DEMOCRAT", "TOTAL", 9, c, f, "", "STATE")
+                for c, f in (("KEWEENAW", "26083"), ("OTTAWA", "26139"))
+            ),
+            _row(
+                "1",
+                "STATE SENATE",
+                "EDWARD MCBROOM",
+                "REPUBLICAN",
+                "TOTAL",
+                9,
+                "KEWEENAW",
+                "26083",
+                "",
+                "STATE",
+            ),
+            _row("1", "STATE SENATE", "YES", "", "TOTAL", 1, "OTTAWA", "26139", "", "STATE"),
+            _row("1", "STATE SENATE", "NO", "", "TOTAL", 1, "OTTAWA", "26139", "", "STATE"),
+        ]
+    )[0]
+
+    assert {(c.office, c.counties) for c in candidacies} == {
+        ("GOVERNOR", "*"),
+        ("STATE SENATE", "KEWEENAW"),
+    }
 
 
 def test_measure_in_a_file_without_counties() -> None:

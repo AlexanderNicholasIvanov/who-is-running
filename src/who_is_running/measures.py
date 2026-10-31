@@ -13,9 +13,10 @@ YES, NO = "Yes", "No"
 
 # Every way the MEDSL 2018-2024 files word the two choices.
 CHOICES = {
-    **dict.fromkeys(("YES", "FOR", "APPROVE", "APPROVED", "IN FAVOR OF"), YES),
+    **dict.fromkeys(("YES", "FOR", "APPROVE", "IN FAVOR OF"), YES),
     **dict.fromkeys(("YES FOR APPROVAL", "YES TO APPROVE"), YES),
-    **dict.fromkeys(("NO", "AGAINST", "REJECT", "REJECTED", "DISAPPROVE"), NO),
+    # Not "REJECTED": Michigan uses it for rejected write-ins.
+    **dict.fromkeys(("NO", "AGAINST", "REJECT", "DISAPPROVE"), NO),
     **dict.fromkeys(("NO FOR REJECTION", "NO TO REJECT"), NO),
 }
 # "FOR THE PROPOSAL - YES" (Oklahoma), "AGAINST THE LEVY" (West Virginia).

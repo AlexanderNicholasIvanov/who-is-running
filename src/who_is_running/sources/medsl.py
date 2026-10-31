@@ -227,7 +227,8 @@ def parse_with_results(lines: Iterable[str]) -> tuple[list[Candidacy], list[Coun
             party="",
             election_type=STAGES.get(r.get("stage", "").upper(), ""),
             incumbent_status="",
-            candidate_status="",
+            # Keeps a measure apart from a candidate race filed under the same office.
+            candidate_status="measure" if choice else "",
             source="medsl",
             source_candidate_id="",
         )
@@ -253,7 +254,8 @@ def parse_with_results(lines: Iterable[str]) -> tuple[list[Candidacy], list[Coun
             # with no county: they count toward the state total under "".
             fips = r.get("county_fips", "").strip()
             fips = fips.zfill(5) if fips.isdigit() else ""
-            county_names[fips] = county if fips else ""
+            if not choice or fips not in county_names:  # races' spelling wins
+                county_names[fips] = county if fips else ""
             precinct = (key, fips, r.get("precinct", ""), r.get("party_detailed", ""))
             if r.get("mode", "").upper() == "TOTAL":
                 totals[precinct] += votes
