@@ -14,8 +14,12 @@ election with every race's votes by county (``parse_florida``, ``parse_minnesota
 
 The results are unofficial and change all night (and for weeks of canvassing),
 so the map labels them as such, and certified MEDSL results replace them once
-they exist (see ``build_site.build_results``). This source only has results;
-candidate lists come from the other sources.
+they exist (see ``build_site.build_results``).
+
+The same files list every contest on the state's ballot before any votes are
+counted, so they double as candidate lists: state, legislative, judicial and
+the local races the state's site carries (``candidacies``). Federal races are
+left to ``fec``; ballot questions and retention votes have no candidates.
 """
 
 from __future__ import annotations
@@ -27,6 +31,7 @@ import json
 import logging
 import re
 import zipfile
+from collections.abc import Iterable
 from dataclasses import dataclass
 from datetime import date, datetime, timedelta, timezone
 from typing import Any
@@ -34,7 +39,7 @@ from xml.etree import ElementTree
 
 from who_is_running.districts import COUNTY_NAMES_2010, county_name, parse_county_names
 from who_is_running.http import NotFound
-from who_is_running.models import Candidacy
+from who_is_running.models import STATEWIDE, Candidacy, Level, join_counties
 from who_is_running.results import CountyResult
 from who_is_running.sources.base import Source
 from who_is_running.sources.medsl import NOT_OFFICES
@@ -87,8 +92,8 @@ FEEDS: dict[int, dict[str, Feed]] = {
 
 # Choices that aren't candidates.
 NOT_CANDIDATES = re.compile(
-    r"^(write[- ]?ins?|over ?votes?|under ?votes?|blank|scattering|total|times (blank|over) voted)"
-    r"( votes?)?$",
+    r"^(write[- ]?ins?|over ?votes?|under ?votes?|(estimated )?blanks?|scattering|total|"
+    r"times (blank|over) voted)( votes?)?$",
     re.I,
 )
 # Ballot questions, and retention votes ("Supreme Court Justice - Boatright"):
@@ -110,6 +115,39 @@ OFFICES = [
     ),
 ]
 
+# Candidate lists: federal races are left to the fec source.
+FEDERAL = re.compile(
+    r"^(U\.? ?S\.? |United States |President)|\bUnited States (Senat|Congress|Represent)|"
+    r"\bRepresentative in Congress\b",
+    re.I,
+)
+# Offices of a county, city or special district; anything else not on every
+# county's ballot is a state office (legislature, courts, district boards).
+LOCAL_OFFICES = re.compile(
+    r"\b(county|city|town|village|township|municipal|borough|school|watershed|soil and water|"
+    r"fire|park|hospital|library|transportation district|development district|"
+    r"improvement district|tax district|service area|mayor|council|sheriff|coroner|"
+    r"recorder|surveyor|assessor)\b",
+    re.I,
+)
+# "State Senator - District 8", "State Senate District 15 (Unexpired Term)",
+# "Solicitor, Circuit 3", "School Trustee District 2 At Large".
+DISTRICT_AFTER = re.compile(
+    r"^(?P<office>.*?)[\s,-]*\b(?:Congressional\s+)?(?:District|Circuit)\s+"
+    r"(?P<district>\d+[A-Z]?|[A-Z])(?P<rest>(?:\s+At[- ]Large|\s*[-,(].*)?)$",
+    re.I,
+)
+# West Virginia: "STATE SENATOR, 3rd Senatorial District - UNEXPIRED TERM".
+DISTRICT_BEFORE = re.compile(
+    r"^(?P<office>.*?)[\s,-]*\b(?P<district>\d+)(?:st|nd|rd|th)\s+"
+    r"(?:Senatorial\s+|Delegate\s+|Congressional\s+)?District(?P<rest>(?:\s*[-,(].*)?)$",
+    re.I,
+)
+# Party codes that mean "no party": nonpartisan races, ballot-order numbers.
+NO_PARTY = {"NON", "NOP", "NP", "NONE"}
+WRITE_IN_PARTY = "WRI"
+"""Florida's code for a qualified write-in candidate."""
+
 TIME_ZONES = {
     "EST": -5, "EDT": -4, "CST": -6, "CDT": -5, "MST": -7, "MDT": -6, "PST": -8, "PDT": -7,
     "AKST": -9, "AKDT": -8, "HST": -10,
@@ -119,27 +157,43 @@ TIME_ZONES = {
 class EnrSource(Source):
     name = "enr"
     description = (
-        "Unofficial election-night county results from state results sites (Clarity ENR), "
-        "statewide races only"
+        "State results sites (Clarity ENR, Florida, Minnesota): the general election's "
+        "state and local candidates, and unofficial election-night county results for "
+        "statewide races"
     )
 
     def __init__(self, *args: Any, **kwargs: Any) -> None:
         super().__init__(*args, **kwargs)
         self._status: dict[int, dict[str, Any]] = {}
         self._counties: dict[str, tuple[str, str]] | None = None
+        self._feeds: dict[tuple[int, str], tuple[str, str] | None] = {}
 
     def available_years(self) -> list[int]:
         return sorted(FEEDS)
 
     def refresh_years(self, today: date) -> list[int]:
-        # Counts keep changing through the canvass, so the daily refresh picks
-        # them up for the rest of the year. Until then the live-results workflow
-        # pulls them, and the two mustn't commit the same files at once.
+        # Before election day the files list the candidates. Counts keep changing
+        # through the canvass, so the daily refresh picks them up for the rest of
+        # the year. In between the live-results workflow pulls them, and the two
+        # mustn't commit the same files at once.
         day = ELECTION_DAYS.get(today.year)
-        return [today.year] if day and today >= day + LIVE_WINDOW else []
+        return [today.year] if day and (today < day or today >= day + LIVE_WINDOW) else []
 
     def candidacies(self, year: int) -> list[Candidacy]:
-        return []
+        out: set[Candidacy] = set()
+        for state, feed in sorted(FEEDS.get(year, {}).items()):
+            found = self._feed(year, state, feed)
+            if found is None:
+                continue
+            text = found[0]
+            if feed.kind == "clarity":
+                contests, every = detail_contests(text)
+            elif feed.kind == "florida":
+                contests, every = line_contests(florida_lines(text, state, self._county_fips()))
+            else:
+                contests, every = line_contests(minnesota_lines(text, state, self._county_names()))
+            out.update(to_candidacies(contests, every, state, year))
+        return sorted(out)
 
     def results(self, year: int) -> list[CountyResult]:
         out: list[CountyResult] = []
@@ -158,17 +212,32 @@ class EnrSource(Source):
     def _state_results(
         self, year: int, state: str, feed: Feed
     ) -> tuple[list[CountyResult], dict[str, Any]] | None:
+        found = self._feed(year, state, feed)
+        if found is None:
+            return None
+        text, url = found
+        if feed.kind == "florida":
+            rows, status = parse_florida(text, state, year, self._county_fips())
+        elif feed.kind == "minnesota":
+            rows, status = parse_minnesota(text, state, year, self._county_names())
+        else:
+            rows, status = parse_detail(text, state, year, self._county_fips())
+        return self._with_votes(state, rows, status, url)
+
+    def _feed(self, year: int, state: str, feed: Feed) -> tuple[str, str] | None:
+        """(text, URL) of a state's file, or None if it isn't posted. Downloaded once a
+        run: ``candidacies`` and ``results`` read the same file."""
+        if (year, state) not in self._feeds:
+            self._feeds[year, state] = self._download(year, state, feed)
+        return self._feeds[year, state]
+
+    def _download(self, year: int, state: str, feed: Feed) -> tuple[str, str] | None:
         if feed.kind != "clarity":
             try:
-                text = decode(self._get(feed.site))
+                return decode(self._get(feed.site)), feed.site
             except NotFound:
                 log.warning("enr: no results file for %s yet", state)
                 return None
-            if feed.kind == "florida":
-                rows, status = parse_florida(text, state, year, self._county_fips())
-            else:
-                rows, status = parse_minnesota(text, state, year, self._county_names())
-            return self._with_votes(state, rows, status, feed.site)
         eid = feed.election_id or self._find_election(feed, ELECTION_DAYS[year])
         if not eid:
             log.warning("enr: no %d general election listed for %s yet", year, state)
@@ -183,9 +252,7 @@ class EnrSource(Source):
         # dropping the state from the map until the next run.
         archive = self._get(f"{feed.site}/{eid}/{version}/reports/detailxml.zip")
         with zipfile.ZipFile(io.BytesIO(archive)) as zf:
-            xml = decode(zf.read("detail.xml"))
-        rows, status = parse_detail(xml, state, year, self._county_fips())
-        return self._with_votes(state, rows, status, f"{feed.site}/{eid}/")
+            return decode(zf.read("detail.xml")), f"{feed.site}/{eid}/"
 
     @staticmethod
     def _with_votes(
@@ -271,13 +338,17 @@ def updated_at(stamp: str) -> str:
     return local.replace(tzinfo=timezone(timedelta(hours=TIME_ZONES[parts[3]]))).isoformat()
 
 
+def _detail_root(xml: str) -> ElementTree.Element:
+    if "<!DOCTYPE" in xml or "<!ENTITY" in xml:
+        raise ValueError("enr: refusing an XML file with a DTD")
+    return ElementTree.fromstring(xml)
+
+
 def parse_detail(
     xml: str, state: str, year: int, fips: dict[tuple[str, str], str]
 ) -> tuple[list[CountyResult], dict[str, Any]]:
     """A Clarity detail.xml as county results for its statewide races, plus reporting status."""
-    if "<!DOCTYPE" in xml or "<!ENTITY" in xml:
-        raise ValueError("enr: refusing an XML file with a DTD")
-    root = ElementTree.fromstring(xml)
+    root = _detail_root(xml)
 
     def code(county: str) -> str:
         found = fips.get((state, county_key(county)), "")
@@ -352,6 +423,131 @@ def votes_by_county(choice: ElementTree.Element) -> dict[str, int]:
         for county in vote_type.iterfind("County"):
             name = county.get("name", "")
             out[name] = out.get(name, 0) + int(county.get("votes", "0") or 0)
+    return out
+
+
+@dataclass(frozen=True)
+class Contest:
+    """One contest on a state's ballot, for the candidate list."""
+
+    name: str
+    counties: frozenset[str]
+    """The counties it's on the ballot in, spelled as ``county_name`` spells them."""
+    candidates: tuple[tuple[str, str], ...]
+    """(name, party code) in ballot order; write-ins and the like left out."""
+
+
+def detail_contests(xml: str) -> tuple[list[Contest], frozenset[str]]:
+    """A Clarity detail.xml's candidate contests, and every county the site covers."""
+    root = _detail_root(xml)
+    every = frozenset(
+        county_name(c.get("name", ""))
+        for c in root.iterfind("ElectionVoterTurnout/Counties/County")
+    )
+    contests = []
+    for contest in root.iterfind("Contest"):
+        if contest.get("isQuestion") == "true":
+            continue
+        candidates = []
+        for choice in contest.iterfind("Choice"):
+            party = choice.get("party", "").strip()
+            text = " ".join(choice.get("text", "").split())
+            if not NOT_CANDIDATES.match(text):
+                candidates.append((candidate_of(text, party), party))
+        contests.append(
+            Contest(
+                " ".join(contest.get("text", "").split()),
+                frozenset(
+                    county_name(c.get("name", ""))
+                    for c in contest.iterfind("ParticipatingCounties/County")
+                ),
+                tuple(candidates),
+            )
+        )
+    return contests, every
+
+
+def line_contests(lines: list[Line]) -> tuple[list[Contest], frozenset[str]]:
+    """A state results file's contests, and every county in the file.
+
+    A race whose counties list different candidates is one race per county:
+    Minnesota files every county's sheriff under one office ID.
+    """
+    races: dict[tuple[str, ...], list[Line]] = {}
+    for line in lines:
+        races.setdefault(line.race, []).append(line)
+    contests = []
+    for race in races.values():
+        by_county: dict[str, list[Line]] = {}
+        for x in race:
+            by_county.setdefault(x.county, []).append(x)
+        ballots = {frozenset(x.candidate for x in xs) for xs in by_county.values()}
+        for group in [race] if len(ballots) == 1 else list(by_county.values()):
+            candidates: dict[str, str] = {}
+            for x in group:
+                if not NOT_CANDIDATES.match(x.candidate):
+                    candidates.setdefault(x.candidate, x.party)
+            contests.append(
+                Contest(
+                    group[0].office,
+                    frozenset(x.name for x in group if x.name),
+                    tuple(candidates.items()),
+                )
+            )
+    return contests, frozenset(x.name for x in lines if x.name)
+
+
+def office_and_district(contest: str) -> tuple[str, str]:
+    """ "State Senator - District 8" -> ("State Senator", "8"); ("<name>", "") if no district."""
+    contest = " ".join(contest.split())
+    for pattern in (DISTRICT_AFTER, DISTRICT_BEFORE):
+        m = pattern.match(contest)
+        if m and m["office"].strip(" ,-"):
+            office = " ".join(f"{m['office'].strip(' ,-')}{m['rest']}".split())
+            return office, m["district"].lstrip("0").upper() or "0"
+    return contest, ""
+
+
+def to_candidacies(
+    contests: Iterable[Contest], every: frozenset[str], state: str, year: int
+) -> list[Candidacy]:
+    """Candidacies for a state's candidate contests (not federal ones, questions or retention
+    votes). ``every`` is all the state's counties: a contest in each of them is statewide."""
+    out = []
+    for c in contests:
+        if (
+            not c.candidates
+            or FEDERAL.search(c.name)
+            or NOT_OFFICES.search(c.name.upper())
+            or all(YES_NO.match(name) for name, _ in c.candidates)
+        ):
+            continue
+        office, district = office_and_district(c.name)
+        statewide = bool(every) and c.counties >= every
+        local = not statewide and bool(LOCAL_OFFICES.search(office))
+        for name, party in c.candidates:
+            code = party.upper()
+            if code in NO_PARTY or code == WRITE_IN_PARTY or code.isdigit():
+                party = ""
+            out.append(
+                Candidacy(
+                    state=state,
+                    election_year=year,
+                    election_date=election_day(year),
+                    level=Level.LOCAL if local else Level.STATE,
+                    office=office,
+                    district=district,
+                    jurisdiction=next(iter(c.counties)) if local and len(c.counties) == 1 else "",
+                    counties=STATEWIDE if statewide else join_counties(c.counties),
+                    candidate_name=name,
+                    party=party,
+                    election_type="general",
+                    incumbent_status="",
+                    candidate_status="write-in" if code == WRITE_IN_PARTY else "",
+                    source="enr",
+                    source_candidate_id="",
+                )
+            )
     return out
 
 
@@ -437,6 +633,10 @@ def parse_florida(
     text: str, state: str, year: int, fips: dict[tuple[str, str], str]
 ) -> tuple[list[CountyResult], dict[str, Any]]:
     """Florida's election-night file: tab-separated, one row per candidate per county."""
+    return from_lines(florida_lines(text, state, fips), state, year)
+
+
+def florida_lines(text: str, state: str, fips: dict[tuple[str, str], str]) -> list[Line]:
     lines = []
     for r in csv.DictReader(io.StringIO(text), delimiter="\t"):
         county = " ".join((r.get("CountyName") or "").split())
@@ -465,7 +665,7 @@ def parse_florida(
                 precincts=(_int(r.get("PrecinctsReporting") or ""), _int(r.get("Precincts") or "")),
             )
         )
-    return from_lines(lines, state, year)
+    return lines
 
 
 # Minnesota party codes that would read wrongly elsewhere: "R" is the Republican
@@ -484,6 +684,10 @@ def parse_minnesota(
     votes; percent; race total. County IDs number the counties alphabetically,
     as Census codes do with odd numbers (01 Aitkin = 27001 ... 87 = 27173).
     """
+    return from_lines(minnesota_lines(text, state, counties), state, year)
+
+
+def minnesota_lines(text: str, state: str, counties: dict[str, tuple[str, str]]) -> list[Line]:
     names = {code: name for code, (st, name) in counties.items() if st == state}
     lines = []
     for raw in text.splitlines():
@@ -505,4 +709,4 @@ def parse_minnesota(
                 precincts=(_int(f[11]), _int(f[12])),
             )
         )
-    return from_lines(lines, state, year)
+    return lines

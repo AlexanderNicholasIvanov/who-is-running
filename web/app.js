@@ -19,6 +19,7 @@ const STATE_NAMES = {
 };
 const SOURCE_LABELS = {
   civic: "Google Civic Information API",
+  enr: "State election results site",
   fec: "FEC registration",
   nc: "NC State Board of Elections",
   md: "MD State Board of Elections",

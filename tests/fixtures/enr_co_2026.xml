@@ -1,0 +1,427 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ElectionResult>
+  <Timestamp>10/30/2026 4:26:59 PM MDT</Timestamp>
+  <ElectionName>2026 General</ElectionName>
+  <ElectionDate>11/3/2026</ElectionDate>
+  <Region>CO</Region>
+  <ElectionVoterTurnout totalVoters="4444822" ballotsCast="0" voterTurnout="0.00">
+    <Counties>
+      <County name="Adams" totalVoters="363253" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="401" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Alamosa" totalVoters="11829" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="14" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Arapahoe" totalVoters="441445" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="401" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Archuleta" totalVoters="13573" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="13" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Baca" totalVoters="2870" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="11" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Bent" totalVoters="3333" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="6" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Boulder" totalVoters="309056" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="258" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Broomfield" totalVoters="56884" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="59" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Chaffee" totalVoters="19273" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="20" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Cheyenne" totalVoters="1292" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="6" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Clear Creek" totalVoters="8492" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="17" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Conejos" totalVoters="5862" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="11" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Costilla" totalVoters="3475" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="10" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Crowley" totalVoters="2490" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="8" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Custer" totalVoters="5197" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="8" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Delta" totalVoters="26446" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="34" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Denver" totalVoters="464903" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="302" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Dolores" totalVoters="1859" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="3" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Douglas" totalVoters="383768" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="211" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Eagle" totalVoters="39778" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="52" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="El Paso" totalVoters="596203" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="408" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Elbert" totalVoters="0" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="23" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Fremont" totalVoters="35396" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="39" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Garfield" totalVoters="0" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="47" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Gilpin" totalVoters="0" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="10" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Grand" totalVoters="0" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="24" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Gunnison" totalVoters="14517" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="16" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Hinsdale" totalVoters="744" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="5" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Huerfano" totalVoters="6283" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="10" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Jackson" totalVoters="1207" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="2" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Jefferson" totalVoters="476968" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="413" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Kiowa" totalVoters="1104" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="6" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Kit Carson" totalVoters="5282" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="17" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="La Plata" totalVoters="43900" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="36" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Lake" totalVoters="6154" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="9" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Larimer" totalVoters="304779" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="246" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Las Animas" totalVoters="11845" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="15" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Lincoln" totalVoters="3556" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="7" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Logan" totalVoters="13979" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="13" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Mesa" totalVoters="121734" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="110" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Mineral" totalVoters="839" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="5" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Moffat" totalVoters="10219" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="21" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Montezuma" totalVoters="22429" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="17" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Montrose" totalVoters="35044" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="36" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Morgan" totalVoters="20631" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="32" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Otero" totalVoters="0" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="26" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Ouray" totalVoters="5189" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="6" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Park" totalVoters="16757" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="14" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Phillips" totalVoters="3153" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="15" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Pitkin" totalVoters="15258" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="31" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Prowers" totalVoters="7851" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="8" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Pueblo" totalVoters="128925" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="165" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Rio Blanco" totalVoters="5078" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="5" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Rio Grande" totalVoters="9302" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="16" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Routt" totalVoters="22504" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="30" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Saguache" totalVoters="5282" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="8" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="San Juan" totalVoters="0" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="1" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="San Miguel" totalVoters="6852" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="7" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Sedgwick" totalVoters="1668" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="7" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Summit" totalVoters="25171" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="22" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Teller" totalVoters="22902" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="31" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Washington" totalVoters="0" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="13" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Weld" totalVoters="264620" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="467" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Yuma" totalVoters="6419" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="13" precinctsReported="0" precinctsReportingPercent="0.00" />
+    </Counties>
+  </ElectionVoterTurnout>
+  <Contest key="20" text="United States Senator" voteFor="1" isQuestion="false" countiesParticipating="64" countiesReported="0" precinctsParticipating="4230" precinctsReported="0" precinctsReportingPercent="0.00">
+    <ParticipatingCounties>
+      <County name="Adams" precinctsParticipating="395" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Alamosa" precinctsParticipating="14" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Arapahoe" precinctsParticipating="399" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Archuleta" precinctsParticipating="12" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Baca" precinctsParticipating="11" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Bent" precinctsParticipating="6" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Boulder" precinctsParticipating="253" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Broomfield" precinctsParticipating="59" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Chaffee" precinctsParticipating="19" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Cheyenne" precinctsParticipating="6" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Clear Creek" precinctsParticipating="16" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Conejos" precinctsParticipating="11" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Costilla" precinctsParticipating="9" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Crowley" precinctsParticipating="8" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Custer" precinctsParticipating="6" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Delta" precinctsParticipating="33" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Denver" precinctsParticipating="302" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Dolores" precinctsParticipating="3" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Douglas" precinctsParticipating="211" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Eagle" precinctsParticipating="50" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="El Paso" precinctsParticipating="407" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Elbert" precinctsParticipating="23" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Fremont" precinctsParticipating="38" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Garfield" precinctsParticipating="47" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Gilpin" precinctsParticipating="10" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Grand" precinctsParticipating="24" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Gunnison" precinctsParticipating="16" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Hinsdale" precinctsParticipating="4" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Huerfano" precinctsParticipating="9" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Jackson" precinctsParticipating="2" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Jefferson" precinctsParticipating="406" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Kiowa" precinctsParticipating="6" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Kit Carson" precinctsParticipating="17" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="La Plata" precinctsParticipating="35" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Lake" precinctsParticipating="8" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Larimer" precinctsParticipating="238" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Las Animas" precinctsParticipating="15" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Lincoln" precinctsParticipating="6" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Logan" precinctsParticipating="13" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Mesa" precinctsParticipating="109" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Mineral" precinctsParticipating="4" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Moffat" precinctsParticipating="21" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Montezuma" precinctsParticipating="17" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Montrose" precinctsParticipating="35" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Morgan" precinctsParticipating="30" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Otero" precinctsParticipating="26" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Ouray" precinctsParticipating="6" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Park" precinctsParticipating="14" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Phillips" precinctsParticipating="15" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Pitkin" precinctsParticipating="28" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Prowers" precinctsParticipating="8" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Pueblo" precinctsParticipating="162" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Rio Blanco" precinctsParticipating="5" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Rio Grande" precinctsParticipating="16" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Routt" precinctsParticipating="28" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Saguache" precinctsParticipating="8" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="San Juan" precinctsParticipating="1" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="San Miguel" precinctsParticipating="7" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Sedgwick" precinctsParticipating="7" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Summit" precinctsParticipating="22" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Teller" precinctsParticipating="29" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Washington" precinctsParticipating="12" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Weld" precinctsParticipating="460" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Yuma" precinctsParticipating="13" precinctsReported="0" precinctsReportingPercent="0.00" />
+    </ParticipatingCounties>
+    <Choice key="1" text="Mark Baisley" party="REP" totalVotes="0">
+            </Choice>
+    <Choice key="2" text="John Hickenlooper" party="DEM" totalVotes="0">
+            </Choice>
+    <Choice key="3" text="Bob Chew" party="FWD" totalVotes="0">
+            </Choice>
+    <Choice key="4" text="Christopher Baum" party="APV" totalVotes="0">
+            </Choice>
+    <Choice key="5" text="Blake Huber" party="LBR" totalVotes="0">
+            </Choice>
+    <Choice key="6" text="Adam Withrow" party="UNI" totalVotes="0">
+            </Choice>
+  </Contest>
+  <Contest key="210" text="Governor / Lieutenant Governor" voteFor="1" isQuestion="false" countiesParticipating="64" countiesReported="0" precinctsParticipating="4230" precinctsReported="0" precinctsReportingPercent="0.00">
+    <ParticipatingCounties>
+      <County name="Adams" precinctsParticipating="395" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Alamosa" precinctsParticipating="14" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Arapahoe" precinctsParticipating="399" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Archuleta" precinctsParticipating="12" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Baca" precinctsParticipating="11" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Bent" precinctsParticipating="6" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Boulder" precinctsParticipating="253" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Broomfield" precinctsParticipating="59" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Chaffee" precinctsParticipating="19" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Cheyenne" precinctsParticipating="6" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Clear Creek" precinctsParticipating="16" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Conejos" precinctsParticipating="11" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Costilla" precinctsParticipating="9" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Crowley" precinctsParticipating="8" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Custer" precinctsParticipating="6" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Delta" precinctsParticipating="33" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Denver" precinctsParticipating="302" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Dolores" precinctsParticipating="3" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Douglas" precinctsParticipating="211" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Eagle" precinctsParticipating="50" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="El Paso" precinctsParticipating="407" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Elbert" precinctsParticipating="23" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Fremont" precinctsParticipating="38" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Garfield" precinctsParticipating="47" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Gilpin" precinctsParticipating="10" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Grand" precinctsParticipating="24" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Gunnison" precinctsParticipating="16" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Hinsdale" precinctsParticipating="4" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Huerfano" precinctsParticipating="9" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Jackson" precinctsParticipating="2" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Jefferson" precinctsParticipating="406" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Kiowa" precinctsParticipating="6" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Kit Carson" precinctsParticipating="17" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="La Plata" precinctsParticipating="35" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Lake" precinctsParticipating="8" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Larimer" precinctsParticipating="238" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Las Animas" precinctsParticipating="15" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Lincoln" precinctsParticipating="6" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Logan" precinctsParticipating="13" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Mesa" precinctsParticipating="109" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Mineral" precinctsParticipating="4" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Moffat" precinctsParticipating="21" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Montezuma" precinctsParticipating="17" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Montrose" precinctsParticipating="35" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Morgan" precinctsParticipating="30" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Otero" precinctsParticipating="26" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Ouray" precinctsParticipating="6" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Park" precinctsParticipating="14" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Phillips" precinctsParticipating="15" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Pitkin" precinctsParticipating="28" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Prowers" precinctsParticipating="8" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Pueblo" precinctsParticipating="162" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Rio Blanco" precinctsParticipating="5" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Rio Grande" precinctsParticipating="16" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Routt" precinctsParticipating="28" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Saguache" precinctsParticipating="8" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="San Juan" precinctsParticipating="1" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="San Miguel" precinctsParticipating="7" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Sedgwick" precinctsParticipating="7" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Summit" precinctsParticipating="22" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Teller" precinctsParticipating="29" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Washington" precinctsParticipating="12" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Weld" precinctsParticipating="460" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Yuma" precinctsParticipating="13" precinctsReported="0" precinctsReportingPercent="0.00" />
+    </ParticipatingCounties>
+    <Choice key="24" text="Victor Marx / George Washington Markert" party="REP" totalVotes="0">
+            </Choice>
+    <Choice key="25" text="Phil Weiser / Lesley Dahlkemper" party="DEM" totalVotes="0">
+            </Choice>
+    <Choice key="26" text="Stephen T. Hamilton / James K Treibert" party="ACN" totalVotes="0">
+            </Choice>
+    <Choice key="27" text="Eric Mulder / Wayne Harlos" party="LBR" totalVotes="0">
+            </Choice>
+    <Choice key="28" text="Jeff Peckman / T.J. Cole" party="UNI" totalVotes="0">
+            </Choice>
+    <Choice key="29" text="Erik Underwood / Frank Atwood" party="APV" totalVotes="0">
+            </Choice>
+    <Choice key="30" text="Greg Lopez / Taralyn Romero" party="UAF" totalVotes="0">
+            </Choice>
+  </Contest>
+  <Contest key="1080" text="State Senator - District 8" voteFor="1" isQuestion="false" countiesParticipating="10" countiesReported="0" precinctsParticipating="167" precinctsReported="0" precinctsReportingPercent="0.00">
+    <ParticipatingCounties>
+      <County name="Clear Creek" precinctsParticipating="15" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Eagle" precinctsParticipating="38" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Garfield" precinctsParticipating="9" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Gilpin" precinctsParticipating="9" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Grand" precinctsParticipating="23" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Jackson" precinctsParticipating="1" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Moffat" precinctsParticipating="20" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Rio Blanco" precinctsParticipating="4" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Routt" precinctsParticipating="27" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Summit" precinctsParticipating="21" precinctsReported="0" precinctsReportingPercent="0.00" />
+    </ParticipatingCounties>
+    <Choice key="31" text="Dylan Roberts" party="DEM" totalVotes="0">
+            </Choice>
+    <Choice key="32" text="Corey Marshall" party="REP" totalVotes="0">
+            </Choice>
+  </Contest>
+  <Contest key="2004" text="State Representative - District 4" voteFor="1" isQuestion="false" countiesParticipating="1" countiesReported="0" precinctsParticipating="36" precinctsReported="0" precinctsReportingPercent="0.00">
+    <ParticipatingCounties>
+      <County name="Denver" precinctsParticipating="36" precinctsReported="0" precinctsReportingPercent="0.00" />
+    </ParticipatingCounties>
+    <Choice key="119" text="Ellwood Ervin" party="REP" totalVotes="0">
+            </Choice>
+    <Choice key="15" text="Cecelia Espenoza" party="DEM" totalVotes="0">
+            </Choice>
+    <Choice key="254" text="Bill Hare" party="FWD" totalVotes="0">
+            </Choice>
+  </Contest>
+  <Contest key="3570" text="Regional Transportation District Director - District O" voteFor="1" isQuestion="false" countiesParticipating="1" countiesReported="0" precinctsParticipating="167" precinctsReported="0" precinctsReportingPercent="0.00">
+    <ParticipatingCounties>
+      <County name="Boulder" precinctsParticipating="167" precinctsReported="0" precinctsReportingPercent="0.00" />
+    </ParticipatingCounties>
+    <Choice key="37" text="Jack Rosenthal" party="1" totalVotes="0">
+            </Choice>
+    <Choice key="38" text="Audrey DeBarros" party="2" totalVotes="0">
+            </Choice>
+  </Contest>
+  <Contest key="3630" text="Colorado Court of Appeals Judge - Lum" voteFor="1" isQuestion="false" countiesParticipating="64" countiesReported="0" precinctsParticipating="4230" precinctsReported="0" precinctsReportingPercent="0.00">
+    <ParticipatingCounties>
+      <County name="Adams" precinctsParticipating="395" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Alamosa" precinctsParticipating="14" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Arapahoe" precinctsParticipating="399" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Archuleta" precinctsParticipating="12" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Baca" precinctsParticipating="11" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Bent" precinctsParticipating="6" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Boulder" precinctsParticipating="253" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Broomfield" precinctsParticipating="59" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Chaffee" precinctsParticipating="19" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Cheyenne" precinctsParticipating="6" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Clear Creek" precinctsParticipating="16" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Conejos" precinctsParticipating="11" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Costilla" precinctsParticipating="9" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Crowley" precinctsParticipating="8" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Custer" precinctsParticipating="6" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Delta" precinctsParticipating="33" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Denver" precinctsParticipating="302" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Dolores" precinctsParticipating="3" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Douglas" precinctsParticipating="211" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Eagle" precinctsParticipating="50" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="El Paso" precinctsParticipating="407" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Elbert" precinctsParticipating="23" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Fremont" precinctsParticipating="38" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Garfield" precinctsParticipating="47" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Gilpin" precinctsParticipating="10" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Grand" precinctsParticipating="24" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Gunnison" precinctsParticipating="16" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Hinsdale" precinctsParticipating="4" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Huerfano" precinctsParticipating="9" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Jackson" precinctsParticipating="2" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Jefferson" precinctsParticipating="406" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Kiowa" precinctsParticipating="6" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Kit Carson" precinctsParticipating="17" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="La Plata" precinctsParticipating="35" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Lake" precinctsParticipating="8" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Larimer" precinctsParticipating="238" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Las Animas" precinctsParticipating="15" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Lincoln" precinctsParticipating="6" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Logan" precinctsParticipating="13" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Mesa" precinctsParticipating="109" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Mineral" precinctsParticipating="4" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Moffat" precinctsParticipating="21" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Montezuma" precinctsParticipating="17" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Montrose" precinctsParticipating="35" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Morgan" precinctsParticipating="30" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Otero" precinctsParticipating="26" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Ouray" precinctsParticipating="6" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Park" precinctsParticipating="14" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Phillips" precinctsParticipating="15" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Pitkin" precinctsParticipating="28" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Prowers" precinctsParticipating="8" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Pueblo" precinctsParticipating="162" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Rio Blanco" precinctsParticipating="5" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Rio Grande" precinctsParticipating="16" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Routt" precinctsParticipating="28" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Saguache" precinctsParticipating="8" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="San Juan" precinctsParticipating="1" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="San Miguel" precinctsParticipating="7" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Sedgwick" precinctsParticipating="7" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Summit" precinctsParticipating="22" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Teller" precinctsParticipating="29" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Washington" precinctsParticipating="12" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Weld" precinctsParticipating="460" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Yuma" precinctsParticipating="13" precinctsReported="0" precinctsReportingPercent="0.00" />
+    </ParticipatingCounties>
+    <Choice key="107" text="Yes" party="Y" totalVotes="0">
+            </Choice>
+    <Choice key="108" text="No" party="N" totalVotes="0">
+            </Choice>
+  </Contest>
+  <Contest key="6030" text="Amendment 84 (CONSTITUTIONAL)" voteFor="1" isQuestion="false" countiesParticipating="64" countiesReported="0" precinctsParticipating="4230" precinctsReported="0" precinctsReportingPercent="0.00">
+    <ParticipatingCounties>
+      <County name="Adams" precinctsParticipating="395" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Alamosa" precinctsParticipating="14" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Arapahoe" precinctsParticipating="399" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Archuleta" precinctsParticipating="12" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Baca" precinctsParticipating="11" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Bent" precinctsParticipating="6" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Boulder" precinctsParticipating="253" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Broomfield" precinctsParticipating="59" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Chaffee" precinctsParticipating="19" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Cheyenne" precinctsParticipating="6" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Clear Creek" precinctsParticipating="16" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Conejos" precinctsParticipating="11" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Costilla" precinctsParticipating="9" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Crowley" precinctsParticipating="8" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Custer" precinctsParticipating="6" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Delta" precinctsParticipating="33" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Denver" precinctsParticipating="302" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Dolores" precinctsParticipating="3" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Douglas" precinctsParticipating="211" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Eagle" precinctsParticipating="50" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="El Paso" precinctsParticipating="407" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Elbert" precinctsParticipating="23" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Fremont" precinctsParticipating="38" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Garfield" precinctsParticipating="47" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Gilpin" precinctsParticipating="10" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Grand" precinctsParticipating="24" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Gunnison" precinctsParticipating="16" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Hinsdale" precinctsParticipating="4" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Huerfano" precinctsParticipating="9" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Jackson" precinctsParticipating="2" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Jefferson" precinctsParticipating="406" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Kiowa" precinctsParticipating="6" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Kit Carson" precinctsParticipating="17" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="La Plata" precinctsParticipating="35" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Lake" precinctsParticipating="8" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Larimer" precinctsParticipating="238" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Las Animas" precinctsParticipating="15" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Lincoln" precinctsParticipating="6" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Logan" precinctsParticipating="13" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Mesa" precinctsParticipating="109" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Mineral" precinctsParticipating="4" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Moffat" precinctsParticipating="21" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Montezuma" precinctsParticipating="17" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Montrose" precinctsParticipating="35" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Morgan" precinctsParticipating="30" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Otero" precinctsParticipating="26" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Ouray" precinctsParticipating="6" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Park" precinctsParticipating="14" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Phillips" precinctsParticipating="15" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Pitkin" precinctsParticipating="28" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Prowers" precinctsParticipating="8" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Pueblo" precinctsParticipating="162" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Rio Blanco" precinctsParticipating="5" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Rio Grande" precinctsParticipating="16" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Routt" precinctsParticipating="28" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Saguache" precinctsParticipating="8" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="San Juan" precinctsParticipating="1" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="San Miguel" precinctsParticipating="7" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Sedgwick" precinctsParticipating="7" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Summit" precinctsParticipating="22" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Teller" precinctsParticipating="29" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Washington" precinctsParticipating="12" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Weld" precinctsParticipating="460" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Yuma" precinctsParticipating="13" precinctsReported="0" precinctsReportingPercent="0.00" />
+    </ParticipatingCounties>
+    <Choice key="135" text="Yes/For" party="Y" totalVotes="0">
+            </Choice>
+    <Choice key="136" text="No/Against" party="N" totalVotes="0">
+            </Choice>
+  </Contest>
+  <Contest key="7302" text="Town of Green Mountain Falls Mayor" voteFor="1" isQuestion="false" countiesParticipating="2" countiesReported="0" precinctsParticipating="3" precinctsReported="0" precinctsReportingPercent="0.00">
+    <ParticipatingCounties>
+      <County name="El Paso" precinctsParticipating="2" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Teller" precinctsParticipating="1" precinctsReported="0" precinctsReportingPercent="0.00" />
+    </ParticipatingCounties>
+    <Choice key="86" text="Todd Dixon" party="1" totalVotes="0">
+            </Choice>
+  </Contest>
+</ElectionResult>

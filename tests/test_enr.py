@@ -12,6 +12,7 @@ from conftest import FIXTURES, FakeWeb, fixture_bytes
 
 from who_is_running.build_site import build_results
 from who_is_running.districts import COUNTY_NAMES_2010, parse_county_names
+from who_is_running.models import STATEWIDE, Candidacy, Level
 from who_is_running.pipeline import run
 from who_is_running.results import CountyResult, results_path, write_csv
 from who_is_running.sources import enr
@@ -19,11 +20,17 @@ from who_is_running.sources.enr import (
     EnrSource,
     Feed,
     county_key,
+    detail_contests,
     find_election,
+    florida_lines,
+    line_contests,
+    minnesota_lines,
+    office_and_district,
     office_of,
     parse_detail,
     parse_florida,
     parse_minnesota,
+    to_candidacies,
     updated_at,
 )
 from who_is_running.text import decode
@@ -157,7 +164,7 @@ def test_source_finds_the_election_and_writes_results_with_status(
     monkeypatch.setattr(enr, "FEEDS", {2026: {"IA": Feed(f"{enr.CLARITY}/IA")}})
     web = _web(fixture_bytes("enr_ia_2024.xml"))
 
-    assert run(EnrSource(web), [2026], tmp_path) == {}  # results only, no candidates
+    assert run(EnrSource(web), [2026], tmp_path) == {}  # federal races only: no candidates
 
     assert not (tmp_path / "enr").exists()
     csv_text = (tmp_path / "results" / "enr" / "2026.csv").read_text(encoding="utf-8")
@@ -199,10 +206,11 @@ def test_missing_report_mid_update_keeps_the_previous_file(monkeypatch: pytest.M
         EnrSource(web).results(2026)
 
 
-def test_refresh_years_cover_the_canvass() -> None:
+def test_refresh_years_cover_the_candidates_and_the_canvass() -> None:
     source = EnrSource(FakeWeb({}))
-    assert source.refresh_years(date(2026, 10, 31)) == []
-    assert source.refresh_years(date(2026, 11, 4)) == []  # the live workflow's days
+    assert source.refresh_years(date(2026, 10, 31)) == [2026]  # candidates, no votes yet
+    assert source.refresh_years(date(2026, 11, 3)) == []  # the live workflow's days
+    assert source.refresh_years(date(2026, 11, 4)) == []
     assert source.refresh_years(date(2026, 11, 7)) == [2026]
     assert source.refresh_years(date(2027, 1, 5)) == []
 
@@ -318,3 +326,183 @@ def test_source_reads_a_state_file(monkeypatch: pytest.MonkeyPatch) -> None:
     assert source.results_status(2026)["MN"]["url"] == url
     # Not posted yet: skipped, not an error.
     assert EnrSource(FakeWeb({COUNTY_NAMES_2010: CENSUS})).results(2026) == []
+
+
+# Candidate lists: the 2026 files a few days before the election, trimmed to a
+# few contests each.
+
+
+def _candidacies(state: str) -> list[Candidacy]:
+    if state in ("CO", "SC"):
+        contests, every = detail_contests(decode(fixture_bytes(f"enr_{state.lower()}_2026.xml")))
+    elif state == "FL":
+        fips = {(st, county_key(n)): f for f, (st, n) in _census().items()}
+        text = decode(fixture_bytes("enr_fl_2026.txt"))
+        contests, every = line_contests(florida_lines(text, "FL", fips))
+    else:
+        text = decode(fixture_bytes("enr_mn_2026.txt"))
+        contests, every = line_contests(minnesota_lines(text, "MN", _census()))
+    return to_candidacies(contests, every, state, 2026)
+
+
+def _by_name(rows: list[Candidacy]) -> dict[str, Candidacy]:
+    return {r.candidate_name: r for r in rows}
+
+
+def test_clarity_contests_become_candidacies() -> None:
+    rows = _candidacies("CO")
+    # Dropped: the US Senate race (the fec source has it), a retention vote and an
+    # amendment (Yes/No choices).
+    assert {(r.office, r.district) for r in rows} == {
+        ("Governor / Lieutenant Governor", ""),
+        ("State Senator", "8"),
+        ("State Representative", "4"),
+        ("Regional Transportation District Director", "O"),
+        ("Town of Green Mountain Falls Mayor", ""),
+    }
+    by_name = _by_name(rows)
+    assert by_name["Phil Weiser / Lesley Dahlkemper"] == Candidacy(
+        state="CO",
+        election_year=2026,
+        election_date="2026-11-03",
+        level=Level.STATE,
+        office="Governor / Lieutenant Governor",
+        district="",
+        jurisdiction="",
+        counties=STATEWIDE,
+        candidate_name="Phil Weiser / Lesley Dahlkemper",
+        party="DEM",
+        election_type="general",
+        incumbent_status="",
+        candidate_status="",
+        source="enr",
+        source_candidate_id="",
+    )
+    senator = by_name["Dylan Roberts"]
+    assert senator.level == Level.STATE
+    assert senator.counties.startswith("CLEAR CREEK;EAGLE;GARFIELD;")
+    assert by_name["Bill Hare"].counties == "DENVER" and by_name["Bill Hare"].party == "FWD"
+    # A local race in one county names it; its "party" is a ballot-order number.
+    rtd = by_name["Jack Rosenthal"]
+    assert (rtd.level, rtd.jurisdiction, rtd.party) == (Level.LOCAL, "BOULDER", "")
+    mayor = by_name["Todd Dixon"]
+    assert (mayor.level, mayor.jurisdiction, mayor.counties) == (Level.LOCAL, "", "EL PASO;TELLER")
+
+
+def test_south_carolina_names_and_parties() -> None:
+    rows = _candidacies("SC")
+    by_name = _by_name(rows)
+    # "REP Mark Hammond": the party prefix comes off.
+    assert by_name["Mark Hammond"].party == "REP"
+    assert by_name["Mark Hammond"].counties == STATEWIDE
+    house = by_name["Bill Whitmire"]
+    assert (house.office, house.district, house.counties) == (
+        "State House of Representatives",
+        "1",
+        "OCONEE;PICKENS",
+    )
+    assert by_name["Joy Hansen"].party == ""  # "NON": nonpartisan
+    assert by_name["Joy Hansen"].level == Level.LOCAL
+    # Not the US House, the straight-party line, a referendum or write-ins.
+    assert {r.office for r in rows} == {
+        "Secretary of State",
+        "State House of Representatives",
+        "Town Council - Town of Ware Shoals",
+    }
+    assert "Write-In" not in by_name
+
+
+def test_florida_candidacies() -> None:
+    rows = _candidacies("FL")
+    by_name = _by_name(rows)
+    # Florida's file gives tickets by surname only.
+    governor = by_name["Donalds / Avila"]
+    assert (governor.party, governor.counties) == ("REP", STATEWIDE)
+    # "WRI": a qualified write-in candidate, not a party.
+    write_in = by_name["Anderson / Nokovich"]
+    assert (write_in.party, write_in.candidate_status) == ("", "write-in")
+    rep = by_name["Michelle Salzman"]
+    assert (rep.office, rep.district, rep.counties) == ("State Representative", "1", "ESCAMBIA")
+    district = by_name["Derek Felder"]
+    assert (district.level, district.jurisdiction) == (Level.LOCAL, "LEE")
+    # Not the US Senate race or a retention vote.
+    assert {r.office for r in rows} == {
+        "Governor and Lieutenant Governor",
+        "State Representative",
+        "Lehigh Acres Municipal Services Improvement District, Seat 4",
+    }
+
+
+def test_minnesota_county_offices_are_one_race_per_county() -> None:
+    rows = _candidacies("MN")
+    sheriffs = {r.jurisdiction: r.candidate_name for r in rows if r.office == "County Sheriff"}
+    assert sheriffs == {
+        "AITKIN": "Daniel Guida",
+        "RAMSEY": "Bob Fletcher",
+        "ST. LOUIS": "Gordon Scott Ramsay",
+    }
+    assert {r.level for r in rows if r.office == "County Sheriff"} == {Level.LOCAL}
+    governor = _by_name(rows)["Lisa Demuth and Ryan Wilson"]
+    assert (governor.party, governor.counties) == ("REP", STATEWIDE)
+    assert "WRITE-IN" not in _by_name(rows)
+
+
+def test_offices_and_districts() -> None:
+    # Real contest names from the 2026 files.
+    assert office_and_district("State Senator - District 8") == ("State Senator", "8")
+    assert office_and_district("State Representative District 10A") == (
+        "State Representative",
+        "10A",
+    )
+    assert office_and_district("State  House of Representatives, District  1") == (
+        "State House of Representatives",
+        "1",
+    )
+    assert office_and_district("State Senate District 15 (Unexpired Term)") == (
+        "State Senate (Unexpired Term)",
+        "15",
+    )
+    assert office_and_district("STATE SENATOR, 3rd Senatorial District - UNEXPIRED TERM") == (
+        "STATE SENATOR - UNEXPIRED TERM",
+        "3",
+    )
+    assert office_and_district("HOUSE OF DELEGATES, 1st District") == ("HOUSE OF DELEGATES", "1")
+    assert office_and_district("Solicitor, Circuit  3") == ("Solicitor", "3")
+    assert office_and_district("Anderson County School Trustee District 2 At Large") == (
+        "Anderson County School Trustee At Large",
+        "2",
+    )
+    assert office_and_district("State Board of Education Member - Congressional District 7") == (
+        "State Board of Education Member",
+        "7",
+    )
+    assert office_and_district("Regional Transportation District Director - District J") == (
+        "Regional Transportation District Director",
+        "J",
+    )
+    assert office_and_district("County Commissioner District 01") == ("County Commissioner", "1")
+    # No district to take out: left whole.
+    assert office_and_district("Judge - 10th District Court 1") == (
+        "Judge - 10th District Court 1",
+        "",
+    )
+    assert office_and_district("Circuit Judge, 11th Judicial Circuit, Group 5") == (
+        "Circuit Judge, 11th Judicial Circuit, Group 5",
+        "",
+    )
+
+
+def test_source_writes_candidates_from_the_same_download(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    monkeypatch.setattr(enr, "FEEDS", {2026: {"IA": Feed(f"{enr.CLARITY}/IA", "127077")}})
+    web = _web(fixture_bytes("enr_ia_2026.xml"))
+
+    assert run(EnrSource(web), [2026], tmp_path) == {2026: 2}
+
+    csv_text = (tmp_path / "enr" / "2026.csv").read_text(encoding="utf-8")
+    assert "IA,2026,2026-11-03,state,Governor and Lt. Governor,,,*,Rob Sand and Dave" in csv_text
+    assert "US Senate" not in csv_text and "Write-in" not in csv_text
+    assert not (tmp_path / "results").exists()  # no votes yet
+    # candidacies() and results() share one download.
+    assert sum("detailxml.zip" in url for url in web.requested) == 1
