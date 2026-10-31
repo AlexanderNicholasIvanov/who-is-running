@@ -1,0 +1,42 @@
+{
+  "kind": "civicinfo#voterInfoResponse",
+  "election": {
+    "id": "12000",
+    "name": "2026 General Midterm Election",
+    "electionDay": "2026-11-03",
+    "ocdDivisionId": "ocd-division/country:us"
+  },
+  "normalizedInput": {"line1": "101 West Main Street", "city": "Prattville", "state": "AL", "zip": "36067"},
+  "contests": [
+    {
+      "type": "General",
+      "office": "Governor",
+      "level": ["administrativeArea1"],
+      "roles": ["headOfGovernment"],
+      "district": {"name": "Alabama", "scope": "statewide", "id": "ocd-division/country:us/state:al"},
+      "candidates": [
+        {"name": "Pat Example", "party": "Republican"},
+        {"name": "Sam Sample", "party": "Democratic"}
+      ]
+    },
+    {
+      "type": "General",
+      "office": "State Representative, District 88",
+      "level": ["administrativeArea1"],
+      "roles": ["legislatorLowerBody"],
+      "district": {"name": "State House District 88", "scope": "stateLower", "id": "88"},
+      "candidates": [{"name": "Riley Prattville", "party": "Republican"}]
+    },
+    {
+      "type": "General",
+      "office": "County Commission, District 1",
+      "level": ["administrativeArea2"],
+      "roles": ["legislatorLowerBody"],
+      "district": {"name": "Autauga County Commission District 1", "scope": "countyCouncil"},
+      "candidates": [
+        {"name": "Avery County", "party": "Republican"},
+        {"name": "Drew Local", "party": "Independent"}
+      ]
+    }
+  ]
+}

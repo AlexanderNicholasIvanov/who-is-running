@@ -18,6 +18,7 @@ const STATE_NAMES = {
   WV: "West Virginia", WI: "Wisconsin", WY: "Wyoming",
 };
 const SOURCE_LABELS = {
+  civic: "Google Civic Information API",
   fec: "FEC registration",
   nc: "NC State Board of Elections",
   md: "MD State Board of Elections",

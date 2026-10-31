@@ -1,0 +1,99 @@
+{
+  "kind": "civicinfo#voterInfoResponse",
+  "election": {
+    "id": "12000",
+    "name": "2026 General Midterm Election",
+    "electionDay": "2026-11-03",
+    "ocdDivisionId": "ocd-division/country:us"
+  },
+  "normalizedInput": {
+    "line1": "135 North Court Street",
+    "city": "Prattville",
+    "state": "AL",
+    "zip": "36067"
+  },
+  "contests": [
+    {
+      "type": "General",
+      "office": "Governor",
+      "level": ["administrativeArea1"],
+      "roles": ["headOfGovernment"],
+      "district": {"name": "Alabama", "scope": "statewide", "id": "ocd-division/country:us/state:al"},
+      "numberElected": "1",
+      "numberVotingFor": "1",
+      "ballotPlacement": "1",
+      "sources": [{"name": "Voting Information Project", "official": true}],
+      "candidates": [
+        {
+          "name": "Pat Example",
+          "party": "Republican",
+          "candidateUrl": "https://example.org/pat",
+          "phone": "(555) 010-0000",
+          "email": "pat@example.org",
+          "photoUrl": "https://example.org/pat.jpg",
+          "orderOnBallot": "1",
+          "channels": [{"type": "Twitter", "id": "patexample"}]
+        },
+        {"name": "Sam Sample", "party": "Democratic", "orderOnBallot": "2"},
+        {"name": "Write-in", "orderOnBallot": "3"}
+      ]
+    },
+    {
+      "type": "General",
+      "ballotTitle": "UNITED STATES SENATOR",
+      "district": {"name": "STATE OF ALABAMA", "scope": "statewide"},
+      "candidates": [{"name": "Lee Federal", "party": "Republican"}]
+    },
+    {
+      "type": "General",
+      "office": "U.S. Representative, District 2",
+      "level": ["country"],
+      "roles": ["legislatorLowerBody"],
+      "district": {"name": "Alabama's 2nd congressional district", "scope": "congressional", "id": "2"},
+      "candidates": [{"name": "Robin House", "party": "Democratic"}]
+    },
+    {
+      "type": "General",
+      "office": "State Representative, District 42",
+      "level": ["administrativeArea1"],
+      "roles": ["legislatorLowerBody"],
+      "district": {"name": "State House District 42", "scope": "stateLower", "id": "42"},
+      "candidates": [{"name": "Jordan Delegate", "party": "Republican"}]
+    },
+    {
+      "type": "General",
+      "ballotTitle": "STATE SENATOR, DISTRICT 30",
+      "district": {"name": "STATE SENATE DISTRICT 30", "scope": "stateUpper"},
+      "candidates": [{"name": "Casey Senate", "party": "Party Preference: None"}]
+    },
+    {
+      "type": "Retention",
+      "ballotTitle": "CIRCUIT COURT JUDGE, 19TH JUDICIAL CIRCUIT, PLACE 1",
+      "district": {"name": "19TH JUDICIAL CIRCUIT", "scope": "judicial"},
+      "candidates": [{"name": "Morgan Bench", "party": "Nonpartisan"}]
+    },
+    {
+      "type": "General",
+      "office": "County Commission, District 1",
+      "level": ["administrativeArea2"],
+      "roles": ["legislatorLowerBody"],
+      "district": {"name": "Autauga County Commission District 1", "scope": "countyCouncil"},
+      "candidates": [
+        {"name": "Avery County", "party": "Republican", "email": "avery@example.org"},
+        {"name": "Drew Local", "party": "Independent"}
+      ]
+    },
+    {
+      "type": "General",
+      "ballotTitle": "BOARD OF EDUCATION",
+      "district": {"name": "AUTAUGA COUNTY BOARD OF EDUCATION", "scope": "schoolBoard"},
+      "candidates": [{"name": "Quinn School", "party": "Libertarian"}]
+    },
+    {
+      "type": "Referendum",
+      "referendumTitle": "Statewide Amendment 1",
+      "referendumBallotResponses": ["YES", "NO"],
+      "district": {"name": "STATE OF ALABAMA", "scope": "statewide"}
+    }
+  ]
+}
