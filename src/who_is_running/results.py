@@ -6,6 +6,10 @@ import csv
 from dataclasses import astuple, dataclass, fields
 from pathlib import Path
 
+STAGES = ("general", "runoff", "primary", "primary runoff")
+"""Election stages, in the order the map offers them. A primary (and its runoff) is
+one party's contest: the race is the office plus the candidates' ``party``."""
+
 
 @dataclass(frozen=True, order=True)
 class CountyResult:
@@ -16,6 +20,10 @@ class CountyResult:
 
     state: str
     election_year: int
+    election_date: str
+    """ISO date, when the source gives one."""
+    stage: str
+    """One of ``STAGES``. A race's general election and its runoff are separate contests."""
     office: str
     county_fips: str
     """Five-digit Census code, which is how the map finds the county's shape."""

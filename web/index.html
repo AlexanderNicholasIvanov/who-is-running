@@ -22,6 +22,10 @@
         <h2 id="map-title">Who won</h2>
         <div class="map-controls">
           <button id="map-back" class="map-back" type="button" hidden>← All states</button>
+          <div id="map-stage-field" class="field" hidden>
+            <label for="map-stage">Election</label>
+            <select id="map-stage"></select>
+          </div>
           <div class="field">
             <label for="map-race">Race</label>
             <select id="map-race"></select>
@@ -70,6 +74,7 @@
           <option value="">Primary &amp; general</option>
           <option value="primary">Primary</option>
           <option value="general">General</option>
+          <option value="runoff">Runoff</option>
         </select>
       </div>
       <div class="field">
@@ -108,6 +113,7 @@
       <p>
         FEC data lists people who <em>registered</em> as federal candidates. Not all of them appear on a ballot.
         MIT Election Lab results cover every state's November general elections in 2018, 2022 and 2024.
+        Unofficial 2026 results come from state election offices' live results sites until certified results are published.
         Map shapes from <a href="https://github.com/topojson/us-atlas">us-atlas</a> (Census Bureau boundaries, ISC license).
         Open source on <a href="https://github.com/AlexanderNicholasIvanov/who-is-running">GitHub</a>.
       </p>
