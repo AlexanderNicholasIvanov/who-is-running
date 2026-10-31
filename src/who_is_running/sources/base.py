@@ -7,6 +7,7 @@ from datetime import date
 
 from who_is_running.http import Fetcher, http_get
 from who_is_running.models import Candidacy
+from who_is_running.results import CountyResult
 
 
 class Source(ABC):
@@ -36,3 +37,10 @@ class Source(ABC):
     @abstractmethod
     def candidacies(self, year: int) -> list[Candidacy]:
         """Download and normalize one year's data."""
+
+    def results(self, year: int) -> list[CountyResult]:
+        """County vote totals for the year's statewide races, if the source has votes.
+
+        Called after ``candidacies`` for the same year.
+        """
+        return []
