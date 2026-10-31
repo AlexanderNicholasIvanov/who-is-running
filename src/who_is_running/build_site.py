@@ -104,6 +104,13 @@ MAP_COUNTIES = {
     "02066": ("02261", "VALDEZ-CORDOVA"),  # with Copper River; the map predates that
     "46113": ("46102", "OGLALA LAKOTA"),  # Shannon County's code until its 2015 rename
 }
+# (state, results county code) -> (map county code, name), for places that
+# report apart from their county under a code of their own.
+MAP_PLACES = {
+    # Kansas City's election board reports apart, but only for the part of the
+    # city in Jackson County; Clay, Platte and Cass count their own parts.
+    ("MO", "36000"): ("29095", "JACKSON"),
+}
 
 
 def build_results(results_dir: Path, out_dir: Path) -> list[dict[str, Any]]:
@@ -123,7 +130,9 @@ def build_results(results_dir: Path, out_dir: Path) -> list[dict[str, Any]]:
         races = defaultdict(lambda: defaultdict(lambda: defaultdict(Counter)))
         county_names: dict[str, str] = {}
         for r in rows:
-            fips, county = MAP_COUNTIES.get(r["county_fips"], (r["county_fips"], r["county"]))
+            fips, county = MAP_PLACES.get((r["state"], r["county_fips"])) or MAP_COUNTIES.get(
+                r["county_fips"], (r["county_fips"], r["county"])
+            )
             if fips[2:] == "000" and STATE_FIPS.get(fips[:2]) == r["state"]:
                 fips = county = ""  # a state-level tally, e.g. Maine's overseas ballots
             races[r["state"]][r["office"]][r["candidate_name"], r["party"]][fips] += int(r["votes"])

@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import io
 import zipfile
+from collections.abc import Callable
+from dataclasses import replace
 
 from conftest import FakeWeb, fixture_bytes
 
@@ -9,11 +11,14 @@ from who_is_running.models import Candidacy, Level
 from who_is_running.sources.medsl import (
     NOT_OFFICES,
     STATES,
+    TOTAL_LINES,
     MedslSource,
     district_of,
     iso_date,
     parse,
+    parse_with_results,
     party_of,
+    seat_office,
 )
 
 
@@ -198,3 +203,59 @@ def test_race_in_every_county_is_statewide() -> None:
 def test_new_england_town_races_keep_their_county() -> None:
     (row,) = _parse("medsl_town.csv")
     assert (row.jurisdiction, row.counties) == ("BURLINGTON", "*")  # the file's only county
+
+
+def _results_of(name: str, keep: Callable[[str], bool] = lambda line: True) -> dict[str, int]:
+    lines = [ln for ln in fixture_bytes(name).decode().splitlines() if keep(ln)]
+    return {
+        f"{r.office}|{r.county}|{r.candidate_name}": r.votes for r in parse_with_results(lines)[1]
+    }
+
+
+def test_county_total_lines_are_not_counted_twice() -> None:
+    # Idaho 2022 files each county's sum as one more precinct, "COUNTY TOTAL".
+    votes = _results_of("medsl_id_county_total.csv")
+    assert votes == {"US Senate|ADAMS|MIKE CRAPO": 1425, "US Senate|ADAMS|DAVID ROTH": 367}
+    # A county given only as a total line still counts.
+    only_total = _results_of(
+        "medsl_id_county_total.csv", lambda ln: "COUNTY TOTAL" in ln or "precinct" in ln
+    )
+    assert only_total == votes
+    for line in ("COUNTY TOTAL", "TOTALS", "Mackinac County Michigan - Total", "DISTRICT TOTAL"):
+        assert TOTAL_LINES.search(line), line
+    for precinct in ("TOTAL CITY", "COUNTY LINE", "01-01"):
+        assert not TOTAL_LINES.search(precinct), precinct
+
+
+def test_statewide_court_seats_get_county_results() -> None:
+    # North Carolina 2018 files its one Supreme Court seat as district "001".
+    votes = _results_of("medsl_nc_seats.csv")
+    assert votes["SUPREME COURT ASSOCIATE JUSTICE, SEAT 1|WAKE|ANITA EARLS"] == 446
+    assert votes["SUPREME COURT ASSOCIATE JUSTICE, SEAT 1|DARE|BARBARA JACKSON"] == 128
+    assert votes['COURT OF APPEALS JUDGE, SEAT 2|DARE|TOBIAS "TOBY" HAMPSON'] == 217
+    assert not any(k.startswith("DISTRICT ATTORNEY") for k in votes)  # a real district
+    # A court race in only some of the state's counties is a district's, not statewide.
+    dare_only = _results_of(
+        "medsl_nc_seats.csv", lambda ln: "COURT OF APPEALS" not in ln or "DARE" in ln
+    )
+    assert not any(k.startswith("COURT OF APPEALS") for k in dare_only)
+
+
+def test_seat_office() -> None:
+    (crapo,) = (
+        c
+        for c in parse(fixture_bytes("medsl_id_county_total.csv").decode().splitlines())
+        if c.candidate_name == "MIKE CRAPO"
+    )
+    assert seat_office(crapo) == "US Senate"
+    assert (
+        seat_office(replace(crapo, office="SUPREME COURT", district="01"))
+        == "SUPREME COURT, SEAT 1"
+    )
+    assert (
+        seat_office(replace(crapo, office="SUPREME COURT", district="C")) == "SUPREME COURT, SEAT C"
+    )
+    assert (
+        seat_office(replace(crapo, office="COURT", district="STATEWIDE, PLACE 3"))
+        == "COURT, PLACE 3"
+    )

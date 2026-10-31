@@ -31,6 +31,7 @@ from typing import Any
 from who_is_running.http import NotFound
 from who_is_running.models import STATEWIDE, Candidacy, Level, join_counties
 from who_is_running.results import CountyResult
+from who_is_running.sources import medsl_fill
 from who_is_running.sources.base import Source
 from who_is_running.text import decode_lines
 
@@ -95,6 +96,12 @@ STATE_OFFICES = re.compile(
 )
 # New England runs local government by town, so a town is the jurisdiction there.
 TOWN_STATES = {"CT", "MA", "ME", "NH", "RI", "VT"}
+# Lines that sum a county's precincts, filed as one more precinct: Idaho 2022's
+# "COUNTY TOTAL", Michigan 2022's "TOTALS" and "Mackinac County Michigan - Total".
+TOTAL_LINES = re.compile(r"^((COUNTY|DISTRICT) )?TOTALS?$|\bCOUNTY\b.* - TOTAL$", re.I)
+# Statewide courts and commissions with several seats file each seat as a
+# district ("001", "PLACE 1"); North Carolina's one 2018 Supreme Court seat is "001".
+SEAT_OFFICES = re.compile(r"\b(COURT|JUSTICE|JUDGE|COMMISSION|COMMISSIONER)\b")
 
 
 class MedslSource(Source):
@@ -134,6 +141,7 @@ class MedslSource(Source):
                             candidacies, results = parse_with_results(decode_lines(fh))
                         out.extend(candidacies)
                         self._results[year].extend(results)
+        out, self._results[year] = medsl_fill.apply(year, self.fetch, out, self._results[year])
         return sorted(out)
 
     def results(self, year: int) -> list[CountyResult]:
@@ -231,7 +239,9 @@ def parse_with_results(lines: Iterable[str]) -> tuple[list[Candidacy], list[Coun
             all_counties.add(county)
             if votes > 0:
                 voted_in[_race(key)].add(county)
-        if level is not Level.LOCAL and key.district in ("", "AT-LARGE"):
+        if level is not Level.LOCAL and (
+            key.district in ("", "AT-LARGE") or SEAT_OFFICES.search(office)
+        ):
             # Alaska reports early and absentee votes by legislative district,
             # with no county: they count toward the state total under "".
             fips = r.get("county_fips", "").strip()
@@ -255,17 +265,26 @@ def parse_with_results(lines: Iterable[str]) -> tuple[list[Candidacy], list[Coun
         for key, p in parties.items()
     }
     county_votes: Counter[tuple[Candidacy, str]] = Counter()
-    for precinct in totals.keys() | by_mode.keys():
+    precincts = totals.keys() | by_mode.keys()
+    real_precincts = {(p[0], p[1]) for p in precincts if not TOTAL_LINES.search(p[2])}
+    for precinct in precincts:
         key, fips = precinct[0], precinct[1]
+        if TOTAL_LINES.search(precinct[2]) and (key, fips) in real_precincts:
+            continue  # it repeats the county's precincts
         # A file with no counties at all (Wisconsin 2018, Alaska 2022) still
         # gives statewide totals; they're all filed as not reported by county.
-        if candidacies[key].counties == STATEWIDE or not all_counties:
-            county_votes[key, fips] += totals[precinct] if precinct in totals else by_mode[precinct]
+        if key.district not in ("", "AT-LARGE"):
+            # A seat on a statewide court, not a district, when every county votes on it.
+            if candidacies[key].counties != STATEWIDE or len(all_counties) < 2:
+                continue
+        elif candidacies[key].counties != STATEWIDE and all_counties:
+            continue
+        county_votes[key, fips] += totals[precinct] if precinct in totals else by_mode[precinct]
     results = [
         CountyResult(
             state=key.state,
             election_year=key.election_year,
-            office=key.office,
+            office=seat_office(key),
             county_fips=fips,
             county=county_names[fips],
             candidate_name=key.candidate_name,
@@ -276,6 +295,21 @@ def parse_with_results(lines: Iterable[str]) -> tuple[list[Candidacy], list[Coun
         for (key, fips), votes in county_votes.items()
     ]
     return list(candidacies.values()), results
+
+
+def seat_office(key: Candidacy) -> str:
+    """A statewide race's name in county results, which have no district column.
+
+    A seat goes into the name: "SUPREME COURT ASSOCIATE JUSTICE, SEAT 1".
+    """
+    if key.district in ("", "AT-LARGE"):
+        return key.office
+    seat = key.district.removeprefix("STATEWIDE, ")
+    if seat.isdigit():
+        seat = f"SEAT {int(seat)}"
+    elif len(seat) == 1:
+        seat = f"SEAT {seat}"  # Nevada's "C"
+    return f"{key.office}, {seat}"
 
 
 def votes_of(raw: str) -> int:

@@ -49,6 +49,9 @@ function summary(t) {
   return `${titleCase(t.winner[0])} (${partyLabel(t.winner[1])}) by ${t.margin.toFixed(1)} pts`;
 }
 
+// Counties with no results of their own because another county counts their votes.
+const COUNTED_WITH = { "15005": "Maui" }; // Kalawao has no polling place; it's a Maui precinct
+
 // Candidates are partisan if any has a party; the map is about which party leads.
 const isPartisan = (race) => race.candidates.some(([, party]) => party);
 
@@ -161,10 +164,11 @@ export function initMap({ manifest, fetchJSON, stateName, onState, onCounty }) {
       const countyName = county ? titleCase(county[0]) : s.name;
       const t = county ? tally(race.candidates, county[1]) : null;
       if (county) rows.push([countyName, t]);
+      const missing = COUNTED_WITH[fips] ? `Votes counted with ${COUNTED_WITH[fips]} County` : "No results reported for this county";
       tips.set(fips, () => (county
         ? tipHTML(countyName, race.candidates, county[1])
-        : `<strong>${esc(s.name)}</strong><div class="tip-sub">No results reported for this county</div>`));
-      const label = `${countyName}: ${county ? summary(t) : "no results"}`;
+        : `<strong>${esc(s.name)}</strong><div class="tip-sub">${esc(missing)}</div>`));
+      const label = `${countyName}: ${county ? summary(t) : missing}`;
       return `<path d="${s.d}" style="fill: ${county ? fill(t) : "url(#map-hatch-none)"}" data-county="${esc(fips)}"
         data-name="${esc(countyName)}" tabindex="0" role="button" aria-label="${esc(label)}"></path>`;
     });
