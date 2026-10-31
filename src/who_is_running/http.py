@@ -12,8 +12,10 @@ from who_is_running import __version__
 Fetcher = Callable[[str], bytes]
 """Takes a URL, returns the response body. Sources accept one so tests can stub the network."""
 
+# The usual "compatible" bot form: maine.gov refuses agents that don't start "Mozilla/5.0".
 USER_AGENT = (
-    f"who-is-running/{__version__} (+https://github.com/AlexanderNicholasIvanov/who-is-running)"
+    f"Mozilla/5.0 (compatible; who-is-running/{__version__}; "
+    "+https://github.com/AlexanderNicholasIvanov/who-is-running)"
 )
 
 

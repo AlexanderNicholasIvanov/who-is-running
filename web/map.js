@@ -52,6 +52,58 @@ function summary(t) {
 // Candidates are partisan if any has a party; the map is about which party leads.
 const isPartisan = (race) => race.candidates.some(([, party]) => party);
 
+// --- ranked-choice rounds (results/<year>/rcv.json) ------------------------
+// A race: {state, office, district, election_type, candidates: [[name, party, [votes per round]]],
+// exhausted: [per round]}, winner first. Tabulations say "Last, First"; show "First Last".
+const rcvName = (name) => name.replace(/^([^,]+),\s*(.+)$/, "$2 $1");
+const rounds = (race) => race.exhausted.length;
+// The statewide general-election count of a map race, if it went to ranked-choice rounds.
+const rcvRace = (rcv, st, office) => rcv.find((r) => r.state === st && r.office === office
+  && !r.district && r.election_type === "general");
+// Final-round tally in the map's shape. Without the winner's party it can't be shaded honestly.
+function rcvTally(race) {
+  const n = rounds(race) - 1;
+  const t = tally(race.candidates.map(([name, party, v]) => [rcvName(name), party, v[n]]),
+    race.candidates.map((c) => c[2][n]));
+  return t.winner && t.winner[1] ? t : null;
+}
+
+export function rcvSummary(race) {
+  const n = rounds(race) - 1;
+  const [winner, second] = race.candidates;
+  const total = race.candidates.reduce((sum, c) => sum + c[2][n], 0);
+  const share = (c) => pct((c[2][n] / total) * 100);
+  return `Ranked-choice: decided in round ${n + 1}. ${rcvName(winner[0])} won the final round, `
+    + `${share(winner)}${second ? ` to ${share(second)} for ${rcvName(second[0])}` : ""}.`;
+}
+
+export function rcvTableHTML(race, caption) {
+  const n = rounds(race);
+  const cols = Array.from({ length: n }, (_, i) => i);
+  const finalTotal = race.candidates.reduce((sum, c) => sum + c[2][n - 1], 0);
+  const cell = (votes, i, everHad) => {
+    if (!votes && everHad && i > 0) return '<td class="num rcv-out">–<span class="visually-hidden">eliminated</span></td>';
+    const share = i === n - 1 && finalTotal ? ` <span class="rcv-pct">${esc(pct((votes / finalTotal) * 100))}</span>` : "";
+    return `<td class="num">${esc(fmt.format(votes))}${share}</td>`;
+  };
+  const body = race.candidates.map(([name, party, votes], row) => `<tr${row === 0 ? ' class="rcv-winner"' : ""}>
+    <th scope="row">${party ? `<span class="swatch swatch-${partyClass(party)}"></span>` : ""}${esc(rcvName(name))}${party ? ` <span class="rcv-party">${esc(party)}</span>` : ""}${row === 0 ? ' <span class="rcv-won">won</span>' : ""}</th>
+    ${cols.map((i) => cell(votes[i], i, votes.some(Boolean))).join("")}</tr>`).join("");
+  return `<div class="rcv-scroll"><table class="rcv-table">
+    <caption>${esc(caption)}</caption>
+    <thead><tr><th scope="col">Candidate</th>${cols.map((i) => `<th scope="col" class="num">Round ${i + 1}</th>`).join("")}</tr></thead>
+    <tbody>${body}<tr class="rcv-exhausted"><th scope="row">Exhausted ballots</th>
+    ${cols.map((i) => `<td class="num">${esc(fmt.format(race.exhausted[i]))}</td>`).join("")}</tr></tbody>
+  </table></div>`;
+}
+
+const PRIMARY_NAMES = { DEM: "Democratic", REP: "Republican" };
+const rcvTitle = (race) => {
+  const office = race.district ? `${raceName(race.office)}, district ${race.district}` : raceName(race.office);
+  const party = race.election_type === "primary" ? race.candidates[0]?.[1] || "" : "";
+  return `${office}: ${party ? `${PRIMARY_NAMES[party] || party} ` : ""}${race.election_type}`;
+};
+
 const DEFS = `
   <defs>
     <pattern id="map-hatch-other" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
@@ -69,7 +121,7 @@ export function initMap({ manifest, fetchJSON, stateName, onState, onCounty }) {
   const els = {
     section: $("map-section"), year: $("map-year"), race: $("map-race"), back: $("map-back"),
     title: $("map-title"), svg: $("map"), tip: $("map-tip"), legend: $("map-legend"),
-    note: $("map-note"), table: $("map-table"),
+    note: $("map-note"), table: $("map-table"), rcv: $("map-rcv"),
   };
   const years = (manifest.results || []).map((r) => r.year).sort((a, b) => b - a);
   if (!years.length) return { showState() {} };
@@ -83,6 +135,9 @@ export function initMap({ manifest, fetchJSON, stateName, onState, onCounty }) {
   let token = 0; // drops renders that a newer one has overtaken
 
   const yearInfo = () => manifest.results.find((r) => r.year === Number(els.year.value));
+  const rcvYears = new Set((manifest.rcv || []).map((r) => r.year));
+  const loadRcv = (year) => (rcvYears.has(year)
+    ? fetchJSON(`results/${year}/rcv.json`).then((d) => d.races) : Promise.resolve([]));
   const hasState = (st) => Boolean(yearInfo()?.states.includes(st));
 
   function setRaces(names, preferred) {
@@ -103,8 +158,8 @@ export function initMap({ manifest, fetchJSON, stateName, onState, onCounty }) {
   }
 
   async function renderNation(year, mine) {
-    const [shapes, national] = await Promise.all([
-      fetchJSON("geo/states.json"), fetchJSON(`results/${year}/national.json`),
+    const [shapes, national, rcv] = await Promise.all([
+      fetchJSON("geo/states.json"), fetchJSON(`results/${year}/national.json`), loadRcv(year),
     ]);
     if (mine !== token) return;
     setRaces(yearInfo().national, nationalChoice);
@@ -114,35 +169,50 @@ export function initMap({ manifest, fetchJSON, stateName, onState, onCounty }) {
     els.back.hidden = true;
     els.title.textContent = `${name}, ${year}`;
     const rows = [];
+    const decidedByRounds = [];
     tips = new Map();
     const paths = Object.values(shapes.shapes).map((s) => {
       const race = byState[s.abbr];
       const totals = race ? race.candidates.map((c) => c[2]) : [];
-      const t = race ? tally(race.candidates, totals) : null;
+      // A ranked-choice state is shaded by its final round, the one that decided it.
+      const rr = race && rcvRace(rcv, s.abbr, race.office);
+      const final = rr && rcvTally(rr);
+      const t = race ? final || tally(race.candidates, totals) : null;
       if (race) rows.push([s.name, t]);
+      if (final) decidedByRounds.push(s.name);
       tips.set(s.abbr, () => (race
-        ? tipHTML(s.name, race.candidates, totals, race.office)
+        ? tipHTML(s.name, race.candidates, totals, race.office, rr)
         : `<strong>${esc(s.name)}</strong><div class="tip-sub">No ${esc(name)} race in ${year}</div>`));
-      const label = `${s.name}: ${race ? summary(t) : `no ${name} race in ${year}`}`;
+      const label = `${s.name}: ${race ? summary(t) : `no ${name} race in ${year}`}`
+        + (final ? `, in ranked-choice round ${rounds(rr)}` : "");
       return `<path d="${s.d}" style="fill: ${race ? fill(t) : "var(--map-empty)"}" data-state="${esc(s.abbr)}"
         tabindex="0" role="button" aria-label="${esc(label)}"></path>`;
     });
     draw(shapes.viewBox, paths.join(""), "");
-    els.note.textContent = "Pick a state to see who won each of its counties. The stronger the shade, the wider the winning margin.";
+    els.note.textContent = "Pick a state to see who won each of its counties. The stronger the shade, the wider the winning margin."
+      + (decidedByRounds.length ? ` ${decidedByRounds.join(" and ")} counted ranked-choice rounds; `
+        + "the shading and table use the final round's result." : "");
+    els.rcv.innerHTML = "";
     renderTable(`${name} results by state, ${year}`, "State", rows);
   }
 
   async function renderState(year, st, mine) {
-    const [shapes, results, national] = await Promise.all([
+    const [shapes, results, national, allRcv] = await Promise.all([
       fetchJSON(`geo/counties/${st}.json`), fetchJSON(`results/${year}/${st}.json`),
-      fetchJSON(`results/${year}/national.json`),
+      fetchJSON(`results/${year}/national.json`), loadRcv(year),
     ]);
     if (mine !== token) return;
     const races = results.races.filter(isPartisan);
     // Opening a state shows the same race the country view does, when the state had it.
     const choice = nationalChoice ?? yearInfo().national[0];
     setRaces(races.map((r) => r.office), view.race || national.races[choice]?.[st]?.office);
+    const rcv = allRcv.filter((r) => r.state === st);
+    for (const option of els.race.options) {
+      if (rcvRace(rcv, st, option.value)) option.text += " (ranked-choice)";
+    }
     const race = races.find((r) => r.office === els.race.value);
+    const rr = race && rcvRace(rcv, st, race.office);
+    renderRcv(st, year, rcv, rr);
     els.back.hidden = false;
     tips = new Map();
     if (!race) {
@@ -171,7 +241,10 @@ export function initMap({ manifest, fetchJSON, stateName, onState, onCounty }) {
     draw(shapes.viewBox, paths.join(""), `<path class="map-outline" d="${shapes.outline}"></path>`);
 
     const statewide = tally(race.candidates, race.candidates.map((c) => c[2]));
-    const notes = [`Statewide: ${summary(statewide)}.`];
+    const notes = rr
+      ? [`Statewide first choices: ${summary(statewide)}.`, rcvSummary(rr),
+        "County shading shows first choices only: the later rounds are counted statewide, not by county."]
+      : [`Statewide: ${summary(statewide)}.`];
     const unassigned = race.counties[""];
     if (unassigned && statewide.total) {
       const share = (unassigned[1].reduce((a, b) => a + b, 0) / statewide.total) * 100;
@@ -190,7 +263,7 @@ export function initMap({ manifest, fetchJSON, stateName, onState, onCounty }) {
     els.svg.innerHTML = `${DEFS}<g class="map-shapes">${paths}</g>${overlay}`;
   }
 
-  function tipHTML(place, candidates, votes, office) {
+  function tipHTML(place, candidates, votes, office, rr) {
     const t = tally(candidates, votes);
     const lines = t.order.slice(0, 4).filter((i) => votes[i] > 0).map((i) => {
       const [name, party] = candidates[i];
@@ -199,8 +272,25 @@ export function initMap({ manifest, fetchJSON, stateName, onState, onCounty }) {
         <td class="num">${esc(pct((votes[i] / t.total) * 100))}</td></tr>`;
     }).join("");
     const head = office ? `<div class="tip-sub">${esc(raceName(office))}</div>` : "";
+    if (rr) {
+      return `<strong>${esc(place)}</strong>${head}<div class="tip-rcv">${esc(rcvSummary(rr))}</div>
+        <div class="tip-sub">First choices: ${esc(summary(t))}</div>${lines ? `<table>${lines}</table>` : ""}`;
+    }
     return `<strong>${esc(place)}</strong>${head}<div class="tip-sub">${esc(summary(t))}</div>
       ${lines ? `<table>${lines}</table>` : ""}`;
+  }
+
+  // Under a state's map: the shown race's rounds, then the state's other ranked-choice counts.
+  function renderRcv(st, year, rcv, shown) {
+    const others = rcv.filter((r) => r !== shown);
+    const parts = [];
+    if (shown) parts.push(rcvTableHTML(shown, `${raceName(shown.office)}, ${stateName(st)} ${year}: votes in each ranked-choice round`));
+    if (others.length) {
+      parts.push(`<details class="rcv-more"><summary>${shown ? "Other ranked-choice" : "Ranked-choice"} counts in ${esc(stateName(st))}, ${year} (${others.length})</summary>
+        ${others.map((r) => `<h3 class="rcv-title">${esc(rcvTitle(r))}</h3><p class="rcv-summary">${esc(rcvSummary(r))}</p>
+          ${rcvTableHTML(r, `${rcvTitle(r)}: votes in each round`)}`).join("")}</details>`);
+    }
+    els.rcv.innerHTML = parts.join("");
   }
 
   function renderTable(caption, placeHeader, rows) {

@@ -10,6 +10,8 @@ from who_is_running.http import NotFound
 from who_is_running.models import Candidacy
 from who_is_running.results import results_path
 from who_is_running.results import write_csv as write_results
+from who_is_running.rounds import rounds_path
+from who_is_running.rounds import write_csv as write_rounds
 from who_is_running.sources import Source
 
 log = logging.getLogger(__name__)
@@ -41,6 +43,10 @@ def run(source: Source, years: list[int], data_dir: Path) -> dict[int, int]:
         except NotFound:
             log.info("%s: no data for %d", source.name, year)
             continue
+        rounds = source.rounds(year)
+        if rounds:
+            write_rounds(rounds_path(data_dir, source.name, year), rounds)
+            log.info("%s: wrote %d ranked-choice rows for %d", source.name, len(rounds), year)
         if not rows:
             log.info("%s: no rows for %d", source.name, year)
             continue

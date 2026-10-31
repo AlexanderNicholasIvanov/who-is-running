@@ -9,6 +9,8 @@ Output layout (served as-is by GitHub Pages)::
     _site/results/<year>/<state>.json         county vote totals per statewide race
     _site/results/<year>/national.json        statewide totals for the national map
     _site/results/<year>.csv                  the original results CSV
+    _site/results/<year>/rcv.json             ranked-choice rounds, every race that year
+    _site/results/<year>/rcv.csv              the original rounds CSV
 
 JSON is split by state so viewing one state never downloads a nationwide file.
 """
@@ -27,6 +29,7 @@ from typing import Any
 from who_is_running.districts import STATE_FIPS
 from who_is_running.models import Candidacy
 from who_is_running.results import CountyResult
+from who_is_running.rounds import EXHAUSTED, RcvRound
 from who_is_running.sources import SOURCES
 
 
@@ -80,6 +83,7 @@ def build(data_dir: Path, web_dir: Path, out_dir: Path) -> dict[str, Any]:
         },
         "files": files,
         "results": build_results(data_dir / "results", out_dir / "results"),
+        "rcv": build_rounds(data_dir / "rounds", out_dir / "results"),
     }
     (out_dir / "data").mkdir(parents=True, exist_ok=True)
     (out_dir / "data" / "manifest.json").write_text(
@@ -173,3 +177,83 @@ def build_results(results_dir: Path, out_dir: Path) -> list[dict[str, Any]]:
             }
         )
     return built
+
+
+# Name parts that one source writes and another drops: "Begich III, Nicholas J." vs "NICK BEGICH".
+NAME_SUFFIXES = {"JR", "SR", "II", "III", "IV"}
+
+
+def build_rounds(rounds_dir: Path, out_dir: Path) -> list[dict[str, Any]]:
+    """Ranked-choice rounds per year, as ``results/<year>/rcv.json``.
+
+    Runs after ``build_results``: a statewide race's tabulation rarely gives
+    parties, so a candidate's party is taken from the same race's first-choice
+    results when exactly one candidate there has their surname.
+    """
+    built = []
+    for csv_path in sorted(rounds_dir.glob("*/*.csv")):
+        year = int(csv_path.stem)
+        with csv_path.open(encoding="utf-8", newline="") as fh:
+            reader = csv.reader(fh)
+            columns = next(reader)
+            if columns != RcvRound.columns():
+                raise ValueError(f"{csv_path}: unexpected columns {columns}")
+            rows = [dict(zip(columns, row, strict=True)) for row in reader]
+
+        # (state, office, district, type, date) -> candidate -> [party, {round: votes}]
+        races: defaultdict[tuple[str, ...], dict[str, list[Any]]] = defaultdict(dict)
+        for r in rows:
+            key = (r["state"], r["office"], r["district"], r["election_type"], r["election_date"])
+            entry = races[key].setdefault(r["candidate_name"], [r["party"], {}])
+            entry[1][int(r["round"])] = int(r["votes"])
+
+        dest = out_dir / str(year)
+        dest.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(csv_path, dest / "rcv.csv")
+        out = []
+        for (state, office, district, kind, when), by_name in sorted(races.items()):
+            count = max(n for _, votes in by_name.values() for n in votes)
+            exhausted = by_name.pop(EXHAUSTED, ["", {}])[1]
+            first = _first_choices(dest / f"{state}.json", office) if not district else []
+            candidates = [
+                [
+                    name,
+                    party or _party_of(name, first),
+                    [votes.get(n, 0) for n in range(1, count + 1)],
+                ]
+                for name, (party, votes) in by_name.items()
+            ]
+            # The winner first: most votes in the last round, then in earlier ones.
+            candidates.sort(key=lambda c: [-int(v) for v in reversed(c[2])])
+            out.append(
+                {
+                    "state": state,
+                    "office": office,
+                    "district": district,
+                    "election_type": kind,
+                    "election_date": when,
+                    "candidates": candidates,
+                    "exhausted": [exhausted.get(n, 0) for n in range(1, count + 1)],
+                }
+            )
+        (dest / "rcv.json").write_text(
+            json.dumps({"races": out}, separators=(",", ":")), encoding="utf-8"
+        )
+        built.append({"year": year, "states": sorted({str(r["state"]) for r in out})})
+    return built
+
+
+def _first_choices(path: Path, office: str) -> list[list[Any]]:
+    if not path.exists():
+        return []
+    races = json.loads(path.read_text(encoding="utf-8"))["races"]
+    return next((r["candidates"] for r in races if r["office"] == office), [])
+
+
+def _party_of(name: str, candidates: list[list[Any]]) -> str:
+    """The party of the one first-choice candidate sharing ``name``'s surname ("Last, First")."""
+    surname = set(re.findall(r"[A-Z]+", name.split(",")[0].upper())) - NAME_SUFFIXES
+    if "," not in name or not surname:
+        return ""
+    matches = [c for c in candidates if surname <= set(re.findall(r"[A-Z]+", c[0].upper()))]
+    return str(matches[0][1]) if len(matches) == 1 else ""

@@ -207,6 +207,26 @@ select:disabled { opacity: 0.6; }
 .map-table th, .map-table td { text-align: left; padding: 3px 8px; border-bottom: 1px solid var(--border); }
 .map-table th[scope="row"] { font-weight: 500; }
 
+/* Ranked-choice rounds: under a state's map and inside race cards. */
+.tip-rcv { margin-top: 2px; font-weight: 600; }
+.map-rcv { font-size: 0.85rem; }
+.map-rcv:empty { display: none; }
+.rcv-more { margin-top: 8px; }
+.rcv-more summary, .rcv-card summary { cursor: pointer; color: var(--accent); }
+.rcv-title { margin: 12px 0 0; font-size: 0.9rem; }
+.rcv-summary { margin: 2px 0 0; color: var(--muted); }
+.rcv-card { margin-top: 8px; font-size: 0.85rem; }
+.rcv-card summary { font-weight: 600; }
+.rcv-scroll { position: relative; overflow-x: auto; } /* relative: keeps hidden labels inside */
+.rcv-table { border-collapse: collapse; margin-top: 8px; min-width: min(100%, 420px); }
+.rcv-table caption { text-align: left; color: var(--muted); padding-bottom: 4px; }
+.rcv-table th, .rcv-table td { text-align: left; padding: 3px 8px; border-bottom: 1px solid var(--border); }
+.rcv-table th[scope="row"] { font-weight: 500; }
+.rcv-table .num { text-align: right; }
+.rcv-winner th[scope="row"], .rcv-winner td:last-child { font-weight: 700; }
+.rcv-party, .rcv-pct, .rcv-out, .rcv-exhausted { color: var(--muted); font-weight: 400; }
+.rcv-won { font-size: 0.72rem; font-weight: 600; padding: 0 6px; border-radius: 999px; border: 1px solid currentColor; }
+
 .coverage {
   margin: 16px 0 0;
   padding: 10px 14px;

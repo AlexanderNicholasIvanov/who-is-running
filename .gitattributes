@@ -1,2 +1,6 @@
 * text=auto eol=lf
 *.zip binary
+*.pdf binary
+*.xls binary
+# Ranked-choice report fixtures kept byte for byte (one is UTF-16).
+tests/fixtures/rcv_*.txt binary
