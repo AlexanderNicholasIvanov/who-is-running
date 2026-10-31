@@ -52,6 +52,15 @@ function summary(t) {
 // Candidates are partisan if any has a party; the map is about which party leads.
 const isPartisan = (race) => race.candidates.some(([, party]) => party);
 
+// US territories aren't in the map's shapes, so the country view adds a row of tiles below.
+export const TERRITORIES = ["PR", "GU", "VI", "AS", "MP"];
+const TILE_LABELS = { PR: "Puerto Rico", GU: "Guam", VI: "US Virgin Islands", AS: "American Samoa", MP: "N. Mariana Islands" };
+// Races territories never hold, so an empty tile means "no such race" rather than missing results.
+const NO_TERRITORY_RACE = {
+  "US President": "Territories don't vote in the general election for president",
+  "US Senate": "Territories don't elect US senators",
+};
+
 const DEFS = `
   <defs>
     <pattern id="map-hatch-other" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
@@ -127,9 +136,39 @@ export function initMap({ manifest, fetchJSON, stateName, onState, onCounty }) {
       return `<path d="${s.d}" style="fill: ${race ? fill(t) : "var(--map-empty)"}" data-state="${esc(s.abbr)}"
         tabindex="0" role="button" aria-label="${esc(label)}"></path>`;
     });
-    draw(shapes.viewBox, paths.join(""), "");
+    const inset = territoryTiles(shapes.viewBox, byState, name, year, rows);
+    draw(inset.viewBox, paths.join("") + inset.paths, inset.overlay);
     els.note.textContent = "Pick a state to see who won each of its counties. The stronger the shade, the wider the winning margin.";
     renderTable(`${name} results by state, ${year}`, "State", rows);
+  }
+
+  // A row of tiles under the country, one per territory, that behave like the states.
+  function territoryTiles([x, y, w, h], byState, name, year, rows) {
+    const top = y + h + 16, height = 48, gap = 10, left = x + 160;
+    const width = (w - (left - x) - gap * (TERRITORIES.length - 1)) / TERRITORIES.length;
+    const noRace = NO_TERRITORY_RACE[nationalChoice];
+    let paths = "";
+    let labels = `<line x1="${x}" y1="${y + h + 6}" x2="${x + w}" y2="${y + h + 6}"></line>
+      <text class="inset-caption" x="${x + 8}" y="${top + height / 2}">Territories</text>`;
+    TERRITORIES.forEach((abbr, i) => {
+      const place = stateName(abbr);
+      const race = byState[abbr];
+      const totals = race ? race.candidates.map((c) => c[2]) : [];
+      const t = race ? tally(race.candidates, totals) : null;
+      if (race || !noRace) rows.push([place, t]);
+      const why = noRace || "No results for territories";
+      tips.set(abbr, () => (race
+        ? tipHTML(place, race.candidates, totals, race.office)
+        : `<strong>${esc(place)}</strong><div class="tip-sub">${esc(why)}</div>`));
+      const label = `${place}: ${race ? summary(t) : why.toLowerCase()}`;
+      const fillStyle = race ? fill(t) : noRace ? "var(--map-empty)" : "url(#map-hatch-none)";
+      const tx = left + i * (width + gap);
+      paths += `<path d="M${tx} ${top}h${width}v${height}h${-width}z" style="fill: ${fillStyle}" data-state="${esc(abbr)}"
+        tabindex="0" role="button" aria-label="${esc(label)}"></path>`;
+      labels += `<text x="${tx + width / 2}" y="${top + height / 2}" text-anchor="middle">
+        <tspan class="inset-long">${esc(TILE_LABELS[abbr])}</tspan><tspan class="inset-short">${esc(abbr)}</tspan></text>`;
+    });
+    return { viewBox: [x, y, w, h + 16 + height + 4], paths, overlay: `<g class="map-inset">${labels}</g>` };
   }
 
   async function renderState(year, st, mine) {
@@ -208,8 +247,8 @@ export function initMap({ manifest, fetchJSON, stateName, onState, onCounty }) {
     els.table.innerHTML = `<caption id="map-caption">${esc(caption)}</caption>
       <thead><tr><th scope="col">${esc(placeHeader)}</th><th scope="col">Winner</th><th scope="col">Margin</th></tr></thead>
       <tbody>${rows.map(([place, t]) => `<tr><th scope="row">${esc(place)}</th>
-        <td>${t.winner ? `${esc(titleCase(t.winner[0]))} (${esc(partyLabel(t.winner[1]))})` : t.tied ? "Tied" : "No votes"}</td>
-        <td class="num">${t.winner ? `${esc(t.margin.toFixed(1))} pts` : ""}</td></tr>`).join("")}</tbody>`;
+        <td>${!t ? "No results" : t.winner ? `${esc(titleCase(t.winner[0]))} (${esc(partyLabel(t.winner[1]))})` : t.tied ? "Tied" : "No votes"}</td>
+        <td class="num">${t?.winner ? `${esc(t.margin.toFixed(1))} pts` : ""}</td></tr>`).join("")}</tbody>`;
   }
 
   // --- tooltip: follows the pointer on hover; a tap or Enter pins it -----

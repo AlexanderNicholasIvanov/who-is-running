@@ -1,7 +1,7 @@
 // Who is running? Static front end over data/manifest.json and data/<source>/<year>/<state>.json.
 // Plain ES module, no build step.
 
-import { initMap } from "./map.js";
+import { initMap, TERRITORIES } from "./map.js";
 
 const STATE_NAMES = {
   AL: "Alabama", AK: "Alaska", AS: "American Samoa", AZ: "Arizona", AR: "Arkansas",
@@ -302,7 +302,8 @@ function renderCoverage() {
   if (here.size === 0) {
     const others = [...byYear.keys()].sort((a, b) => b - a);
     els.coverage.textContent = `For ${name} ${year} we only have federal candidates, from FEC registrations.`
-      + (others.length ? ` State and local races are available for ${others.join(", ")}.` : "");
+      + (others.length ? ` State and local races are available for ${others.join(", ")}.` : "")
+      + (TERRITORIES.includes(state) ? " Territory races, such as governor and legislature, aren't covered yet." : "");
   } else if (here.size === 1 && here.has(RESULTS)) {
     els.coverage.textContent = `${name} ${year} races come from general-election results: everyone who appeared `
       + "on the November ballot. Primary candidates and anyone who dropped out earlier aren't included, "

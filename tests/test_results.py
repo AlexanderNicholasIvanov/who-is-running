@@ -431,6 +431,25 @@ def test_dc_shadow_senator_is_not_a_senate_race() -> None:
     assert not any(p.match(result.office) for p in NATIONAL_RACES["US Senate"])
 
 
+def test_dc_house_member_is_a_delegate() -> None:
+    # A real row of MEDSL's 2018 DC file, with its own header.
+    header = (
+        '"precinct","office","party_detailed","party_simplified","mode","votes","county_name",'
+        '"county_fips","jurisdiction_name","jurisdiction_fips","candidate","district","magnitude",'
+        '"dataverse","year","stage","state","special","writein","state_po","state_fips",'
+        '"state_cen","state_ic","date","readme_check"'
+    )
+    row = (
+        '"1","DELEGATE TO THE US HOUSE","DEMOCRAT","DEMOCRAT","TOTAL",2390,"DISTRICT OF COLUMBIA",'
+        '"11001","WARD 6","11001","ELEANOR HOLMES NORTON","000",1.0,"HOUSE",2018,"GEN",'
+        '"DISTRICT OF COLUMBIA","FALSE","FALSE","DC","11","53","55","2018-11-06","FALSE"'
+    )
+
+    (candidacy,), (result,) = parse_with_results([header, row])
+
+    assert candidacy.office == result.office == "US House Delegate"
+
+
 def test_senate_races_have_no_district() -> None:
     # Arizona 2024 files one county's US Senate rows under district "007".
     results = _results(

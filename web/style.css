@@ -139,6 +139,26 @@ select:disabled { opacity: 0.6; }
   stroke-width: 2;
   outline: none;
 }
+/* The territories' tile row under the country map. */
+.map-inset { pointer-events: none; }
+.map-inset line { stroke: var(--border); stroke-width: 1; stroke-dasharray: 4 3; vector-effect: non-scaling-stroke; }
+.map-inset text {
+  fill: var(--text);
+  font-size: 14px;
+  dominant-baseline: central;
+  paint-order: stroke;
+  stroke: var(--surface);
+  stroke-width: 3px;
+  stroke-linejoin: round;
+}
+.map-inset .inset-caption { fill: var(--muted); font-size: 15px; }
+.map-inset .inset-short { display: none; }
+@media (max-width: 560px) {
+  /* The map shrinks to a third of its size: abbreviations, drawn larger. */
+  .map-inset text, .map-inset .inset-caption { font-size: 26px; }
+  .map-inset .inset-long { display: none; }
+  .map-inset .inset-short { display: inline; }
+}
 .map-outline {
   fill: none;
   stroke: var(--map-outline);

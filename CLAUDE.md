@@ -17,7 +17,8 @@ Python pipeline that pulls US candidate lists from free public sources and write
 - `src/who_is_running/districts.py`: Census district-to-county lines, used to fill `counties` for district races. `HOUSE_LINES` maps each election year to its Congress; `REDRAWN` lists states whose map that year has no Census file yet. Keep the JS `countyKey` in `web/app.js` matching how sources and Census spell counties.
 - `src/who_is_running/results.py`: `CountyResult`, vote totals per county for statewide races. Only MEDSL produces them (`Source.results`); the pipeline writes `data/results/<source>/<year>.csv`, and `build_site.build_results` turns those into `results/<year>/<state>.json` and `national.json` for the map. `MAP_COUNTIES` there maps result county codes onto the map's older county shapes.
 - `src/who_is_running/geo.py` and `web/geo/`: state and county shapes for the map, pre-drawn as SVG paths from us-atlas. Committed; regenerate only with `uv run who-is-running build-geo`.
-- `web/map.js`: the results map (national view by state, click for counties). Same `esc()` rule as `app.js`.
+- `web/map.js`: the results map (national view by state, click for counties). Same `esc()` rule as `app.js`. The territories (`TERRITORIES`) aren't in us-atlas, so the national view draws them as a row of tiles under the country.
+- `models.house_office`: the office name for a state's House seat, `US House Delegate` (DC, territories) or `US House Resident Commissioner` (PR). FEC and MEDSL both use it.
 - `web/`: the static site (vanilla JS, no build step). `build_site.py` turns `data/` into `_site/` for GitHub Pages. Preview it with `build-site` then `python -m http.server --directory _site`.
 - `data/`: generated, and committed by the `Refresh data` workflow. Don't hand-edit it.
 
