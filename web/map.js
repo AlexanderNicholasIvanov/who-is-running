@@ -8,16 +8,29 @@ const esc = (value) => String(value).replace(/[&<>"']/g, (c) => ({
   "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;",
 })[c]);
 
-// MEDSL names are upper case ("DONALD J TRUMP", "ST. LOUIS CITY").
-const titleCase = (s) => s.toLowerCase().replace(/(^|[\s\-/.'(])([a-z])/g, (m, p, c) => p + c.toUpperCase());
+// MEDSL names are upper case ("DONALD J TRUMP", "ST. LOUIS CITY"); live results' aren't.
+const titleCase = (s) => (s !== s.toUpperCase() ? s
+  : s.toLowerCase().replace(/(^|[\s\-/.'(])([a-z])/g, (m, p, c) => p + c.toUpperCase()));
 const fmt = new Intl.NumberFormat("en-US");
 const pct = (n) => `${n.toFixed(1)}%`;
 const raceName = (office) => titleCase(office).replace(/^Us /, "US ");
 
+// Live, unofficial results (sources/enr.py) carry {updated, precincts_reported, precincts_total}.
+const timeFmt = new Intl.DateTimeFormat("en-US", {
+  month: "short", day: "numeric", hour: "numeric", minute: "2-digit", timeZoneName: "short",
+});
+function liveText(live) {
+  const share = live.precincts_total
+    ? `${Math.floor((live.precincts_reported / live.precincts_total) * 100)}% of precincts reporting`
+    : "precincts reporting unknown";
+  const when = new Date(live.updated);
+  return `Unofficial — ${share}${live.updated && !Number.isNaN(when.getTime()) ? `, updated ${timeFmt.format(when)}` : ""}`;
+}
+
 // "DEM/WORKING FAMILIES" and "REPUBLICAN/CONSERVATIVE" both count as the major party.
 export function partyClass(party) {
   const parts = party.toUpperCase().split("/");
-  if (parts.some((p) => p === "DEM" || p.startsWith("DEMOCRAT"))) return "dem";
+  if (parts.some((p) => p === "DEM" || p === "DFL" || p.startsWith("DEMOCRAT"))) return "dem"; // DFL: Minnesota
   if (parts.some((p) => p === "REP" || p.startsWith("REPUBLICAN"))) return "rep";
   return "other";
 }
@@ -74,7 +87,12 @@ export function initMap({ manifest, fetchJSON, stateName, onState, onCounty }) {
   const years = (manifest.results || []).map((r) => r.year).sort((a, b) => b - a);
   if (!years.length) return { showState() {} };
   els.section.hidden = false;
-  els.year.replaceChildren(...years.map((y) => new Option(String(y), String(y))));
+  els.year.replaceChildren(...years.map((y) => {
+    const info = manifest.results.find((r) => r.year === y);
+    const live = Object.keys(info.live || {}).length;
+    const label = !live ? `${y}` : `${y} (${live < info.states.length ? "partly " : ""}unofficial)`;
+    return new Option(label, String(y));
+  }));
   els.legend.innerHTML = legendHTML();
 
   let view = { state: null, race: null }; // state null = the whole country
@@ -111,8 +129,10 @@ export function initMap({ manifest, fetchJSON, stateName, onState, onCounty }) {
     nationalChoice = els.race.value;
     const byState = national.races[nationalChoice] || {};
     const name = raceName(nationalChoice);
+    const live = yearInfo().live || {};
+    const liveStates = Object.keys(live);
     els.back.hidden = true;
-    els.title.textContent = `${name}, ${year}`;
+    els.title.textContent = `${name}, ${year}${liveStates.length ? " (unofficial)" : ""}`;
     const rows = [];
     tips = new Map();
     const paths = Object.values(shapes.shapes).map((s) => {
@@ -120,16 +140,23 @@ export function initMap({ manifest, fetchJSON, stateName, onState, onCounty }) {
       const totals = race ? race.candidates.map((c) => c[2]) : [];
       const t = race ? tally(race.candidates, totals) : null;
       if (race) rows.push([s.name, t]);
+      const missing = liveStates.length ? `no live ${name} results` : `no ${name} race in ${year}`;
       tips.set(s.abbr, () => (race
-        ? tipHTML(s.name, race.candidates, totals, race.office)
-        : `<strong>${esc(s.name)}</strong><div class="tip-sub">No ${esc(name)} race in ${year}</div>`));
-      const label = `${s.name}: ${race ? summary(t) : `no ${name} race in ${year}`}`;
+        ? tipHTML(s.name, race.candidates, totals, race.office, live[s.abbr] ? liveText(live[s.abbr]) : "")
+        : `<strong>${esc(s.name)}</strong><div class="tip-sub">${esc(missing[0].toUpperCase() + missing.slice(1))}</div>`));
+      const label = `${s.name}: ${race ? summary(t) : missing}${live[s.abbr] ? ` (${liveText(live[s.abbr])})` : ""}`;
       return `<path d="${s.d}" style="fill: ${race ? fill(t) : "var(--map-empty)"}" data-state="${esc(s.abbr)}"
         tabindex="0" role="button" aria-label="${esc(label)}"></path>`;
     });
     draw(shapes.viewBox, paths.join(""), "");
     els.note.textContent = "Pick a state to see who won each of its counties. The stronger the shade, the wider the winning margin.";
-    renderTable(`${name} results by state, ${year}`, "State", rows);
+    if (liveStates.length) {
+      const states = new Intl.ListFormat("en-US").format(liveStates.map(stateName));
+      els.note.textContent = `Unofficial election-night results from the state results sites of ${states},`
+        + ` still being counted: hover a state for how far along it is. `
+        + `Other states have no live results here. ${els.note.textContent}`;
+    }
+    renderTable(`${name} results by state, ${year}${liveStates.length ? " (unofficial)" : ""}`, "State", rows);
   }
 
   async function renderState(year, st, mine) {
@@ -154,15 +181,18 @@ export function initMap({ manifest, fetchJSON, stateName, onState, onCounty }) {
     }
     view.race = race.office;
     const name = raceName(race.office);
-    els.title.textContent = `${stateName(st)}: ${name}, ${year}`;
+    const live = results.live;
+    els.title.textContent = `${stateName(st)}: ${name}, ${year}${live ? " (unofficial)" : ""}`;
     const rows = [];
     const paths = Object.entries(shapes.shapes).map(([fips, s]) => {
       const county = race.counties[fips];
       const countyName = county ? titleCase(county[0]) : s.name;
       const t = county ? tally(race.candidates, county[1]) : null;
       if (county) rows.push([countyName, t]);
+      const precincts = live?.counties?.[fips];
+      const progress = precincts ? `${precincts[0]} of ${precincts[1]} precincts reporting` : "";
       tips.set(fips, () => (county
-        ? tipHTML(countyName, race.candidates, county[1])
+        ? tipHTML(countyName, race.candidates, county[1], "", progress)
         : `<strong>${esc(s.name)}</strong><div class="tip-sub">No results reported for this county</div>`));
       const label = `${countyName}: ${county ? summary(t) : "no results"}`;
       return `<path d="${s.d}" style="fill: ${county ? fill(t) : "url(#map-hatch-none)"}" data-county="${esc(fips)}"
@@ -172,6 +202,7 @@ export function initMap({ manifest, fetchJSON, stateName, onState, onCounty }) {
 
     const statewide = tally(race.candidates, race.candidates.map((c) => c[2]));
     const notes = [`Statewide: ${summary(statewide)}.`];
+    if (live) notes.unshift(`${liveText(live)}. Counts change until results are certified.`);
     const unassigned = race.counties[""];
     if (unassigned && statewide.total) {
       const share = (unassigned[1].reduce((a, b) => a + b, 0) / statewide.total) * 100;
@@ -182,7 +213,7 @@ export function initMap({ manifest, fetchJSON, stateName, onState, onCounty }) {
       notes.push(`Not drawn: ${offMap.map((f) => titleCase(race.counties[f][0])).join(", ")}.`);
     }
     els.note.textContent = notes.join(" ");
-    renderTable(`${name} results by county, ${stateName(st)} ${year}`, "County", rows);
+    renderTable(`${name} results by county, ${stateName(st)} ${year}${live ? " (unofficial)" : ""}`, "County", rows);
   }
 
   function draw(viewBox, paths, overlay) {
@@ -190,7 +221,8 @@ export function initMap({ manifest, fetchJSON, stateName, onState, onCounty }) {
     els.svg.innerHTML = `${DEFS}<g class="map-shapes">${paths}</g>${overlay}`;
   }
 
-  function tipHTML(place, candidates, votes, office) {
+  // progress: for live results, e.g. "12 of 40 precincts reporting".
+  function tipHTML(place, candidates, votes, office, progress) {
     const t = tally(candidates, votes);
     const lines = t.order.slice(0, 4).filter((i) => votes[i] > 0).map((i) => {
       const [name, party] = candidates[i];
@@ -200,6 +232,7 @@ export function initMap({ manifest, fetchJSON, stateName, onState, onCounty }) {
     }).join("");
     const head = office ? `<div class="tip-sub">${esc(raceName(office))}</div>` : "";
     return `<strong>${esc(place)}</strong>${head}<div class="tip-sub">${esc(summary(t))}</div>
+      ${progress ? `<div class="tip-sub">${esc(progress)}</div>` : ""}
       ${lines ? `<table>${lines}</table>` : ""}`;
   }
 

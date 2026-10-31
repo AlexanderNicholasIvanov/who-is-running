@@ -1,0 +1,475 @@
+<?xml version="1.0"?>
+<!--Election result snapshot imported from Tabulation System
+-->
+<ElectionResult>
+    <Timestamp>7/30/2025 10:46:52 AM EDT</Timestamp>
+    <ElectionName>2024 Statewide General Election</ElectionName>
+    <ElectionDate>11/5/2024</ElectionDate>
+    <Region>SC</Region>
+    <ElectionVoterTurnout totalVoters="3343423" ballotsCast="2566404" voterTurnout="76.76">
+        <Counties>
+            <County name="Abbeville" totalVoters="15921" ballotsCast="12107" voterTurnout="76.04" precinctsParticipating="15" precinctsReported="15" precinctsReportingPercent="100.00" />
+            <County name="Charleston" totalVoters="268597" ballotsCast="216459" voterTurnout="80.59" precinctsParticipating="182" precinctsReported="182" precinctsReportingPercent="100.00" />
+        </Counties>
+    </ElectionVoterTurnout>
+    <Contest key="20500" text="President and Vice President" voteFor="1" isQuestion="false" countiesParticipating="46" countiesReported="46" precinctsParticipating="2308" precinctsReported="2308" precinctsReportingPercent="100.00">
+        <ParticipatingCounties>
+            <County name="Abbeville" precinctsParticipating="15" precinctsReported="15" precinctsReportingPercent="100.00" />
+            <County name="Charleston" precinctsParticipating="182" precinctsReported="182" precinctsReportingPercent="100.00" />
+        </ParticipatingCounties>
+        <Choice key="001" text="CON Randall A Terry/Stephen E Broden" party="CON" totalVotes="5352">
+            <VoteType name="Election Day" votes="2693">
+                <County name="Abbeville" votes="17" />
+                <County name="Charleston" votes="161" />
+            </VoteType>
+            <VoteType name="Early Voting" votes="2453">
+                <County name="Abbeville" votes="12" />
+                <County name="Charleston" votes="195" />
+            </VoteType>
+            <VoteType name="Absentee By Mail" votes="199">
+                <County name="Abbeville" votes="0" />
+                <County name="Charleston" votes="23" />
+            </VoteType>
+            <VoteType name="Failsafe" votes="1">
+                <County name="Abbeville" votes="0" />
+                <County name="Charleston" votes="1" />
+            </VoteType>
+            <VoteType name="Provisional" votes="2">
+                <County name="Abbeville" votes="0" />
+                <County name="Charleston" votes="0" />
+            </VoteType>
+            <VoteType name="Failsafe Provisional" votes="4">
+                <County name="Abbeville" votes="0" />
+                <County name="Charleston" votes="0" />
+            </VoteType>
+        </Choice>
+        <Choice key="002" text="UNC Cornel West/Melina Abdulla" party="UNC" totalVotes="6744">
+            <VoteType name="Election Day" votes="3692">
+                <County name="Abbeville" votes="20" />
+                <County name="Charleston" votes="253" />
+            </VoteType>
+            <VoteType name="Early Voting" votes="2931">
+                <County name="Abbeville" votes="11" />
+                <County name="Charleston" votes="235" />
+            </VoteType>
+            <VoteType name="Absentee By Mail" votes="98">
+                <County name="Abbeville" votes="0" />
+                <County name="Charleston" votes="13" />
+            </VoteType>
+            <VoteType name="Failsafe" votes="13">
+                <County name="Abbeville" votes="0" />
+                <County name="Charleston" votes="0" />
+            </VoteType>
+            <VoteType name="Provisional" votes="3">
+                <County name="Abbeville" votes="0" />
+                <County name="Charleston" votes="0" />
+            </VoteType>
+            <VoteType name="Failsafe Provisional" votes="7">
+                <County name="Abbeville" votes="0" />
+                <County name="Charleston" votes="0" />
+            </VoteType>
+        </Choice>
+        <Choice key="003" text="GRN Jill Stein/Rudolph Butch Ware" party="GRN" totalVotes="8117">
+            <VoteType name="Election Day" votes="4450">
+                <County name="Abbeville" votes="18" />
+                <County name="Charleston" votes="403" />
+            </VoteType>
+            <VoteType name="Early Voting" votes="3336">
+                <County name="Abbeville" votes="8" />
+                <County name="Charleston" votes="510" />
+            </VoteType>
+            <VoteType name="Absentee By Mail" votes="304">
+                <County name="Abbeville" votes="0" />
+                <County name="Charleston" votes="56" />
+            </VoteType>
+            <VoteType name="Failsafe" votes="5">
+                <County name="Abbeville" votes="0" />
+                <County name="Charleston" votes="1" />
+            </VoteType>
+            <VoteType name="Provisional" votes="7">
+                <County name="Abbeville" votes="0" />
+                <County name="Charleston" votes="0" />
+            </VoteType>
+            <VoteType name="Failsafe Provisional" votes="15">
+                <County name="Abbeville" votes="0" />
+                <County name="Charleston" votes="3" />
+            </VoteType>
+        </Choice>
+        <Choice key="004" text="REP Donald J Trump/JD Vance" party="REP" totalVotes="1483747">
+            <VoteType name="Election Day" votes="585665">
+                <County name="Abbeville" votes="4153" />
+                <County name="Charleston" votes="29268" />
+            </VoteType>
+            <VoteType name="Early Voting" votes="848835">
+                <County name="Abbeville" votes="4197" />
+                <County name="Charleston" votes="64986" />
+            </VoteType>
+            <VoteType name="Absentee By Mail" votes="45698">
+                <County name="Abbeville" votes="152" />
+                <County name="Charleston" votes="4852" />
+            </VoteType>
+            <VoteType name="Failsafe" votes="941">
+                <County name="Abbeville" votes="0" />
+                <County name="Charleston" votes="16" />
+            </VoteType>
+            <VoteType name="Provisional" votes="1494">
+                <County name="Abbeville" votes="7" />
+                <County name="Charleston" votes="82" />
+            </VoteType>
+            <VoteType name="Failsafe Provisional" votes="1114">
+                <County name="Abbeville" votes="0" />
+                <County name="Charleston" votes="61" />
+            </VoteType>
+        </Choice>
+        <Choice key="005" text="LIB Chase Oliver/Mike ter Maat" party="LIB" totalVotes="12669">
+            <VoteType name="Election Day" votes="6702">
+                <County name="Abbeville" votes="17" />
+                <County name="Charleston" votes="784" />
+            </VoteType>
+            <VoteType name="Early Voting" votes="5601">
+                <County name="Abbeville" votes="21" />
+                <County name="Charleston" votes="818" />
+            </VoteType>
+            <VoteType name="Absentee By Mail" votes="338">
+                <County name="Abbeville" votes="0" />
+                <County name="Charleston" votes="63" />
+            </VoteType>
+            <VoteType name="Failsafe" votes="8">
+                <County name="Abbeville" votes="0" />
+                <County name="Charleston" votes="0" />
+            </VoteType>
+            <VoteType name="Provisional" votes="8">
+                <County name="Abbeville" votes="0" />
+                <County name="Charleston" votes="0" />
+            </VoteType>
+            <VoteType name="Failsafe Provisional" votes="12">
+                <County name="Abbeville" votes="0" />
+                <County name="Charleston" votes="0" />
+            </VoteType>
+        </Choice>
+        <Choice key="006" text="DEM Kamala D Harris/Tim Walz" party="DEM" totalVotes="1028452">
+            <VoteType name="Election Day" votes="363190">
+                <County name="Abbeville" votes="1321" />
+                <County name="Charleston" votes="31917" />
+            </VoteType>
+            <VoteType name="Early Voting" votes="602556">
+                <County name="Abbeville" votes="1913" />
+                <County name="Charleston" votes="70984" />
+            </VoteType>
+            <VoteType name="Absentee By Mail" votes="60085">
+                <County name="Abbeville" votes="165" />
+                <County name="Charleston" votes="8314" />
+            </VoteType>
+            <VoteType name="Failsafe" votes="812">
+                <County name="Abbeville" votes="0" />
+                <County name="Charleston" votes="22" />
+            </VoteType>
+            <VoteType name="Provisional" votes="1067">
+                <County name="Abbeville" votes="0" />
+                <County name="Charleston" votes="132" />
+            </VoteType>
+            <VoteType name="Failsafe Provisional" votes="742">
+                <County name="Abbeville" votes="0" />
+                <County name="Charleston" votes="58" />
+            </VoteType>
+        </Choice>
+        <Choice key="007" text="WRK Claudia De La Cruz/Karina Garcia" party="WRK" totalVotes="3059">
+            <VoteType name="Election Day" votes="1576">
+                <County name="Abbeville" votes="10" />
+                <County name="Charleston" votes="150" />
+            </VoteType>
+            <VoteType name="Early Voting" votes="1397">
+                <County name="Abbeville" votes="6" />
+                <County name="Charleston" votes="149" />
+            </VoteType>
+            <VoteType name="Absentee By Mail" votes="78">
+                <County name="Abbeville" votes="0" />
+                <County name="Charleston" votes="10" />
+            </VoteType>
+            <VoteType name="Failsafe" votes="2">
+                <County name="Abbeville" votes="0" />
+                <County name="Charleston" votes="1" />
+            </VoteType>
+            <VoteType name="Provisional" votes="4">
+                <County name="Abbeville" votes="0" />
+                <County name="Charleston" votes="0" />
+            </VoteType>
+            <VoteType name="Failsafe Provisional" votes="2">
+                <County name="Abbeville" votes="0" />
+                <County name="Charleston" votes="0" />
+            </VoteType>
+        </Choice>
+    </Contest>
+    <Contest key="30000" text="Amendment 1" voteFor="1" isQuestion="true" countiesParticipating="46" countiesReported="46" precinctsParticipating="2308" precinctsReported="2308" precinctsReportingPercent="100.00">
+        <ParticipatingCounties>
+            <County name="Abbeville" precinctsParticipating="15" precinctsReported="15" precinctsReportingPercent="100.00" />
+            <County name="Charleston" precinctsParticipating="182" precinctsReported="182" precinctsReportingPercent="100.00" />
+        </ParticipatingCounties>
+        <Choice key="001" text="Yes, In Favor of the Question" party="NON" totalVotes="1982956">
+            <VoteType name="Election Day" votes="776949">
+                <County name="Abbeville" votes="4575" />
+                <County name="Charleston" votes="45602" />
+            </VoteType>
+            <VoteType name="Early Voting" votes="1127776">
+                <County name="Abbeville" votes="4749" />
+                <County name="Charleston" votes="95762" />
+            </VoteType>
+            <VoteType name="Absentee By Mail" votes="73552">
+                <County name="Abbeville" votes="243" />
+                <County name="Charleston" votes="8558" />
+            </VoteType>
+            <VoteType name="Failsafe" votes="1413">
+                <County name="Abbeville" votes="0" />
+                <County name="Charleston" votes="29" />
+            </VoteType>
+            <VoteType name="Provisional" votes="1846">
+                <County name="Abbeville" votes="6" />
+                <County name="Charleston" votes="144" />
+            </VoteType>
+            <VoteType name="Failsafe Provisional" votes="1420">
+                <County name="Abbeville" votes="0" />
+                <County name="Charleston" votes="99" />
+            </VoteType>
+        </Choice>
+        <Choice key="002" text="No, Opposed to the Question" party="NON" totalVotes="324432">
+            <VoteType name="Election Day" votes="104262">
+                <County name="Abbeville" votes="313" />
+                <County name="Charleston" votes="11247" />
+            </VoteType>
+            <VoteType name="Early Voting" votes="201824">
+                <County name="Abbeville" votes="419" />
+                <County name="Charleston" votes="29856" />
+            </VoteType>
+            <VoteType name="Absentee By Mail" votes="17771">
+                <County name="Abbeville" votes="27" />
+                <County name="Charleston" votes="3055" />
+            </VoteType>
+            <VoteType name="Failsafe" votes="135">
+                <County name="Abbeville" votes="0" />
+                <County name="Charleston" votes="5" />
+            </VoteType>
+            <VoteType name="Provisional" votes="293">
+                <County name="Abbeville" votes="0" />
+                <County name="Charleston" votes="38" />
+            </VoteType>
+            <VoteType name="Failsafe Provisional" votes="147">
+                <County name="Abbeville" votes="0" />
+                <County name="Charleston" votes="7" />
+            </VoteType>
+        </Choice>
+    </Contest>
+    <Contest key="90002" text="Straight Party 2" voteFor="1" isQuestion="false" countiesParticipating="34" countiesReported="34" precinctsParticipating="1687" precinctsReported="1687" precinctsReportingPercent="100.00">
+        <ParticipatingCounties>
+            <County name="Abbeville" precinctsParticipating="15" precinctsReported="15" precinctsReportingPercent="100.00" />
+            <County name="Charleston" precinctsParticipating="182" precinctsReported="182" precinctsReportingPercent="100.00" />
+        </ParticipatingCounties>
+        <Choice key="001" text="Constitution" party="CON" totalVotes="791">
+            <VoteType name="Election Day" votes="350">
+                <County name="Abbeville" votes="3" />
+                <County name="Charleston" votes="29" />
+            </VoteType>
+            <VoteType name="Early Voting" votes="395">
+                <County name="Abbeville" votes="4" />
+                <County name="Charleston" votes="45" />
+            </VoteType>
+            <VoteType name="Absentee By Mail" votes="39">
+                <County name="Abbeville" votes="0" />
+                <County name="Charleston" votes="4" />
+            </VoteType>
+            <VoteType name="Failsafe" votes="1">
+                <County name="Abbeville" votes="0" />
+                <County name="Charleston" votes="1" />
+            </VoteType>
+            <VoteType name="Provisional" votes="1">
+                <County name="Abbeville" votes="0" />
+                <County name="Charleston" votes="0" />
+            </VoteType>
+            <VoteType name="Failsafe Provisional" votes="5">
+                <County name="Abbeville" votes="0" />
+                <County name="Charleston" votes="0" />
+            </VoteType>
+        </Choice>
+        <Choice key="002" text="United Citizens" party="UNC" totalVotes="2555">
+            <VoteType name="Election Day" votes="1337">
+                <County name="Abbeville" votes="13" />
+                <County name="Charleston" votes="82" />
+            </VoteType>
+            <VoteType name="Early Voting" votes="988">
+                <County name="Abbeville" votes="10" />
+                <County name="Charleston" votes="66" />
+            </VoteType>
+            <VoteType name="Absentee By Mail" votes="163">
+                <County name="Abbeville" votes="0" />
+                <County name="Charleston" votes="29" />
+            </VoteType>
+            <VoteType name="Failsafe" votes="7">
+                <County name="Abbeville" votes="0" />
+                <County name="Charleston" votes="0" />
+            </VoteType>
+            <VoteType name="Provisional" votes="18">
+                <County name="Abbeville" votes="0" />
+                <County name="Charleston" votes="0" />
+            </VoteType>
+            <VoteType name="Failsafe Provisional" votes="42">
+                <County name="Abbeville" votes="0" />
+                <County name="Charleston" votes="1" />
+            </VoteType>
+        </Choice>
+        <Choice key="003" text="Green" party="GRN" totalVotes="1439">
+            <VoteType name="Election Day" votes="721">
+                <County name="Abbeville" votes="5" />
+                <County name="Charleston" votes="79" />
+            </VoteType>
+            <VoteType name="Early Voting" votes="640">
+                <County name="Abbeville" votes="1" />
+                <County name="Charleston" votes="82" />
+            </VoteType>
+            <VoteType name="Absentee By Mail" votes="73">
+                <County name="Abbeville" votes="0" />
+                <County name="Charleston" votes="25" />
+            </VoteType>
+            <VoteType name="Failsafe" votes="2">
+                <County name="Abbeville" votes="0" />
+                <County name="Charleston" votes="1" />
+            </VoteType>
+            <VoteType name="Provisional" votes="2">
+                <County name="Abbeville" votes="0" />
+                <County name="Charleston" votes="0" />
+            </VoteType>
+            <VoteType name="Failsafe Provisional" votes="1">
+                <County name="Abbeville" votes="0" />
+                <County name="Charleston" votes="0" />
+            </VoteType>
+        </Choice>
+        <Choice key="004" text="Republican" party="REP" totalVotes="577814">
+            <VoteType name="Election Day" votes="214874">
+                <County name="Abbeville" votes="1995" />
+                <County name="Charleston" votes="13971" />
+            </VoteType>
+            <VoteType name="Early Voting" votes="343024">
+                <County name="Abbeville" votes="2097" />
+                <County name="Charleston" votes="35320" />
+            </VoteType>
+            <VoteType name="Absentee By Mail" votes="18447">
+                <County name="Abbeville" votes="73" />
+                <County name="Charleston" votes="2437" />
+            </VoteType>
+            <VoteType name="Failsafe" votes="334">
+                <County name="Abbeville" votes="0" />
+                <County name="Charleston" votes="10" />
+            </VoteType>
+            <VoteType name="Provisional" votes="616">
+                <County name="Abbeville" votes="6" />
+                <County name="Charleston" votes="49" />
+            </VoteType>
+            <VoteType name="Failsafe Provisional" votes="519">
+                <County name="Abbeville" votes="0" />
+                <County name="Charleston" votes="35" />
+            </VoteType>
+        </Choice>
+        <Choice key="005" text="Alliance" party="ALN" totalVotes="147">
+            <VoteType name="Election Day" votes="81">
+                <County name="Abbeville" votes="2" />
+                <County name="Charleston" votes="6" />
+            </VoteType>
+            <VoteType name="Early Voting" votes="65">
+                <County name="Abbeville" votes="1" />
+                <County name="Charleston" votes="7" />
+            </VoteType>
+            <VoteType name="Absentee By Mail" votes="0">
+                <County name="Abbeville" votes="0" />
+                <County name="Charleston" votes="0" />
+            </VoteType>
+            <VoteType name="Failsafe" votes="0">
+                <County name="Abbeville" votes="0" />
+                <County name="Charleston" votes="0" />
+            </VoteType>
+            <VoteType name="Provisional" votes="0">
+                <County name="Abbeville" votes="0" />
+                <County name="Charleston" votes="0" />
+            </VoteType>
+            <VoteType name="Failsafe Provisional" votes="1">
+                <County name="Abbeville" votes="0" />
+                <County name="Charleston" votes="0" />
+            </VoteType>
+        </Choice>
+        <Choice key="006" text="Libertarian" party="LIB" totalVotes="1479">
+            <VoteType name="Election Day" votes="740">
+                <County name="Abbeville" votes="3" />
+                <County name="Charleston" votes="94" />
+            </VoteType>
+            <VoteType name="Early Voting" votes="645">
+                <County name="Abbeville" votes="6" />
+                <County name="Charleston" votes="88" />
+            </VoteType>
+            <VoteType name="Absentee By Mail" votes="80">
+                <County name="Abbeville" votes="0" />
+                <County name="Charleston" votes="22" />
+            </VoteType>
+            <VoteType name="Failsafe" votes="0">
+                <County name="Abbeville" votes="0" />
+                <County name="Charleston" votes="0" />
+            </VoteType>
+            <VoteType name="Provisional" votes="2">
+                <County name="Abbeville" votes="0" />
+                <County name="Charleston" votes="0" />
+            </VoteType>
+            <VoteType name="Failsafe Provisional" votes="12">
+                <County name="Abbeville" votes="0" />
+                <County name="Charleston" votes="2" />
+            </VoteType>
+        </Choice>
+        <Choice key="007" text="Democratic" party="DEM" totalVotes="390682">
+            <VoteType name="Election Day" votes="134377">
+                <County name="Abbeville" votes="771" />
+                <County name="Charleston" votes="12983" />
+            </VoteType>
+            <VoteType name="Early Voting" votes="233367">
+                <County name="Abbeville" votes="1173" />
+                <County name="Charleston" votes="30284" />
+            </VoteType>
+            <VoteType name="Absentee By Mail" votes="21987">
+                <County name="Abbeville" votes="104" />
+                <County name="Charleston" votes="3679" />
+            </VoteType>
+            <VoteType name="Failsafe" votes="234">
+                <County name="Abbeville" votes="0" />
+                <County name="Charleston" votes="8" />
+            </VoteType>
+            <VoteType name="Provisional" votes="406">
+                <County name="Abbeville" votes="0" />
+                <County name="Charleston" votes="75" />
+            </VoteType>
+            <VoteType name="Failsafe Provisional" votes="311">
+                <County name="Abbeville" votes="0" />
+                <County name="Charleston" votes="28" />
+            </VoteType>
+        </Choice>
+        <Choice key="008" text="Workers" party="WRK" totalVotes="610">
+            <VoteType name="Election Day" votes="284">
+                <County name="Abbeville" votes="1" />
+                <County name="Charleston" votes="33" />
+            </VoteType>
+            <VoteType name="Early Voting" votes="294">
+                <County name="Abbeville" votes="2" />
+                <County name="Charleston" votes="33" />
+            </VoteType>
+            <VoteType name="Absentee By Mail" votes="26">
+                <County name="Abbeville" votes="0" />
+                <County name="Charleston" votes="2" />
+            </VoteType>
+            <VoteType name="Failsafe" votes="1">
+                <County name="Abbeville" votes="0" />
+                <County name="Charleston" votes="1" />
+            </VoteType>
+            <VoteType name="Provisional" votes="3">
+                <County name="Abbeville" votes="0" />
+                <County name="Charleston" votes="0" />
+            </VoteType>
+            <VoteType name="Failsafe Provisional" votes="2">
+                <County name="Abbeville" votes="0" />
+                <County name="Charleston" votes="0" />
+            </VoteType>
+        </Choice>
+    </Contest>
+    </ElectionResult>
