@@ -23,6 +23,7 @@ const SOURCE_LABELS = {
   fec: "FEC registration",
   nc: "NC State Board of Elections",
   md: "MD State Board of Elections",
+  va: "VA Department of Elections",
   medsl: "Election results, MIT Election Lab",
 };
 // Sources ranked by how directly they say who is running: an official candidate
