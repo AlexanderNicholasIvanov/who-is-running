@@ -188,12 +188,15 @@ export function initMap({ manifest, fetchJSON, stateName, onState, onCounty }) {
       const totals = race ? race.candidates.map((c) => c[2]) : [];
       const t = race ? tally(race.candidates, totals) : null;
       if (race) rows.push([s.name, t]);
+      // A state missing from the year altogether had races; its results just aren't published.
+      const none = race || hasState(s.abbr) || liveStates.length ? "" : "No results reported for this state";
       const missing = liveStates.length ? `no live ${name} results` : `no ${name} race in ${year}`;
       tips.set(s.abbr, () => (race
         ? tipHTML(s.name, race.candidates, totals, race.office, live[s.abbr] ? liveText(live[s.abbr]) : "")
-        : `<strong>${esc(s.name)}</strong><div class="tip-sub">${esc(missing[0].toUpperCase() + missing.slice(1))}</div>`));
-      const label = `${s.name}: ${race ? summary(t) : missing}${live[s.abbr] ? ` (${liveText(live[s.abbr])})` : ""}`;
-      return `<path d="${s.d}" style="fill: ${race ? fill(t) : "var(--map-empty)"}" data-state="${esc(s.abbr)}"
+        : `<strong>${esc(s.name)}</strong><div class="tip-sub">${esc(none || missing[0].toUpperCase() + missing.slice(1))}</div>`));
+      const label = `${s.name}: ${race ? summary(t) : none ? "no results" : missing}${live[s.abbr] ? ` (${liveText(live[s.abbr])})` : ""}`;
+      const empty = none ? "url(#map-hatch-none)" : "var(--map-empty)";
+      return `<path d="${s.d}" style="fill: ${race ? fill(t) : empty}" data-state="${esc(s.abbr)}"
         tabindex="0" role="button" aria-label="${esc(label)}"></path>`;
     });
     const inset = territoryTiles(shapes.viewBox, byState, name, year, rows);

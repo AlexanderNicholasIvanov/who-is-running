@@ -12,8 +12,13 @@ https://github.com/MEDSL  (one repository per election year)
 
 Coverage is uneven: some states report no local races in some years (e.g.
 California 2018), and a few files carry only surnames (Texas 2022, 2024). Write-ins,
-ballot questions and turnout lines are dropped. 2020 is only on Harvard
-Dataverse, behind an interactive download, so it isn't included.
+ballot questions and turnout lines are dropped.
+
+MEDSL now publishes 2020 only on Harvard Dataverse, whose downloads need a
+guestbook form (name, email, institution), so 2020 comes from the last copy
+on GitHub, pinned by commit: state and federal offices, every state but Indiana,
+which was added later. 2016 comes from MEDSL's older precinct repository, in an
+older schema with office names as each county spelled them.
 """
 
 from __future__ import annotations
@@ -43,6 +48,14 @@ FILES = {
     2018: "2018-{st}-precinct-general.zip",
     2022: "2022-{st}-local-precinct-general.zip",
     2024: "{st}24.zip",
+    2016: "2016-{st}-precinct.zip",
+    2020: "2020-{st}-precinct-general.zip",
+}
+# Years whose files aren't in RAW (see the module docstring).
+BASES = {
+    2016: "https://raw.githubusercontent.com/MEDSL/official-precinct-returns/HEAD/source",
+    2020: "https://raw.githubusercontent.com/MEDSL/2020-elections-official/"
+    "ad22f37e3f1e3355f078ba5a1efce6c221333ef1/individual_states",
 }
 STATES = [
     *("AK", "AL", "AR", "AZ", "CA", "CO", "CT", "DC", "DE", "FL", "GA", "HI", "IA"),
@@ -78,10 +91,30 @@ PRIMARY_STATES = {
 }
 PARTIES = {
     "DEMOCRAT": "DEM",
+    "DEMOCRATIC": "DEM",  # 2016
     "REPUBLICAN": "REP",
     "LIBERTARIAN": "LIB",
     "GREEN": "GRE",
     "INDEPENDENT": "IND",
+}
+# Vermont 2016 gives no party on any presidential line. The major-party
+# nominees were on their party's line in every state.
+NOMINEES_2016 = {"Hillary Clinton": "DEMOCRATIC", "Donald Trump": "REPUBLICAN"}
+# New Hampshire 2016 gives its cities' wards no county; each city lies in one.
+NH_CITIES = {
+    "Berlin": ("Coos County", "33007"),
+    "Claremont": ("Sullivan County", "33019"),
+    "Concord": ("Merrimack County", "33013"),
+    "Dover": ("Strafford County", "33017"),
+    "Franklin": ("Merrimack County", "33013"),
+    "Keene": ("Cheshire County", "33005"),
+    "Laconia": ("Belknap County", "33001"),
+    "Lebanon": ("Grafton County", "33009"),
+    "Manchester": ("Hillsborough County", "33011"),
+    "Nashua": ("Hillsborough County", "33011"),
+    "Portsmouth": ("Rockingham County", "33015"),
+    "Rochester": ("Strafford County", "33017"),
+    "Somersworth": ("Strafford County", "33017"),
 }
 NO_PARTY = {"", '""', "NONPARTISAN", "NON", "OTHER", "NONE", "NO"}
 
@@ -126,7 +159,7 @@ class MedslSource(Source):
     name = "medsl"
     description = (
         "MIT Election Lab precinct results: every candidate on the November ballot, "
-        "all states (2018, 2022, 2024)"
+        "all states (2016, 2018, 2020, 2022, 2024)"
     )
 
     def available_years(self) -> list[int]:
@@ -146,7 +179,8 @@ class MedslSource(Source):
             return []
         out: list[Candidacy] = []
         for st in STATES:
-            url = f"{RAW.format(year=year)}/{FILES[year].format(st=st.lower())}"
+            base = BASES.get(year, RAW.format(year=year))
+            url = f"{base}/{FILES[year].format(st=st.lower())}"
             try:
                 archive = self.fetch(url)
             except NotFound:
@@ -154,7 +188,12 @@ class MedslSource(Source):
                 continue
             with zipfile.ZipFile(io.BytesIO(archive)) as zf:
                 for member in zf.namelist():
-                    if member.lower().endswith(".csv") and not member.startswith("__MACOSX"):
+                    # North Carolina 2020 also ships its file re-sorted ("...-sorted.csv").
+                    if (
+                        member.lower().endswith(".csv")
+                        and not member.startswith("__MACOSX")
+                        and not member.lower().endswith("-sorted.csv")
+                    ):
                         with zf.open(member) as fh:
                             candidacies, results = parse_with_results(decode_lines(fh))
                         out.extend(candidacies)
@@ -215,6 +254,8 @@ def parse_with_results(
     race_counties: defaultdict[Candidacy, set[str]] = defaultdict(set)
     voted_in: defaultdict[Candidacy, set[str]] = defaultdict(set)
     all_counties: defaultdict[str, set[str]] = defaultdict(set)  # by state
+    surnames: dict[Candidacy, str] = {}
+    candidate_counties: defaultdict[Candidacy, set[str]] = defaultdict(set)
     reader = csv.reader(lines)
     header = next(reader, [])
     state_col = header.index("state_po") if "state_po" in header else -1
@@ -222,14 +263,30 @@ def parse_with_results(
         if primary_states is not None and row[state_col] not in primary_states:
             continue
         r = dict(zip(header, row, strict=False))
-        # Wisconsin 2018 uses MEDSL's older column names.
+        # Wisconsin 2018 and all of 2016 use MEDSL's older column names.
         r.setdefault("county_name", r.get("county", ""))
-        r.setdefault("party_detailed", r.get("party", ""))
+        # 2016 leaves some ballot lines' party blank but gives the candidate's own party.
+        r.setdefault(
+            "party_detailed",
+            r.get("party", "")
+            or r.get("candidate_party", "")
+            or NOMINEES_2016.get(r.get("candidate", ""), ""),
+        )
+        r.setdefault("state_po", r.get("state_postal", ""))
+        r.setdefault("jurisdiction_name", r.get("jurisdiction", ""))
+        city = r["jurisdiction_name"].strip()
+        if r["state_po"] == "NH" and not r["county_name"].strip() and city in NH_CITIES:
+            r["county_name"], r["county_fips"] = NH_CITIES[city]
         if r.get("writein", "").upper() == "TRUE":
             continue
         # A few files carry HTML entities ("SCHOOLS&#39;").
         candidate = " ".join(html.unescape(r.get("candidate", "")).split())
         office = " ".join(html.unescape(r.get("office", "")).split())
+        # 2016 sometimes gives the district after a bar: "Regent Of The
+        # University Of Colorado|1", with "|0" for the at-large seat.
+        name, bar, seat = office.rpartition("|")
+        if bar and seat.isdigit() and not r.get("district", "").strip():
+            office, r["district"] = name, seat
         if not office or NOT_CANDIDATES.search(candidate.upper()) or NOT_OFFICES.search(office):
             continue
         dataverse = r.get("dataverse", "").upper()
@@ -286,16 +343,53 @@ def parse_with_results(
             if votes > 0:
                 voted_in[_race(key)].add(county)
         if level is not Level.LOCAL and key.district in ("", "AT-LARGE"):
+            if r.get("candidate_normalized", "").strip():
+                surnames[key] = r["candidate_normalized"].strip().lower()
+            if county and votes > 0:
+                candidate_counties[key].add(county)
             # Alaska reports early and absentee votes by legislative district,
             # with no county: they count toward the state total under "".
-            fips = r.get("county_fips", "").strip()
+            # Wisconsin 2016 appends a 5-digit town code ("5500100000").
+            fips = r.get("county_fips", "").strip()[:5]
             fips = fips.zfill(5) if fips.isdigit() else ""
-            county_names[fips] = county if fips else ""
+            # 2016 leaves some names blank, e.g. Kansas City's, but names the jurisdiction.
+            county_names[fips] = (county or r.get("jurisdiction_name", "").strip()) if fips else ""
             precinct = (key, fips, r.get("precinct", ""), r.get("party_detailed", ""))
             if r.get("mode", "").upper() == "TOTAL":
                 totals[precinct] += votes
             else:
                 by_mode[precinct] += votes
+
+    if surnames:
+        canon = _merge_spellings(surnames, candidate_counties, voted_in, totals, by_mode)
+        merged: dict[Candidacy, list[str]] = {}
+        for key, p in parties.items():
+            seen = merged.setdefault(canon.get(key, key), [])
+            seen.extend(x for x in p if x not in seen)
+        parties = merged
+        for counter in (totals, by_mode):
+            moved: Counter[tuple[Candidacy, str, str, str]] = Counter()
+            for k, v in counter.items():
+                moved[canon.get(k[0], k[0]), *k[1:]] += v
+            counter.clear()
+            counter.update(moved)
+        for key, best in canon.items():
+            if key != best:
+                candidate_counties[best] |= candidate_counties.pop(key, set())
+
+    # Some files leave out the district of a per-district race (2016's State
+    # House in New Hampshire and Vermont, Maryland 2018's county clerks), so
+    # it looks statewide. In a real statewide race some candidate gets votes
+    # in (nearly) every county; in these, each one is on a few counties' ballots.
+    # (With only one or two counties there is nothing to tell them apart by.)
+    best_cover: Counter[Candidacy] = Counter()
+    for key, seen_in in candidate_counties.items():
+        best_cover[_race(key)] = max(best_cover[_race(key)], len(seen_in))
+    split = {
+        race
+        for race, n in best_cover.items()
+        if len(voted_in[race]) > 2 and n < 0.9 * len(voted_in[race])
+    }
 
     def counties_of(key: Candidacy) -> str:
         # Some files list a race's candidates with 0 votes in every precinct
@@ -318,7 +412,8 @@ def parse_with_results(
         # gives statewide totals; they're all filed as not reported by county.
         if not key.election_type:
             continue  # a recount of some counties, already counted
-        if candidacies[key].counties == STATEWIDE or not all_counties[key.state]:
+        mapped = candidacies[key].counties == STATEWIDE and _race(key) not in split
+        if mapped or not all_counties[key.state]:
             county_votes[key, fips] += totals[precinct] if precinct in totals else by_mode[precinct]
     results = [
         CountyResult(
@@ -337,6 +432,39 @@ def parse_with_results(
         for (key, fips), votes in county_votes.items()
     ]
     return list(candidacies.values()), results
+
+
+def _merge_spellings(
+    surnames: dict[Candidacy, str],
+    counties: dict[Candidacy, set[str]],
+    race_counties: dict[Candidacy, set[str]],
+    totals: Counter[tuple[Candidacy, str, str, str]],
+    by_mode: Counter[tuple[Candidacy, str, str, str]],
+) -> dict[Candidacy, Candidacy]:
+    """Map each spelling of a statewide candidate to the spelling with the most votes.
+
+    2016 files spell names as each county did ("Moran, Jerry" in some
+    counties, "Jerry Moran" in the rest), but also give MEDSL's normalized
+    surname, which is the same for all of them. Spellings sharing a surname
+    are one candidate only if each county uses just one of them and together
+    they cover every county the race got votes in. That keeps apart two
+    people with one surname, such as two judges up for retention, or two
+    State House candidates where the file gives no district.
+    """
+    votes: Counter[Candidacy] = Counter()
+    for precinct in totals.keys() | by_mode.keys():
+        votes[precinct[0]] += totals[precinct] if precinct in totals else by_mode[precinct]
+    spellings: defaultdict[tuple[Candidacy, str], list[Candidacy]] = defaultdict(list)
+    for key, surname in surnames.items():
+        spellings[_race(key), surname].append(key)
+    canon: dict[Candidacy, Candidacy] = {}
+    for (race, _), keys in spellings.items():
+        seen = [counties.get(k, set()) for k in keys]
+        union = set().union(*seen)
+        if len(keys) > 1 and sum(map(len, seen)) == len(union) == len(race_counties.get(race, ())):
+            best = max(keys, key=lambda k: (votes[k], k.candidate_name))
+            canon.update(dict.fromkeys(keys, best))
+    return canon
 
 
 def votes_of(raw: str) -> int:

@@ -9,7 +9,8 @@ from typing import Any
 from conftest import FIXTURES, FakeWeb, fixture_bytes
 
 from who_is_running import geo
-from who_is_running.build_site import NATIONAL_RACES, build, build_results
+from who_is_running.build_site import MAP_COUNTIES, NATIONAL_RACES, build, build_results
+from who_is_running.districts import STATE_FIPS
 from who_is_running.results import CountyResult, results_path, write_csv
 from who_is_running.sources.medsl import MedslSource, parse_with_results
 
@@ -375,6 +376,14 @@ def test_build_results_draws_renamed_counties_on_the_map_shapes(tmp_path: Path) 
 
     sd = json.loads((out / "2024" / "SD.json").read_text(encoding="utf-8"))
     assert sd["races"][0]["counties"]["46102"][0] == "OGLALA LAKOTA"
+
+
+def test_map_counties_point_at_map_shapes() -> None:
+    for code, (target, _) in MAP_COUNTIES.items():
+        state = STATE_FIPS[target[:2]]
+        shapes = json.loads((WEB / "geo" / "counties" / f"{state}.json").read_text("utf-8"))
+        assert target in shapes["shapes"], code
+        assert code not in shapes["shapes"], code
 
 
 def test_build_results_counts_state_level_tallies_as_not_by_county(tmp_path: Path) -> None:
