@@ -285,6 +285,47 @@ def test_yes_no_lines_that_are_not_measures() -> None:
     assert {(r.office, r.candidate_name) for r in results} == {("GOVERNOR", "GRETCHEN WHITMER")}
 
 
+def test_measures_do_not_change_which_races_are_statewide() -> None:
+    # Virginia 2018 spells one county "KING & QUEEN" in its amendment rows only.
+    q1 = "PROPOSED CONSTITUTIONAL AMENDMENT QUESTION 1"
+    candidacies, results = parse_with_results(
+        [
+            HEADER,
+            _row(
+                "1",
+                "US SENATE",
+                "TIMOTHY KAINE",
+                "DEMOCRAT",
+                "TOTAL",
+                9,
+                "KING AND QUEEN",
+                "51097",
+                "",
+                "SENATE",
+            ),
+            *(
+                _row(
+                    "# AB - CENTRAL ABSENTEE PRECINCT (01)",
+                    q1,
+                    answer,
+                    "",
+                    "TOTAL",
+                    votes,
+                    "KING & QUEEN",
+                    "51097",
+                    "",
+                    "STATE",
+                )
+                for answer, votes in (("YES", 30), ("NO", 47))
+            ),
+        ]
+    )
+
+    assert [c.counties for c in candidacies] == ["*"]
+    # ...and the amendment, never in "KING AND QUEEN", isn't on every ballot.
+    assert {r.office for r in results} == {"US Senate"}
+
+
 def test_measure_in_a_file_without_counties() -> None:
     # Alaska 2022 reports by legislative district only. A STATE row is a state
     # measure; without a dataverse there's no telling.

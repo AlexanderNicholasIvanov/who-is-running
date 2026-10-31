@@ -244,7 +244,8 @@ def parse_with_results(lines: Iterable[str]) -> tuple[list[Candidacy], list[Coun
         votes = votes_of(r.get("votes", ""))
         if county:
             race_counties[_race(key)].add(county)
-            all_counties.add(county)
+            if not choice:  # measures must cover the counties races do, not add to them
+                all_counties.add(county)
             if votes > 0:
                 voted_in[_race(key)].add(county)
         if level is not Level.LOCAL and key.district in ("", "AT-LARGE"):
