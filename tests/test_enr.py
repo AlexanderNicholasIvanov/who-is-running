@@ -162,7 +162,8 @@ def test_source_finds_the_election_and_writes_results_with_status(
     assert not (tmp_path / "enr").exists()
     csv_text = (tmp_path / "results" / "enr" / "2026.csv").read_text(encoding="utf-8")
     assert (
-        "IA,2026,US President,19153,POLK,Kamala D. Harris and Tim Walz,DEM,140075,enr" in csv_text
+        "IA,2026,2026-11-03,general,US President,19153,POLK,"
+        "Kamala D. Harris and Tim Walz,DEM,140075,enr" in csv_text
     )
     status = json.loads((tmp_path / "results" / "enr" / "2026.json").read_text(encoding="utf-8"))
     assert status["IA"]["url"] == "https://results.enr.clarityelections.com/IA/127077/"
@@ -207,7 +208,19 @@ def test_refresh_years_cover_the_canvass() -> None:
 
 
 def _live(state: str, year: int, county: str, name: str, votes: int) -> CountyResult:
-    return CountyResult(state, year, "US President", county, "X", name, "DEM", votes, "enr")
+    return CountyResult(
+        state,
+        year,
+        f"{year}-11-05",
+        "general",
+        "US President",
+        county,
+        "X",
+        name,
+        "DEM",
+        votes,
+        "enr",
+    )
 
 
 def test_certified_results_take_precedence_over_live_ones(tmp_path: Path) -> None:

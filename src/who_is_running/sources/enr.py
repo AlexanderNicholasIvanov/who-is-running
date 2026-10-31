@@ -221,6 +221,12 @@ class EnrSource(Source):
         return {(st, county_key(name)): fips for fips, (st, name) in names.items()}
 
 
+def election_day(year: int) -> str:
+    """The general election's ISO date, when ``ELECTION_DAYS`` has it."""
+    day = ELECTION_DAYS.get(year)
+    return day.isoformat() if day else ""
+
+
 def find_election(listed: list[dict[str, str]], day: date) -> str:
     """The EID of the general election held on ``day``, from a site's elections.json."""
     on_day = [
@@ -314,6 +320,8 @@ def parse_detail(
                     CountyResult(
                         state=state,
                         election_year=year,
+                        election_date=election_day(year),
+                        stage="general",
                         office=office,
                         county_fips=code(county),
                         county=county_name(county),
@@ -399,6 +407,8 @@ def from_lines(
             CountyResult(
                 state=state,
                 election_year=year,
+                election_date=election_day(year),
+                stage="general",
                 office=office_of(office),
                 county_fips=x.fips,
                 county=x.name,

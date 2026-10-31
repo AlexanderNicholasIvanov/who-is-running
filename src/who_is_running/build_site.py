@@ -27,7 +27,7 @@ from typing import Any
 
 from who_is_running.districts import STATE_FIPS
 from who_is_running.models import Candidacy
-from who_is_running.results import CountyResult
+from who_is_running.results import STAGES, CountyResult
 from who_is_running.sources import SOURCES
 
 
@@ -107,6 +107,13 @@ MAP_COUNTIES = {
 }
 
 
+# Results files written before the stage columns existed hold general elections.
+LEGACY_COLUMNS = [c for c in CountyResult.columns() if c not in ("election_date", "stage")]
+
+# A race: (stage, office, primary party, date); stage first so general races list first.
+Race = tuple[int, str, str, str]
+
+
 def build_results(results_dir: Path, out_dir: Path) -> list[dict[str, Any]]:
     """County results per state, plus statewide totals for the national map.
 
@@ -129,22 +136,29 @@ def build_results(results_dir: Path, out_dir: Path) -> list[dict[str, Any]]:
         with csv_path.open(encoding="utf-8", newline="") as fh:
             reader = csv.reader(fh)
             columns = next(reader)
-            if columns != CountyResult.columns():
+            if columns == LEGACY_COLUMNS:
+                legacy = {"election_date": "", "stage": "general"}
+                rows = [legacy | dict(zip(columns, row, strict=True)) for row in reader]
+            elif columns == CountyResult.columns():
+                rows = [dict(zip(columns, row, strict=True)) for row in reader]
+            else:
                 raise ValueError(f"{csv_path}: unexpected columns {columns}")
-            rows = [dict(zip(columns, row, strict=True)) for row in reader]
         rows = [r for r in rows if r["state"] not in taken]
         if not rows:
             continue
 
-        # state -> office -> candidate (name, party) -> county fips -> votes
-        races: defaultdict[str, defaultdict[str, defaultdict[tuple[str, str], Counter[str]]]]
+        # state -> race -> candidate (name, party) -> county fips -> votes
+        races: defaultdict[str, defaultdict[Race, defaultdict[tuple[str, str], Counter[str]]]]
         races = defaultdict(lambda: defaultdict(lambda: defaultdict(Counter)))
         county_names: dict[str, str] = {}
         for r in rows:
             fips, county = MAP_COUNTIES.get(r["county_fips"], (r["county_fips"], r["county"]))
             if fips[2:] == "000" and STATE_FIPS.get(fips[:2]) == r["state"]:
                 fips = county = ""  # a state-level tally, e.g. Maine's overseas ballots
-            races[r["state"]][r["office"]][r["candidate_name"], r["party"]][fips] += int(r["votes"])
+            # Each party's primary is its own race; a general election's runoff is one race.
+            party = r["party"] if r["stage"].startswith("primary") else ""
+            race_key = (STAGES.index(r["stage"]), r["office"], party, r["election_date"])
+            races[r["state"]][race_key][r["candidate_name"], r["party"]][fips] += int(r["votes"])
             county_names[fips] = county
 
         dest = out_dir / str(year)
@@ -159,11 +173,14 @@ def build_results(results_dir: Path, out_dir: Path) -> list[dict[str, Any]]:
                 national[choice].update(by_state)
         for state, offices in sorted(races.items()):
             state_races: list[dict[str, Any]] = []
-            for office, candidates in sorted(offices.items()):
+            for (stage, office, party, when), candidates in sorted(offices.items()):
                 ranked = sorted(candidates.items(), key=lambda kv: -sum(kv[1].values()))
                 counties = sorted({f for _, by_county in ranked for f in by_county})
                 race = {
                     "office": office,
+                    "stage": STAGES[stage],
+                    "date": when,
+                    "party": party,  # the primary's party
                     "candidates": [[n, p, sum(v.values())] for (n, p), v in ranked],
                     # fips -> [county name, votes per candidate, in the order above];
                     # "" holds votes the state didn't report by county.
@@ -179,10 +196,9 @@ def build_results(results_dir: Path, out_dir: Path) -> list[dict[str, Any]]:
             (dest / f"{state}.json").write_text(
                 json.dumps(payload, separators=(",", ":")), encoding="utf-8"
             )
+            general = [r for r in state_races if r["stage"] == "general"]
             for choice, patterns in NATIONAL_RACES.items():
-                found = next(
-                    (r for p in patterns for r in state_races if p.match(r["office"])), None
-                )
+                found = next((r for p in patterns for r in general if p.match(r["office"])), None)
                 if found:
                     national[choice][state] = {
                         "office": found["office"],

@@ -50,8 +50,38 @@ function tally(candidates, votes) {
 
 const step = (margin) => MARGIN_STEPS.filter((edge) => margin >= edge).length;
 
-function fill(t) {
+// Runoffs and primaries are separate contests from the general election.
+const STAGE_LABELS = { general: "General", runoff: "Runoff", primary: "Primary", "primary runoff": "Primary runoff" };
+const longDate = (iso) => (iso
+  ? new Date(`${iso}T00:00:00Z`).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric", timeZone: "UTC" })
+  : "");
+// A primary (or a runoff between candidates of one party) can't be told apart
+// by party color, so its counties are colored by winning candidate.
+const byCandidate = (race) => race.stage !== "general" && new Set(race.candidates.map(([, p]) => p)).size <= 1;
+const CANDIDATE_COLORS = 3; // the leading three statewide; checked all-pairs for color-vision deficiency
+const candidateSlot = (race, candidate) => {
+  const i = race.candidates.indexOf(candidate);
+  return i >= 0 && i < CANDIDATE_COLORS ? String(i) : "other";
+};
+const raceId = (race) => (race.stage === "general" ? race.office : [race.stage, race.office, race.party, race.date].join("|"));
+const PARTY_LONG = { DEM: "Democratic", REP: "Republican", LIB: "Libertarian", GRE: "Green" };
+const partyLong = (party) => (party ? PARTY_LONG[party] || titleCase(party) : "nonpartisan");
+// The race to show for a wanted race id or office: the same one, else the same
+// office (and party) in another stage, so Georgia's Senate general leads to its runoff.
+function pickRace(races, wanted) {
+  const [office, party] = wanted.includes("|") ? wanted.split("|").slice(1, 3) : [wanted, undefined];
+  return races.find((r) => raceId(r) === wanted)
+    || races.find((r) => r.office === office && r.party === party)
+    || races.find((r) => r.office === office);
+}
+const raceLabel = (race) => (race.stage.startsWith("primary") ? `${raceName(race.office)} (${partyLong(race.party)})` : raceName(race.office));
+
+function fill(t, race) {
   if (!t.winner) return "url(#map-hatch-none)";
+  if (race && byCandidate(race)) {
+    const slot = candidateSlot(race, t.winner);
+    return slot === "other" ? "url(#map-hatch-candidate)" : `var(--map-candidate-${slot})`;
+  }
   const party = partyClass(t.winner[1]);
   return party === "other" ? "url(#map-hatch-other)" : `var(--map-${party}-${step(t.margin)})`;
 }
@@ -62,13 +92,19 @@ function summary(t) {
   return `${titleCase(t.winner[0])} (${partyLabel(t.winner[1])}) by ${t.margin.toFixed(1)} pts`;
 }
 
-// Candidates are partisan if any has a party; the map is about which party leads.
+// Candidates are partisan if any has a party; the map is about which party leads
+// (or, in a one-party contest, which candidate).
 const isPartisan = (race) => race.candidates.some(([, party]) => party);
+const isMapped = (race) => isPartisan(race) || byCandidate(race);
 
 const DEFS = `
   <defs>
     <pattern id="map-hatch-other" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
       <rect width="6" height="6" style="fill: var(--map-other)"></rect>
+      <line x1="0" y1="0" x2="0" y2="6" style="stroke: var(--map-hatch); stroke-width: 2"></line>
+    </pattern>
+    <pattern id="map-hatch-candidate" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <rect width="6" height="6" style="fill: var(--map-candidate-other)"></rect>
       <line x1="0" y1="0" x2="0" y2="6" style="stroke: var(--map-hatch); stroke-width: 2"></line>
     </pattern>
     <pattern id="map-hatch-none" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(135)">
@@ -81,6 +117,7 @@ export function initMap({ manifest, fetchJSON, stateName, onState, onCounty }) {
   const $ = (id) => document.getElementById(id);
   const els = {
     section: $("map-section"), year: $("map-year"), race: $("map-race"), back: $("map-back"),
+    stage: $("map-stage"), stageField: $("map-stage-field"),
     title: $("map-title"), svg: $("map"), tip: $("map-tip"), legend: $("map-legend"),
     note: $("map-note"), table: $("map-table"),
   };
@@ -95,7 +132,7 @@ export function initMap({ manifest, fetchJSON, stateName, onState, onCounty }) {
   }));
   els.legend.innerHTML = legendHTML();
 
-  let view = { state: null, race: null }; // state null = the whole country
+  let view = { state: null, race: null, stage: "general" }; // state null = the whole country
   let nationalChoice = null; // which national race the country view shows
   let tips = new Map(); // shape key -> () => tooltip HTML
   let token = 0; // drops renders that a newer one has overtaken
@@ -103,8 +140,8 @@ export function initMap({ manifest, fetchJSON, stateName, onState, onCounty }) {
   const yearInfo = () => manifest.results.find((r) => r.year === Number(els.year.value));
   const hasState = (st) => Boolean(yearInfo()?.states.includes(st));
 
-  function setRaces(names, preferred) {
-    els.race.replaceChildren(...names.map((n) => new Option(raceName(n), n)));
+  function setRaces(names, preferred, labels = names.map(raceName)) {
+    els.race.replaceChildren(...names.map((n, i) => new Option(labels[i], n)));
     if (names.includes(preferred)) els.race.value = preferred;
   }
 
@@ -132,6 +169,8 @@ export function initMap({ manifest, fetchJSON, stateName, onState, onCounty }) {
     const live = yearInfo().live || {};
     const liveStates = Object.keys(live);
     els.back.hidden = true;
+    els.stageField.hidden = true;
+    els.legend.innerHTML = legendHTML();
     els.title.textContent = `${name}, ${year}${liveStates.length ? " (unofficial)" : ""}`;
     const rows = [];
     tips = new Map();
@@ -165,24 +204,42 @@ export function initMap({ manifest, fetchJSON, stateName, onState, onCounty }) {
       fetchJSON(`results/${year}/national.json`),
     ]);
     if (mine !== token) return;
-    const races = results.races.filter(isPartisan);
+    const mapped = results.races.filter(isMapped);
+    // General, runoff, primary: offered only when the state had that contest.
+    const stages = Object.keys(STAGE_LABELS).filter((s) => mapped.some((r) => r.stage === s));
+    if (!stages.includes(view.stage)) view.stage = stages[0] || "general";
+    els.stage.replaceChildren(...stages.map((s) => {
+      const dates = [...new Set(mapped.filter((r) => r.stage === s).map((r) => r.date))];
+      const when = s !== "general" && dates.length === 1 && dates[0] ? `, ${longDate(dates[0])}` : "";
+      return new Option(`${STAGE_LABELS[s]}${when}`, s);
+    }));
+    els.stage.value = view.stage;
+    els.stageField.hidden = !stages.some((s) => s !== "general");
+    const races = mapped.filter((r) => r.stage === view.stage);
     // Opening a state shows the same race the country view does, when the state had it.
     const choice = nationalChoice ?? yearInfo().national[0];
-    setRaces(races.map((r) => r.office), view.race || national.races[choice]?.[st]?.office);
-    const race = races.find((r) => r.office === els.race.value);
+    const wanted = pickRace(races, view.race || national.races[choice]?.[st]?.office || "");
+    setRaces(races.map(raceId), wanted && raceId(wanted), races.map(raceLabel));
+    const race = races.find((r) => raceId(r) === els.race.value);
     els.back.hidden = false;
     tips = new Map();
     if (!race) {
       els.title.textContent = `${stateName(st)}, ${year}`;
+      els.legend.innerHTML = legendHTML();
       draw(shapes.viewBox, "", `<path class="map-outline" d="${shapes.outline}"></path>`);
       els.note.textContent = `No partisan statewide races in ${stateName(st)} in ${year}.`;
       renderTable("", "County", []);
       return;
     }
-    view.race = race.office;
+    view.race = raceId(race);
     const name = raceName(race.office);
+    const general = race.stage === "general";
+    // "US Senate runoff, Dec 6, 2022"; "Governor, Republican primary, Aug 28, 2018"
+    const contest = general ? name : `${name}${race.stage.startsWith("primary") ? `, ${partyLong(race.party)}` : ""} ${STAGE_LABELS[race.stage].toLowerCase()}`;
+    const when = general ? String(year) : longDate(race.date) || String(year);
     const live = results.live;
-    els.title.textContent = `${stateName(st)}: ${name}, ${year}${live ? " (unofficial)" : ""}`;
+    els.title.textContent = `${stateName(st)}: ${contest}, ${when}${live ? " (unofficial)" : ""}`;
+    els.legend.innerHTML = byCandidate(race) ? candidateLegendHTML(race) : legendHTML();
     const rows = [];
     const paths = Object.entries(shapes.shapes).map(([fips, s]) => {
       const county = race.counties[fips];
@@ -192,10 +249,10 @@ export function initMap({ manifest, fetchJSON, stateName, onState, onCounty }) {
       const precincts = live?.counties?.[fips];
       const progress = precincts ? `${precincts[0]} of ${precincts[1]} precincts reporting` : "";
       tips.set(fips, () => (county
-        ? tipHTML(countyName, race.candidates, county[1], "", progress)
+        ? tipHTML(countyName, race.candidates, county[1], "", progress, race)
         : `<strong>${esc(s.name)}</strong><div class="tip-sub">No results reported for this county</div>`));
       const label = `${countyName}: ${county ? summary(t) : "no results"}`;
-      return `<path d="${s.d}" style="fill: ${county ? fill(t) : "url(#map-hatch-none)"}" data-county="${esc(fips)}"
+      return `<path d="${s.d}" style="fill: ${county ? fill(t, race) : "url(#map-hatch-none)"}" data-county="${esc(fips)}"
         data-name="${esc(countyName)}" tabindex="0" role="button" aria-label="${esc(label)}"></path>`;
     });
     draw(shapes.viewBox, paths.join(""), `<path class="map-outline" d="${shapes.outline}"></path>`);
@@ -208,12 +265,19 @@ export function initMap({ manifest, fetchJSON, stateName, onState, onCounty }) {
       const share = (unassigned[1].reduce((a, b) => a + b, 0) / statewide.total) * 100;
       notes.push(`${pct(share)} of the votes weren't reported by county (often early and absentee ballots), so county shading leaves them out; the statewide result includes them.`);
     }
+    if (byCandidate(race)) {
+      notes.push(race.candidates.length > CANDIDATE_COLORS
+        ? "Each county is colored by its winner: the three candidates with the most votes statewide have their own colors, and counties won by anyone else share a gray hatch."
+        : "Each county is colored by its winning candidate.");
+    }
+    const runoff = general && mapped.find((r) => r.stage === "runoff" && r.office === race.office);
+    if (runoff) notes.push(`This race went to a runoff${runoff.date ? ` on ${longDate(runoff.date)}` : ""}: pick Runoff under Election to see it.`);
     const offMap = Object.keys(race.counties).filter((f) => f && !shapes.shapes[f]);
     if (offMap.length) {
       notes.push(`Not drawn: ${offMap.map((f) => titleCase(race.counties[f][0])).join(", ")}.`);
     }
     els.note.textContent = notes.join(" ");
-    renderTable(`${name} results by county, ${stateName(st)} ${year}${live ? " (unofficial)" : ""}`, "County", rows);
+    renderTable(`${contest} results by county, ${stateName(st)}, ${when}${live ? " (unofficial)" : ""}`, "County", rows);
   }
 
   function draw(viewBox, paths, overlay) {
@@ -222,11 +286,12 @@ export function initMap({ manifest, fetchJSON, stateName, onState, onCounty }) {
   }
 
   // progress: for live results, e.g. "12 of 40 precincts reporting".
-  function tipHTML(place, candidates, votes, office, progress) {
+  function tipHTML(place, candidates, votes, office, progress, race) {
     const t = tally(candidates, votes);
+    const swatch = (i) => (race && byCandidate(race) ? `candidate-${candidateSlot(race, candidates[i])}` : partyClass(candidates[i][1]));
     const lines = t.order.slice(0, 4).filter((i) => votes[i] > 0).map((i) => {
       const [name, party] = candidates[i];
-      return `<tr><td><span class="swatch swatch-${partyClass(party)}"></span>${esc(titleCase(name))}</td>
+      return `<tr><td><span class="swatch swatch-${swatch(i)}"></span>${esc(titleCase(name))}</td>
         <td>${esc(partyLabel(party))}</td><td class="num">${esc(fmt.format(votes[i]))}</td>
         <td class="num">${esc(pct((votes[i] / t.total) * 100))}</td></tr>`;
     }).join("");
@@ -315,14 +380,19 @@ export function initMap({ manifest, fetchJSON, stateName, onState, onCounty }) {
   });
   document.addEventListener("keydown", (e) => { if (e.key === "Escape") hideTip(); });
 
-  els.year.addEventListener("change", () => { view.race = null; render(); });
+  els.year.addEventListener("change", () => { view.race = null; view.stage = "general"; render(); });
+  els.stage.addEventListener("change", () => {
+    view.race = els.race.value; // pickRace finds the same office in the new stage
+    view.stage = els.stage.value;
+    render();
+  });
   els.race.addEventListener("change", () => {
     if (view.state) view.race = els.race.value;
     else nationalChoice = els.race.value;
     render();
   });
   els.back.addEventListener("click", () => {
-    view = { state: null, race: null };
+    view = { state: null, race: null, stage: "general" };
     render();
   });
 
@@ -332,10 +402,20 @@ export function initMap({ manifest, fetchJSON, stateName, onState, onCounty }) {
     // Called when the page's state picker changes.
     showState(st) {
       if (view.state === st) return;
-      view = { state: st || null, race: null };
+      view = { state: st || null, race: null, stage: "general" };
       render();
     },
   };
+}
+
+// One swatch per leading candidate, named, so color is never the only cue.
+function candidateLegendHTML(race) {
+  const shown = race.candidates.slice(0, CANDIDATE_COLORS);
+  const others = race.candidates.length > CANDIDATE_COLORS
+    ? `<span class="legend-step"><span class="legend-swatch legend-candidate-other"></span>Another candidate</span>` : "";
+  return `<div class="legend-row"><span class="legend-name">County winner</span>
+    ${shown.map(([name], i) => `<span class="legend-step"><span class="legend-swatch" style="background: var(--map-candidate-${i})"></span>${esc(titleCase(name))}</span>`).join("")}
+    ${others}<span class="legend-step"><span class="legend-swatch legend-none"></span>No results</span></div>`;
 }
 
 function legendHTML() {
