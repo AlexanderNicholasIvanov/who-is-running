@@ -9,6 +9,7 @@ from who_is_running.sources.fec import FecSource
 from who_is_running.sources.md import MdSource
 from who_is_running.sources.medsl import MedslSource
 from who_is_running.sources.nc import NcSource
+from who_is_running.sources.rcv import RcvSource
 
 SOURCES: dict[str, type[Source]] = {
     cls.name: cls
@@ -18,6 +19,7 @@ SOURCES: dict[str, type[Source]] = {
         MdSource,
         MedslSource,
         NcSource,
+        RcvSource,
     )
 }
 

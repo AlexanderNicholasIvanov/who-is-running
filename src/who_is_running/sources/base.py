@@ -9,6 +9,7 @@ from typing import Any
 from who_is_running.http import Fetcher, http_get
 from who_is_running.models import Candidacy
 from who_is_running.results import CountyResult
+from who_is_running.rounds import RcvRound
 
 
 class Source(ABC):
@@ -44,6 +45,10 @@ class Source(ABC):
 
         Called after ``candidacies`` for the same year.
         """
+        return []
+
+    def rounds(self, year: int) -> list[RcvRound]:
+        """Round-by-round tallies of the year's ranked-choice races, if the source has them."""
         return []
 
     def results_status(self, year: int) -> dict[str, Any]:
