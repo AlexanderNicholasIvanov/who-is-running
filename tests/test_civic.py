@@ -16,6 +16,8 @@ Fixtures:
 
 from __future__ import annotations
 
+import io
+import json
 import logging
 import urllib.error
 from datetime import date
@@ -211,14 +213,100 @@ def test_rejected_key_fails_without_leaking_it(code: int) -> None:
     assert caught.value.__suppress_context__
 
 
-@pytest.mark.parametrize("code", [429, 403])
-def test_quota_errors_stop_the_run(code: int, tmp_path: Path) -> None:
-    web = _web(errors={"address=135+N+COURT+ST": code})
-    source = _source(web)
+def test_refused_lookups_stop_the_run() -> None:
+    web = _web(errors={"address=135+N+COURT+ST": 403})
     with pytest.raises(CivicError) as caught:
-        source.candidacies(2026)
+        _source(web).candidacies(2026)
     assert KEY not in str(caught.value)
-    assert f"HTTP {code}" in str(caught.value)
+    assert "HTTP 403" in str(caught.value)
+
+
+class Clock:
+    """Fake time: sleeping moves the clock on instead of waiting."""
+
+    def __init__(self) -> None:
+        self.now = 0.0
+        self.sleeps: list[float] = []
+
+    def __call__(self) -> float:
+        return self.now
+
+    def sleep(self, seconds: float) -> None:
+        self.sleeps.append(seconds)
+        self.now += seconds
+
+
+class OverQuota(Web):
+    """Answers the first ``times`` lookups with Google's 429 error."""
+
+    def __init__(self, times: int, message: str) -> None:
+        super().__init__(_web().routes, _web().errors)
+        self.times = times
+        self.message = message
+
+    def __call__(self, url: str) -> bytes:
+        if "/voterinfo?" in url and self.times > 0:
+            self.times -= 1
+            self.requested.append(url)
+            body = json.dumps({"error": {"code": 429, "message": self.message}}).encode()
+            raise urllib.error.HTTPError(url, 429, "Too Many Requests", None, io.BytesIO(body))  # type: ignore[arg-type]
+        return super().__call__(url)
+
+
+PER_MINUTE = (
+    "Quota exceeded for quota metric 'Queries' and limit 'Queries per minute' of service "
+    f"'civicinfo.googleapis.com' for consumer 'project_number:123'. key={KEY}"
+)
+
+
+def _paced(web: Web, clock: Clock, budget: float = 3600) -> CivicSource:
+    return CivicSource(
+        web,
+        key=KEY,
+        today=lambda: date(2026, 10, 31),
+        rate=4,
+        workers=1,
+        budget=budget,
+        clock=clock,
+        sleep=clock.sleep,
+    )
+
+
+def test_over_quota_pauses_slows_down_and_retries(caplog: pytest.LogCaptureFixture) -> None:
+    caplog.set_level(logging.WARNING)
+    clock = Clock()
+    rows = _paced(OverQuota(2, PER_MINUTE), clock).candidacies(2026)
+
+    assert rows == _source(_web()).candidacies(2026)  # nothing lost
+    assert clock.sleeps.count(60) == 2
+    assert 1.0 in clock.sleeps  # 4 a second, halved twice
+    assert "Queries per minute" in caplog.text
+    assert KEY not in caplog.text
+
+
+def test_over_quota_too_often_stops_the_run() -> None:
+    clock = Clock()
+    with pytest.raises(CivicError) as caught:
+        _paced(OverQuota(100, PER_MINUTE), clock).candidacies(2026)
+    assert "HTTP 429" in str(caught.value)
+    assert KEY not in str(caught.value)
+    assert clock.sleeps.count(60) == 8
+
+
+def test_daily_quota_used_up_stops_at_once() -> None:
+    clock = Clock()
+    web = OverQuota(100, "Quota exceeded for quota metric 'Queries' and limit 'Queries per day'")
+    with pytest.raises(CivicError, match="daily quota"):
+        _paced(web, clock).candidacies(2026)
+    assert sum("/voterinfo?" in u for u in web.requested) == 1
+
+
+def test_lookups_stop_when_time_runs_out(caplog: pytest.LogCaptureFixture) -> None:
+    caplog.set_level(logging.INFO)
+    web = _web()
+    assert _paced(web, Clock(), budget=0).candidacies(2026) == []
+    assert not any("/voterinfo?" in u for u in web.requested)
+    assert "skipped (out of time)" in caplog.text
 
 
 def test_network_errors_are_redacted(caplog: pytest.LogCaptureFixture) -> None:

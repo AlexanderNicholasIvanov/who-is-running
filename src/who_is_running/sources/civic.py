@@ -60,8 +60,16 @@ listing their races twice."""
 MAX_CALLS = 4000
 """voterinfo lookups per election-year run. Google's free quota is 25,000 a day."""
 RATE = 8.0
-"""Requests per second, at most, across all workers."""
+"""Requests per second to start at, across all workers. Each 429 answer halves it."""
 WORKERS = 4
+THROTTLE_WAIT = 60.0
+"""Seconds every worker pauses after a 429 (over the per-minute quota), unless Google's
+Retry-After asks for longer."""
+MAX_THROTTLES = 8
+"""429 answers tolerated in one run before giving up."""
+TIME_BUDGET = 40 * 60.0
+"""Seconds of lookups per election-year run. The lookups left over are skipped, keeping what
+was found, so the refresh job (60-minute limit) still finishes and commits."""
 MAX_TRANSIENT = 25
 """Network errors and 5xx answers tolerated (after http_get's retries) before giving up."""
 
@@ -158,6 +166,9 @@ class CivicSource(Source):
         max_calls: int = MAX_CALLS,
         rate: float = RATE,
         workers: int = WORKERS,
+        budget: float = TIME_BUDGET,
+        clock: Callable[[], float] = time.monotonic,
+        sleep: Callable[[float], None] = time.sleep,
     ) -> None:
         super().__init__(fetch)
         self._key = key
@@ -165,6 +176,9 @@ class CivicSource(Source):
         self.max_calls = max_calls
         self.rate = rate
         self.workers = workers
+        self.budget = budget
+        self.clock = clock
+        self.sleep = sleep
 
     def available_years(self) -> list[int]:
         return list(range(FIRST_YEAR, self.today().year + 1))
@@ -177,7 +191,9 @@ class CivicSource(Source):
         key = self._key if self._key is not None else os.environ.get(KEY_ENV, "")
         if not key:
             raise NotFound(f"{KEY_ENV} is not set, so the Civic Information API is skipped")
-        client = _Client(self.fetch, key, rate=self.rate)
+        client = _Client(
+            self.fetch, key, rate=self.rate, budget=self.budget, clock=self.clock, sleep=self.sleep
+        )
         elections = upcoming(client.elections(), year, self.today())
         if not elections:
             return []
@@ -200,10 +216,12 @@ class CivicSource(Source):
             for contest in contests:
                 collect(found, election, seed, contest)
         log.info(
-            "civic: %d lookups for %s, %d with no data, %d with contests, %d contests kept",
+            "civic: %d lookups for %s, %d skipped (out of time), %d with no data, "
+            "%d with contests, %d contests kept",
             len(calls),
             ", ".join(e.name for e in elections),
-            sum(a is None for a in answers),
+            client.skipped,
+            sum(a is None for a in answers) - client.skipped,
             with_contests,
             len(found),
         )
@@ -213,14 +231,29 @@ class CivicSource(Source):
 class _Client:
     """API calls, paced and with the key kept out of every error message."""
 
-    def __init__(self, fetch: Fetcher, key: str, *, rate: float) -> None:
+    def __init__(
+        self,
+        fetch: Fetcher,
+        key: str,
+        *,
+        rate: float,
+        budget: float = TIME_BUDGET,
+        clock: Callable[[], float] = time.monotonic,
+        sleep: Callable[[float], None] = time.sleep,
+    ) -> None:
         self.fetch = fetch
         self.key = key
         self.interval = 1.0 / rate if rate > 0 else 0.0
+        self.clock = clock
+        self.sleep = sleep
         self._lock = threading.Lock()
         self._next = 0.0
+        self._deadline = clock() + budget
+        self._paused_until = 0.0
+        self._throttles = 0
         self._transient = 0
         self._stop: CivicError | None = None
+        self.skipped = 0
 
     def redact(self, text: str) -> str:
         text = re.sub(r"([?&]key=)[^&\s]*", r"\1REDACTED", text)
@@ -253,37 +286,74 @@ class _Client:
         return found
 
     def voterinfo(self, election: Election, seed: Seed) -> dict[str, Any] | None:
-        """The address's ballot, or None when Google has no data for it."""
-        if self._stop is not None:
-            raise self._stop
-        self._pace()
+        """The address's ballot, or None when Google has no data for it or time ran out."""
         query = urlencode({"address": seed.address, "electionId": election.id, "key": self.key})
-        try:
-            body = self.fetch(f"{API}/voterinfo?{query}")
-            answer: dict[str, Any] = json.loads(decode(body))
-            return answer
-        except NotFound as err:
-            code = getattr(err.__cause__, "code", 404)
-            if code == 404:  # "No information for this address"
+        while True:
+            if self._stop is not None:
+                # A new exception each time: re-raising one object grows its traceback.
+                raise CivicError(str(self._stop)) from None
+            if not self._pace():
+                with self._lock:
+                    self.skipped += 1
                 return None
-            self._fail(f"voterinfo refused (HTTP {code}): quota or key restrictions?")
-        except urllib.error.HTTPError as err:
-            if err.code == 400:  # "Failed to parse address", "Election unknown"
-                return None
-            if err.code < 500:  # 429: over quota
-                self._fail(f"voterinfo failed (HTTP {err.code})")
-            self._transient_error(f"HTTP {err.code}")
-        except (OSError, ValueError) as err:  # URLError, timeouts, bad JSON
-            self._transient_error(f"{type(err).__name__}: {self.redact(str(err))}")
-        return None
+            try:
+                body = self.fetch(f"{API}/voterinfo?{query}")
+                answer: dict[str, Any] = json.loads(decode(body))
+                return answer
+            except NotFound as err:
+                code = getattr(err.__cause__, "code", 404)
+                if code == 404:  # "No information for this address"
+                    return None
+                self._fail(f"voterinfo refused (HTTP {code}): quota or key restrictions?")
+            except urllib.error.HTTPError as err:
+                if err.code == 400:  # "Failed to parse address", "Election unknown"
+                    return None
+                if err.code == 429:  # over quota: wait, then retry this address
+                    self._throttle(err)
+                    continue
+                if err.code < 500:
+                    self._fail(f"voterinfo failed (HTTP {err.code})")
+                self._transient_error(f"HTTP {err.code}")
+            except (OSError, ValueError) as err:  # URLError, timeouts, bad JSON
+                self._transient_error(f"{type(err).__name__}: {self.redact(str(err))}")
+            return None
 
-    def _pace(self) -> None:
+    def _pace(self) -> bool:
+        """Wait for this lookup's turn. False once the run's time budget is spent."""
         with self._lock:
-            now = time.monotonic()
+            now = self.clock()
+            if now >= self._deadline:
+                return False
             wait = self._next - now
             self._next = max(now, self._next) + self.interval
         if wait > 0:
-            time.sleep(wait)
+            self.sleep(wait)
+        return True
+
+    def _throttle(self, err: urllib.error.HTTPError) -> None:
+        """Over the per-minute quota: every worker waits, then goes on at half the rate."""
+        reason = self.redact(_google_error(err))
+        if "per day" in reason.lower():
+            self._fail(f"voterinfo failed (HTTP 429), daily quota used up: {reason}")
+        with self._lock:
+            now = self.clock()
+            if now < self._paused_until:
+                return  # another worker's 429 already paused everyone
+            self._throttles += 1
+            count = self._throttles
+            if count <= MAX_THROTTLES:
+                self.interval = self.interval * 2 if self.interval else 1.0
+                wait = max(THROTTLE_WAIT, _retry_after(err))
+                self._paused_until = self._next = now + wait
+                rate = 1 / self.interval
+        if count > MAX_THROTTLES:
+            self._fail(f"voterinfo failed (HTTP 429) {count} times; last: {reason}")
+        log.warning(
+            "civic: over the API quota (%s); pausing %.0fs, then %.2f lookups a second",
+            reason,
+            wait,
+            rate,
+        )
 
     def _transient_error(self, what: str) -> None:
         with self._lock:
@@ -297,6 +367,22 @@ class _Client:
         # Stop the other workers too, so a quota error doesn't burn the rest of the calls.
         self._stop = CivicError(message)
         raise self._stop
+
+
+def _google_error(err: urllib.error.HTTPError) -> str:
+    """Google's explanation of an error answer, e.g. which quota was exceeded."""
+    try:
+        message = str(json.loads(decode(err.read()))["error"]["message"])
+    except Exception:
+        return f"HTTP {err.code}"
+    return " ".join(message.split())[:300]
+
+
+def _retry_after(err: urllib.error.HTTPError) -> float:
+    try:
+        return float(err.headers.get("Retry-After", 0))
+    except (AttributeError, TypeError, ValueError):
+        return 0.0
 
 
 def upcoming(elections: list[dict[str, Any]], year: int, today: date) -> list[Election]:
