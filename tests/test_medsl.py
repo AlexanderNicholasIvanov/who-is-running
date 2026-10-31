@@ -312,3 +312,62 @@ def test_2016_presidential_nominees_without_a_party() -> None:
         ("Hillary Clinton", "DEM"),
         ("Gary Johnson", ""),  # not guessed: his ballot line varied by state
     }
+
+
+def test_race_missing_its_district_gets_no_county_results() -> None:
+    # Delaware 2016 gives Clerk of the Peace, elected by county, no district,
+    # so it looks statewide; but no candidate is on more than one county's ballot.
+    candidacies, results = parse_with_results(
+        fixture_bytes("medsl_2016_de.csv").decode().splitlines()
+    )
+
+    clerks = {c.candidate_name: c.counties for c in candidacies if c.office == "CLERK OF THE PEACE"}
+    assert len(clerks) == 5  # still candidacies, as before
+    assert {r.office for r in results} == {"US President"}
+    assert sorted((r.county_fips, r.candidate_name, r.votes) for r in results)[:2] == [
+        ("10001", "Donald Trump", 63),
+        ("10001", "Hillary Clinton", 176),
+    ]
+
+
+def test_new_hampshire_2016_city_wards_go_to_their_county() -> None:
+    header = fixture_bytes("medsl_2016.csv").decode().splitlines()[0]
+    tail = ",clinton,US President,statewide,FALSE,democratic,total,{},,,,,,,,,,P00003392,"
+    tail += '"CLINTON, HILLARY RODHAM / TIMOTHY MICHAEL KAINE",,,,,president'
+    rows = [
+        "2016,gen,FALSE,New Hampshire,NH,33,4,,,,,,Concord,Ward 1,Hillary Clinton"
+        + tail.format(1266),
+        "2016,gen,FALSE,New Hampshire,NH,33,4,Merrimack County,33013,00873180,43.299579,"
+        "-71.680041,Danbury,Danbury,Hillary Clinton" + tail.format(247),
+    ]
+
+    _, results = parse_with_results([header, *rows])
+
+    assert [(r.county_fips, r.county, r.votes) for r in results] == [
+        ("33013", "Merrimack County", 1513)
+    ]
+
+
+def test_2016_district_after_a_bar() -> None:
+    header = fixture_bytes("medsl_2016.csv").decode().splitlines()[0]
+    row = (
+        "2016,gen,FALSE,Colorado,CO,8,62,Adams County,08001,00198116,39.874325,-104.331872,"
+        "Adams,7213001130,{},{},Regent Of The University Of Colorado|{},,FALSE,{},total,{}"
+        ",,,,,,,,,,,,,,,,state"
+    )
+    candidacies = parse(
+        [
+            header,
+            row.format("Heidi Ganahl", "ganahl", 0, "republican", 93),
+            row.format("Alice Madden", "madden", 0, "democratic", 105),
+            "2016,gen,FALSE,Colorado,CO,8,62,Arapahoe County,08005,00198118,39.644554,"
+            "-104.331706,Arapahoe,1260303101,Jack Kroll,kroll,"
+            "Regent Of The University Of Colorado|1,,FALSE,democratic,total,692"
+            ",,,,,,,,,,,,,,,,state",
+        ]
+    )
+    assert {(c.office, c.district, c.candidate_name) for c in candidacies} == {
+        ("Regent Of The University Of Colorado", "", "Heidi Ganahl"),  # at large
+        ("Regent Of The University Of Colorado", "", "Alice Madden"),
+        ("Regent Of The University Of Colorado", "01", "Jack Kroll"),
+    }

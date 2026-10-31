@@ -75,6 +75,22 @@ PARTIES = {
 # Vermont 2016 gives no party on any presidential line. The major-party
 # nominees were on their party's line in every state.
 NOMINEES_2016 = {"Hillary Clinton": "DEMOCRATIC", "Donald Trump": "REPUBLICAN"}
+# New Hampshire 2016 gives its cities' wards no county; each city lies in one.
+NH_CITIES = {
+    "Berlin": ("Coos County", "33007"),
+    "Claremont": ("Sullivan County", "33019"),
+    "Concord": ("Merrimack County", "33013"),
+    "Dover": ("Strafford County", "33017"),
+    "Franklin": ("Merrimack County", "33013"),
+    "Keene": ("Cheshire County", "33005"),
+    "Laconia": ("Belknap County", "33001"),
+    "Lebanon": ("Grafton County", "33009"),
+    "Manchester": ("Hillsborough County", "33011"),
+    "Nashua": ("Hillsborough County", "33011"),
+    "Portsmouth": ("Rockingham County", "33015"),
+    "Rochester": ("Strafford County", "33017"),
+    "Somersworth": ("Strafford County", "33017"),
+}
 NO_PARTY = {"", '""', "NONPARTISAN", "NON", "OTHER", "NONE", "NO"}
 
 # Turnout, over/undervote and write-in lines that some states report as if
@@ -208,11 +224,19 @@ def parse_with_results(lines: Iterable[str]) -> tuple[list[Candidacy], list[Coun
         )
         r.setdefault("state_po", r.get("state_postal", ""))
         r.setdefault("jurisdiction_name", r.get("jurisdiction", ""))
+        city = r["jurisdiction_name"].strip()
+        if r["state_po"] == "NH" and not r["county_name"].strip() and city in NH_CITIES:
+            r["county_name"], r["county_fips"] = NH_CITIES[city]
         if r.get("writein", "").upper() == "TRUE":
             continue
         # A few files carry HTML entities ("SCHOOLS&#39;").
         candidate = " ".join(html.unescape(r.get("candidate", "")).split())
         office = " ".join(html.unescape(r.get("office", "")).split())
+        # 2016 sometimes gives the district after a bar: "Regent Of The
+        # University Of Colorado|1", with "|0" for the at-large seat.
+        name, bar, seat = office.rpartition("|")
+        if bar and seat.isdigit() and not r.get("district", "").strip():
+            office, r["district"] = name, seat
         if not office or NOT_CANDIDATES.search(candidate.upper()) or NOT_OFFICES.search(office):
             continue
         dataverse = r.get("dataverse", "").upper()
@@ -267,8 +291,8 @@ def parse_with_results(lines: Iterable[str]) -> tuple[list[Candidacy], list[Coun
         if level is not Level.LOCAL and key.district in ("", "AT-LARGE"):
             if r.get("candidate_normalized", "").strip():
                 surnames[key] = r["candidate_normalized"].strip().lower()
-                if county and votes > 0:
-                    candidate_counties[key].add(county)
+            if county and votes > 0:
+                candidate_counties[key].add(county)
             # Alaska reports early and absentee votes by legislative district,
             # with no county: they count toward the state total under "".
             # Wisconsin 2016 appends a 5-digit town code ("5500100000").
@@ -295,6 +319,23 @@ def parse_with_results(lines: Iterable[str]) -> tuple[list[Candidacy], list[Coun
                 moved[canon.get(k[0], k[0]), *k[1:]] += v
             counter.clear()
             counter.update(moved)
+        for key, best in canon.items():
+            if key != best:
+                candidate_counties[best] |= candidate_counties.pop(key, set())
+
+    # Some files leave out the district of a per-district race (2016's State
+    # House in New Hampshire and Vermont, Maryland 2018's county clerks), so
+    # it looks statewide. In a real statewide race some candidate gets votes
+    # in (nearly) every county; in these, each one is on a few counties' ballots.
+    # (With only one or two counties there is nothing to tell them apart by.)
+    best_cover: Counter[Candidacy] = Counter()
+    for key, seen_in in candidate_counties.items():
+        best_cover[_race(key)] = max(best_cover[_race(key)], len(seen_in))
+    split = {
+        race
+        for race, n in best_cover.items()
+        if len(voted_in[race]) > 2 and n < 0.9 * len(voted_in[race])
+    }
 
     def counties_of(key: Candidacy) -> str:
         # Some files list a race's candidates with 0 votes in every precinct
@@ -312,7 +353,7 @@ def parse_with_results(lines: Iterable[str]) -> tuple[list[Candidacy], list[Coun
         key, fips = precinct[0], precinct[1]
         # A file with no counties at all (Wisconsin 2018, Alaska 2022) still
         # gives statewide totals; they're all filed as not reported by county.
-        if candidacies[key].counties == STATEWIDE or not all_counties:
+        if (candidacies[key].counties == STATEWIDE and _race(key) not in split) or not all_counties:
             county_votes[key, fips] += totals[precinct] if precinct in totals else by_mode[precinct]
     results = [
         CountyResult(
