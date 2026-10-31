@@ -41,6 +41,8 @@ jobs:
           MODE: ${{ inputs.mode || 'refresh' }}
           YEARS: ${{ inputs.years }}
           SOURCE: ${{ inputs.source }}
+          # Optional: without it the civic source is skipped. Never echo it.
+          GOOGLE_CIVIC_API_KEY: ${{ secrets.GOOGLE_CIVIC_API_KEY }}
         run: |
           args=(fetch)
           case "$MODE" in

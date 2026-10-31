@@ -32,17 +32,22 @@ def run(source: Source, years: list[int], data_dir: Path) -> dict[int, int]:
 
     Years the source doesn't publish are skipped, and an existing file is
     never replaced with an empty one, so a transient upstream glitch can't
-    wipe data.
+    wipe data. The exception is a source that ``expires``: an empty (but
+    successful) result deletes its file.
     """
     written: dict[int, int] = {}
     for year in years:
         try:
             rows = source.candidacies(year)
-        except NotFound:
-            log.info("%s: no data for %d", source.name, year)
+        except NotFound as err:
+            log.info("%s: no data for %d (%s)", source.name, year, err)
             continue
         if not rows:
             log.info("%s: no rows for %d", source.name, year)
+            path = output_path(data_dir, source, year)
+            if source.expires and path.exists():
+                path.unlink()
+                log.info("%s: deleted %s, which the publisher no longer serves", source.name, path)
             continue
         write_csv(output_path(data_dir, source, year), rows)
         written[year] = len(rows)

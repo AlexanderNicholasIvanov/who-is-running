@@ -1,0 +1,232 @@
+{
+  "kind": "civicinfo#voterinforesponse",
+  "status": "success",
+  "election": {
+    "id": "2000",
+    "name": "VIP Test Election",
+    "electionDay": "2025-06-06",
+    "ocdDivisionId": "ocd-division/country:us"
+  },
+  "normalizedInput": {
+    "line1": "340 Main Street",
+    "city": "Venice",
+    "state": "CA",
+    "zip": "90291"
+  },
+  "pollingLocations": [
+    {
+      "address": {
+        "locationName": "WESTMINSTER AVENUE ELEMENTARY SCHOOL",
+        "line1": "1010 ABBOT KINNEY BLVD",
+        "city": "VENICE",
+        "state": "CA",
+        "zip": "90291"
+      },
+      "pollingHours": "",
+      "latitude": 33.9919351,
+      "longitude": -118.4722031,
+      "startDate": "2024-03-05",
+      "endDate": "2024-03-05",
+      "sources": [
+        {
+          "name": "Voting Information Project",
+          "official": true
+        }
+      ]
+    },
+    {
+      "address": {
+        "locationName": "POP UP VOTE CENTER 5",
+        "line1": "12400 IMPERIAL HWY",
+        "city": "NORWALK",
+        "state": "CA",
+        "zip": "90650"
+      },
+      "latitude": 33.915989,
+      "longitude": -118.0677283,
+      "sources": [
+        {
+          "name": "Voting Information Project",
+          "official": true
+        }
+      ]
+    }
+  ],
+  "dropOffLocations": [
+    {
+      "address": {
+        "locationName": "FLEX VOTE CENTER 9",
+        "line1": "12400 IMPERIAL HWY",
+        "city": "NORWALK",
+        "state": "CA",
+        "zip": "90650"
+      },
+      "latitude": 33.915989,
+      "longitude": -118.0677283,
+      "sources": [
+        {
+          "name": "Voting Information Project",
+          "official": true
+        }
+      ]
+    }
+  ],
+  "contests": [
+    {
+      "type": "General",
+      "ballotTitle": "UNITED STATES REPRESENTATIVE, 36th District",
+      "district": {
+        "name": "36TH US CONGRESSIONAL",
+        "scope": "congressional"
+      },
+      "numberElected": "1",
+      "numberVotingFor": "1",
+      "ballotPlacement": "103",
+      "sources": [
+        {
+          "name": "Voting Information Project",
+          "official": true
+        }
+      ],
+      "candidates": [
+        {
+          "name": "ARIANA HAKAMI",
+          "party": "Party Preference: Republican"
+        },
+        {
+          "name": "CLAIRE RAGGE ANDERSON",
+          "party": "Party Preference: None"
+        },
+        {
+          "name": "MELISSA TOOMIM",
+          "party": "Party Preference: Republican"
+        },
+        {
+          "name": "TED W. LIEU",
+          "party": "Party Preference: Democratic"
+        }
+      ]
+    },
+    {
+      "type": "ballot-measure",
+      "ballotTitle": "LOS ANGELES CITY MUNICIPAL ELECTION - MEASURE HLA",
+      "district": {
+        "name": "CITY OF LOS ANGELES",
+        "scope": "citywide"
+      },
+      "ballotPlacement": "116",
+      "referendumTitle": "LOS ANGELES CITY MUNICIPAL ELECTION - MEASURE HLA",
+      "referendumText": "CITY MOBILITY PLAN STREET IMPROVEMENT MEASURES. INITIATIVE ORDINANCE HLA. Shall an ordinance providing that when the City of Los Angeles makes a qualifying improvement to a City-owned street (e.g., a paving project), the City must also install certain street enhancements described in the City's Mobility Plan network of pedestrian, bicycle, transit, and vehicle routes; and requiring the City to provide publicly accessible information regarding street improvements; be adopted?",
+      "referendumPassageThreshold": "MAJORITY OF VOTES CAST",
+      "referendumBallotResponses": [
+        "YES",
+        "NO"
+      ],
+      "sources": [
+        {
+          "name": "Voting Information Project",
+          "official": true
+        }
+      ]
+    },
+    {
+      "type": "General",
+      "ballotTitle": "DISTRICT ATTORNEY",
+      "district": {
+        "name": "LOS ANGELES COUNTY",
+        "scope": "countywide"
+      },
+      "numberElected": "1",
+      "numberVotingFor": "1",
+      "ballotPlacement": "129",
+      "sources": [
+        {
+          "name": "Voting Information Project",
+          "official": true
+        }
+      ],
+      "candidates": [
+        {
+          "name": "GEORGE GASCÓN"
+        },
+        {
+          "name": "JONATHAN HATAMI"
+        },
+        {
+          "name": "NATHAN HOCHMAN"
+        },
+        {
+          "name": "DEBRA ARCHULETA"
+        },
+        {
+          "name": "JEFF CHEMERINSKY"
+        },
+        {
+          "name": "ERIC SIDDALL"
+        },
+        {
+          "name": "MARIA RAMIREZ"
+        },
+        {
+          "name": "DAN KAPELOVITZ"
+        },
+        {
+          "name": "LLOYD \"BOBCAT\" MASSON"
+        },
+        {
+          "name": "JOHN MCKINNEY"
+        },
+        {
+          "name": "CRAIG J. MITCHELL"
+        },
+        {
+          "name": "DAVID S. MILTON"
+        }
+      ]
+    }
+  ],
+  "state": [
+    {
+      "name": "California",
+      "electionAdministrationBody": {
+        "name": "Secretary of State",
+        "electionInfoUrl": "https://www.sos.ca.gov/elections/",
+        "electionRegistrationUrl": "https://registertovote.ca.gov/?t=s",
+        "electionRegistrationConfirmationUrl": "https://voterstatus.sos.ca.gov",
+        "absenteeVotingInfoUrl": "https://elections.cdn.sos.ca.gov/vote-by-mail/replacement-application.pdf",
+        "votingLocationFinderUrl": "https://voterstatus.sos.ca.gov",
+        "ballotInfoUrl": "https://www.sos.ca.gov/elections/ballot-status/wheres-my-ballot/",
+        "correspondenceAddress": {
+          "line1": "1500 11th Street, 5th Floor",
+          "city": "Sacramento",
+          "state": "California",
+          "zip": "95814"
+        }
+      },
+      "local_jurisdiction": {
+        "name": "Los Angeles",
+        "electionAdministrationBody": {
+          "name": "Registrar-Recorder/County Clerk",
+          "electionInfoUrl": "http://www.lavote.gov/",
+          "electionRegistrationUrl": "http://registertovote.ca.gov/",
+          "electionRegistrationConfirmationUrl": "https://lavote.gov/vrstatus/",
+          "absenteeVotingInfoUrl": "",
+          "ballotInfoUrl": "http://www.lavote.gov/Locator",
+          "physicalAddress": {
+            "locationName": "Registrar-Recorder/County Clerk",
+            "line1": "12400 Imperial Highway",
+            "city": "Norwalk",
+            "state": "CA",
+            "zip": "90650"
+          }
+        },
+        "sources": [
+          {
+            "name": "Voting Information Project",
+            "official": true
+          }
+        ]
+      }
+    }
+  ]
+}

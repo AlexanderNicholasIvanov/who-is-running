@@ -12,7 +12,8 @@ Python pipeline that pulls US candidate lists from free public sources and write
 
 - `src/who_is_running/models.py`: `Candidacy`, the one normalized record. Field order = CSV column order = sort order.
 - `src/who_is_running/sources/`: one module per publisher, registered in `sources/__init__.py`.
-- `src/who_is_running/pipeline.py`: writes CSVs. It never overwrites a file with an empty result.
+- `src/who_is_running/pipeline.py`: writes CSVs. It never overwrites a file with an empty result, except for sources with `expires` set (`civic`), whose empty result deletes the file.
+- `src/who_is_running/sources/civic.py`: Google Civic Information API, needs env `GOOGLE_CIVIC_API_KEY` (skipped without it). Samples Census-listed government street addresses per county, calls `voterinfo` for each and dedupes contests. Never let the key reach logs or exception text: wrap fetches in `_Client`, which redacts it.
 - `src/who_is_running/sources/medsl.py`: all-states results. Precinct files are big (up to ~3M rows), so they're streamed with `text.decode_lines`, never loaded whole.
 - `src/who_is_running/districts.py`: Census district-to-county lines, used to fill `counties` for district races. `HOUSE_LINES` maps each election year to its Congress; `REDRAWN` lists states whose map that year has no Census file yet. Keep the JS `countyKey` in `web/app.js` matching how sources and Census spell counties.
 - `src/who_is_running/results.py`: `CountyResult`, vote totals per county for statewide races. Only MEDSL produces them (`Source.results`); the pipeline writes `data/results/<source>/<year>.csv`, and `build_site.build_results` turns those into `results/<year>/<state>.json` and `national.json` for the map. `MAP_COUNTIES` there maps result county codes onto the map's older county shapes.

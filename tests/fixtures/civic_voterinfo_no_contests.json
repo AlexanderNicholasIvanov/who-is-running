@@ -1,0 +1,42 @@
+{
+  "election": {
+    "id": "12000",
+    "name": "2026 General Midterm Election",
+    "electionDay": "2026-11-03",
+    "ocdDivisionId": "ocd-division/country:us"
+  },
+  "normalizedInput": {
+    "line1": "123 Example Street",
+    "addressLine": [
+      "123 Example Street"
+    ],
+    "city": "Springfield",
+    "state": "IL",
+    "zip": "62701"
+  },
+  "kind": "civicinfo#voterInfoResponse",
+  "pollingLocations": [
+    {
+      "address": {
+        "locationName": "ASSUMPTION CHURCH",
+        "line1": "323 W Illinois St",
+        "addressLine": [
+          "323 W Illinois St"
+        ],
+        "city": "Chicago",
+        "state": "IL",
+        "zip": "60654"
+      },
+      "notes": "No tactile markings next to numbers on elevator panel",
+      "pollingHours": "Tue, Nov 3: 6 am - 7 pm",
+      "latitude": 41.89062020464266,
+      "longitude": -87.63636330910904,
+      "sources": [
+        {
+          "name": "Voting Information Project",
+          "official": true
+        }
+      ]
+    }
+  ]
+}

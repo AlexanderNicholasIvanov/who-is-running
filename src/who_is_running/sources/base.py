@@ -21,6 +21,9 @@ class Source(ABC):
     name: str
     """Short identifier, used as the output directory name."""
     description: str
+    expires = False
+    """True when the data mustn't outlive the publisher's feed (Google's Civic Information
+    terms): an empty result then deletes the year's file instead of keeping it."""
 
     def __init__(self, fetch: Fetcher = http_get) -> None:
         self.fetch = fetch
