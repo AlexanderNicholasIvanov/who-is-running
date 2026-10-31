@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import logging
+from dataclasses import replace
 
 import pytest
 from conftest import FakeWeb, fixture_bytes
@@ -42,7 +43,9 @@ def _candidacy(
 
 
 def _result(state: str, office: str, fips: str, name: str, votes: int) -> CountyResult:
-    return CountyResult(state, 2022, office, fips, "", name, "", votes, "medsl")
+    return CountyResult(
+        state, 2022, "2022-11-08", "general", office, fips, "", name, "", votes, "medsl"
+    )
 
 
 def _votes(rows: list[CountyResult]) -> dict[tuple[str, str, str], int]:
@@ -199,14 +202,18 @@ def test_apply_replaces_medsl_rows_for_the_race_and_marks_it_statewide() -> None
     house = _candidacy("ID", "US House", "MIKE SIMPSON", "REP", district="02")
     medsl = [_result("ID", "US Senate", "16003", "MIKE CRAPO", 2850)]  # doubled
     governor = _result("NV", "GOVERNOR", "32009", "JOE LOMBARDO", 338)  # no fill for it
+    runoff = replace(medsl[0], election_date="2022-12-06", stage="runoff", votes=1)  # made up
 
-    candidacies, results = apply(2022, web, [crapo, house], [*medsl, governor])
+    candidacies, results = apply(2022, web, [crapo, house], [*medsl, governor, runoff])
 
     assert [c.counties for c in candidacies] == [STATEWIDE, "ADAMS"]  # the House race is untouched
     votes = _votes(results)
     assert votes["US Senate", "16003", "MIKE CRAPO"] == 1425  # replaced, not added to
     assert votes["GOVERNOR", "32009", "JOE LOMBARDO"] == 338  # kept
-    assert sum(1 for r in results if r.source == "medsl") == 1
+    assert sum(1 for r in results if r.source == "medsl") == 2
+    assert runoff in results  # a runoff for the office is its own race, not replaced
+    filled = [r for r in results if r.source != "medsl"]
+    assert {(r.election_date, r.stage) for r in filled} == {("2022-11-08", "general")}
 
 
 def test_apply_skips_a_fill_that_fails_and_states_medsl_has_no_file_for(

@@ -1,0 +1,54 @@
+﻿MN;01;;0101;U.S. President & Vice President;;0101;Donald J. Trump and JD Vance;;;R;51;51;6741;64.53;10446
+MN;01;;0101;U.S. President & Vice President;;0201;Kamala D. Harris and Tim Walz;;;DFL;51;51;3524;33.74;10446
+MN;01;;0101;U.S. President & Vice President;;0301;Chase Oliver and Mike ter Maat;;;LIB;51;51;31;0.30;10446
+MN;01;;0101;U.S. President & Vice President;;0401;Robert F. Kennedy Jr. and Nicole Shanahan;;;WTP;51;51;82;0.78;10446
+MN;01;;0101;U.S. President & Vice President;;0501;Jill Stein and Samson Kpadenou;;;G;51;51;25;0.24;10446
+MN;01;;0101;U.S. President & Vice President;;0601;Claudia De la Cruz and Karina Garcia;;;SLP;51;51;0;0.00;10446
+MN;01;;0101;U.S. President & Vice President;;0701;Rachele Fruit and Dennis Richter;;;SWP;51;51;0;0.00;10446
+MN;01;;0101;U.S. President & Vice President;;0801;Cornel West and Melina Abdullah;;;JFA;51;51;1;0.01;10446
+MN;01;;0101;U.S. President & Vice President;;0901;Shiva Ayyadurai and Crystal Ellis;;;IND;51;51;15;0.14;10446
+MN;01;;0101;U.S. President & Vice President;;9901;WRITE-IN;;;WI;51;51;27;0.26;10446
+MN;01;;0102;U.S. Senator;;0301;Rebecca Whiting;;;LIB;51;51;151;1.47;10284
+MN;01;;0102;U.S. Senator;;0202;Amy Klobuchar;;;DFL;51;51;4135;40.21;10284
+MN;01;;0102;U.S. Senator;;1303;Joyce Lynne Lacey;;;IA;51;51;131;1.27;10284
+MN;01;;0102;U.S. Senator;;0104;Royce White;;;R;51;51;5857;56.95;10284
+MN;01;;0102;U.S. Senator;;9901;WRITE-IN;;;WI;51;51;10;0.10;10284
+MN;01;;7001;Chief Justice - Supreme Court;;9001;Natalie E. Hudson;;;NP;51;51;4209;53.39;7884
+MN;01;;7001;Chief Justice - Supreme Court;;9002;Stephen A Emery;;;NP;51;51;3660;46.42;7884
+MN;01;;7001;Chief Justice - Supreme Court;;9901;WRITE-IN;;;WI;51;51;15;0.19;7884
+MN;62;;0101;U.S. President & Vice President;;0101;Donald J. Trump and JD Vance;;;R;162;162;75284;27.08;278025
+MN;62;;0101;U.S. President & Vice President;;0201;Kamala D. Harris and Tim Walz;;;DFL;162;162;195168;70.20;278025
+MN;62;;0101;U.S. President & Vice President;;0301;Chase Oliver and Mike ter Maat;;;LIB;162;162;1331;0.48;278025
+MN;62;;0101;U.S. President & Vice President;;0401;Robert F. Kennedy Jr. and Nicole Shanahan;;;WTP;162;162;1529;0.55;278025
+MN;62;;0101;U.S. President & Vice President;;0501;Jill Stein and Samson Kpadenou;;;G;162;162;2127;0.77;278025
+MN;62;;0101;U.S. President & Vice President;;0601;Claudia De la Cruz and Karina Garcia;;;SLP;162;162;549;0.20;278025
+MN;62;;0101;U.S. President & Vice President;;0701;Rachele Fruit and Dennis Richter;;;SWP;162;162;79;0.03;278025
+MN;62;;0101;U.S. President & Vice President;;0801;Cornel West and Melina Abdullah;;;JFA;162;162;469;0.17;278025
+MN;62;;0101;U.S. President & Vice President;;0901;Shiva Ayyadurai and Crystal Ellis;;;IND;162;162;200;0.07;278025
+MN;62;;0101;U.S. President & Vice President;;9901;WRITE-IN;;;WI;162;162;1289;0.46;278025
+MN;62;;0102;U.S. Senator;;0301;Rebecca Whiting;;;LIB;162;162;5314;1.97;269572
+MN;62;;0102;U.S. Senator;;0202;Amy Klobuchar;;;DFL;162;162;198504;73.64;269572
+MN;62;;0102;U.S. Senator;;1303;Joyce Lynne Lacey;;;IA;162;162;4513;1.67;269572
+MN;62;;0102;U.S. Senator;;0104;Royce White;;;R;162;162;60719;22.52;269572
+MN;62;;0102;U.S. Senator;;9901;WRITE-IN;;;WI;162;162;522;0.19;269572
+MN;62;;7001;Chief Justice - Supreme Court;;9001;Natalie E. Hudson;;;NP;162;162;148750;74.90;198606
+MN;62;;7001;Chief Justice - Supreme Court;;9002;Stephen A Emery;;;NP;162;162;48867;24.60;198606
+MN;62;;7001;Chief Justice - Supreme Court;;9901;WRITE-IN;;;WI;162;162;989;0.50;198606
+MN;69;;0101;U.S. President & Vice President;;0101;Donald J. Trump and JD Vance;;;R;168;168;50065;42.07;119009
+MN;69;;0101;U.S. President & Vice President;;0201;Kamala D. Harris and Tim Walz;;;DFL;168;168;66335;55.74;119009
+MN;69;;0101;U.S. President & Vice President;;0301;Chase Oliver and Mike ter Maat;;;LIB;168;168;507;0.43;119009
+MN;69;;0101;U.S. President & Vice President;;0401;Robert F. Kennedy Jr. and Nicole Shanahan;;;WTP;168;168;975;0.82;119009
+MN;69;;0101;U.S. President & Vice President;;0501;Jill Stein and Samson Kpadenou;;;G;168;168;425;0.36;119009
+MN;69;;0101;U.S. President & Vice President;;0601;Claudia De la Cruz and Karina Garcia;;;SLP;168;168;85;0.07;119009
+MN;69;;0101;U.S. President & Vice President;;0701;Rachele Fruit and Dennis Richter;;;SWP;168;168;18;0.02;119009
+MN;69;;0101;U.S. President & Vice President;;0801;Cornel West and Melina Abdullah;;;JFA;168;168;71;0.06;119009
+MN;69;;0101;U.S. President & Vice President;;0901;Shiva Ayyadurai and Crystal Ellis;;;IND;168;168;106;0.09;119009
+MN;69;;0101;U.S. President & Vice President;;9901;WRITE-IN;;;WI;168;168;422;0.35;119009
+MN;69;;0102;U.S. Senator;;0301;Rebecca Whiting;;;LIB;168;168;2045;1.74;117278
+MN;69;;0102;U.S. Senator;;0202;Amy Klobuchar;;;DFL;168;168;72294;61.64;117278
+MN;69;;0102;U.S. Senator;;1303;Joyce Lynne Lacey;;;IA;168;168;1534;1.31;117278
+MN;69;;0102;U.S. Senator;;0104;Royce White;;;R;168;168;41273;35.19;117278
+MN;69;;0102;U.S. Senator;;9901;WRITE-IN;;;WI;168;168;132;0.11;117278
+MN;69;;7001;Chief Justice - Supreme Court;;9001;Natalie E. Hudson;;;NP;168;168;64740;67.31;96187
+MN;69;;7001;Chief Justice - Supreme Court;;9002;Stephen A Emery;;;NP;168;168;31083;32.32;96187
+MN;69;;7001;Chief Justice - Supreme Court;;9901;WRITE-IN;;;WI;168;168;364;0.38;96187

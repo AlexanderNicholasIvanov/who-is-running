@@ -16,7 +16,7 @@ from dataclasses import replace
 from datetime import date
 
 from who_is_running.districts import Districts
-from who_is_running.models import STATEWIDE, Candidacy, Level
+from who_is_running.models import HOUSE_DELEGATES, STATEWIDE, Candidacy, Level, house_office
 from who_is_running.sources.base import Source
 from who_is_running.text import decode
 
@@ -74,13 +74,16 @@ def parse(text: str, *, cycle: int) -> list[Candidacy]:
         cand_id, name, party, year, office_state, office, district, ici, status = f[:9]
         if not year.isdigit() or int(year) not in (cycle - 1, cycle):
             continue
+        if office == "H" and office_state in HOUSE_DELEGATES:
+            # One seat, at large. Filings variously say "00", "01" or nothing.
+            district = "00"
         out.add(
             Candidacy(
                 state=office_state,
                 election_year=int(year),
                 election_date="",
                 level=Level.FEDERAL,
-                office=OFFICES.get(office, office),
+                office=house_office(office_state) if office == "H" else OFFICES.get(office, office),
                 district=district if office == "H" else "",
                 jurisdiction="",
                 # Senate, president and at-large House seats are statewide by

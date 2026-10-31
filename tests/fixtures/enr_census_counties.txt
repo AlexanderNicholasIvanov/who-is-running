@@ -1,0 +1,13 @@
+CO,08,031,Denver County,H6
+CO,08,041,El Paso County,H1
+IA,19,001,Adair County,H1
+IA,19,141,O'Brien County,H1
+IA,19,153,Polk County,H1
+SC,45,001,Abbeville County,H1
+SC,45,019,Charleston County,H1
+FL,12,001,Alachua County,H1
+FL,12,027,DeSoto County,H1
+FL,12,086,Miami-Dade County,H1
+MN,27,001,Aitkin County,H1
+MN,27,123,Ramsey County,H1
+MN,27,137,St. Louis County,H1

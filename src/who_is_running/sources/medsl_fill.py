@@ -96,7 +96,9 @@ def apply(
             continue
         filled = {(r.state, r.office) for r in rows}
         log.info("medsl: filled %s from %s", sorted(o for _, o in filled), fill.source)
-        results = [r for r in results if (r.state, r.office) not in filled] + rows
+        # Only the general election: a runoff or primary for the office is its own race.
+        kept = [r for r in results if (r.state, r.office) not in filled or r.stage != "general"]
+        results = kept + rows
         candidacies = [
             replace(c, counties=STATEWIDE)
             if (c.state, c.office) in filled and c.district == "" and c.level is not Level.LOCAL
@@ -114,6 +116,7 @@ def fill_results(
     known = [c for c in medsl if c.state == fill.state and c.district == ""]
     spelling: dict[tuple[str, str, str], tuple[str, str]] = {}
     totals: Counter[tuple[str, str, str, str]] = Counter()
+    when = next((c.election_date for c in known if c.election_type == "general"), "")
     for vote in fill.parse([fetch(url) for url in fill.urls]):
         if WRITE_IN.search(vote.candidate) or not vote.candidate.strip():
             continue
@@ -129,6 +132,8 @@ def fill_results(
         CountyResult(
             state=fill.state,
             election_year=fill.year,
+            election_date=when,
+            stage="general",
             office=office,
             county_fips=fips,
             county=counties[fips][1],
