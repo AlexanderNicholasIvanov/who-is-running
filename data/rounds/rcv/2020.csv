@@ -1,0 +1,49 @@
+state,election_year,election_date,election_type,office,district,round,candidate_name,party,votes,source
+ME,2020,2020-07-14,primary,STATE HOUSE,41,1,(exhausted),,0,rcv
+ME,2020,2020-07-14,primary,STATE HOUSE,41,1,"Davis, Laurie J.",DEM,368,rcv
+ME,2020,2020-07-14,primary,STATE HOUSE,41,1,"Grant, Benjamin K.",DEM,912,rcv
+ME,2020,2020-07-14,primary,STATE HOUSE,41,1,"Zager, Samuel Lewis",DEM,1239,rcv
+ME,2020,2020-07-14,primary,STATE HOUSE,41,2,(exhausted),,55,rcv
+ME,2020,2020-07-14,primary,STATE HOUSE,41,2,"Davis, Laurie J.",DEM,0,rcv
+ME,2020,2020-07-14,primary,STATE HOUSE,41,2,"Grant, Benjamin K.",DEM,1067,rcv
+ME,2020,2020-07-14,primary,STATE HOUSE,41,2,"Zager, Samuel Lewis",DEM,1397,rcv
+ME,2020,2020-07-14,primary,STATE HOUSE,47,1,(exhausted),,0,rcv
+ME,2020,2020-07-14,primary,STATE HOUSE,47,1,"Abbott, Heather",DEM,892,rcv
+ME,2020,2020-07-14,primary,STATE HOUSE,47,1,"Bell, Arthur L.",DEM,978,rcv
+ME,2020,2020-07-14,primary,STATE HOUSE,47,1,"Fromuth, Peter J.",DEM,623,rcv
+ME,2020,2020-07-14,primary,STATE HOUSE,47,2,(exhausted),,80,rcv
+ME,2020,2020-07-14,primary,STATE HOUSE,47,2,"Abbott, Heather",DEM,1139,rcv
+ME,2020,2020-07-14,primary,STATE HOUSE,47,2,"Bell, Arthur L.",DEM,1274,rcv
+ME,2020,2020-07-14,primary,STATE HOUSE,47,2,"Fromuth, Peter J.",DEM,0,rcv
+ME,2020,2020-07-14,primary,STATE HOUSE,49,1,(exhausted),,0,rcv
+ME,2020,2020-07-14,primary,STATE HOUSE,49,1,"Arford, Poppy",DEM,899,rcv
+ME,2020,2020-07-14,primary,STATE HOUSE,49,1,"Perreault, Corinne Ann",DEM,613,rcv
+ME,2020,2020-07-14,primary,STATE HOUSE,49,1,"Wilson, Katherine E.",DEM,657,rcv
+ME,2020,2020-07-14,primary,STATE HOUSE,49,2,(exhausted),,94,rcv
+ME,2020,2020-07-14,primary,STATE HOUSE,49,2,"Arford, Poppy",DEM,1189,rcv
+ME,2020,2020-07-14,primary,STATE HOUSE,49,2,"Perreault, Corinne Ann",DEM,0,rcv
+ME,2020,2020-07-14,primary,STATE HOUSE,49,2,"Wilson, Katherine E.",DEM,886,rcv
+ME,2020,2020-07-14,primary,STATE HOUSE,90,1,(exhausted),,0,rcv
+ME,2020,2020-07-14,primary,STATE HOUSE,90,1,"Crafts, Lydia V.",DEM,1010,rcv
+ME,2020,2020-07-14,primary,STATE HOUSE,90,1,"Levesque, David J.",DEM,273,rcv
+ME,2020,2020-07-14,primary,STATE HOUSE,90,1,"Pieh, Wendy",DEM,741,rcv
+ME,2020,2020-07-14,primary,STATE HOUSE,90,2,(exhausted),,43,rcv
+ME,2020,2020-07-14,primary,STATE HOUSE,90,2,"Crafts, Lydia V.",DEM,1143,rcv
+ME,2020,2020-07-14,primary,STATE HOUSE,90,2,"Levesque, David J.",DEM,0,rcv
+ME,2020,2020-07-14,primary,STATE HOUSE,90,2,"Pieh, Wendy",DEM,838,rcv
+ME,2020,2020-07-14,primary,STATE SENATE,11,1,(exhausted),,0,rcv
+ME,2020,2020-07-14,primary,STATE SENATE,11,1,"Curry, Glenn Chip",DEM,2294,rcv
+ME,2020,2020-07-14,primary,STATE SENATE,11,1,"Pattavina, Charles F.",DEM,1316,rcv
+ME,2020,2020-07-14,primary,STATE SENATE,11,1,"Stanicki, Robyn M.",DEM,1669,rcv
+ME,2020,2020-07-14,primary,STATE SENATE,11,2,(exhausted),,260,rcv
+ME,2020,2020-07-14,primary,STATE SENATE,11,2,"Curry, Glenn Chip",DEM,2807,rcv
+ME,2020,2020-07-14,primary,STATE SENATE,11,2,"Pattavina, Charles F.",DEM,0,rcv
+ME,2020,2020-07-14,primary,STATE SENATE,11,2,"Stanicki, Robyn M.",DEM,2212,rcv
+ME,2020,2020-07-14,primary,US House,02,1,(exhausted),,0,rcv
+ME,2020,2020-07-14,primary,US House,02,1,"Bennett, Adrienne",REP,16920,rcv
+ME,2020,2020-07-14,primary,US House,02,1,"Brakey, Eric L.",REP,11976,rcv
+ME,2020,2020-07-14,primary,US House,02,1,"Crafts, Dale John",REP,23665,rcv
+ME,2020,2020-07-14,primary,US House,02,2,(exhausted),,4247,rcv
+ME,2020,2020-07-14,primary,US House,02,2,"Bennett, Adrienne",REP,20295,rcv
+ME,2020,2020-07-14,primary,US House,02,2,"Brakey, Eric L.",REP,0,rcv
+ME,2020,2020-07-14,primary,US House,02,2,"Crafts, Dale John",REP,28019,rcv

@@ -1,0 +1,57 @@
+state,election_year,election_date,election_type,office,district,round,candidate_name,party,votes,source
+ME,2018,2018-06-12,primary,GOVERNOR,,1,(exhausted),,0,rcv
+ME,2018,2018-06-12,primary,GOVERNOR,,1,"Cote, Adam Roland",DEM,35478,rcv
+ME,2018,2018-06-12,primary,GOVERNOR,,1,"Dion, Donna J.",DEM,1596,rcv
+ME,2018,2018-06-12,primary,GOVERNOR,,1,"Dion, Mark N.",DEM,5200,rcv
+ME,2018,2018-06-12,primary,GOVERNOR,,1,"Eves, Mark W.",DEM,17887,rcv
+ME,2018,2018-06-12,primary,GOVERNOR,,1,"Mills, Janet T.",DEM,41735,rcv
+ME,2018,2018-06-12,primary,GOVERNOR,,1,"Russell, Diane Marie",DEM,2728,rcv
+ME,2018,2018-06-12,primary,GOVERNOR,,1,"Sweet, Elizabeth A.",DEM,20767,rcv
+ME,2018,2018-06-12,primary,GOVERNOR,,1,Write-in,,748,rcv
+ME,2018,2018-06-12,primary,GOVERNOR,,2,(exhausted),,2046,rcv
+ME,2018,2018-06-12,primary,GOVERNOR,,2,"Cote, Adam Roland",DEM,37543,rcv
+ME,2018,2018-06-12,primary,GOVERNOR,,2,"Dion, Donna J.",DEM,0,rcv
+ME,2018,2018-06-12,primary,GOVERNOR,,2,"Dion, Mark N.",DEM,0,rcv
+ME,2018,2018-06-12,primary,GOVERNOR,,2,"Eves, Mark W.",DEM,19521,rcv
+ME,2018,2018-06-12,primary,GOVERNOR,,2,"Mills, Janet T.",DEM,44042,rcv
+ME,2018,2018-06-12,primary,GOVERNOR,,2,"Russell, Diane Marie",DEM,0,rcv
+ME,2018,2018-06-12,primary,GOVERNOR,,2,"Sweet, Elizabeth A.",DEM,22987,rcv
+ME,2018,2018-06-12,primary,GOVERNOR,,2,Write-in,,0,rcv
+ME,2018,2018-06-12,primary,GOVERNOR,,3,(exhausted),,3627,rcv
+ME,2018,2018-06-12,primary,GOVERNOR,,3,"Cote, Adam Roland",DEM,42623,rcv
+ME,2018,2018-06-12,primary,GOVERNOR,,3,"Dion, Donna J.",DEM,0,rcv
+ME,2018,2018-06-12,primary,GOVERNOR,,3,"Dion, Mark N.",DEM,0,rcv
+ME,2018,2018-06-12,primary,GOVERNOR,,3,"Eves, Mark W.",DEM,0,rcv
+ME,2018,2018-06-12,primary,GOVERNOR,,3,"Mills, Janet T.",DEM,49945,rcv
+ME,2018,2018-06-12,primary,GOVERNOR,,3,"Russell, Diane Marie",DEM,0,rcv
+ME,2018,2018-06-12,primary,GOVERNOR,,3,"Sweet, Elizabeth A.",DEM,29944,rcv
+ME,2018,2018-06-12,primary,GOVERNOR,,3,Write-in,,0,rcv
+ME,2018,2018-06-12,primary,GOVERNOR,,4,(exhausted),,8889,rcv
+ME,2018,2018-06-12,primary,GOVERNOR,,4,"Cote, Adam Roland",DEM,53866,rcv
+ME,2018,2018-06-12,primary,GOVERNOR,,4,"Dion, Donna J.",DEM,0,rcv
+ME,2018,2018-06-12,primary,GOVERNOR,,4,"Dion, Mark N.",DEM,0,rcv
+ME,2018,2018-06-12,primary,GOVERNOR,,4,"Eves, Mark W.",DEM,0,rcv
+ME,2018,2018-06-12,primary,GOVERNOR,,4,"Mills, Janet T.",DEM,63384,rcv
+ME,2018,2018-06-12,primary,GOVERNOR,,4,"Russell, Diane Marie",DEM,0,rcv
+ME,2018,2018-06-12,primary,GOVERNOR,,4,"Sweet, Elizabeth A.",DEM,0,rcv
+ME,2018,2018-06-12,primary,GOVERNOR,,4,Write-in,,0,rcv
+ME,2018,2018-06-12,primary,US House,02,1,(exhausted),,0,rcv
+ME,2018,2018-06-12,primary,US House,02,1,"Fulford, Jonathan S.",DEM,2489,rcv
+ME,2018,2018-06-12,primary,US House,02,1,"Golden, Jared F.",DEM,20987,rcv
+ME,2018,2018-06-12,primary,US House,02,1,"Olson, Craig R.",DEM,3993,rcv
+ME,2018,2018-06-12,primary,US House,02,1,"St. Clair, Lucas R.",DEM,17742,rcv
+ME,2018,2018-06-12,primary,US House,02,2,(exhausted),,1747,rcv
+ME,2018,2018-06-12,primary,US House,02,2,"Fulford, Jonathan S.",DEM,0,rcv
+ME,2018,2018-06-12,primary,US House,02,2,"Golden, Jared F.",DEM,23611,rcv
+ME,2018,2018-06-12,primary,US House,02,2,"Olson, Craig R.",DEM,0,rcv
+ME,2018,2018-06-12,primary,US House,02,2,"St. Clair, Lucas R.",DEM,19853,rcv
+ME,2018,2018-11-06,general,US House,02,1,(exhausted),,0,rcv
+ME,2018,2018-11-06,general,US House,02,1,"Bond, Tiffany L.",,16552,rcv
+ME,2018,2018-11-06,general,US House,02,1,"Golden, Jared F.",DEM,132013,rcv
+ME,2018,2018-11-06,general,US House,02,1,"Hoar, William R.S.",,6875,rcv
+ME,2018,2018-11-06,general,US House,02,1,"Poliquin, Bruce",REP,134184,rcv
+ME,2018,2018-11-06,general,US House,02,2,(exhausted),,8253,rcv
+ME,2018,2018-11-06,general,US House,02,2,"Bond, Tiffany L.",,0,rcv
+ME,2018,2018-11-06,general,US House,02,2,"Golden, Jared F.",DEM,142440,rcv
+ME,2018,2018-11-06,general,US House,02,2,"Hoar, William R.S.",,0,rcv
+ME,2018,2018-11-06,general,US House,02,2,"Poliquin, Bruce",REP,138931,rcv
