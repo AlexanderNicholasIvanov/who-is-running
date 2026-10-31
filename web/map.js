@@ -120,11 +120,14 @@ export function initMap({ manifest, fetchJSON, stateName, onState, onCounty }) {
       const totals = race ? race.candidates.map((c) => c[2]) : [];
       const t = race ? tally(race.candidates, totals) : null;
       if (race) rows.push([s.name, t]);
+      // A state missing from the year altogether had races; its results just aren't published.
+      const none = race || hasState(s.abbr) ? "" : "No results reported for this state";
       tips.set(s.abbr, () => (race
         ? tipHTML(s.name, race.candidates, totals, race.office)
-        : `<strong>${esc(s.name)}</strong><div class="tip-sub">No ${esc(name)} race in ${year}</div>`));
-      const label = `${s.name}: ${race ? summary(t) : `no ${name} race in ${year}`}`;
-      return `<path d="${s.d}" style="fill: ${race ? fill(t) : "var(--map-empty)"}" data-state="${esc(s.abbr)}"
+        : `<strong>${esc(s.name)}</strong><div class="tip-sub">${esc(none || `No ${name} race in ${year}`)}</div>`));
+      const label = `${s.name}: ${race ? summary(t) : none ? "no results" : `no ${name} race in ${year}`}`;
+      const empty = none ? "url(#map-hatch-none)" : "var(--map-empty)";
+      return `<path d="${s.d}" style="fill: ${race ? fill(t) : empty}" data-state="${esc(s.abbr)}"
         tabindex="0" role="button" aria-label="${esc(label)}"></path>`;
     });
     draw(shapes.viewBox, paths.join(""), "");

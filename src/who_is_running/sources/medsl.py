@@ -10,8 +10,13 @@ https://github.com/MEDSL  (one repository per election year)
 
 Coverage is uneven: some states report no local races in some years (e.g.
 California 2018), and a few files carry only surnames (Texas 2022, 2024). Write-ins,
-ballot questions and turnout lines are dropped. 2020 is only on Harvard
-Dataverse, behind an interactive download, so it isn't included.
+ballot questions and turnout lines are dropped.
+
+MEDSL now publishes 2020 only on Harvard Dataverse, whose downloads need a
+guestbook form (name, email, institution), so 2020 comes from the last copy
+on GitHub, pinned by commit: state and federal offices, every state but Indiana,
+which was added later. 2016 comes from MEDSL's older precinct repository, in an
+older schema with office names as each county spelled them.
 """
 
 from __future__ import annotations
@@ -41,6 +46,14 @@ FILES = {
     2018: "2018-{st}-precinct-general.zip",
     2022: "2022-{st}-local-precinct-general.zip",
     2024: "{st}24.zip",
+    2016: "2016-{st}-precinct.zip",
+    2020: "2020-{st}-precinct-general.zip",
+}
+# Years whose files aren't in RAW (see the module docstring).
+BASES = {
+    2016: "https://raw.githubusercontent.com/MEDSL/official-precinct-returns/HEAD/source",
+    2020: "https://raw.githubusercontent.com/MEDSL/2020-elections-official/"
+    "ad22f37e3f1e3355f078ba5a1efce6c221333ef1/individual_states",
 }
 STATES = [
     *("AK", "AL", "AR", "AZ", "CA", "CO", "CT", "DC", "DE", "FL", "GA", "HI", "IA"),
@@ -53,6 +66,7 @@ FEDERAL = {"PRESIDENT": "US President", "SENATE": "US Senate", "HOUSE": "US Hous
 STAGES = {"GEN": "general", "PRI": "primary", "RUN": "runoff", "RUNOFF": "runoff"}
 PARTIES = {
     "DEMOCRAT": "DEM",
+    "DEMOCRATIC": "DEM",  # 2016
     "REPUBLICAN": "REP",
     "LIBERTARIAN": "LIB",
     "GREEN": "GRE",
@@ -101,7 +115,7 @@ class MedslSource(Source):
     name = "medsl"
     description = (
         "MIT Election Lab precinct results: every candidate on the November ballot, "
-        "all states (2018, 2022, 2024)"
+        "all states (2016, 2018, 2020, 2022, 2024)"
     )
 
     def available_years(self) -> list[int]:
@@ -121,7 +135,8 @@ class MedslSource(Source):
             return []
         out: list[Candidacy] = []
         for st in STATES:
-            url = f"{RAW.format(year=year)}/{FILES[year].format(st=st.lower())}"
+            base = BASES.get(year, RAW.format(year=year))
+            url = f"{base}/{FILES[year].format(st=st.lower())}"
             try:
                 archive = self.fetch(url)
             except NotFound:
@@ -129,7 +144,12 @@ class MedslSource(Source):
                 continue
             with zipfile.ZipFile(io.BytesIO(archive)) as zf:
                 for member in zf.namelist():
-                    if member.lower().endswith(".csv") and not member.startswith("__MACOSX"):
+                    # North Carolina 2020 also ships its file re-sorted ("...-sorted.csv").
+                    if (
+                        member.lower().endswith(".csv")
+                        and not member.startswith("__MACOSX")
+                        and not member.lower().endswith("-sorted.csv")
+                    ):
                         with zf.open(member) as fh:
                             candidacies, results = parse_with_results(decode_lines(fh))
                         out.extend(candidacies)
@@ -168,13 +188,18 @@ def parse_with_results(lines: Iterable[str]) -> tuple[list[Candidacy], list[Coun
     race_counties: defaultdict[Candidacy, set[str]] = defaultdict(set)
     voted_in: defaultdict[Candidacy, set[str]] = defaultdict(set)
     all_counties: set[str] = set()
+    surnames: dict[Candidacy, str] = {}
+    candidate_counties: defaultdict[Candidacy, set[str]] = defaultdict(set)
     reader = csv.reader(lines)
     header = next(reader, [])
     for row in reader:
         r = dict(zip(header, row, strict=False))
-        # Wisconsin 2018 uses MEDSL's older column names.
+        # Wisconsin 2018 and all of 2016 use MEDSL's older column names.
         r.setdefault("county_name", r.get("county", ""))
-        r.setdefault("party_detailed", r.get("party", ""))
+        # 2016 leaves some ballot lines' party blank but gives the candidate's own party.
+        r.setdefault("party_detailed", r.get("party", "") or r.get("candidate_party", ""))
+        r.setdefault("state_po", r.get("state_postal", ""))
+        r.setdefault("jurisdiction_name", r.get("jurisdiction", ""))
         if r.get("writein", "").upper() == "TRUE":
             continue
         # A few files carry HTML entities ("SCHOOLS&#39;").
@@ -232,6 +257,10 @@ def parse_with_results(lines: Iterable[str]) -> tuple[list[Candidacy], list[Coun
             if votes > 0:
                 voted_in[_race(key)].add(county)
         if level is not Level.LOCAL and key.district in ("", "AT-LARGE"):
+            if r.get("candidate_normalized", "").strip():
+                surnames[key] = r["candidate_normalized"].strip().lower()
+                if county and votes > 0:
+                    candidate_counties[key].add(county)
             # Alaska reports early and absentee votes by legislative district,
             # with no county: they count toward the state total under "".
             fips = r.get("county_fips", "").strip()
@@ -242,6 +271,20 @@ def parse_with_results(lines: Iterable[str]) -> tuple[list[Candidacy], list[Coun
                 totals[precinct] += votes
             else:
                 by_mode[precinct] += votes
+
+    if surnames:
+        canon = _merge_spellings(surnames, candidate_counties, voted_in, totals, by_mode)
+        merged: dict[Candidacy, list[str]] = {}
+        for key, p in parties.items():
+            seen = merged.setdefault(canon.get(key, key), [])
+            seen.extend(x for x in p if x not in seen)
+        parties = merged
+        for counter in (totals, by_mode):
+            moved: Counter[tuple[Candidacy, str, str, str]] = Counter()
+            for k, v in counter.items():
+                moved[canon.get(k[0], k[0]), *k[1:]] += v
+            counter.clear()
+            counter.update(moved)
 
     def counties_of(key: Candidacy) -> str:
         # Some files list a race's candidates with 0 votes in every precinct
@@ -276,6 +319,39 @@ def parse_with_results(lines: Iterable[str]) -> tuple[list[Candidacy], list[Coun
         for (key, fips), votes in county_votes.items()
     ]
     return list(candidacies.values()), results
+
+
+def _merge_spellings(
+    surnames: dict[Candidacy, str],
+    counties: dict[Candidacy, set[str]],
+    race_counties: dict[Candidacy, set[str]],
+    totals: Counter[tuple[Candidacy, str, str, str]],
+    by_mode: Counter[tuple[Candidacy, str, str, str]],
+) -> dict[Candidacy, Candidacy]:
+    """Map each spelling of a statewide candidate to the spelling with the most votes.
+
+    2016 files spell names as each county did ("Moran, Jerry" in some
+    counties, "Jerry Moran" in the rest), but also give MEDSL's normalized
+    surname, which is the same for all of them. Spellings sharing a surname
+    are one candidate only if each county uses just one of them and together
+    they cover every county the race got votes in. That keeps apart two
+    people with one surname, such as two judges up for retention, or two
+    State House candidates where the file gives no district.
+    """
+    votes: Counter[Candidacy] = Counter()
+    for precinct in totals.keys() | by_mode.keys():
+        votes[precinct[0]] += totals[precinct] if precinct in totals else by_mode[precinct]
+    spellings: defaultdict[tuple[Candidacy, str], list[Candidacy]] = defaultdict(list)
+    for key, surname in surnames.items():
+        spellings[_race(key), surname].append(key)
+    canon: dict[Candidacy, Candidacy] = {}
+    for (race, _), keys in spellings.items():
+        seen = [counties.get(k, set()) for k in keys]
+        union = set().union(*seen)
+        if len(keys) > 1 and sum(map(len, seen)) == len(union) == len(race_counties.get(race, ())):
+            best = max(keys, key=lambda k: (votes[k], k.candidate_name))
+            canon.update(dict.fromkeys(keys, best))
+    return canon
 
 
 def votes_of(raw: str) -> int:

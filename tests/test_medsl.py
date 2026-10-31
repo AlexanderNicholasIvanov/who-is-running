@@ -13,6 +13,7 @@ from who_is_running.sources.medsl import (
     district_of,
     iso_date,
     parse,
+    parse_with_results,
     party_of,
 )
 
@@ -143,10 +144,64 @@ def test_candidacies_fetches_every_state_and_skips_missing_files() -> None:
 
 def test_years() -> None:
     source = MedslSource(FakeWeb({}))
-    assert source.available_years() == [2018, 2022, 2024]
-    assert source.candidacies(2020) == []
+    assert source.available_years() == [2016, 2018, 2020, 2022, 2024]
+    assert source.candidacies(2019) == []
     assert "2018-nc-precinct-general.zip" in _url(2018, "NC")
     assert "2022-nc-local-precinct-general.zip" in _url(2022, "NC")
+    assert _url(2016, "NC") == (
+        "https://raw.githubusercontent.com/MEDSL/official-precinct-returns/HEAD/"
+        "source/2016-nc-precinct.zip"
+    )
+    # 2020 was deleted from GitHub after the move to Dataverse, so it's read at a fixed commit.
+    assert _url(2020, "NC") == (
+        "https://raw.githubusercontent.com/MEDSL/2020-elections-official/"
+        "ad22f37e3f1e3355f078ba5a1efce6c221333ef1/individual_states/2020-nc-precinct-general.zip"
+    )
+
+
+def test_resorted_copy_of_a_file_is_skipped() -> None:
+    # North Carolina 2020's zip holds the same rows twice, once re-sorted.
+    body = fixture_bytes("medsl_2020_nc.csv")
+    web = FakeWeb(
+        {
+            "2020-nc-": _zip(
+                ("2020-nc-precinct-general.csv", body),
+                ("2020-nc-precinct-general-sorted.csv", body),
+            )
+        }
+    )
+    source = MedslSource(web)
+
+    assert [r.candidate_name for r in source.candidacies(2020)] == ["JOSEPH R BIDEN"]
+    assert [(r.county, r.votes) for r in source.results(2020)] == [("BURKE", 205)]
+
+
+def test_2016_schema() -> None:
+    # 2016 uses older column names, spells a candidate as each county did
+    # ("Jim GRAY" in Adair, "Jim Gray" in Breckinridge) and leaves Adair's party
+    # blank, though it gives Rand Paul's own party (candidate_party).
+    candidacies, results = parse_with_results(
+        fixture_bytes("medsl_2016.csv").decode().splitlines(keepends=True)
+    )
+
+    by_name = {c.candidate_name: c for c in candidacies}
+    assert set(by_name) == {"Jim GRAY", "Rand Paul", "Craig DEAN"}
+    assert by_name["Jim GRAY"].party == "DEM"
+    paul = by_name["Rand Paul"]  # the spelling with the most votes
+    assert (paul.state, paul.office, paul.party, paul.counties) == ("KY", "US Senate", "REP", "*")
+    assert paul.election_type == "general"
+    local = by_name["Craig DEAN"]
+    assert (local.level, local.jurisdiction, local.counties) == (
+        Level.LOCAL,
+        "Adair County",
+        "Adair County",
+    )
+    assert sorted((r.county_fips, r.candidate_name, r.party, r.votes) for r in results) == [
+        ("21001", "Jim GRAY", "DEM", 144),
+        ("21001", "Rand Paul", "REP", 237),
+        ("21027", "Jim GRAY", "DEM", 115),
+        ("21027", "Rand Paul", "REP", 269),
+    ]
 
 
 def _url(year: int, state: str) -> str:

@@ -1,0 +1,3 @@
+"precinct","office","party_detailed","party_simplified","mode","votes","county_name","county_fips","jurisdiction_name","jurisdiction_fips","candidate","district","magnitude","dataverse","year","stage","state","special","writein","state_po","state_fips","state_cen","state_ic","date","readme_check"
+"0001","US PRESIDENT","DEMOCRAT","DEMOCRAT","ABSENTEE BY MAIL",120,"BURKE","37023","BURKE","37023","JOSEPH R BIDEN","STATEWIDE",1,"PRESIDENT",2020,"GEN","NORTH CAROLINA","FALSE","FALSE","NC","37","56","47","2020-11-03","FALSE"
+"0001","US PRESIDENT","DEMOCRAT","DEMOCRAT","ELECTION DAY",85,"BURKE","37023","BURKE","37023","JOSEPH R BIDEN","STATEWIDE",1,"PRESIDENT",2020,"GEN","NORTH CAROLINA","FALSE","FALSE","NC","37","56","47","2020-11-03","FALSE"
