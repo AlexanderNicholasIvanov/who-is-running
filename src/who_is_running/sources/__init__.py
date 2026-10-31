@@ -5,19 +5,23 @@ from __future__ import annotations
 from who_is_running.http import Fetcher, http_get
 from who_is_running.sources.base import Source
 from who_is_running.sources.civic import CivicSource
+from who_is_running.sources.enr import EnrSource
 from who_is_running.sources.fec import FecSource
 from who_is_running.sources.md import MdSource
 from who_is_running.sources.medsl import MedslSource
 from who_is_running.sources.nc import NcSource
+from who_is_running.sources.rcv import RcvSource
 
 SOURCES: dict[str, type[Source]] = {
     cls.name: cls
     for cls in (
         CivicSource,
+        EnrSource,
         FecSource,
         MdSource,
         MedslSource,
         NcSource,
+        RcvSource,
     )
 }
 

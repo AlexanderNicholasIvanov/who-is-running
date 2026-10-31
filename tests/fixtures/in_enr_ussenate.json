@@ -1,0 +1,307 @@
+{
+ "Root": {
+  "WriteTime": "2023-03-13T08:29:47.73",
+  "StatewideSummary": {
+   "Race": {
+    "OFFICEID": "4320",
+    "SubSortOrder": "United States Senator from Indiana",
+    "OFFICE_TITLE": "United States Senator From Indiana",
+    "NumofSeats": "1",
+    "BALLOT_ORDER": "30",
+    "Candidates": {
+     "Candidate": [
+      {
+       "NAME_ON_BALLOT": "Todd Young",
+       "isWinner": "T",
+       "POLITICALPARTYID": "1015",
+       "PARTY": "R",
+       "DISPLAY_COLOR": "#F63D3D",
+       "TOTAL": 1090165,
+       "CandidateName": "Young Todd",
+       "SORT_ORDER": "15"
+      },
+      {
+       "NAME_ON_BALLOT": "Thomas M. McDermott, Jr.",
+       "isWinner": "F",
+       "POLITICALPARTYID": "1014",
+       "PARTY": "D",
+       "DISPLAY_COLOR": "#007ECD",
+       "TOTAL": 704411,
+       "CandidateName": "McDermott Thomas",
+       "SORT_ORDER": "10"
+      },
+      {
+       "NAME_ON_BALLOT": "James M. Sceniak",
+       "isWinner": "F",
+       "POLITICALPARTYID": "1010",
+       "PARTY": "L",
+       "DISPLAY_COLOR": "#FFC331",
+       "TOTAL": 63814,
+       "CandidateName": "Sceniak James",
+       "SORT_ORDER": "20"
+      }
+     ]
+    }
+   }
+  },
+  "OfficeCategory": {
+   "OFFICECATEGORYID": "1006",
+   "OFFICE_CATEGORY_NAME": "US Senator",
+   "OFFICE_CATEGORY_DESCRIPTION": "The US Senate consists of 100 members; Indiana, like the oth",
+   "Regions": {
+    "Region": [
+     {
+      "MAP_JURISDICTIONID": "1025",
+      "MAP_FIPS": "18001",
+      "MAP_JURISDICTION_TYPEID": "1006",
+      "MAP_JURISDICTION_TYPE": "Locality",
+      "MAP_JURISDICTION_NAME": "Adams",
+      "Races": {
+       "Race": {
+        "OFFICEID": "4320",
+        "OFFICE_UID": "75057084-A23E-475C-A05A-B72992104B85",
+        "SubSortOrder": "United States Senator from Indiana",
+        "OFFICE_TITLE": "United States Senator From Indiana",
+        "NumofSeats": "1",
+        "Jurisdiction": {
+         "JURISDICTION_TYPEID": "1001",
+         "JURISDICTION_TYPE": "Shared",
+         "JURISDICTION_NAME": "1,2,3,4,5,6,7,8,9"
+        },
+        "BALLOT_ORDER": "30",
+        "Candidates": {
+         "Candidate": [
+          {
+           "CANDIDATEID": "4961",
+           "NAME_ON_BALLOT": "Todd Young",
+           "isWinner": "T",
+           "POLITICALPARTYID": "1015",
+           "PARTY_ABBREV": "R",
+           "DISPLAY_COLOR": "#F63D3D",
+           "TOTAL_VOTES": 6914,
+           "CandidateName": "Young Todd",
+           "SORT_ORDER": "15"
+          },
+          {
+           "CANDIDATEID": "2587",
+           "NAME_ON_BALLOT": "Thomas M. McDermott, Jr.",
+           "isWinner": "F",
+           "POLITICALPARTYID": "1014",
+           "PARTY_ABBREV": "D",
+           "DISPLAY_COLOR": "#007ECD",
+           "TOTAL_VOTES": 1841,
+           "CandidateName": "McDermott Thomas",
+           "SORT_ORDER": "10"
+          },
+          {
+           "CANDIDATEID": "5893",
+           "NAME_ON_BALLOT": "James M. Sceniak",
+           "isWinner": "F",
+           "POLITICALPARTYID": "1010",
+           "PARTY_ABBREV": "L",
+           "DISPLAY_COLOR": "#FFC331",
+           "TOTAL_VOTES": 195,
+           "CandidateName": "Sceniak James",
+           "SORT_ORDER": "20"
+          },
+          {
+           "CANDIDATEID": "6669",
+           "NAME_ON_BALLOT": "Thomas Baer (W/I)",
+           "isWinner": "F",
+           "POLITICALPARTYID": "1004",
+           "PARTY_ABBREV": "I",
+           "DISPLAY_COLOR": "#FFC331",
+           "TOTAL_VOTES": 0,
+           "CandidateName": "Baer Thomas",
+           "SORT_ORDER": "101"
+          },
+          {
+           "CANDIDATEID": "5207",
+           "NAME_ON_BALLOT": "Phillip Beachy (W/I)",
+           "isWinner": "F",
+           "POLITICALPARTYID": "1004",
+           "PARTY_ABBREV": "I",
+           "DISPLAY_COLOR": "#FFC331",
+           "TOTAL_VOTES": 0,
+           "CandidateName": "Beachy Phillip",
+           "SORT_ORDER": "101"
+          },
+          {
+           "CANDIDATEID": "3631",
+           "NAME_ON_BALLOT": "Haneefah Khaaliq (W/I)",
+           "isWinner": "F",
+           "POLITICALPARTYID": "1004",
+           "PARTY_ABBREV": "I",
+           "DISPLAY_COLOR": "#FFC331",
+           "TOTAL_VOTES": 0,
+           "CandidateName": "Khaaliq Haneefah",
+           "SORT_ORDER": "101"
+          },
+          {
+           "CANDIDATEID": "3446",
+           "NAME_ON_BALLOT": "Danny Niederberger (W/I)",
+           "isWinner": "F",
+           "POLITICALPARTYID": "1009",
+           "PARTY_ABBREV": "O",
+           "DISPLAY_COLOR": "#FFC331",
+           "TOTAL_VOTES": 0,
+           "CandidateName": "Niederberger Danny",
+           "SORT_ORDER": "101"
+          },
+          {
+           "CANDIDATEID": "1027",
+           "NAME_ON_BALLOT": "David G. Storer (W/I)",
+           "isWinner": "F",
+           "POLITICALPARTYID": "1004",
+           "PARTY_ABBREV": "I",
+           "DISPLAY_COLOR": "#FFC331",
+           "TOTAL_VOTES": 0,
+           "CandidateName": "Storer David",
+           "SORT_ORDER": "101"
+          },
+          {
+           "CANDIDATEID": "3780",
+           "NAME_ON_BALLOT": "Antonio Xavier Alvarez (W/I)",
+           "isWinner": "F",
+           "POLITICALPARTYID": "1011",
+           "PARTY_ABBREV": "Ps",
+           "DISPLAY_COLOR": "#FFC331",
+           "TOTAL_VOTES": 0,
+           "CandidateName": "Alvarez Antonio",
+           "SORT_ORDER": "121"
+          }
+         ]
+        }
+       }
+      }
+     },
+     {
+      "MAP_JURISDICTIONID": "1017",
+      "MAP_FIPS": "18033",
+      "MAP_JURISDICTION_TYPEID": "1006",
+      "MAP_JURISDICTION_TYPE": "Locality",
+      "MAP_JURISDICTION_NAME": "Dekalb",
+      "Races": {
+       "Race": {
+        "OFFICEID": "4320",
+        "OFFICE_UID": "75057084-A23E-475C-A05A-B72992104B85",
+        "SubSortOrder": "United States Senator from Indiana",
+        "OFFICE_TITLE": "United States Senator From Indiana",
+        "NumofSeats": "1",
+        "Jurisdiction": {
+         "JURISDICTION_TYPEID": "1001",
+         "JURISDICTION_TYPE": "Shared",
+         "JURISDICTION_NAME": "1,2,3,4,5,6,7,8,9"
+        },
+        "BALLOT_ORDER": "30",
+        "Candidates": {
+         "Candidate": [
+          {
+           "CANDIDATEID": "4961",
+           "NAME_ON_BALLOT": "Todd Young",
+           "isWinner": "T",
+           "POLITICALPARTYID": "1015",
+           "PARTY_ABBREV": "R",
+           "DISPLAY_COLOR": "#F63D3D",
+           "TOTAL_VOTES": 8584,
+           "CandidateName": "Young Todd",
+           "SORT_ORDER": "15"
+          },
+          {
+           "CANDIDATEID": "2587",
+           "NAME_ON_BALLOT": "Thomas M. McDermott, Jr.",
+           "isWinner": "F",
+           "POLITICALPARTYID": "1014",
+           "PARTY_ABBREV": "D",
+           "DISPLAY_COLOR": "#007ECD",
+           "TOTAL_VOTES": 2773,
+           "CandidateName": "McDermott Thomas",
+           "SORT_ORDER": "10"
+          },
+          {
+           "CANDIDATEID": "5893",
+           "NAME_ON_BALLOT": "James M. Sceniak",
+           "isWinner": "F",
+           "POLITICALPARTYID": "1010",
+           "PARTY_ABBREV": "L",
+           "DISPLAY_COLOR": "#FFC331",
+           "TOTAL_VOTES": 371,
+           "CandidateName": "Sceniak James",
+           "SORT_ORDER": "20"
+          },
+          {
+           "CANDIDATEID": "3446",
+           "NAME_ON_BALLOT": "Danny Niederberger (W/I)",
+           "isWinner": "F",
+           "POLITICALPARTYID": "1009",
+           "PARTY_ABBREV": "O",
+           "DISPLAY_COLOR": "#FFC331",
+           "TOTAL_VOTES": 4,
+           "CandidateName": "Niederberger Danny",
+           "SORT_ORDER": "101"
+          },
+          {
+           "CANDIDATEID": "6669",
+           "NAME_ON_BALLOT": "Thomas Baer (W/I)",
+           "isWinner": "F",
+           "POLITICALPARTYID": "1004",
+           "PARTY_ABBREV": "I",
+           "DISPLAY_COLOR": "#FFC331",
+           "TOTAL_VOTES": 0,
+           "CandidateName": "Baer Thomas",
+           "SORT_ORDER": "101"
+          },
+          {
+           "CANDIDATEID": "5207",
+           "NAME_ON_BALLOT": "Phillip Beachy (W/I)",
+           "isWinner": "F",
+           "POLITICALPARTYID": "1004",
+           "PARTY_ABBREV": "I",
+           "DISPLAY_COLOR": "#FFC331",
+           "TOTAL_VOTES": 0,
+           "CandidateName": "Beachy Phillip",
+           "SORT_ORDER": "101"
+          },
+          {
+           "CANDIDATEID": "3631",
+           "NAME_ON_BALLOT": "Haneefah Khaaliq (W/I)",
+           "isWinner": "F",
+           "POLITICALPARTYID": "1004",
+           "PARTY_ABBREV": "I",
+           "DISPLAY_COLOR": "#FFC331",
+           "TOTAL_VOTES": 0,
+           "CandidateName": "Khaaliq Haneefah",
+           "SORT_ORDER": "101"
+          },
+          {
+           "CANDIDATEID": "1027",
+           "NAME_ON_BALLOT": "David G. Storer (W/I)",
+           "isWinner": "F",
+           "POLITICALPARTYID": "1004",
+           "PARTY_ABBREV": "I",
+           "DISPLAY_COLOR": "#FFC331",
+           "TOTAL_VOTES": 0,
+           "CandidateName": "Storer David",
+           "SORT_ORDER": "101"
+          },
+          {
+           "CANDIDATEID": "3780",
+           "NAME_ON_BALLOT": "Antonio Xavier Alvarez (W/I)",
+           "isWinner": "F",
+           "POLITICALPARTYID": "1011",
+           "PARTY_ABBREV": "Ps",
+           "DISPLAY_COLOR": "#FFC331",
+           "TOTAL_VOTES": 0,
+           "CandidateName": "Alvarez Antonio",
+           "SORT_ORDER": "121"
+          }
+         ]
+        }
+       }
+      }
+     }
+    ]
+   }
+  }
+ }
+}

@@ -1,0 +1,108 @@
+Textbox11	Textbox3	Textbox2	Textbox9	Textbox12	Textbox8																			
+RCV Detailed Report	General Election	State of Alaska	8-Nov-22																					
+																								
+Textbox24	Textbox21	Textbox53	state	timeStamp																				
+House District 18	Official results	Number of positions to elect is 1.	All Positions Filled	11/30/2022 13:44																				
+																								
+Textbox36	Textbox41	winnersByThreshold	usesDistricts	previousRoundsEvaluation	eliminationType	fixedPrecisionDecimals	performEliminationTransferInLastRound	skipOvervotedRankings	votesToInThresholdCalculation	useFirstRoundSuspension	skipRankingsRule													
+IRV	TRUE	FALSE	TRUE	None	Single	0	TRUE	FALSE	Continuing ballots per round	FALSE	Exhausted on Two or More Ranks Skipped													
+																								
+Textbox35	Textbox86	choiceName2	votes	Textbox17	points	continuingVotes	points1	choiceName3	votes1	points2	nonTransferableVotes	nonTransferablePoints	surplus	Textbox14	choiceName4	Textbox2	Textbox21	Textbox44	Textbox47	sourceChoiceName	choiceName	ballotsTransferred3	transferFraction3	votes5
+State of Alaska	Round 1	"Franks, Lyn D."	444	20.97%	0	"2,117"	0				180	0	0											
+State of Alaska	Round 1	"Nelson, David"	927	43.79%	0	"2,117"	0				180	0	0											
+State of Alaska	Round 1	"Groh, Cliff"	746	35.24%	0	"2,117"	0				180	0	0											
+State of Alaska	Round 1	Blanks	178	8.41%	0	"2,117"	0				180	0	0											
+State of Alaska	Round 1	Exhausted	0	0.00%	0	"2,117"	0				180	0	0											
+State of Alaska	Round 1	Overvotes	2	0.09%	0	"2,117"	0				180	0	0											
+State of Alaska	Round 1	Remainder Points	0	0.00%	0	"2,117"	0				180	0	0											
+State of Alaska	Round 1					"2,117"	0	"Franks, Lyn D."	444	0	180	0	0											
+State of Alaska	Round 1					"2,117"	0	"Nelson, David"	927	0	180	0	0											
+State of Alaska	Round 1					"2,117"	0	"Groh, Cliff"	746	0	180	0	0											
+State of Alaska	Round 1					"2,117"	0	Blanks	178	0	180	0	0											
+State of Alaska	Round 1					"2,117"	0	Exhausted	0	0	180	0	0											
+State of Alaska	Round 1					"2,117"	0	Overvotes	2	0	180	0	0											
+State of Alaska	Round 1					"2,117"	0	Remainder Points	0	0	180	0	0											
+State of Alaska														A tie occurred during 										
+State of Alaska														A tie occurred during 										
+State of Alaska														A tie occurred during 										
+State of Alaska														A tie occurred during 										
+State of Alaska														A tie occurred during 										
+State of Alaska														A tie occurred during 										
+State of Alaska														A tie occurred during 										
+State of Alaska															"Franks, Lyn D."									
+State of Alaska															"Nelson, David"									
+State of Alaska															"Groh, Cliff"									
+State of Alaska															Blanks									
+State of Alaska															Exhausted									
+State of Alaska															Overvotes									
+State of Alaska															Remainder Points									
+State of Alaska																"The tie is broken by selecting Franks, Lyn D.."								
+State of Alaska																"The tie is broken by selecting Nelson, David."								
+State of Alaska																"The tie is broken by selecting Groh, Cliff."								
+State of Alaska																The tie is broken by selecting Blanks.								
+State of Alaska																The tie is broken by selecting Exhausted.								
+State of Alaska																The tie is broken by selecting Overvotes.								
+State of Alaska																The tie is broken by selecting Remainder Points.								
+State of Alaska																	"Franks, Lyn D. is eliminated because the candidate had the least amount of votes."							
+State of Alaska																	"Nelson, David is  because "							
+State of Alaska																	"Groh, Cliff is  because "							
+State of Alaska																	Blanks is  because 							
+State of Alaska																	Exhausted is  because 							
+State of Alaska																	Overvotes is  because 							
+State of Alaska																	Remainder Points is  because 							
+State of Alaska																		 transfer for candidate .	 ballots have been transferred in the following manner:		Blanks			
+State of Alaska																		 transfer for candidate .	 ballots have been transferred in the following manner:		Overvotes			
+State of Alaska																		 transfer for candidate .	 ballots have been transferred in the following manner:		Remainder Points			
+State of Alaska																		"Elimination transfer for candidate Franks, Lyn D.."	444 ballots have been transferred in the following manner:	"Franks, Lyn D."	"Franks, Lyn D."	444	1	-444
+State of Alaska																		"Elimination transfer for candidate Franks, Lyn D.."	444 ballots have been transferred in the following manner:	"Franks, Lyn D."	"Nelson, David"	41	1	41
+State of Alaska																		"Elimination transfer for candidate Franks, Lyn D.."	444 ballots have been transferred in the following manner:	"Franks, Lyn D."	"Groh, Cliff"	299	1	299
+State of Alaska																		"Elimination transfer for candidate Franks, Lyn D.."	444 ballots have been transferred in the following manner:	"Franks, Lyn D."	Exhausted	104	1	104
+State of Alaska	Round 2	"Franks, Lyn D."	0	0.00%	0	"2,013"	0				284	0	0											
+State of Alaska	Round 2	"Nelson, David"	968	48.09%	0	"2,013"	0				284	0	0											
+State of Alaska	Round 2	"Groh, Cliff"	"1,045"	51.91%	0	"2,013"	0				284	0	0											
+State of Alaska	Round 2	Blanks	178	8.84%	0	"2,013"	0				284	0	0											
+State of Alaska	Round 2	Exhausted	104	5.17%	0	"2,013"	0				284	0	0											
+State of Alaska	Round 2	Overvotes	2	0.10%	0	"2,013"	0				284	0	0											
+State of Alaska	Round 2	Remainder Points	0	0.00%	0	"2,013"	0				284	0	0											
+State of Alaska	Round 2					"2,013"	0	"Franks, Lyn D."	0	0	284	0	0											
+State of Alaska	Round 2					"2,013"	0	"Nelson, David"	968	0	284	0	0											
+State of Alaska	Round 2					"2,013"	0	"Groh, Cliff"	"1,045"	0	284	0	0											
+State of Alaska	Round 2					"2,013"	0	Blanks	178	0	284	0	0											
+State of Alaska	Round 2					"2,013"	0	Exhausted	104	0	284	0	0											
+State of Alaska	Round 2					"2,013"	0	Overvotes	2	0	284	0	0											
+State of Alaska	Round 2					"2,013"	0	Remainder Points	0	0	284	0	0											
+State of Alaska														A tie occurred during 										
+State of Alaska														A tie occurred during 										
+State of Alaska														A tie occurred during 										
+State of Alaska														A tie occurred during 										
+State of Alaska														A tie occurred during 										
+State of Alaska														A tie occurred during 										
+State of Alaska														A tie occurred during 										
+State of Alaska															"Franks, Lyn D."									
+State of Alaska															"Nelson, David"									
+State of Alaska															"Groh, Cliff"									
+State of Alaska															Blanks									
+State of Alaska															Exhausted									
+State of Alaska															Overvotes									
+State of Alaska															Remainder Points									
+State of Alaska																"The tie is broken by selecting Franks, Lyn D.."								
+State of Alaska																"The tie is broken by selecting Nelson, David."								
+State of Alaska																"The tie is broken by selecting Groh, Cliff."								
+State of Alaska																The tie is broken by selecting Blanks.								
+State of Alaska																The tie is broken by selecting Exhausted.								
+State of Alaska																The tie is broken by selecting Overvotes.								
+State of Alaska																The tie is broken by selecting Remainder Points.								
+State of Alaska																	"Franks, Lyn D. is  because "							
+State of Alaska																	"Nelson, David is eliminated because the candidate was not elected in the last round."							
+State of Alaska																	"Groh, Cliff is elected because all other candidates have been eliminated."							
+State of Alaska																	Blanks is  because 							
+State of Alaska																	Exhausted is  because 							
+State of Alaska																	Overvotes is  because 							
+State of Alaska																	Remainder Points is  because 							
+State of Alaska																		 transfer for candidate .	 ballots have been transferred in the following manner:		"Franks, Lyn D."			
+State of Alaska																		 transfer for candidate .	 ballots have been transferred in the following manner:		"Nelson, David"			
+State of Alaska																		 transfer for candidate .	 ballots have been transferred in the following manner:		"Groh, Cliff"			
+State of Alaska																		 transfer for candidate .	 ballots have been transferred in the following manner:		Blanks			
+State of Alaska																		 transfer for candidate .	 ballots have been transferred in the following manner:		Exhausted			
+State of Alaska																		 transfer for candidate .	 ballots have been transferred in the following manner:		Overvotes			
+State of Alaska																		 transfer for candidate .	 ballots have been transferred in the following manner:		Remainder Points			

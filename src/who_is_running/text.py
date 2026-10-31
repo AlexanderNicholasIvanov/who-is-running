@@ -10,8 +10,11 @@ def decode(raw: bytes) -> str:
 
     Some files are UTF-8 with a few stray Windows-1252 bytes pasted in.
     Decoding the whole file as cp1252 would garble the valid UTF-8, so only
-    the offending lines get the fallback.
+    the offending lines get the fallback. Files that start with a UTF-16 byte
+    order mark (some report exports) are decoded as UTF-16.
     """
+    if raw[:2] in (b"\xff\xfe", b"\xfe\xff"):
+        return raw.decode("utf-16", errors="replace")
     raw = raw.removeprefix(b"\xef\xbb\xbf")
     try:
         return raw.decode("utf-8")

@@ -1,7 +1,7 @@
 // Who is running? Static front end over data/manifest.json and data/<source>/<year>/<state>.json.
 // Plain ES module, no build step.
 
-import { initMap } from "./map.js";
+import { initMap, rcvSummary, rcvTableHTML, TERRITORIES } from "./map.js";
 
 const STATE_NAMES = {
   AL: "Alabama", AK: "Alaska", AS: "American Samoa", AZ: "Arizona", AR: "Arkansas",
@@ -45,6 +45,7 @@ const cache = new Map();
 let manifest = null;
 let map = { showState() {} }; // the results map, see map.js
 let loaded = []; // candidacy objects for the selected state + year
+let rcvRaces = []; // ranked-choice rounds for the selected state + year (results/<year>/rcv.json)
 let groups = []; // filtered races, sorted
 let shown = 0;
 let loadToken = 0;
@@ -115,6 +116,7 @@ async function load() {
   const year = els.year.value;
   const token = ++loadToken;
   loaded = [];
+  rcvRaces = [];
   if (!state || !year) {
     render();
     return;
@@ -123,8 +125,13 @@ async function load() {
   try {
     const paths = filesFor(state, year).flatMap((f) =>
       [state, "US"].filter((s) => f.coverage[s]?.[year]).map((s) => `data/${f.source}/${f.year}/${s}.json`));
-    const datasets = await Promise.all(paths.map(fetchJSON));
+    const withRcv = (manifest.rcv || []).some((r) => String(r.year) === year && r.states.includes(state));
+    const [datasets, rcv] = await Promise.all([
+      Promise.all(paths.map(fetchJSON)),
+      withRcv ? fetchJSON(`results/${year}/rcv.json`) : { races: [] },
+    ]);
     if (token !== loadToken) return; // a newer selection superseded this one
+    rcvRaces = rcv.races.filter((r) => r.state === state);
     for (const { columns, rows } of datasets) {
       const idx = Object.fromEntries(columns.map((c, i) => [c, i]));
       for (const row of rows) {
@@ -269,10 +276,15 @@ function raceHTML(g) {
     .filter(Boolean).join(" ");
   if (when) meta.push(when);
   meta.push(SOURCE_LABELS[g.source] || g.source);
+  // Races counted by ranked choice (Alaska, Maine): who won after the rounds.
+  const rr = rcvRaces.find((r) => r.office === g.office && r.district === g.district
+    && r.election_type === g.election_type);
+  const rounds = rr ? `<details class="rcv-card"><summary>${esc(rcvSummary(rr))}</summary>
+    ${rcvTableHTML(rr, `${g.office}: votes in each ranked-choice round`)}</details>` : "";
   return `<article class="race">
     <h3>${esc(g.office)}</h3>
     <p class="race-meta">${meta.map((m) => `<span>${esc(m)}</span>`).join("")}</p>
-    <ul class="candidates">${g.candidates.map(candidateHTML).join("")}</ul>
+    <ul class="candidates">${g.candidates.map(candidateHTML).join("")}</ul>${rounds}
   </article>`;
 }
 
@@ -303,7 +315,8 @@ function renderCoverage() {
   if (here.size === 0) {
     const others = [...byYear.keys()].sort((a, b) => b - a);
     els.coverage.textContent = `For ${name} ${year} we only have federal candidates, from FEC registrations.`
-      + (others.length ? ` State and local races are available for ${others.join(", ")}.` : "");
+      + (others.length ? ` State and local races are available for ${others.join(", ")}.` : "")
+      + (TERRITORIES.includes(state) ? " Territory races, such as governor and legislature, aren't covered yet." : "");
   } else if (here.size === 1 && here.has(RESULTS)) {
     els.coverage.textContent = `${name} ${year} races come from general-election results: everyone who appeared `
       + "on the November ballot. Primary candidates and anyone who dropped out earlier aren't included, "

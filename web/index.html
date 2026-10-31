@@ -22,6 +22,10 @@
         <h2 id="map-title">Who won</h2>
         <div class="map-controls">
           <button id="map-back" class="map-back" type="button" hidden>← All states</button>
+          <div id="map-stage-field" class="field" hidden>
+            <label for="map-stage">Election</label>
+            <select id="map-stage"></select>
+          </div>
           <div class="field">
             <label for="map-race">Race</label>
             <select id="map-race"></select>
@@ -38,6 +42,7 @@
       </div>
       <div id="map-legend" class="map-legend"></div>
       <p id="map-note" class="map-note"></p>
+      <div id="map-rcv" class="map-rcv"></div>
       <details class="map-details">
         <summary>Table view</summary>
         <table id="map-table" class="map-table"><caption id="map-caption"></caption></table>
@@ -70,6 +75,7 @@
           <option value="">Primary &amp; general</option>
           <option value="primary">Primary</option>
           <option value="general">General</option>
+          <option value="runoff">Runoff</option>
         </select>
       </div>
       <div class="field">
@@ -102,13 +108,16 @@
         Data from the <a href="https://www.fec.gov/data/browse-data/?tab=bulk-data">FEC</a>,
         the <a href="https://www.ncsbe.gov/results-data/candidate-lists">NC State Board of Elections</a>, the
         <a href="https://elections.maryland.gov/candidacy/index.html">Maryland State Board of Elections</a>, the
-        <a href="https://electionlab.mit.edu/data">MIT Election Data + Science Lab</a> and the
-        <a href="https://developers.google.com/civic-information">Google Civic Information API</a>,
+        <a href="https://electionlab.mit.edu/data">MIT Election Data + Science Lab</a>,
+        and the <a href="https://developers.google.com/civic-information">Google Civic Information API</a>, with ranked-choice rounds from the
+        <a href="https://www.elections.alaska.gov/election-results/">Alaska Division of Elections</a> and the
+        <a href="https://www.maine.gov/sos/elections-voting/election-results-data">Maine Secretary of State</a>,
         refreshed daily. <span id="generated"></span>
       </p>
       <p>
         FEC data lists people who <em>registered</em> as federal candidates. Not all of them appear on a ballot.
-        MIT Election Lab results cover every state's November general elections in 2018, 2022 and 2024.
+        MIT Election Lab results cover every state's November general elections from 2016 to 2024 (2020 without Indiana).
+        Unofficial 2026 results come from state election offices' live results sites until certified results are published.
         Google Civic Information ballots are looked up for a sample of addresses in each county, so some local races are missing.
         Map shapes from <a href="https://github.com/topojson/us-atlas">us-atlas</a> (Census Bureau boundaries, ISC license).
         Open source on <a href="https://github.com/AlexanderNicholasIvanov/who-is-running">GitHub</a>.

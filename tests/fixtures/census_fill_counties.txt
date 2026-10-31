@@ -1,0 +1,13 @@
+CA,06,001,Alameda County,H1
+CA,06,003,Alpine County,H1
+ID,16,001,Ada County,H1
+ID,16,003,Adams County,H1
+ID,16,077,Power County,H1
+IN,18,001,Adams County,H1
+IN,18,003,Allen County,H1
+IN,18,033,DeKalb County,H1
+ND,38,001,Adams County,H1
+ND,38,015,Burleigh County,H1
+ND,38,023,Divide County,H1
+TN,47,001,Anderson County,H1
+TN,47,003,Bedford County,H1
