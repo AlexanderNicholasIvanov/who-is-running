@@ -764,6 +764,34 @@ def test_build_results_counts_state_level_tallies_as_not_by_county(tmp_path: Pat
     assert me["races"][0]["counties"] == {"": ["", [1978]], "23001": ["ANDROSCOGGIN", [22906]]}
 
 
+def test_build_results_draws_kansas_city_in_jackson_county(tmp_path: Path) -> None:
+    # MEDSL's 2024 Missouri file: Kansas City's election board, which counts the
+    # part of the city in Jackson County, reports under a code of its own.
+    rows = [
+        ("36000", "KANSAS CITY", "MIKE KEHOE", "REP", 26577),
+        ("36000", "KANSAS CITY", "CRYSTAL QUADE", "DEM", 93969),
+        ("29095", "JACKSON", "MIKE KEHOE", "REP", 97216),
+        ("29095", "JACKSON", "CRYSTAL QUADE", "DEM", 88479),
+        ("29047", "CLAY", "MIKE KEHOE", "REP", 67765),
+        ("29047", "CLAY", "CRYSTAL QUADE", "DEM", 58365),
+    ]
+    write_csv(
+        results_path(tmp_path / "data", "medsl", 2024),
+        [
+            CountyResult("MO", 2024, "2024-11-05", "general", "GOVERNOR", *row, "medsl")
+            for row in rows
+        ],
+    )
+
+    build_results(tmp_path / "data" / "results", tmp_path / "out")
+
+    mo = json.loads((tmp_path / "out" / "2024" / "MO.json").read_text(encoding="utf-8"))
+    assert mo["races"][0]["counties"] == {
+        "29095": ["JACKSON", [88479 + 93969, 97216 + 26577]],  # Quade leads statewide
+        "29047": ["CLAY", [58365, 67765]],
+    }
+
+
 def _result(stage: str, when: str, name: str, party: str, votes: int) -> CountyResult:
     return CountyResult(
         "GA", 2022, when, stage, "US Senate", "13021", "BIBB", name, party, votes, "x"

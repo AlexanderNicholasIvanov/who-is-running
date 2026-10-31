@@ -108,6 +108,14 @@ MAP_COUNTIES = {
     "36122": ("36123", "YATES"),  # MEDSL 2016's code for Yates County, New York
     "23099": ("23005", "CUMBERLAND"),  # MEDSL 2016's code for Chebeague Island, Maine
 }
+# (state, results county code) -> (map county code, name), for places that
+# report apart from their county under a code of their own.
+MAP_PLACES = {
+    # Kansas City's election board reports apart, but only for the part of the
+    # city in Jackson County; Clay, Platte and Cass count their own parts.
+    ("MO", "36000"): ("29095", "JACKSON"),
+    ("MO", "29380"): ("29095", "JACKSON"),  # its code in the 2016 file
+}
 
 
 # Results files written before the stage columns existed hold general elections.
@@ -155,7 +163,9 @@ def build_results(results_dir: Path, out_dir: Path) -> list[dict[str, Any]]:
         races = defaultdict(lambda: defaultdict(lambda: defaultdict(Counter)))
         county_names: dict[str, str] = {}
         for r in rows:
-            fips, county = MAP_COUNTIES.get(r["county_fips"], (r["county_fips"], r["county"]))
+            fips, county = MAP_PLACES.get((r["state"], r["county_fips"])) or MAP_COUNTIES.get(
+                r["county_fips"], (r["county_fips"], r["county"])
+            )
             if fips[2:] == "000" and STATE_FIPS.get(fips[:2]) == r["state"]:
                 fips = county = ""  # a state-level tally, e.g. Maine's overseas ballots
             # Each party's primary is its own race; a general election's runoff is one race.
