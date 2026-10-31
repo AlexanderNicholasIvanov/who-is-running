@@ -72,6 +72,9 @@ PARTIES = {
     "GREEN": "GRE",
     "INDEPENDENT": "IND",
 }
+# Vermont 2016 gives no party on any presidential line. The major-party
+# nominees were on their party's line in every state.
+NOMINEES_2016 = {"Hillary Clinton": "DEMOCRATIC", "Donald Trump": "REPUBLICAN"}
 NO_PARTY = {"", '""', "NONPARTISAN", "NON", "OTHER", "NONE", "NO"}
 
 # Turnout, over/undervote and write-in lines that some states report as if
@@ -197,7 +200,12 @@ def parse_with_results(lines: Iterable[str]) -> tuple[list[Candidacy], list[Coun
         # Wisconsin 2018 and all of 2016 use MEDSL's older column names.
         r.setdefault("county_name", r.get("county", ""))
         # 2016 leaves some ballot lines' party blank but gives the candidate's own party.
-        r.setdefault("party_detailed", r.get("party", "") or r.get("candidate_party", ""))
+        r.setdefault(
+            "party_detailed",
+            r.get("party", "")
+            or r.get("candidate_party", "")
+            or NOMINEES_2016.get(r.get("candidate", ""), ""),
+        )
         r.setdefault("state_po", r.get("state_postal", ""))
         r.setdefault("jurisdiction_name", r.get("jurisdiction", ""))
         if r.get("writein", "").upper() == "TRUE":
@@ -263,9 +271,11 @@ def parse_with_results(lines: Iterable[str]) -> tuple[list[Candidacy], list[Coun
                     candidate_counties[key].add(county)
             # Alaska reports early and absentee votes by legislative district,
             # with no county: they count toward the state total under "".
-            fips = r.get("county_fips", "").strip()
+            # Wisconsin 2016 appends a 5-digit town code ("5500100000").
+            fips = r.get("county_fips", "").strip()[:5]
             fips = fips.zfill(5) if fips.isdigit() else ""
-            county_names[fips] = county if fips else ""
+            # 2016 leaves some names blank, e.g. Kansas City's, but names the jurisdiction.
+            county_names[fips] = (county or r.get("jurisdiction_name", "").strip()) if fips else ""
             precinct = (key, fips, r.get("precinct", ""), r.get("party_detailed", ""))
             if r.get("mode", "").upper() == "TOTAL":
                 totals[precinct] += votes

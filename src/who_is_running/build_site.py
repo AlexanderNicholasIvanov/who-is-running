@@ -103,6 +103,8 @@ MAP_COUNTIES = {
     "02063": ("02261", "VALDEZ-CORDOVA"),  # Chugach: split from Valdez-Cordova in 2019,
     "02066": ("02261", "VALDEZ-CORDOVA"),  # with Copper River; the map predates that
     "46113": ("46102", "OGLALA LAKOTA"),  # Shannon County's code until its 2015 rename
+    "36122": ("36123", "YATES"),  # MEDSL 2016's code for Yates County, New York
+    "23099": ("23005", "CUMBERLAND"),  # MEDSL 2016's code for Chebeague Island, Maine
 }
 
 

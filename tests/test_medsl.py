@@ -253,3 +253,62 @@ def test_race_in_every_county_is_statewide() -> None:
 def test_new_england_town_races_keep_their_county() -> None:
     (row,) = _parse("medsl_town.csv")
     assert (row.jurisdiction, row.counties) == ("BURLINGTON", "*")  # the file's only county
+
+
+def test_2016_county_codes() -> None:
+    header = fixture_bytes("medsl_2016.csv").decode().splitlines()[0]
+    clinton = '"CLINTON, HILLARY RODHAM / TIMOTHY MICHAEL KAINE",,,,,president'
+    # Wisconsin appends a town code to the county's; Kansas City has a code but no name.
+    wi = (
+        "2016,gen,FALSE,Wisconsin,WI,55,25,Adams County,5500100000,01581060,43.973763,"
+        "-89.767223,ADAMS,TOWN OF ADAMS Wards 1-3,Hillary Clinton,clinton,US President,"
+        f"statewide,FALSE,democratic,total,207,,,,,,,,,,P00003392,{clinton}"
+    )
+    mo = [
+        "2016,gen,FALSE,Missouri,MO,29,34,Jackson County,29095,00758502,39.005441,-94.343326,"
+        "Jackson,ABSENTEE,Hillary Clinton,clinton,US President,statewide,FALSE,democratic,"
+        f"total,6920,,,,,,,,,,P00003392,{clinton}",
+        "2016,gen,FALSE,Missouri,MO,29,34,,29380,,,,Kansas City,INTRASTATE,Hillary Clinton,"
+        f"clinton,US President,statewide,FALSE,democratic,total,14,,,,,,,,,,P00003392,{clinton}",
+    ]
+
+    (result,) = parse_with_results([header, wi])[1]
+    assert (result.county_fips, result.county, result.votes) == ("55001", "Adams County", 207)
+    results = parse_with_results([header, *mo])[1]
+    assert sorted((r.county_fips, r.county, r.votes) for r in results) == [
+        ("29095", "Jackson County", 6920),
+        ("29380", "Kansas City", 14),
+    ]
+
+
+def test_2016_presidential_nominees_without_a_party() -> None:
+    # Vermont 2016 gives no party on any presidential line.
+    header = fixture_bytes("medsl_2016.csv").decode().splitlines()[0]
+    row = (
+        "2016,gen,FALSE,Vermont,VT,50,6,Addison County,50001,01461757,44.031248,-73.141581,"
+        "Lincoln,1,{name},{surname},US President,statewide,FALSE,,total,{votes},,,,,,,,,,"
+        '{fec},"{fec_name}",,,,,president'
+    )
+    candidacies = parse(
+        [
+            header,
+            row.format(
+                name="Hillary Clinton",
+                surname="clinton",
+                votes=494,
+                fec="P00003392",
+                fec_name="CLINTON, HILLARY RODHAM / TIMOTHY MICHAEL KAINE",
+            ),
+            row.format(
+                name="Gary Johnson",
+                surname="johnson",
+                votes=22,
+                fec="P60012234",
+                fec_name="JOHNSON, JOHN FITZGERALD MR.",
+            ),
+        ]
+    )
+    assert {(c.candidate_name, c.party) for c in candidacies} == {
+        ("Hillary Clinton", "DEM"),
+        ("Gary Johnson", ""),  # not guessed: his ballot line varied by state
+    }
