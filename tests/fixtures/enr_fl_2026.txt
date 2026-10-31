@@ -1,0 +1,80 @@
+ElectionDate	PartyCode	PartyName	RaceCode	RaceName	CountyCode	CountyName	Juris1num	Juris2num	Precincts	PrecinctsReporting	CanNameLast	CanNameFirst	CanNameMiddle	CanVotes
+11/03/2026	REP	Republican Party	USS	United States Senator	ALA	Alachua	   	 	63	0	Moody	Ashley		0
+11/03/2026	REP	Republican Party	USS	United States Senator	DAD	Miami-Dade	   	 	718	0	Moody	Ashley		0
+11/03/2026	REP	Republican Party	USS	United States Senator	ESC	Escambia	   	 	80	0	Moody	Ashley		0
+11/03/2026	REP	Republican Party	USS	United States Senator	LEE	Lee	   	 	99	0	Moody	Ashley		0
+11/03/2026	REP	Republican Party	USS	United States Senator	OKA	Okaloosa	   	 	52	0	Moody	Ashley		0
+11/03/2026	DEM	Democratic Party	USS	United States Senator	ALA	Alachua	   	 	63	0	Nixon	Angie		0
+11/03/2026	DEM	Democratic Party	USS	United States Senator	DAD	Miami-Dade	   	 	718	0	Nixon	Angie		0
+11/03/2026	DEM	Democratic Party	USS	United States Senator	ESC	Escambia	   	 	80	0	Nixon	Angie		0
+11/03/2026	DEM	Democratic Party	USS	United States Senator	LEE	Lee	   	 	99	0	Nixon	Angie		0
+11/03/2026	DEM	Democratic Party	USS	United States Senator	OKA	Okaloosa	   	 	52	0	Nixon	Angie		0
+11/03/2026	NPA	No Party Affiliation	USS	United States Senator	ALA	Alachua	   	 	63	0	Gillespie	Neil	J.	0
+11/03/2026	NPA	No Party Affiliation	USS	United States Senator	DAD	Miami-Dade	   	 	718	0	Gillespie	Neil	J.	0
+11/03/2026	NPA	No Party Affiliation	USS	United States Senator	ESC	Escambia	   	 	80	0	Gillespie	Neil	J.	0
+11/03/2026	NPA	No Party Affiliation	USS	United States Senator	LEE	Lee	   	 	99	0	Gillespie	Neil	J.	0
+11/03/2026	NPA	No Party Affiliation	USS	United States Senator	OKA	Okaloosa	   	 	52	0	Gillespie	Neil	J.	0
+11/03/2026	REP	Republican Party	GOV	Governor and Lieutenant Governor	ALA	Alachua	   	 	63	0	Avila	Donalds	/	0
+11/03/2026	REP	Republican Party	GOV	Governor and Lieutenant Governor	DAD	Miami-Dade	   	 	718	0	Avila	Donalds	/	0
+11/03/2026	REP	Republican Party	GOV	Governor and Lieutenant Governor	ESC	Escambia	   	 	80	0	Avila	Donalds	/	0
+11/03/2026	REP	Republican Party	GOV	Governor and Lieutenant Governor	LEE	Lee	   	 	99	0	Avila	Donalds	/	0
+11/03/2026	REP	Republican Party	GOV	Governor and Lieutenant Governor	OKA	Okaloosa	   	 	52	0	Avila	Donalds	/	0
+11/03/2026	DEM	Democratic Party	GOV	Governor and Lieutenant Governor	ALA	Alachua	   	 	63	0	Graham	Jolly	/	0
+11/03/2026	DEM	Democratic Party	GOV	Governor and Lieutenant Governor	DAD	Miami-Dade	   	 	718	0	Graham	Jolly	/	0
+11/03/2026	DEM	Democratic Party	GOV	Governor and Lieutenant Governor	ESC	Escambia	   	 	80	0	Graham	Jolly	/	0
+11/03/2026	DEM	Democratic Party	GOV	Governor and Lieutenant Governor	LEE	Lee	   	 	99	0	Graham	Jolly	/	0
+11/03/2026	DEM	Democratic Party	GOV	Governor and Lieutenant Governor	OKA	Okaloosa	   	 	52	0	Graham	Jolly	/	0
+11/03/2026	LPF	Libertarian Party	GOV	Governor and Lieutenant Governor	ALA	Alachua	   	 	63	0	Skelly	Jewett	/	0
+11/03/2026	LPF	Libertarian Party	GOV	Governor and Lieutenant Governor	DAD	Miami-Dade	   	 	718	0	Skelly	Jewett	/	0
+11/03/2026	LPF	Libertarian Party	GOV	Governor and Lieutenant Governor	ESC	Escambia	   	 	80	0	Skelly	Jewett	/	0
+11/03/2026	LPF	Libertarian Party	GOV	Governor and Lieutenant Governor	LEE	Lee	   	 	99	0	Skelly	Jewett	/	0
+11/03/2026	LPF	Libertarian Party	GOV	Governor and Lieutenant Governor	OKA	Okaloosa	   	 	52	0	Skelly	Jewett	/	0
+11/03/2026	NPA	No Party Affiliation	GOV	Governor and Lieutenant Governor	ALA	Alachua	   	 	63	0	Coto	Burkett	/	0
+11/03/2026	NPA	No Party Affiliation	GOV	Governor and Lieutenant Governor	DAD	Miami-Dade	   	 	718	0	Coto	Burkett	/	0
+11/03/2026	NPA	No Party Affiliation	GOV	Governor and Lieutenant Governor	ESC	Escambia	   	 	80	0	Coto	Burkett	/	0
+11/03/2026	NPA	No Party Affiliation	GOV	Governor and Lieutenant Governor	LEE	Lee	   	 	99	0	Coto	Burkett	/	0
+11/03/2026	NPA	No Party Affiliation	GOV	Governor and Lieutenant Governor	OKA	Okaloosa	   	 	52	0	Coto	Burkett	/	0
+11/03/2026	NPA	No Party Affiliation	GOV	Governor and Lieutenant Governor	ALA	Alachua	   	 	63	0	Rodriguez	Russo	/	0
+11/03/2026	NPA	No Party Affiliation	GOV	Governor and Lieutenant Governor	DAD	Miami-Dade	   	 	718	0	Rodriguez	Russo	/	0
+11/03/2026	NPA	No Party Affiliation	GOV	Governor and Lieutenant Governor	ESC	Escambia	   	 	80	0	Rodriguez	Russo	/	0
+11/03/2026	NPA	No Party Affiliation	GOV	Governor and Lieutenant Governor	LEE	Lee	   	 	99	0	Rodriguez	Russo	/	0
+11/03/2026	NPA	No Party Affiliation	GOV	Governor and Lieutenant Governor	OKA	Okaloosa	   	 	52	0	Rodriguez	Russo	/	0
+11/03/2026	NPA	No Party Affiliation	GOV	Governor and Lieutenant Governor	ALA	Alachua	   	 	63	0	Rojas	Dimanche	/	0
+11/03/2026	NPA	No Party Affiliation	GOV	Governor and Lieutenant Governor	DAD	Miami-Dade	   	 	718	0	Rojas	Dimanche	/	0
+11/03/2026	NPA	No Party Affiliation	GOV	Governor and Lieutenant Governor	ESC	Escambia	   	 	80	0	Rojas	Dimanche	/	0
+11/03/2026	NPA	No Party Affiliation	GOV	Governor and Lieutenant Governor	LEE	Lee	   	 	99	0	Rojas	Dimanche	/	0
+11/03/2026	NPA	No Party Affiliation	GOV	Governor and Lieutenant Governor	OKA	Okaloosa	   	 	52	0	Rojas	Dimanche	/	0
+11/03/2026	NPA	No Party Affiliation	GOV	Governor and Lieutenant Governor	ALA	Alachua	   	 	63	0	Van Vactor	Abrams	/	0
+11/03/2026	NPA	No Party Affiliation	GOV	Governor and Lieutenant Governor	DAD	Miami-Dade	   	 	718	0	Van Vactor	Abrams	/	0
+11/03/2026	NPA	No Party Affiliation	GOV	Governor and Lieutenant Governor	ESC	Escambia	   	 	80	0	Van Vactor	Abrams	/	0
+11/03/2026	NPA	No Party Affiliation	GOV	Governor and Lieutenant Governor	LEE	Lee	   	 	99	0	Van Vactor	Abrams	/	0
+11/03/2026	NPA	No Party Affiliation	GOV	Governor and Lieutenant Governor	OKA	Okaloosa	   	 	52	0	Van Vactor	Abrams	/	0
+11/03/2026	NPA	No Party Affiliation	GOV	Governor and Lieutenant Governor	ALA	Alachua	   	 	63	0	Santana	Datto	/	0
+11/03/2026	NPA	No Party Affiliation	GOV	Governor and Lieutenant Governor	DAD	Miami-Dade	   	 	718	0	Santana	Datto	/	0
+11/03/2026	NPA	No Party Affiliation	GOV	Governor and Lieutenant Governor	ESC	Escambia	   	 	80	0	Santana	Datto	/	0
+11/03/2026	NPA	No Party Affiliation	GOV	Governor and Lieutenant Governor	LEE	Lee	   	 	99	0	Santana	Datto	/	0
+11/03/2026	NPA	No Party Affiliation	GOV	Governor and Lieutenant Governor	OKA	Okaloosa	   	 	52	0	Santana	Datto	/	0
+11/03/2026	WRI	Write-in	GOV	Governor and Lieutenant Governor	ALA	Alachua	   	 	63	0	Nokovich	Anderson	/	0
+11/03/2026	WRI	Write-in	GOV	Governor and Lieutenant Governor	DAD	Miami-Dade	   	 	718	0	Nokovich	Anderson	/	0
+11/03/2026	WRI	Write-in	GOV	Governor and Lieutenant Governor	ESC	Escambia	   	 	80	0	Nokovich	Anderson	/	0
+11/03/2026	WRI	Write-in	GOV	Governor and Lieutenant Governor	LEE	Lee	   	 	99	0	Nokovich	Anderson	/	0
+11/03/2026	WRI	Write-in	GOV	Governor and Lieutenant Governor	OKA	Okaloosa	   	 	52	0	Nokovich	Anderson	/	0
+11/03/2026	WRI	Write-in	GOV	Governor and Lieutenant Governor	ALA	Alachua	   	 	63	0	Alaways	Morris	/	0
+11/03/2026	WRI	Write-in	GOV	Governor and Lieutenant Governor	DAD	Miami-Dade	   	 	718	0	Alaways	Morris	/	0
+11/03/2026	WRI	Write-in	GOV	Governor and Lieutenant Governor	ESC	Escambia	   	 	80	0	Alaways	Morris	/	0
+11/03/2026	WRI	Write-in	GOV	Governor and Lieutenant Governor	LEE	Lee	   	 	99	0	Alaways	Morris	/	0
+11/03/2026	WRI	Write-in	GOV	Governor and Lieutenant Governor	OKA	Okaloosa	   	 	52	0	Alaways	Morris	/	0
+11/03/2026	REP	Republican Party	STR	State Representative, District 1	ESC	Escambia	001	 	40	0	Salzman	Michelle		0
+11/03/2026	DEM	Democratic Party	STR	State Representative, District 1	ESC	Escambia	001	 	40	0	Yabraian	Francesca		0
+11/03/2026	NOP	Non-Partisan	SCJ	Shall Justice Carlos G. Muñiz be retained in Office?	ALA	Alachua	   	1	63	0	Yes	 	 	0
+11/03/2026	NOP	Non-Partisan	SCJ	Shall Justice Carlos G. Muñiz be retained in Office?	DAD	Miami-Dade	   	1	718	0	Yes	 	 	0
+11/03/2026	NOP	Non-Partisan	SCJ	Shall Justice Carlos G. Muñiz be retained in Office?	ESC	Escambia	   	1	80	0	Yes	 	 	0
+11/03/2026	NOP	Non-Partisan	SCJ	Shall Justice Carlos G. Muñiz be retained in Office?	LEE	Lee	   	1	99	0	Yes	 	 	0
+11/03/2026	NOP	Non-Partisan	SCJ	Shall Justice Carlos G. Muñiz be retained in Office?	OKA	Okaloosa	   	1	52	0	Yes	 	 	0
+11/03/2026	NOP	Non-Partisan	SCJ	Shall Justice Carlos G. Muñiz be retained in Office?	ALA	Alachua	   	1	63	0	No	 	 	0
+11/03/2026	NOP	Non-Partisan	SCJ	Shall Justice Carlos G. Muñiz be retained in Office?	DAD	Miami-Dade	   	1	718	0	No	 	 	0
+11/03/2026	NOP	Non-Partisan	SCJ	Shall Justice Carlos G. Muñiz be retained in Office?	ESC	Escambia	   	1	80	0	No	 	 	0
+11/03/2026	NOP	Non-Partisan	SCJ	Shall Justice Carlos G. Muñiz be retained in Office?	LEE	Lee	   	1	99	0	No	 	 	0
+11/03/2026	NOP	Non-Partisan	SCJ	Shall Justice Carlos G. Muñiz be retained in Office?	OKA	Okaloosa	   	1	52	0	No	 	 	0
+11/03/2026	NOP	Non-Partisan	ECW	Lehigh Acres Municipal Services Improvement District, Seat 4	LEE	Lee	   	004	99	0	Bonacolta	Mike		0
+11/03/2026	NOP	Non-Partisan	ECW	Lehigh Acres Municipal Services Improvement District, Seat 4	LEE	Lee	   	004	99	0	Felder	Derek		0

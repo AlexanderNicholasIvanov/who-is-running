@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ElectionResult>
+  <Timestamp>10/30/2026 10:03:31 AM EDT</Timestamp>
+  <ElectionName>2026 Statewide General Election</ElectionName>
+  <ElectionDate>11/3/2026</ElectionDate>
+  <Region>SC</Region>
+  <ElectionVoterTurnout totalVoters="3438317" ballotsCast="0" voterTurnout="0.00">
+    <Counties>
+      <County name="Abbeville" totalVoters="15697" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="15" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Aiken" totalVoters="116511" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="89" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Allendale" totalVoters="4392" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="8" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Anderson" totalVoters="130801" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="79" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Bamberg" totalVoters="7783" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="13" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Barnwell" totalVoters="12931" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="15" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Beaufort" totalVoters="142485" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="134" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Berkeley" totalVoters="162734" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="94" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Calhoun" totalVoters="10158" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="12" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Charleston" totalVoters="278463" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="182" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Cherokee" totalVoters="33897" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="29" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Chester" totalVoters="20360" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="21" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Chesterfield" totalVoters="26199" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="25" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Clarendon" totalVoters="21522" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="26" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Colleton" totalVoters="24617" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="32" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Darlington" totalVoters="41427" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="32" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Dillon" totalVoters="16731" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="19" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Dorchester" totalVoters="108691" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="81" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Edgefield" totalVoters="18101" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="12" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Fairfield" totalVoters="15532" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="22" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Florence" totalVoters="83815" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="63" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Georgetown" totalVoters="47419" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="34" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Greenville" totalVoters="348950" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="151" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Greenwood" totalVoters="41677" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="50" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Hampton" totalVoters="10959" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="18" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Horry" totalVoters="285790" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="125" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Jasper" totalVoters="27066" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="18" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Kershaw" totalVoters="42436" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="32" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Lancaster" totalVoters="71227" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="31" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Laurens" totalVoters="42014" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="33" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Lee" totalVoters="9934" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="22" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Lexington" totalVoters="194215" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="96" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Marion" totalVoters="19672" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="17" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Marlboro" totalVoters="14229" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="15" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="McCormick" totalVoters="7806" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="11" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Newberry" totalVoters="23696" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="30" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Oconee" totalVoters="54854" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="31" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Orangeburg" totalVoters="50014" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="53" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Pickens" totalVoters="77872" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="61" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Richland" totalVoters="257888" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="149" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Saluda" totalVoters="11831" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="13" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Spartanburg" totalVoters="217101" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="112" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Sumter" totalVoters="61192" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="58" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Union" totalVoters="16282" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="21" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Williamsburg" totalVoters="18838" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="28" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="York" totalVoters="192508" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="100" precinctsReported="0" precinctsReportingPercent="0.00" />
+    </Counties>
+  </ElectionVoterTurnout>
+  <Contest key="22500" text="Secretary of State" voteFor="1" isQuestion="false" countiesParticipating="46" countiesReported="0" precinctsParticipating="2312" precinctsReported="0" precinctsReportingPercent="0.00">
+    <ParticipatingCounties>
+      <County name="Abbeville" precinctsParticipating="15" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Aiken" precinctsParticipating="89" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Allendale" precinctsParticipating="8" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Anderson" precinctsParticipating="79" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Bamberg" precinctsParticipating="13" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Barnwell" precinctsParticipating="15" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Beaufort" precinctsParticipating="134" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Berkeley" precinctsParticipating="94" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Calhoun" precinctsParticipating="12" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Charleston" precinctsParticipating="182" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Cherokee" precinctsParticipating="29" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Chester" precinctsParticipating="21" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Chesterfield" precinctsParticipating="25" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Clarendon" precinctsParticipating="26" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Colleton" precinctsParticipating="32" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Darlington" precinctsParticipating="32" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Dillon" precinctsParticipating="19" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Dorchester" precinctsParticipating="81" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Edgefield" precinctsParticipating="12" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Fairfield" precinctsParticipating="22" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Florence" precinctsParticipating="63" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Georgetown" precinctsParticipating="34" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Greenville" precinctsParticipating="151" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Greenwood" precinctsParticipating="50" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Hampton" precinctsParticipating="18" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Horry" precinctsParticipating="125" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Jasper" precinctsParticipating="18" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Kershaw" precinctsParticipating="32" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Lancaster" precinctsParticipating="31" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Laurens" precinctsParticipating="33" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Lee" precinctsParticipating="22" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Lexington" precinctsParticipating="96" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Marion" precinctsParticipating="17" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Marlboro" precinctsParticipating="15" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="McCormick" precinctsParticipating="11" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Newberry" precinctsParticipating="30" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Oconee" precinctsParticipating="31" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Orangeburg" precinctsParticipating="53" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Pickens" precinctsParticipating="61" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Richland" precinctsParticipating="149" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Saluda" precinctsParticipating="13" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Spartanburg" precinctsParticipating="112" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Sumter" precinctsParticipating="58" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Union" precinctsParticipating="21" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Williamsburg" precinctsParticipating="28" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="York" precinctsParticipating="100" precinctsReported="0" precinctsReportingPercent="0.00" />
+    </ParticipatingCounties>
+    <Choice key="001" text="REP Mark Hammond" party="REP" totalVotes="0">
+            </Choice>
+    <Choice key="002" text="DEM Jason Belton" party="DEM" totalVotes="0">
+            </Choice>
+    <Choice key="003" text="Write-In" party="NON" totalVotes="0">
+            </Choice>
+  </Contest>
+  <Contest key="27002" text="U.S.  House of Representatives, District  1" voteFor="1" isQuestion="false" countiesParticipating="6" countiesReported="0" precinctsParticipating="374" precinctsReported="0" precinctsReportingPercent="0.00">
+    <ParticipatingCounties>
+      <County name="Beaufort" precinctsParticipating="134" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Berkeley" precinctsParticipating="94" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Charleston" precinctsParticipating="79" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Colleton" precinctsParticipating="2" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Dorchester" precinctsParticipating="63" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Jasper" precinctsParticipating="2" precinctsReported="0" precinctsReportingPercent="0.00" />
+    </ParticipatingCounties>
+    <Choice key="001" text="REP Jenny Costa Honeycutt" party="REP" totalVotes="0">
+            </Choice>
+    <Choice key="002" text="LIB Bill Reeside" party="LIB" totalVotes="0">
+            </Choice>
+    <Choice key="003" text="DEM Nancy Lacore" party="DEM" totalVotes="0">
+            </Choice>
+    <Choice key="004" text="Write-In" party="NON" totalVotes="0">
+            </Choice>
+  </Contest>
+  <Contest key="28002" text="State  House of Representatives, District  1" voteFor="1" isQuestion="false" countiesParticipating="2" countiesReported="0" precinctsParticipating="18" precinctsReported="0" precinctsReportingPercent="0.00">
+    <ParticipatingCounties>
+      <County name="Oconee" precinctsParticipating="14" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Pickens" precinctsParticipating="4" precinctsReported="0" precinctsReportingPercent="0.00" />
+    </ParticipatingCounties>
+    <Choice key="001" text="REP Bill Whitmire" party="REP" totalVotes="0">
+            </Choice>
+    <Choice key="002" text="DEM Jasmine Williams" party="DEM" totalVotes="0">
+            </Choice>
+    <Choice key="003" text="Write-In" party="NON" totalVotes="0">
+            </Choice>
+  </Contest>
+  <Contest key="40000" text="Town Council - Town of Ware Shoals" voteFor="3" isQuestion="false" countiesParticipating="2" countiesReported="0" precinctsParticipating="3" precinctsReported="0" precinctsReportingPercent="0.00">
+    <ParticipatingCounties>
+      <County name="Abbeville" precinctsParticipating="1" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Greenwood" precinctsParticipating="2" precinctsReported="0" precinctsReportingPercent="0.00" />
+    </ParticipatingCounties>
+    <Choice key="001" text="John Paul Alewine" party="NON" totalVotes="0">
+            </Choice>
+    <Choice key="002" text="Tim Bostic" party="NON" totalVotes="0">
+            </Choice>
+    <Choice key="003" text="John Hansen" party="NON" totalVotes="0">
+            </Choice>
+    <Choice key="004" text="Joy Hansen" party="NON" totalVotes="0">
+            </Choice>
+    <Choice key="005" text="Meg Jennings" party="NON" totalVotes="0">
+            </Choice>
+    <Choice key="006" text="Eli Morse" party="NON" totalVotes="0">
+            </Choice>
+    <Choice key="007" text="Levi Marshall Owens" party="NON" totalVotes="0">
+            </Choice>
+    <Choice key="008" text="Micheal Powell" party="NON" totalVotes="0">
+            </Choice>
+    <Choice key="009" text="Fred West" party="NON" totalVotes="0">
+            </Choice>
+    <Choice key="010" text="Write-In" party="NON" totalVotes="0">
+            </Choice>
+  </Contest>
+  <Contest key="40322" text="Town of Irmo Form of Government Referendum" voteFor="1" isQuestion="true" countiesParticipating="2" countiesReported="0" precinctsParticipating="12" precinctsReported="0" precinctsReportingPercent="0.00">
+    <ParticipatingCounties>
+      <County name="Lexington" precinctsParticipating="3" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Richland" precinctsParticipating="9" precinctsReported="0" precinctsReportingPercent="0.00" />
+    </ParticipatingCounties>
+    <Choice key="001" text="Yes, In favor of the Question" party="NON" totalVotes="0">
+            </Choice>
+    <Choice key="002" text="No, Opposed to the Question" party="NON" totalVotes="0">
+            </Choice>
+  </Contest>
+  <Contest key="90001" text="STRAIGHT PARTY 1" voteFor="1" isQuestion="false" countiesParticipating="37" countiesReported="0" precinctsParticipating="1547" precinctsReported="0" precinctsReportingPercent="0.00">
+    <ParticipatingCounties>
+      <County name="Abbeville" precinctsParticipating="15" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Allendale" precinctsParticipating="8" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Anderson" precinctsParticipating="79" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Bamberg" precinctsParticipating="13" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Beaufort" precinctsParticipating="134" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Berkeley" precinctsParticipating="94" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Calhoun" precinctsParticipating="12" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Charleston" precinctsParticipating="182" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Cherokee" precinctsParticipating="29" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Chester" precinctsParticipating="21" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Chesterfield" precinctsParticipating="25" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Colleton" precinctsParticipating="32" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Darlington" precinctsParticipating="32" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Dillon" precinctsParticipating="19" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Dorchester" precinctsParticipating="81" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Edgefield" precinctsParticipating="12" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Fairfield" precinctsParticipating="22" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Florence" precinctsParticipating="63" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Georgetown" precinctsParticipating="34" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Greenville" precinctsParticipating="151" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Greenwood" precinctsParticipating="50" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Hampton" precinctsParticipating="18" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Jasper" precinctsParticipating="18" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Kershaw" precinctsParticipating="32" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Lancaster" precinctsParticipating="31" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Laurens" precinctsParticipating="33" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Lee" precinctsParticipating="22" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Marion" precinctsParticipating="17" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Marlboro" precinctsParticipating="15" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="McCormick" precinctsParticipating="11" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Newberry" precinctsParticipating="30" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Oconee" precinctsParticipating="31" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Pickens" precinctsParticipating="61" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Saluda" precinctsParticipating="13" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Sumter" precinctsParticipating="58" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Union" precinctsParticipating="21" precinctsReported="0" precinctsReportingPercent="0.00" />
+      <County name="Williamsburg" precinctsParticipating="28" precinctsReported="0" precinctsReportingPercent="0.00" />
+    </ParticipatingCounties>
+    <Choice key="001" text="United Citizens" party="UNC" totalVotes="0">
+            </Choice>
+    <Choice key="002" text="Green" party="GRN" totalVotes="0">
+            </Choice>
+    <Choice key="003" text="Republican" party="REP" totalVotes="0">
+            </Choice>
+    <Choice key="004" text="Libertarian" party="LIB" totalVotes="0">
+            </Choice>
+    <Choice key="005" text="Democratic" party="DEM" totalVotes="0">
+            </Choice>
+    <Choice key="006" text="Constitution" party="CON" totalVotes="0">
+            </Choice>
+  </Contest>
+</ElectionResult>
