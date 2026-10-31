@@ -11,7 +11,7 @@ import pytest
 from conftest import FIXTURES, FakeWeb, fixture_bytes
 
 from who_is_running.build_site import build_results
-from who_is_running.districts import COUNTY_NAMES_2010
+from who_is_running.districts import COUNTY_NAMES_2010, parse_county_names
 from who_is_running.pipeline import run
 from who_is_running.results import CountyResult, results_path, write_csv
 from who_is_running.sources import enr
@@ -22,6 +22,8 @@ from who_is_running.sources.enr import (
     find_election,
     office_of,
     parse_detail,
+    parse_florida,
+    parse_minnesota,
     updated_at,
 )
 from who_is_running.text import decode
@@ -111,6 +113,8 @@ def test_vote_types_add_up_or_use_the_total() -> None:
 
 def test_office_names_match_the_national_map() -> None:
     assert office_of("United States Senator") == "US Senate"
+    assert office_of("U.S.  Senate") == "US Senate"  # South Carolina 2026
+    assert office_of("U.S. SENATOR") == "US Senate"  # West Virginia 2026
     assert office_of("U.S. Senate - Unexpired Term") == "US Senate (special)"
     assert office_of("Presidential Electors") == "US President"
     assert office_of("President and Vice President") == "US President"
@@ -246,3 +250,58 @@ def test_certified_results_take_precedence_over_live_ones(tmp_path: Path) -> Non
     assert by_year[2026]["source"] == "enr"
     assert list(by_year[2026]["live"]) == ["DE", "IA"]
     assert (out / "2026.csv").exists()
+
+
+def _census() -> dict[str, tuple[str, str]]:
+    return parse_county_names(decode(CENSUS))
+
+
+def test_florida_file() -> None:
+    fips = {(st, county_key(n)): f for f, (st, n) in _census().items()}
+    rows, status = parse_florida(decode(fixture_bytes("enr_fl_2024.txt")), "FL", 2024, fips)
+    # Dropped: a House district, an amendment and a retention vote (Yes/No).
+    assert {r.office for r in rows} == {"US President", "US Senate"}
+    president = _votes(rows, "US President")
+    # Florida's file as finally posted, against MEDSL's certified county totals.
+    assert president["12001", "DEM"] == 81578  # Alachua
+    assert president["12001", "REP"] == 52939
+    assert president["12086", "REP"] == 605590  # Miami-Dade
+    assert president["12027", "DEM"] == 3525  # "Desoto" in Florida's file
+    assert {r.county for r in rows} == {"ALACHUA", "DESOTO", "MIAMI-DADE"}
+    assert "Trump / Vance" in {r.candidate_name for r in rows}
+    assert "Rick Scott" in {r.candidate_name for r in rows}
+    assert status["updated"] == ""  # the file doesn't say
+    assert status["counties"]["12001"] == [63, 63]
+
+
+def test_minnesota_file() -> None:
+    rows, status = parse_minnesota(decode(fixture_bytes("enr_mn_2024.txt")), "MN", 2024, _census())
+    senate = _votes(rows, "US Senate")
+    # County 69 is St. Louis, Census 27137; DFL is Minnesota's Democratic party.
+    assert senate["27137", "DFL"] == 72294
+    assert senate["27137", "REP"] == 41273
+    assert senate["27123", "DFL"] == 198504  # Ramsey
+    assert senate["27001", "REP"] == 5857  # Aitkin
+    assert {r.county for r in rows} == {"AITKIN", "RAMSEY", "ST. LOUIS"}
+    judges = {r.party for r in rows if r.office == "CHIEF JUSTICE - SUPREME COURT"}
+    assert judges == {""}  # "NP": nonpartisan
+    assert "WRITE-IN" not in {r.candidate_name for r in rows}
+    assert status["counties"]["27001"] == [51, 51]
+
+    # 2026: every county elects a sheriff under the same office ID; not statewide.
+    rows, _ = parse_minnesota(decode(fixture_bytes("enr_mn_2026.txt")), "MN", 2026, _census())
+    assert {r.office for r in rows} == {"GOVERNOR"}
+    assert all(r.votes == 0 for r in rows)
+
+
+def test_source_reads_a_state_file(monkeypatch: pytest.MonkeyPatch) -> None:
+    url = "https://electionresultsfiles.sos.mn.gov/20261103/allracesbycounty.txt"
+    monkeypatch.setattr(enr, "FEEDS", {2026: {"MN": Feed(url, kind="minnesota")}})
+    source = EnrSource(FakeWeb({COUNTY_NAMES_2010: CENSUS, url: fixture_bytes("enr_mn_2024.txt")}))
+
+    rows = source.results(2026)
+
+    assert {r.state for r in rows} == {"MN"}
+    assert source.results_status(2026)["MN"]["url"] == url
+    # Not posted yet: skipped, not an error.
+    assert EnrSource(FakeWeb({COUNTY_NAMES_2010: CENSUS})).results(2026) == []

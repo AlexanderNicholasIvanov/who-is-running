@@ -30,7 +30,7 @@ function liveText(live) {
 // "DEM/WORKING FAMILIES" and "REPUBLICAN/CONSERVATIVE" both count as the major party.
 export function partyClass(party) {
   const parts = party.toUpperCase().split("/");
-  if (parts.some((p) => p === "DEM" || p.startsWith("DEMOCRAT"))) return "dem";
+  if (parts.some((p) => p === "DEM" || p === "DFL" || p.startsWith("DEMOCRAT"))) return "dem"; // DFL: Minnesota
   if (parts.some((p) => p === "REP" || p.startsWith("REPUBLICAN"))) return "rep";
   return "other";
 }

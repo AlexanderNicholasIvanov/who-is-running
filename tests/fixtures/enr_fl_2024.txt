@@ -1,0 +1,66 @@
+ElectionDate	PartyCode	PartyName	RaceCode	RaceName	CountyCode	CountyName	Juris1num	Juris2num	Precincts	PrecinctsReporting	CanNameLast	CanNameFirst	CanNameMiddle	CanVotes
+11/05/2024	REP	Republican Party	PRE	President and Vice President	ALA	Alachua	   	 	63	63	Vance	Trump	 / 	52939
+11/05/2024	REP	Republican Party	PRE	President and Vice President	DAD	Miami-Dade	   	 	714	714	Vance	Trump	 / 	605590
+11/05/2024	REP	Republican Party	PRE	President and Vice President	DES	Desoto	   	 	15	15	Vance	Trump	 / 	8888
+11/05/2024	DEM	Democratic Party	PRE	President and Vice President	ALA	Alachua	   	 	63	63	Walz	Harris	 / 	81578
+11/05/2024	DEM	Democratic Party	PRE	President and Vice President	DAD	Miami-Dade	   	 	714	714	Walz	Harris	 / 	480355
+11/05/2024	DEM	Democratic Party	PRE	President and Vice President	DES	Desoto	   	 	15	15	Walz	Harris	 / 	3525
+11/05/2024	LPF	Libertarian Party	PRE	President and Vice President	ALA	Alachua	   	 	63	63	ter Maat	Oliver	 / 	619
+11/05/2024	LPF	Libertarian Party	PRE	President and Vice President	DAD	Miami-Dade	   	 	714	714	ter Maat	Oliver	 / 	2096
+11/05/2024	LPF	Libertarian Party	PRE	President and Vice President	DES	Desoto	   	 	15	15	ter Maat	Oliver	 / 	29
+11/05/2024	PSL	Party for Socialism and Liberation	PRE	President and Vice President	ALA	Alachua	   	 	63	63	Garcia	De la Cruz	 / 	293
+11/05/2024	PSL	Party for Socialism and Liberation	PRE	President and Vice President	DAD	Miami-Dade	   	 	714	714	Garcia	De la Cruz	 / 	1308
+11/05/2024	PSL	Party for Socialism and Liberation	PRE	President and Vice President	DES	Desoto	   	 	15	15	Garcia	De la Cruz	 / 	12
+11/05/2024	CPF	Constitution Party	PRE	President and Vice President	ALA	Alachua	   	 	63	63	Broden	Terry	 / 	82
+11/05/2024	CPF	Constitution Party	PRE	President and Vice President	DAD	Miami-Dade	   	 	714	714	Broden	Terry	 / 	476
+11/05/2024	CPF	Constitution Party	PRE	President and Vice President	DES	Desoto	   	 	15	15	Broden	Terry	 / 	6
+11/05/2024	ASP	American Solidarity Party of Florida 	PRE	President and Vice President	ALA	Alachua	   	 	63	63	Onak	Sonski	 / 	150
+11/05/2024	ASP	American Solidarity Party of Florida 	PRE	President and Vice President	DAD	Miami-Dade	   	 	714	714	Onak	Sonski	 / 	455
+11/05/2024	ASP	American Solidarity Party of Florida 	PRE	President and Vice President	DES	Desoto	   	 	15	15	Onak	Sonski	 / 	5
+11/05/2024	GRE	Green Party	PRE	President and Vice President	ALA	Alachua	   	 	63	63	Ware	Stein	 / 	887
+11/05/2024	GRE	Green Party	PRE	President and Vice President	DAD	Miami-Dade	   	 	714	714	Ware	Stein	 / 	3813
+11/05/2024	GRE	Green Party	PRE	President and Vice President	DES	Desoto	   	 	15	15	Ware	Stein	 / 	23
+11/05/2024	WRI	Write-in	PRE	President and Vice President	ALA	Alachua	   	 	63	63	Ellis	Ayyadurai	 / 	0
+11/05/2024	WRI	Write-in	PRE	President and Vice President	DAD	Miami-Dade	   	 	714	714	Ellis	Ayyadurai	 / 	12
+11/05/2024	WRI	Write-in	PRE	President and Vice President	DES	Desoto	   	 	15	15	Ellis	Ayyadurai	 / 	0
+11/05/2024	WRI	Write-in	PRE	President and Vice President	ALA	Alachua	   	 	63	63	McVay	Fox	 / 	0
+11/05/2024	WRI	Write-in	PRE	President and Vice President	DAD	Miami-Dade	   	 	714	714	McVay	Fox	 / 	0
+11/05/2024	WRI	Write-in	PRE	President and Vice President	DES	Desoto	   	 	15	15	McVay	Fox	 / 	0
+11/05/2024	REP	Republican Party	USS	United States Senator	ALA	Alachua	   	 	63	63	Scott	Rick		54458
+11/05/2024	REP	Republican Party	USS	United States Senator	DAD	Miami-Dade	   	 	714	714	Scott	Rick		585445
+11/05/2024	REP	Republican Party	USS	United States Senator	DES	Desoto	   	 	15	15	Scott	Rick		8708
+11/05/2024	DEM	Democratic Party	USS	United States Senator	ALA	Alachua	   	 	63	63	Mucarsel-Powell	Debbie		78314
+11/05/2024	DEM	Democratic Party	USS	United States Senator	DAD	Miami-Dade	   	 	714	714	Mucarsel-Powell	Debbie		477598
+11/05/2024	DEM	Democratic Party	USS	United States Senator	DES	Desoto	   	 	15	15	Mucarsel-Powell	Debbie		3378
+11/05/2024	LPF	Libertarian Party	USS	United States Senator	ALA	Alachua	   	 	63	63	Bonoan	Feena		902
+11/05/2024	LPF	Libertarian Party	USS	United States Senator	DAD	Miami-Dade	   	 	714	714	Bonoan	Feena		4737
+11/05/2024	LPF	Libertarian Party	USS	United States Senator	DES	Desoto	   	 	15	15	Bonoan	Feena		60
+11/05/2024	NPA	No Party Affiliation	USS	United States Senator	ALA	Alachua	   	 	63	63	Nguyen	Tuan	TQ	886
+11/05/2024	NPA	No Party Affiliation	USS	United States Senator	DAD	Miami-Dade	   	 	714	714	Nguyen	Tuan	TQ	4088
+11/05/2024	NPA	No Party Affiliation	USS	United States Senator	DES	Desoto	   	 	15	15	Nguyen	Tuan	TQ	54
+11/05/2024	NPA	No Party Affiliation	USS	United States Senator	ALA	Alachua	   	 	63	63	Everidge	Ben		648
+11/05/2024	NPA	No Party Affiliation	USS	United States Senator	DAD	Miami-Dade	   	 	714	714	Everidge	Ben		4244
+11/05/2024	NPA	No Party Affiliation	USS	United States Senator	DES	Desoto	   	 	15	15	Everidge	Ben		111
+11/05/2024	WRI	Write-in	USS	United States Senator	ALA	Alachua	   	 	63	63	Knepper	Howard		0
+11/05/2024	WRI	Write-in	USS	United States Senator	DAD	Miami-Dade	   	 	714	714	Knepper	Howard		2
+11/05/2024	WRI	Write-in	USS	United States Senator	DES	Desoto	   	 	15	15	Knepper	Howard		0
+11/05/2024	REP	Republican Party	USR	Representative in Congress, District 3	ALA	Alachua	003	 	63	63	Cammack	Kat		54872
+11/05/2024	DEM	Democratic Party	USR	Representative in Congress, District 3	ALA	Alachua	003	 	63	63	Wells	Tom		78904
+11/05/2024	NOP	Non-Partisan	SCJ	Shall Justice Renatha Francis be retained in Office?	ALA	Alachua	   	1	63	63	Yes	 	 	62509
+11/05/2024	NOP	Non-Partisan	SCJ	Shall Justice Renatha Francis be retained in Office?	DAD	Miami-Dade	   	1	714	714	Yes	 	 	625479
+11/05/2024	NOP	Non-Partisan	SCJ	Shall Justice Renatha Francis be retained in Office?	DES	Desoto	   	1	15	15	Yes	 	 	7593
+11/05/2024	NOP	Non-Partisan	SCJ	Shall Justice Renatha Francis be retained in Office?	ALA	Alachua	   	1	63	63	No	 	 	59076
+11/05/2024	NOP	Non-Partisan	SCJ	Shall Justice Renatha Francis be retained in Office?	DAD	Miami-Dade	   	1	714	714	No	 	 	331121
+11/05/2024	NOP	Non-Partisan	SCJ	Shall Justice Renatha Francis be retained in Office?	DES	Desoto	   	1	15	15	No	 	 	3341
+11/05/2024	NOP	Non-Partisan	SCJ	Shall Justice Meredith Sasso be retained in Office?	ALA	Alachua	   	2	63	63	Yes	 	 	61352
+11/05/2024	NOP	Non-Partisan	SCJ	Shall Justice Meredith Sasso be retained in Office?	DAD	Miami-Dade	   	2	714	714	Yes	 	 	607862
+11/05/2024	NOP	Non-Partisan	SCJ	Shall Justice Meredith Sasso be retained in Office?	DES	Desoto	   	2	15	15	Yes	 	 	7597
+11/05/2024	NOP	Non-Partisan	SCJ	Shall Justice Meredith Sasso be retained in Office?	ALA	Alachua	   	2	63	63	No	 	 	59475
+11/05/2024	NOP	Non-Partisan	SCJ	Shall Justice Meredith Sasso be retained in Office?	DAD	Miami-Dade	   	2	714	714	No	 	 	342114
+11/05/2024	NOP	Non-Partisan	SCJ	Shall Justice Meredith Sasso be retained in Office?	DES	Desoto	   	2	15	15	No	 	 	3305
+11/05/2024	NOP	Non-Partisan	AMD	Adult Personal Use of Marijuana	ALA	Alachua			63	63	Yes for Approval	 	 	90219
+11/05/2024	NOP	Non-Partisan	AMD	Adult Personal Use of Marijuana	DAD	Miami-Dade			714	714	Yes for Approval	 	 	510124
+11/05/2024	NOP	Non-Partisan	AMD	Adult Personal Use of Marijuana	DES	Desoto			15	15	Yes for Approval	 	 	6081
+11/05/2024	NOP	Non-Partisan	AMD	Adult Personal Use of Marijuana	ALA	Alachua			63	63	No for Rejection	 	 	45673
+11/05/2024	NOP	Non-Partisan	AMD	Adult Personal Use of Marijuana	DAD	Miami-Dade			714	714	No for Rejection	 	 	525479
+11/05/2024	NOP	Non-Partisan	AMD	Adult Personal Use of Marijuana	DES	Desoto			15	15	No for Rejection	 	 	6090
