@@ -1,0 +1,7 @@
+CO,08,031,Denver County,H6
+CO,08,041,El Paso County,H1
+IA,19,001,Adair County,H1
+IA,19,141,O'Brien County,H1
+IA,19,153,Polk County,H1
+SC,45,001,Abbeville County,H1
+SC,45,019,Charleston County,H1
