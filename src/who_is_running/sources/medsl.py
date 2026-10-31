@@ -11,8 +11,9 @@ statewide primaries from MEDSL's separate primary returns, votes only.
 https://github.com/MEDSL  (one repository per election year)
 
 Coverage is uneven: some states report no local races in some years (e.g.
-California 2018), and a few files carry only surnames (Texas 2022, 2024). Write-ins,
-ballot questions and turnout lines are dropped.
+California 2018), and a few files carry only surnames (Texas 2022, 2024). Write-ins
+and turnout lines are dropped. Statewide ballot measures are kept as results
+only (see ``measures``); local ones are dropped.
 
 MEDSL now publishes 2020 only on Harvard Dataverse, whose downloads need a
 guestbook form (name, email, institution), so 2020 comes from the last copy
@@ -36,6 +37,7 @@ from datetime import date
 from typing import Any
 
 from who_is_running.http import NotFound
+from who_is_running.measures import choice_of
 from who_is_running.models import STATEWIDE, Candidacy, Level, house_office, join_counties
 from who_is_running.results import CountyResult
 from who_is_running.sources.base import Source
@@ -241,7 +243,8 @@ def parse_with_results(
     Each race records the counties its precincts are in, or "*" when that is
     every county in the file (one file is one state).
 
-    Statewide races also yield each candidate's votes per county. States
+    Statewide races also yield each candidate's votes per county, and so do
+    statewide ballot measures, with "Yes" and "No" as the candidates. States
     split a precinct's votes by how they were cast ("ELECTION DAY",
     "ABSENTEE", ...), and some also give a "TOTAL" row for the same
     precinct, so a precinct's TOTAL is used when there is one and its other
@@ -256,6 +259,8 @@ def parse_with_results(
     all_counties: defaultdict[str, set[str]] = defaultdict(set)  # by state
     surnames: dict[Candidacy, str] = {}
     candidate_counties: defaultdict[Candidacy, set[str]] = defaultdict(set)
+    measures: set[Candidacy] = set()  # Yes/No answers, which aren't candidacies
+    unsure: set[Candidacy] = set()  # answers whose row doesn't say it's a state measure
     reader = csv.reader(lines)
     header = next(reader, [])
     state_col = header.index("state_po") if "state_po" in header else -1
@@ -287,10 +292,15 @@ def parse_with_results(
         name, bar, seat = office.rpartition("|")
         if bar and seat.isdigit() and not r.get("district", "").strip():
             office, r["district"] = name, seat
-        if not office or NOT_CANDIDATES.search(candidate.upper()) or NOT_OFFICES.search(office):
-            continue
         dataverse = r.get("dataverse", "").upper()
-        level = level_of(dataverse, office)
+        # Statewide measures are STATE rows, or (in some files) rows with no dataverse.
+        choice = choice_of(candidate, office) if dataverse in ("STATE", "") else ""
+        if not office or (
+            not choice and (NOT_CANDIDATES.search(candidate.upper()) or NOT_OFFICES.search(office))
+        ):
+            continue
+        level = Level.STATE if choice else level_of(dataverse, office)
+        candidate = choice or candidate
         state = r.get("state_po", "")
         county = r.get("county_name", "").strip()
         if county.upper() == "NA":
@@ -318,7 +328,7 @@ def parse_with_results(
             # Senate and presidential races have no districts, though Arizona
             # 2024 gives Santa Cruz County's Senate rows "007".
             district=""
-            if dataverse in ("SENATE", "PRESIDENT")
+            if dataverse in ("SENATE", "PRESIDENT") or choice
             else district_of(r.get("district", "")),
             jurisdiction=jurisdiction,
             counties="",
@@ -326,11 +336,18 @@ def parse_with_results(
             party="",
             election_type=STAGES.get(r.get("stage", "").upper(), ""),
             incumbent_status="",
-            candidate_status="",
+            # Keeps a measure apart from a candidate race filed under the same office.
+            candidate_status="measure" if choice else "",
             source="medsl",
             source_candidate_id="",
         )
-        party = party_of(r.get("party_simplified", ""), r.get("party_detailed", ""))
+        if choice:
+            measures.add(key)
+            if not dataverse:
+                unsure.add(key)
+        party = (
+            "" if choice else party_of(r.get("party_simplified", ""), r.get("party_detailed", ""))
+        )
         if primary_states is not None:
             key = replace(key, party=party)  # one race per party's primary
         seen = parties.setdefault(key, [])
@@ -339,7 +356,8 @@ def parse_with_results(
         votes = votes_of(r.get("votes", ""))
         if county:
             race_counties[_race(key)].add(county)
-            all_counties[state].add(county)
+            if not choice:  # measures must cover the counties races do, not add to them
+                all_counties[state].add(county)
             if votes > 0:
                 voted_in[_race(key)].add(county)
         if level is not Level.LOCAL and key.district in ("", "AT-LARGE"):
@@ -353,7 +371,10 @@ def parse_with_results(
             fips = r.get("county_fips", "").strip()[:5]
             fips = fips.zfill(5) if fips.isdigit() else ""
             # 2016 leaves some names blank, e.g. Kansas City's, but names the jurisdiction.
-            county_names[fips] = (county or r.get("jurisdiction_name", "").strip()) if fips else ""
+            if not choice or fips not in county_names:  # races' spelling wins
+                county_names[fips] = (
+                    (county or r.get("jurisdiction_name", "").strip()) if fips else ""
+                )
             precinct = (key, fips, r.get("precinct", ""), r.get("party_detailed", ""))
             if r.get("mode", "").upper() == "TOTAL":
                 totals[precinct] += votes
@@ -405,9 +426,25 @@ def parse_with_results(
         key: replace(key, party="/".join(sorted(p)), counties=counties_of(key))
         for key, p in parties.items()
     }
+    # A measure is kept if it was on every county's ballot (or, in a file
+    # without counties, is marked as a state measure), offers both Yes and No,
+    # and isn't really a candidate race that lists "REJECTED" write-ins.
+    offices = {(k.state, k.office) for k in candidacies if k not in measures}
+    choices: defaultdict[Candidacy, set[str]] = defaultdict(set)
+    for key in measures:
+        choices[_race(key)].add(key.candidate_name)
+    kept = {
+        key
+        for key in measures
+        if len(choices[_race(key)]) == 2
+        and (key.state, key.office) not in offices
+        and (candidacies[key].counties == STATEWIDE or not (all_counties or key in unsure))
+    }
     county_votes: Counter[tuple[Candidacy, str]] = Counter()
     for precinct in totals.keys() | by_mode.keys():
         key, fips = precinct[0], precinct[1]
+        if key in measures and key not in kept:
+            continue
         # A file with no counties at all (Wisconsin 2018, Alaska 2022) still
         # gives statewide totals; they're all filed as not reported by county.
         if not key.election_type:
@@ -431,7 +468,7 @@ def parse_with_results(
         )
         for (key, fips), votes in county_votes.items()
     ]
-    return list(candidacies.values()), results
+    return [c for key, c in candidacies.items() if key not in measures], results
 
 
 def _merge_spellings(

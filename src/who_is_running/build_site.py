@@ -26,6 +26,7 @@ from pathlib import Path
 from typing import Any
 
 from who_is_running.districts import STATE_FIPS
+from who_is_running.measures import NO, YES, outcome
 from who_is_running.models import Candidacy
 from who_is_running.results import STAGES, CountyResult
 from who_is_running.sources import SOURCES
@@ -169,16 +170,24 @@ def build_results(results_dir: Path, out_dir: Path) -> list[dict[str, Any]]:
             csv_path, out_dir / (f"{year}-{csv_path.parent.name}.csv" if earlier else csv_path.name)
         )
         national: defaultdict[str, dict[str, Any]] = defaultdict(dict)
+        # state -> [[office, yes votes, no votes], ...] for the national view's tooltips
+        national_measures: defaultdict[str, list[list[Any]]] = defaultdict(list)
         if earlier:  # add to the certified states' national file
-            old = json.loads((dest / "national.json").read_text(encoding="utf-8"))["races"]
-            for choice, by_state in old.items():
+            old = json.loads((dest / "national.json").read_text(encoding="utf-8"))
+            for choice, by_state in old["races"].items():
                 national[choice].update(by_state)
+            national_measures.update(old.get("measures", {}))
         for state, offices in sorted(races.items()):
             state_races: list[dict[str, Any]] = []
             for (stage, office, party, when), candidates in sorted(offices.items()):
-                ranked = sorted(candidates.items(), key=lambda kv: -sum(kv[1].values()))
+                measure = set(candidates) == {(YES, ""), (NO, "")}
+                # A measure's choices stay in Yes, No order; candidates go by votes.
+                ranked = sorted(
+                    candidates.items(),
+                    key=lambda kv: kv[0][0] != YES if measure else -sum(kv[1].values()),
+                )
                 counties = sorted({f for _, by_county in ranked for f in by_county})
-                race = {
+                race: dict[str, Any] = {
                     "office": office,
                     "stage": STAGES[stage],
                     "date": when,
@@ -191,6 +200,14 @@ def build_results(results_dir: Path, out_dir: Path) -> list[dict[str, Any]]:
                         for f in counties
                     },
                 }
+                if measure:
+                    yes, no = (sum(v.values()) for _, v in ranked)
+                    passed, needs = outcome(state, yes, no)
+                    race["measure"] = True
+                    if passed:
+                        race["outcome"], race["needs"] = passed, needs
+                    if STAGES[stage] == "general":
+                        national_measures[state].append([office, yes, no])
                 state_races.append(race)
             payload: dict[str, Any] = {"races": state_races}
             if state in live:
@@ -207,7 +224,8 @@ def build_results(results_dir: Path, out_dir: Path) -> list[dict[str, Any]]:
                         "candidates": found["candidates"],
                     }
         (dest / "national.json").write_text(
-            json.dumps({"races": national}, separators=(",", ":")), encoding="utf-8"
+            json.dumps({"races": national, "measures": national_measures}, separators=(",", ":")),
+            encoding="utf-8",
         )
         entry: dict[str, Any] = {
             "source": csv_path.parent.name,

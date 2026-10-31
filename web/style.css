@@ -16,6 +16,10 @@
      no-result fills also carry a hatch so they never rely on color alone. */
   --map-dem-0: #86b6ef; --map-dem-1: #3987e5; --map-dem-2: #1c5cab; --map-dem-3: #0d366b;
   --map-rep-0: #f2a39c; --map-rep-1: #e0574f; --map-rep-2: #b3261e; --map-rep-3: #7a1712;
+  /* Ballot measures: Yes and No leads, same margin steps. Green and violet so a
+     measure never reads as a party; validated like the party ramps. */
+  --map-yes-0: #6ac999; --map-yes-1: #099f69; --map-yes-2: #027048; --map-yes-3: #02432a;
+  --map-no-0: #c39fed; --map-no-1: #9e69d3; --map-no-2: #71449d; --map-no-3: #442661;
   --map-other: #eda100;
   /* One-party contests (primaries): county winner by candidate, the dataviz
      categorical slots 1-3, validated all-pairs; the rest share a gray hatch. */
@@ -45,6 +49,8 @@
     --warn-text: #f3d68a;
     --map-dem-0: #1f4f8f; --map-dem-1: #2f72cc; --map-dem-2: #5c9ae8; --map-dem-3: #a6c9f5;
     --map-rep-0: #8e302b; --map-rep-1: #c0473f; --map-rep-2: #e6716a; --map-rep-3: #f6b0aa;
+    --map-yes-0: #04623f; --map-yes-1: #048959; --map-yes-2: #2db279; --map-yes-3: #8adab0;
+    --map-no-0: #634087; --map-no-1: #8957bb; --map-no-2: #ac80dd; --map-no-3: #d5b6fb;
     --map-other: #d4b400;
     --map-candidate-0: #3987e5; --map-candidate-1: #d95926; --map-candidate-2: #199e70;
     --map-candidate-other: #6b6b70;
@@ -212,6 +218,8 @@ select:disabled { opacity: 0.6; }
 .swatch-dem { background: var(--map-dem-2); }
 .swatch-rep { background: var(--map-rep-2); }
 .swatch-other { background: var(--map-other); }
+.swatch-yes { background: var(--map-yes-2); }
+.swatch-no { background: var(--map-no-2); }
 .swatch-candidate-0 { background: var(--map-candidate-0); }
 .swatch-candidate-1 { background: var(--map-candidate-1); }
 .swatch-candidate-2 { background: var(--map-candidate-2); }
