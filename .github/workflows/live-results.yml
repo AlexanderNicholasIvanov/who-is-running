@@ -1,0 +1,87 @@
+name: Live results
+
+# Election night: re-pull the unofficial county results (the `enr` source) every
+# 10 minutes from polls closing on Nov 3 2026 until the end of Nov 6 (UTC), and
+# redeploy the site when they change. After that the daily refresh picks them up.
+on:
+  schedule:
+    - cron: "*/10 23 3 11 *" # Nov 3 from 23:00 UTC (6pm Eastern, first polls close)
+    - cron: "*/10 * 4-6 11 *" # Nov 4-6, all day
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: write # to start the Pages deploy
+
+# Its own group, so it never cancels a queued daily refresh. The two don't
+# overlap: the daily refresh leaves `enr` alone during the live window.
+concurrency:
+  group: live-results
+  cancel-in-progress: false
+
+jobs:
+  live:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check the window
+        id: window
+        env:
+          EVENT: ${{ github.event_name }}
+        run: |
+          now=$(date -u +%s)
+          start=$(date -u -d 2026-11-03T23:00:00Z +%s)
+          end=$(date -u -d 2026-11-07T00:00:00Z +%s)
+          # The cron lines also match Nov 3-6 of later years; only manual runs go outside.
+          if [ "$EVENT" = workflow_dispatch ] || { [ "$now" -ge "$start" ] && [ "$now" -lt "$end" ]; }; then
+            echo "open=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "Outside the live window; nothing to do."
+            echo "open=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - uses: actions/checkout@v7
+        if: steps.window.outputs.open == 'true'
+      - uses: astral-sh/setup-uv@v10.3.3
+        if: steps.window.outputs.open == 'true'
+        with:
+          python-version: "3.12"
+      - if: steps.window.outputs.open == 'true'
+        run: uv sync --locked --no-dev
+
+      - name: Fetch
+        if: steps.window.outputs.open == 'true'
+        run: uv run who-is-running fetch --years 2026 --source enr
+
+      - name: Commit changes
+        id: commit
+        if: steps.window.outputs.open == 'true'
+        run: |
+          git add data/results/enr
+          if git diff --cached --quiet; then
+            echo "No changes."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "data: live results $(date -u +%Y-%m-%dT%H:%MZ)"
+          # Another workflow may have pushed meanwhile; this one only writes
+          # data/results/enr, so rebasing onto theirs is safe.
+          for attempt in 1 2 3; do
+            if git pull --rebase && git push; then
+              echo "pushed=true" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+            git rebase --abort 2>/dev/null || true
+            sleep 5
+          done
+          echo "::error::Couldn't push the results."
+          exit 1
+
+      # Pushes made with GITHUB_TOKEN don't trigger the Pages workflow's push
+      # event, but a dispatch does.
+      - name: Deploy the site
+        if: steps.commit.outputs.pushed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run pages.yml --ref main

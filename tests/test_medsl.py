@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import io
 import zipfile
+from collections.abc import Callable
+from dataclasses import replace
 
 from conftest import FakeWeb, fixture_bytes
 
@@ -9,11 +11,14 @@ from who_is_running.models import Candidacy, Level
 from who_is_running.sources.medsl import (
     NOT_OFFICES,
     STATES,
+    TOTAL_LINES,
     MedslSource,
     district_of,
     iso_date,
     parse,
+    parse_with_results,
     party_of,
+    seat_office,
 )
 
 
@@ -143,10 +148,64 @@ def test_candidacies_fetches_every_state_and_skips_missing_files() -> None:
 
 def test_years() -> None:
     source = MedslSource(FakeWeb({}))
-    assert source.available_years() == [2018, 2022, 2024]
-    assert source.candidacies(2020) == []
+    assert source.available_years() == [2016, 2018, 2020, 2022, 2024]
+    assert source.candidacies(2019) == []
     assert "2018-nc-precinct-general.zip" in _url(2018, "NC")
     assert "2022-nc-local-precinct-general.zip" in _url(2022, "NC")
+    assert _url(2016, "NC") == (
+        "https://raw.githubusercontent.com/MEDSL/official-precinct-returns/HEAD/"
+        "source/2016-nc-precinct.zip"
+    )
+    # 2020 was deleted from GitHub after the move to Dataverse, so it's read at a fixed commit.
+    assert _url(2020, "NC") == (
+        "https://raw.githubusercontent.com/MEDSL/2020-elections-official/"
+        "ad22f37e3f1e3355f078ba5a1efce6c221333ef1/individual_states/2020-nc-precinct-general.zip"
+    )
+
+
+def test_resorted_copy_of_a_file_is_skipped() -> None:
+    # North Carolina 2020's zip holds the same rows twice, once re-sorted.
+    body = fixture_bytes("medsl_2020_nc.csv")
+    web = FakeWeb(
+        {
+            "2020-nc-": _zip(
+                ("2020-nc-precinct-general.csv", body),
+                ("2020-nc-precinct-general-sorted.csv", body),
+            )
+        }
+    )
+    source = MedslSource(web)
+
+    assert [r.candidate_name for r in source.candidacies(2020)] == ["JOSEPH R BIDEN"]
+    assert [(r.county, r.votes) for r in source.results(2020)] == [("BURKE", 205)]
+
+
+def test_2016_schema() -> None:
+    # 2016 uses older column names, spells a candidate as each county did
+    # ("Jim GRAY" in Adair, "Jim Gray" in Breckinridge) and leaves Adair's party
+    # blank, though it gives Rand Paul's own party (candidate_party).
+    candidacies, results = parse_with_results(
+        fixture_bytes("medsl_2016.csv").decode().splitlines(keepends=True)
+    )
+
+    by_name = {c.candidate_name: c for c in candidacies}
+    assert set(by_name) == {"Jim GRAY", "Rand Paul", "Craig DEAN"}
+    assert by_name["Jim GRAY"].party == "DEM"
+    paul = by_name["Rand Paul"]  # the spelling with the most votes
+    assert (paul.state, paul.office, paul.party, paul.counties) == ("KY", "US Senate", "REP", "*")
+    assert paul.election_type == "general"
+    local = by_name["Craig DEAN"]
+    assert (local.level, local.jurisdiction, local.counties) == (
+        Level.LOCAL,
+        "Adair County",
+        "Adair County",
+    )
+    assert sorted((r.county_fips, r.candidate_name, r.party, r.votes) for r in results) == [
+        ("21001", "Jim GRAY", "DEM", 144),
+        ("21001", "Rand Paul", "REP", 237),
+        ("21027", "Jim GRAY", "DEM", 115),
+        ("21027", "Rand Paul", "REP", 269),
+    ]
 
 
 def _url(year: int, state: str) -> str:
@@ -198,3 +257,177 @@ def test_race_in_every_county_is_statewide() -> None:
 def test_new_england_town_races_keep_their_county() -> None:
     (row,) = _parse("medsl_town.csv")
     assert (row.jurisdiction, row.counties) == ("BURLINGTON", "*")  # the file's only county
+
+
+def _results_of(name: str, keep: Callable[[str], bool] = lambda line: True) -> dict[str, int]:
+    lines = [ln for ln in fixture_bytes(name).decode().splitlines() if keep(ln)]
+    return {
+        f"{r.office}|{r.county}|{r.candidate_name}": r.votes for r in parse_with_results(lines)[1]
+    }
+
+
+def test_county_total_lines_are_not_counted_twice() -> None:
+    # Idaho 2022 files each county's sum as one more precinct, "COUNTY TOTAL".
+    votes = _results_of("medsl_id_county_total.csv")
+    assert votes == {"US Senate|ADAMS|MIKE CRAPO": 1425, "US Senate|ADAMS|DAVID ROTH": 367}
+    # A county given only as a total line still counts.
+    only_total = _results_of(
+        "medsl_id_county_total.csv", lambda ln: "COUNTY TOTAL" in ln or "precinct" in ln
+    )
+    assert only_total == votes
+    for line in ("COUNTY TOTAL", "TOTALS", "Mackinac County Michigan - Total", "DISTRICT TOTAL"):
+        assert TOTAL_LINES.search(line), line
+    for precinct in ("TOTAL CITY", "COUNTY LINE", "01-01"):
+        assert not TOTAL_LINES.search(precinct), precinct
+
+
+def test_statewide_court_seats_get_county_results() -> None:
+    # North Carolina 2018 files its one Supreme Court seat as district "001".
+    votes = _results_of("medsl_nc_seats.csv")
+    assert votes["SUPREME COURT ASSOCIATE JUSTICE, SEAT 1|WAKE|ANITA EARLS"] == 446
+    assert votes["SUPREME COURT ASSOCIATE JUSTICE, SEAT 1|DARE|BARBARA JACKSON"] == 128
+    assert votes['COURT OF APPEALS JUDGE, SEAT 2|DARE|TOBIAS "TOBY" HAMPSON'] == 217
+    assert not any(k.startswith("DISTRICT ATTORNEY") for k in votes)  # a real district
+    # A court race in only some of the state's counties is a district's, not statewide.
+    dare_only = _results_of(
+        "medsl_nc_seats.csv", lambda ln: "COURT OF APPEALS" not in ln or "DARE" in ln
+    )
+    assert not any(k.startswith("COURT OF APPEALS") for k in dare_only)
+
+
+def test_seat_office() -> None:
+    (crapo,) = (
+        c
+        for c in parse(fixture_bytes("medsl_id_county_total.csv").decode().splitlines())
+        if c.candidate_name == "MIKE CRAPO"
+    )
+    assert seat_office(crapo) == "US Senate"
+    assert (
+        seat_office(replace(crapo, office="SUPREME COURT", district="01"))
+        == "SUPREME COURT, SEAT 1"
+    )
+    assert (
+        seat_office(replace(crapo, office="SUPREME COURT", district="C")) == "SUPREME COURT, SEAT C"
+    )
+    assert (
+        seat_office(replace(crapo, office="COURT", district="STATEWIDE, PLACE 3"))
+        == "COURT, PLACE 3"
+    )
+
+
+def test_2016_county_codes() -> None:
+    header = fixture_bytes("medsl_2016.csv").decode().splitlines()[0]
+    clinton = '"CLINTON, HILLARY RODHAM / TIMOTHY MICHAEL KAINE",,,,,president'
+    # Wisconsin appends a town code to the county's; Kansas City has a code but no name.
+    wi = (
+        "2016,gen,FALSE,Wisconsin,WI,55,25,Adams County,5500100000,01581060,43.973763,"
+        "-89.767223,ADAMS,TOWN OF ADAMS Wards 1-3,Hillary Clinton,clinton,US President,"
+        f"statewide,FALSE,democratic,total,207,,,,,,,,,,P00003392,{clinton}"
+    )
+    mo = [
+        "2016,gen,FALSE,Missouri,MO,29,34,Jackson County,29095,00758502,39.005441,-94.343326,"
+        "Jackson,ABSENTEE,Hillary Clinton,clinton,US President,statewide,FALSE,democratic,"
+        f"total,6920,,,,,,,,,,P00003392,{clinton}",
+        "2016,gen,FALSE,Missouri,MO,29,34,,29380,,,,Kansas City,INTRASTATE,Hillary Clinton,"
+        f"clinton,US President,statewide,FALSE,democratic,total,14,,,,,,,,,,P00003392,{clinton}",
+    ]
+
+    (result,) = parse_with_results([header, wi])[1]
+    assert (result.county_fips, result.county, result.votes) == ("55001", "Adams County", 207)
+    results = parse_with_results([header, *mo])[1]
+    assert sorted((r.county_fips, r.county, r.votes) for r in results) == [
+        ("29095", "Jackson County", 6920),
+        ("29380", "Kansas City", 14),
+    ]
+
+
+def test_2016_presidential_nominees_without_a_party() -> None:
+    # Vermont 2016 gives no party on any presidential line.
+    header = fixture_bytes("medsl_2016.csv").decode().splitlines()[0]
+    row = (
+        "2016,gen,FALSE,Vermont,VT,50,6,Addison County,50001,01461757,44.031248,-73.141581,"
+        "Lincoln,1,{name},{surname},US President,statewide,FALSE,,total,{votes},,,,,,,,,,"
+        '{fec},"{fec_name}",,,,,president'
+    )
+    candidacies = parse(
+        [
+            header,
+            row.format(
+                name="Hillary Clinton",
+                surname="clinton",
+                votes=494,
+                fec="P00003392",
+                fec_name="CLINTON, HILLARY RODHAM / TIMOTHY MICHAEL KAINE",
+            ),
+            row.format(
+                name="Gary Johnson",
+                surname="johnson",
+                votes=22,
+                fec="P60012234",
+                fec_name="JOHNSON, JOHN FITZGERALD MR.",
+            ),
+        ]
+    )
+    assert {(c.candidate_name, c.party) for c in candidacies} == {
+        ("Hillary Clinton", "DEM"),
+        ("Gary Johnson", ""),  # not guessed: his ballot line varied by state
+    }
+
+
+def test_race_missing_its_district_gets_no_county_results() -> None:
+    # Delaware 2016 gives Clerk of the Peace, elected by county, no district,
+    # so it looks statewide; but no candidate is on more than one county's ballot.
+    candidacies, results = parse_with_results(
+        fixture_bytes("medsl_2016_de.csv").decode().splitlines()
+    )
+
+    clerks = {c.candidate_name: c.counties for c in candidacies if c.office == "CLERK OF THE PEACE"}
+    assert len(clerks) == 5  # still candidacies, as before
+    assert {r.office for r in results} == {"US President"}
+    assert sorted((r.county_fips, r.candidate_name, r.votes) for r in results)[:2] == [
+        ("10001", "Donald Trump", 63),
+        ("10001", "Hillary Clinton", 176),
+    ]
+
+
+def test_new_hampshire_2016_city_wards_go_to_their_county() -> None:
+    header = fixture_bytes("medsl_2016.csv").decode().splitlines()[0]
+    tail = ",clinton,US President,statewide,FALSE,democratic,total,{},,,,,,,,,,P00003392,"
+    tail += '"CLINTON, HILLARY RODHAM / TIMOTHY MICHAEL KAINE",,,,,president'
+    rows = [
+        "2016,gen,FALSE,New Hampshire,NH,33,4,,,,,,Concord,Ward 1,Hillary Clinton"
+        + tail.format(1266),
+        "2016,gen,FALSE,New Hampshire,NH,33,4,Merrimack County,33013,00873180,43.299579,"
+        "-71.680041,Danbury,Danbury,Hillary Clinton" + tail.format(247),
+    ]
+
+    _, results = parse_with_results([header, *rows])
+
+    assert [(r.county_fips, r.county, r.votes) for r in results] == [
+        ("33013", "Merrimack County", 1513)
+    ]
+
+
+def test_2016_district_after_a_bar() -> None:
+    header = fixture_bytes("medsl_2016.csv").decode().splitlines()[0]
+    row = (
+        "2016,gen,FALSE,Colorado,CO,8,62,Adams County,08001,00198116,39.874325,-104.331872,"
+        "Adams,7213001130,{},{},Regent Of The University Of Colorado|{},,FALSE,{},total,{}"
+        ",,,,,,,,,,,,,,,,state"
+    )
+    candidacies = parse(
+        [
+            header,
+            row.format("Heidi Ganahl", "ganahl", 0, "republican", 93),
+            row.format("Alice Madden", "madden", 0, "democratic", 105),
+            "2016,gen,FALSE,Colorado,CO,8,62,Arapahoe County,08005,00198118,39.644554,"
+            "-104.331706,Arapahoe,1260303101,Jack Kroll,kroll,"
+            "Regent Of The University Of Colorado|1,,FALSE,democratic,total,692"
+            ",,,,,,,,,,,,,,,,state",
+        ]
+    )
+    assert {(c.office, c.district, c.candidate_name) for c in candidacies} == {
+        ("Regent Of The University Of Colorado", "", "Heidi Ganahl"),  # at large
+        ("Regent Of The University Of Colorado", "", "Alice Madden"),
+        ("Regent Of The University Of Colorado", "01", "Jack Kroll"),
+    }

@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from abc import ABC, abstractmethod
 from datetime import date
+from typing import Any
 
 from who_is_running.http import Fetcher, http_get
 from who_is_running.models import Candidacy
@@ -49,3 +50,10 @@ class Source(ABC):
     def rounds(self, year: int) -> list[RcvRound]:
         """Round-by-round tallies of the year's ranked-choice races, if the source has them."""
         return []
+
+    def results_status(self, year: int) -> dict[str, Any]:
+        """For live results: how far the count has got, per state. Called after ``results``.
+
+        Written beside the results as ``data/results/<source>/<year>.json``.
+        """
+        return {}
