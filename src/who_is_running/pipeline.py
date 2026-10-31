@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import csv
+import json
 import logging
 from pathlib import Path
 
@@ -41,14 +42,23 @@ def run(source: Source, years: list[int], data_dir: Path) -> dict[int, int]:
         except NotFound:
             log.info("%s: no data for %d", source.name, year)
             continue
-        if not rows:
+        if rows:
+            write_csv(output_path(data_dir, source, year), rows)
+            written[year] = len(rows)
+            log.info("%s: wrote %d rows for %d", source.name, len(rows), year)
+        else:
+            # Results-only sources (live election-night results) have no rows.
             log.info("%s: no rows for %d", source.name, year)
-            continue
-        write_csv(output_path(data_dir, source, year), rows)
-        written[year] = len(rows)
-        log.info("%s: wrote %d rows for %d", source.name, len(rows), year)
         results = source.results(year)
         if results:
-            write_results(results_path(data_dir, source.name, year), results)
+            path = results_path(data_dir, source.name, year)
+            write_results(path, results)
             log.info("%s: wrote %d county results for %d", source.name, len(results), year)
+            status = source.results_status(year)
+            if status:
+                path.with_suffix(".json").write_text(
+                    json.dumps(status, sort_keys=True) + "\n",
+                    encoding="utf-8",
+                    newline="\n",
+                )
     return written

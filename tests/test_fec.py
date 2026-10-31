@@ -41,6 +41,30 @@ def test_parse_normalizes_fields() -> None:
     assert rows["H6TX18001"].election_year == 2025
 
 
+# Real 2024 and 2026 cn.txt rows (addresses blanked). DC and the territories elect
+# one non-voting member, filed under district "00", "01" or nothing.
+DELEGATE_ROWS = """\
+H4PR01010|HERNANDEZ RIVERA, PABLO JOSE|DEM|2024|PR|H|00|C|C|C00831487|||||
+H4MP01022|KING-HINDS, KIMBERLYN KAY|REP|2026|MP|H|01|I|C|C00873554|||||
+H6GU00059|TORRES, MARY CAMACHO|REP|2026|GU|H|||C|C00928119|||||
+H0DC00058|NORTON, ELEANOR HOLMES|DEM|2026|DC|H|00|I|C|C00244335|||||
+"""
+
+
+def test_delegates_and_resident_commissioner_are_named_and_at_large() -> None:
+    rows = parse(DELEGATE_ROWS, cycle=2024) + parse(DELEGATE_ROWS, cycle=2026)
+
+    got = {r.state: (r.office, r.district, r.counties) for r in rows}
+    assert got == {
+        "PR": ("US House Resident Commissioner", "00", "*"),
+        "MP": ("US House Delegate", "00", "*"),
+        "GU": ("US House Delegate", "00", "*"),
+        "DC": ("US House Delegate", "00", "*"),
+    }
+    # Already statewide, so the Census lines (which have no territories) aren't consulted.
+    assert place(rows, Districts(FakeWeb({}))) == rows
+
+
 def test_parse_dedupes_repeated_lines() -> None:
     rows = parse(fixture_bytes("cn.txt").decode(), cycle=2026)
     assert len(rows) == len(set(rows))

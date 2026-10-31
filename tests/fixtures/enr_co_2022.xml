@@ -1,0 +1,123 @@
+<?xml version="1.0"?>
+<!--Election result snapshot imported from Tabulation System
+-->
+<ElectionResult>
+    <Timestamp>12/12/2022 4:45:14 PM MST</Timestamp>
+    <ElectionName>2022 General</ElectionName>
+    <ElectionDate>11/8/2022</ElectionDate>
+    <Region>CO</Region>
+    <ElectionVoterTurnout totalVoters="3833468" ballotsCast="2540666" voterTurnout="66.28">
+        <Counties>
+            <County name="Denver" totalVoters="453169" ballotsCast="287846" voterTurnout="63.52" precinctsParticipating="301" precinctsReported="301" precinctsReportingPercent="100.00" />
+            <County name="El Paso" totalVoters="467724" ballotsCast="288059" voterTurnout="61.59" precinctsParticipating="328" precinctsReported="328" precinctsReportingPercent="100.00" />
+        </Counties>
+    </ElectionVoterTurnout>
+    <Contest key="20" text="United States Senator" voteFor="1" isQuestion="false" countiesParticipating="64" countiesReported="64" precinctsParticipating="3235" precinctsReported="3235" precinctsReportingPercent="100.00">
+        <ParticipatingCounties>
+            <County name="Denver" precinctsParticipating="301" precinctsReported="301" precinctsReportingPercent="100.00" />
+            <County name="El Paso" precinctsParticipating="328" precinctsReported="328" precinctsReportingPercent="100.00" />
+        </ParticipatingCounties>
+        <Choice key="1" text="Michael Bennet" party="DEM" totalVotes="1397170">
+            <VoteType name="Total Votes" votes="1397170">
+                <County name="Denver" votes="228419" />
+                <County name="El Paso" votes="124024" />
+            </VoteType>
+        </Choice>
+        <Choice key="2" text="Joe O'Dea" party="REP" totalVotes="1031693">
+            <VoteType name="Total Votes" votes="1031693">
+                <County name="Denver" votes="51582" />
+                <County name="El Paso" votes="149995" />
+            </VoteType>
+        </Choice>
+        <Choice key="3" text="T.J. Cole" party="UNI" totalVotes="16379">
+            <VoteType name="Total Votes" votes="16379">
+                <County name="Denver" votes="1485" />
+                <County name="El Paso" votes="1925" />
+            </VoteType>
+        </Choice>
+        <Choice key="4" text="Brian Peotter" party="LBR" totalVotes="43534">
+            <VoteType name="Total Votes" votes="43534">
+                <County name="Denver" votes="3053" />
+                <County name="El Paso" votes="6892" />
+            </VoteType>
+        </Choice>
+        <Choice key="5" text="Frank Atwood" party="APV" totalVotes="11354">
+            <VoteType name="Total Votes" votes="11354">
+                <County name="Denver" votes="589" />
+                <County name="El Paso" votes="1478" />
+            </VoteType>
+        </Choice>
+    </Contest>
+    <Contest key="210" text="Governor/Lieutenant Governor" voteFor="1" isQuestion="false" countiesParticipating="64" countiesReported="64" precinctsParticipating="3235" precinctsReported="3235" precinctsReportingPercent="100.00">
+        <ParticipatingCounties>
+            <County name="Denver" precinctsParticipating="301" precinctsReported="301" precinctsReportingPercent="100.00" />
+            <County name="El Paso" precinctsParticipating="328" precinctsReported="328" precinctsReportingPercent="100.00" />
+        </ParticipatingCounties>
+        <Choice key="19" text="Heidi Ganahl / Danny Moore" party="REP" totalVotes="983040">
+            <VoteType name="Total Votes" votes="983040">
+                <County name="Denver" votes="46046" />
+                <County name="El Paso" votes="144384" />
+            </VoteType>
+        </Choice>
+        <Choice key="20" text="Jared Polis / Dianne Primavera" party="DEM" totalVotes="1468481">
+            <VoteType name="Total Votes" votes="1468481">
+                <County name="Denver" votes="234250" />
+                <County name="El Paso" votes="133447" />
+            </VoteType>
+        </Choice>
+        <Choice key="21" text="Paul Noël Fiorino / Cynthia Munhos de Aquino Sirianni" party="UNI" totalVotes="6687">
+            <VoteType name="Total Votes" votes="6687">
+                <County name="Denver" votes="788" />
+                <County name="El Paso" votes="760" />
+            </VoteType>
+        </Choice>
+        <Choice key="22" text="Danielle Neuschwanger / Darryl Gibbs" party="ACN" totalVotes="21623">
+            <VoteType name="Total Votes" votes="21623">
+                <County name="Denver" votes="722" />
+                <County name="El Paso" votes="2607" />
+            </VoteType>
+        </Choice>
+        <Choice key="23" text="Kevin Ruskusky / Michele Poague" party="LBR" totalVotes="28939">
+            <VoteType name="Total Votes" votes="28939">
+                <County name="Denver" votes="2613" />
+                <County name="El Paso" votes="3821" />
+            </VoteType>
+        </Choice>
+    </Contest>
+    <Contest key="3700" text="Colorado Court of Appeals Judge - Brown" voteFor="1" isQuestion="false" countiesParticipating="64" countiesReported="64" precinctsParticipating="3235" precinctsReported="3235" precinctsReportingPercent="100.00">
+        <ParticipatingCounties>
+            <County name="Denver" precinctsParticipating="301" precinctsReported="301" precinctsReportingPercent="100.00" />
+            <County name="El Paso" precinctsParticipating="328" precinctsReported="328" precinctsReportingPercent="100.00" />
+        </ParticipatingCounties>
+        <Choice key="115" text="Yes" party="Y" totalVotes="1344611">
+            <VoteType name="Total Votes" votes="1344611">
+                <County name="Denver" votes="168964" />
+                <County name="El Paso" votes="151920" />
+            </VoteType>
+        </Choice>
+        <Choice key="116" text="No" party="N" totalVotes="574223">
+            <VoteType name="Total Votes" votes="574223">
+                <County name="Denver" votes="41179" />
+                <County name="El Paso" votes="72341" />
+            </VoteType>
+        </Choice>
+    </Contest>
+    <Contest key="3905" text="Proposition 121 (STATUTORY)" voteFor="1" isQuestion="false" countiesParticipating="64" countiesReported="64" precinctsParticipating="3235" precinctsReported="3235" precinctsReportingPercent="100.00">
+        <ParticipatingCounties>
+            <County name="Denver" precinctsParticipating="301" precinctsReported="301" precinctsReportingPercent="100.00" />
+            <County name="El Paso" precinctsParticipating="328" precinctsReported="328" precinctsReportingPercent="100.00" />
+        </ParticipatingCounties>
+        <Choice key="151" text="Yes/For" party="Y" totalVotes="1581163">
+            <VoteType name="Total Votes" votes="1581163">
+                <County name="Denver" votes="145797" />
+                <County name="El Paso" votes="203579" />
+            </VoteType>
+        </Choice>
+        <Choice key="152" text="No/Against" party="N" totalVotes="842506">
+            <VoteType name="Total Votes" votes="842506">
+                <County name="Denver" votes="130489" />
+                <County name="El Paso" votes="73145" />
+            </VoteType>
+        </Choice>
+    </Contest>
+    </ElectionResult>
