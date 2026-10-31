@@ -1,6 +1,8 @@
 from __future__ import annotations
 
+import io
 import json
+import zipfile
 from pathlib import Path
 from typing import Any
 
@@ -10,7 +12,7 @@ from who_is_running import geo
 from who_is_running.build_site import MAP_COUNTIES, NATIONAL_RACES, build, build_results
 from who_is_running.districts import STATE_FIPS
 from who_is_running.results import CountyResult, results_path, write_csv
-from who_is_running.sources.medsl import parse_with_results
+from who_is_running.sources.medsl import MedslSource, parse_with_results
 
 HEADER = fixture_bytes("medsl_precincts.csv").decode().splitlines()[0]
 WEB = Path(__file__).parent.parent / "web"
@@ -171,9 +173,11 @@ def test_file_without_counties_still_gives_statewide_totals() -> None:
 
 def test_older_column_names() -> None:
     # Wisconsin 2018: "party" and "county" instead of party_detailed and county_name.
-    header = "precinct,office,party,mode,votes,county,candidate,district,dataverse,state_po,year"
+    header = (
+        "precinct,office,party,mode,votes,county,candidate,district,dataverse,state_po,year,stage"
+    )
     rows = [
-        f"Ward {n},US Senate,{party},total,{votes},{county},{name},statewide,senate,WI,2018"
+        f"Ward {n},US Senate,{party},total,{votes},{county},{name},statewide,senate,WI,2018,gen"
         for n, party, votes, county, name in (
             (1, "democrat", 300, "Wood", "Tammy Baldwin"),
             (2, "republican", 200, "Adams", "Leah Vukmir"),
@@ -218,8 +222,103 @@ def test_na_is_not_a_county() -> None:
     assert {r.county_fips for r in results} == {"44001", "44003"}
 
 
+def _by_stage(results: list[CountyResult]) -> dict[tuple[str, str, str], int]:
+    return {(r.stage, r.election_date, r.candidate_name): r.votes for r in results}
+
+
+def test_runoff_votes_are_a_separate_contest() -> None:
+    # From MEDSL's 2022 Georgia file: one precinct's absentee votes in the
+    # November 8 general and the December 6 runoff for the same Senate seat.
+    lines = fixture_bytes("medsl_runoff.csv").decode().splitlines()
+
+    candidacies, results = parse_with_results(lines)
+
+    # Before, the runoff's votes were added to the general election's.
+    assert _by_stage(results) == {
+        ("general", "2022-11-08", "RAPHAEL WARNOCK"): 295,
+        ("general", "2022-11-08", "HERSCHEL JUNIOR WALKER"): 17,
+        ("general", "2022-11-08", "CHASE OLIVER"): 1,
+        ("runoff", "2022-12-06", "RAPHAEL WARNOCK"): 217,
+        ("runoff", "2022-12-06", "HERSCHEL JUNIOR WALKER"): 11,
+    }
+    assert {r.office for r in results} == {"US Senate"}
+    assert {(c.election_date, c.election_type) for c in candidacies} == {
+        ("2022-11-08", "general"),
+        ("2022-12-06", "runoff"),
+    }
+
+
+def test_recounts_are_not_added_to_the_count() -> None:
+    # Arizona 2022: Cochise County's attorney general recount repeats its precincts.
+    lines = [
+        "precinct,district,office,writein,party_detailed,party_simplified,candidate,dataverse,mode,"
+        "votes,state,year,stage,state_po,state_fips,state_cen,state_ic,date,jurisdiction_name,"
+        "jurisdiction_fips,county_name,county_fips,readme_check,magnitude,special",
+        *(
+            f"01 BE BENSON,,ATTORNEY GENERAL,FALSE,DEMOCRAT,DEMOCRAT,KRIS MAYES,STATE,EARLY VOTING,"
+            f"324,ARIZONA,2022,{stage},AZ,4,86,61,2022-11-08,COCHISE,04003,COCHISE,04003,TRUE,1,FALSE"
+            for stage in ("GEN", "GEN RECOUNT")
+        ),
+        "1,,ATTORNEY GENERAL,FALSE,DEMOCRAT,DEMOCRAT,KRIS MAYES,STATE,TOTAL,555,ARIZONA,2022,GEN,"
+        "AZ,4,86,61,2022-11-08,PIMA,04019,PIMA,04019,TRUE,1,FALSE",
+    ]
+
+    results = parse_with_results(lines)[1]
+
+    assert _votes(sorted(results)) == {("04003", "KRIS MAYES"): 324, ("04019", "KRIS MAYES"): 555}
+
+
+def test_primary_file() -> None:
+    lines = fixture_bytes("medsl_primary.csv").decode().splitlines()
+
+    results = parse_with_results(lines, primary_states=frozenset({"OK", "NV"}))[1]
+
+    got = {(r.state, r.stage, r.party, r.candidate_name): r.votes for r in results}
+    assert got == {
+        # Each party's primary is its own race, and its runoff a primary runoff.
+        ("OK", "primary", "DEM", "DREW EDMONDSON"): 119,
+        ("OK", "primary", "DEM", "CONNIE JOHNSON"): 96,
+        ("OK", "primary", "REP", "MICK CORNETT"): 25,
+        ("OK", "primary", "REP", "KEVIN STITT"): 17,
+        ("OK", "primary runoff", "REP", "KEVIN STITT"): 23,
+        ("OK", "primary runoff", "REP", "MICK CORNETT"): 23,
+        # A small party's race stays in though it got no votes here.
+        ("OK", "primary runoff", "LIB", "CHRIS POWELL"): 0,
+        ("OK", "primary runoff", "LIB", "REX L LAWHORN"): 0,
+        # Nevada masks small counts as -1.
+        ("NV", "primary", "DEM", "ASHEESH DEWAN"): 0,
+    }
+    assert {r.election_date for r in results if r.stage == "primary runoff"} == {"2018-08-28"}
+
+
+def test_source_adds_primary_votes_but_not_primary_candidates() -> None:
+    archive = io.BytesIO()
+    with zipfile.ZipFile(archive, "w") as zf:
+        zf.writestr("2018_precinct_primary.csv", fixture_bytes("medsl_primary.csv"))
+    source = MedslSource(FakeWeb({"2018_precinct_primary.csv.zip": archive.getvalue()}))
+
+    assert source.candidacies(2018) == []  # no general-election files here
+    results = source.results(2018)
+
+    assert {r.stage for r in results} == {"primary", "primary runoff"}
+    assert "OK" in {r.state for r in results}
+    assert "AZ" not in {r.state for r in results}  # not checked against certified totals
+
+
 def test_write_csv_round_trip(tmp_path: Path) -> None:
-    row = CountyResult("DE", 2024, "GOVERNOR", "10001", "KENT", "MATT MEYER", "DEM", 43179, "medsl")
+    row = CountyResult(
+        "DE",
+        2024,
+        "2024-11-05",
+        "general",
+        "GOVERNOR",
+        "10001",
+        "KENT",
+        "MATT MEYER",
+        "DEM",
+        43179,
+        "medsl",
+    )
     path = results_path(tmp_path, "medsl", 2024)
 
     write_csv(path, [row])
@@ -227,7 +326,7 @@ def test_write_csv_round_trip(tmp_path: Path) -> None:
     assert path == tmp_path / "results" / "medsl" / "2024.csv"
     assert path.read_text(encoding="utf-8").splitlines() == [
         ",".join(CountyResult.columns()),
-        "DE,2024,GOVERNOR,10001,KENT,MATT MEYER,DEM,43179,medsl",
+        "DE,2024,2024-11-05,general,GOVERNOR,10001,KENT,MATT MEYER,DEM,43179,medsl",
     ]
 
 
@@ -296,6 +395,8 @@ def test_build_results_counts_state_level_tallies_as_not_by_county(tmp_path: Pat
             CountyResult(
                 "ME",
                 2018,
+                "2018-11-06",
+                "general",
                 "GOVERNOR",
                 "23000",
                 "STATE UOCAVA",
@@ -307,6 +408,8 @@ def test_build_results_counts_state_level_tallies_as_not_by_county(tmp_path: Pat
             CountyResult(
                 "ME",
                 2018,
+                "2018-11-06",
+                "general",
                 "GOVERNOR",
                 "23001",
                 "ANDROSCOGGIN",
@@ -322,6 +425,78 @@ def test_build_results_counts_state_level_tallies_as_not_by_county(tmp_path: Pat
 
     me = json.loads((tmp_path / "out" / "2018" / "ME.json").read_text(encoding="utf-8"))
     assert me["races"][0]["counties"] == {"": ["", [1978]], "23001": ["ANDROSCOGGIN", [22906]]}
+
+
+def _result(stage: str, when: str, name: str, party: str, votes: int) -> CountyResult:
+    return CountyResult(
+        "GA", 2022, when, stage, "US Senate", "13021", "BIBB", name, party, votes, "x"
+    )
+
+
+def _ok(stage: str, when: str, name: str, party: str, votes: int) -> CountyResult:
+    return CountyResult(
+        "OK", 2018, when, stage, "GOVERNOR", "40019", "CARTER", name, party, votes, "x"
+    )
+
+
+def test_build_results_keeps_runoffs_and_primaries_apart(tmp_path: Path) -> None:
+    rows = [
+        _result("general", "2022-11-08", "RAPHAEL WARNOCK", "DEM", 1946117),
+        _result("general", "2022-11-08", "HERSCHEL JUNIOR WALKER", "REP", 1908442),
+        _result("runoff", "2022-12-06", "RAPHAEL WARNOCK", "DEM", 1820633),
+        _result("runoff", "2022-12-06", "HERSCHEL JUNIOR WALKER", "REP", 1721244),
+    ]
+    primaries = [
+        _ok("primary", "2018-06-26", "DREW EDMONDSON", "DEM", 242764),
+        _ok("primary", "2018-06-26", "CONNIE JOHNSON", "DEM", 152730),
+        _ok("primary", "2018-06-26", "MICK CORNETT", "REP", 132806),
+        _ok("primary", "2018-06-26", "KEVIN STITT", "REP", 110479),
+        _ok("primary runoff", "2018-08-28", "KEVIN STITT", "REP", 164892),
+        _ok("primary runoff", "2018-08-28", "MICK CORNETT", "REP", 137316),
+    ]
+    write_csv(results_path(tmp_path / "data", "medsl", 2018), primaries)
+    write_csv(results_path(tmp_path / "data", "medsl", 2022), rows)
+
+    built = build_results(tmp_path / "data" / "results", tmp_path / "out")
+
+    ga = json.loads((tmp_path / "out" / "2022" / "GA.json").read_text(encoding="utf-8"))
+    assert [(r["stage"], r["date"]) for r in ga["races"]] == [
+        ("general", "2022-11-08"),
+        ("runoff", "2022-12-06"),
+    ]
+    assert ga["races"][0]["candidates"][0] == ["RAPHAEL WARNOCK", "DEM", 1946117]
+    assert ga["races"][1]["candidates"] == [
+        ["RAPHAEL WARNOCK", "DEM", 1820633],
+        ["HERSCHEL JUNIOR WALKER", "REP", 1721244],
+    ]
+    ok = json.loads((tmp_path / "out" / "2018" / "OK.json").read_text(encoding="utf-8"))
+    # Each party's primary is its own race.
+    assert [(r["stage"], r["party"], [c[0] for c in r["candidates"]]) for r in ok["races"]] == [
+        ("primary", "DEM", ["DREW EDMONDSON", "CONNIE JOHNSON"]),
+        ("primary", "REP", ["MICK CORNETT", "KEVIN STITT"]),
+        ("primary runoff", "REP", ["KEVIN STITT", "MICK CORNETT"]),
+    ]
+    # The national map shows general elections only.
+    national = json.loads((tmp_path / "out" / "2022" / "national.json").read_text("utf-8"))
+    assert national["races"]["US Senate"]["GA"]["candidates"][0][2] == 1946117
+    assert [b["national"] for b in built] == [[], ["US Senate"]]
+
+
+def test_build_results_reads_files_from_before_stages(tmp_path: Path) -> None:
+    path = results_path(tmp_path / "data", "medsl", 2024)
+    path.parent.mkdir(parents=True)
+    path.write_text(
+        "state,election_year,office,county_fips,county,candidate_name,party,votes,source\n"
+        "DE,2024,GOVERNOR,10001,KENT,MATT MEYER,DEM,43179,medsl\n",
+        encoding="utf-8",
+    )
+
+    build_results(tmp_path / "data" / "results", tmp_path / "out")
+
+    de = json.loads((tmp_path / "out" / "2024" / "DE.json").read_text(encoding="utf-8"))
+    assert [(r["stage"], r["date"], r["office"]) for r in de["races"]] == [
+        ("general", "", "GOVERNOR")
+    ]
 
 
 def test_site_manifest_lists_results(tmp_path: Path) -> None:
@@ -438,6 +613,25 @@ def test_dc_shadow_senator_is_not_a_senate_race() -> None:
 
     assert candidacy.office == result.office == "US Senate (shadow)"
     assert not any(p.match(result.office) for p in NATIONAL_RACES["US Senate"])
+
+
+def test_dc_house_member_is_a_delegate() -> None:
+    # A real row of MEDSL's 2018 DC file, with its own header.
+    header = (
+        '"precinct","office","party_detailed","party_simplified","mode","votes","county_name",'
+        '"county_fips","jurisdiction_name","jurisdiction_fips","candidate","district","magnitude",'
+        '"dataverse","year","stage","state","special","writein","state_po","state_fips",'
+        '"state_cen","state_ic","date","readme_check"'
+    )
+    row = (
+        '"1","DELEGATE TO THE US HOUSE","DEMOCRAT","DEMOCRAT","TOTAL",2390,"DISTRICT OF COLUMBIA",'
+        '"11001","WARD 6","11001","ELEANOR HOLMES NORTON","000",1.0,"HOUSE",2018,"GEN",'
+        '"DISTRICT OF COLUMBIA","FALSE","FALSE","DC","11","53","55","2018-11-06","FALSE"'
+    )
+
+    (candidacy,), (result,) = parse_with_results([header, row])
+
+    assert candidacy.office == result.office == "US House Delegate"
 
 
 def test_senate_races_have_no_district() -> None:

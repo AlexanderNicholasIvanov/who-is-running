@@ -1,0 +1,202 @@
+<?xml version="1.0"?>
+<!--Election result snapshot imported from Tabulation System
+-->
+<ElectionResult>
+    <Timestamp>12/16/2024 8:19:40 AM CST</Timestamp>
+    <ElectionName>2024 General Election</ElectionName>
+    <ElectionDate>11/5/2024</ElectionDate>
+    <Region>IA</Region>
+    <ElectionVoterTurnout totalVoters="2256774" ballotsCast="1674011" voterTurnout="74.18">
+        <Counties>
+            <County name="Adair" totalVoters="5423" ballotsCast="4104" voterTurnout="75.68" precinctsParticipating="5" precinctsReported="5" precinctsReportingPercent="100.00" />
+            <County name="O'Brien" totalVoters="9759" ballotsCast="7569" voterTurnout="77.56" precinctsParticipating="9" precinctsReported="9" precinctsReportingPercent="100.00" />
+            <County name="Polk" totalVoters="339707" ballotsCast="258067" voterTurnout="75.97" precinctsParticipating="176" precinctsReported="176" precinctsReportingPercent="100.00" />
+        </Counties>
+    </ElectionVoterTurnout>
+    <Contest key="1000" text="President and Vice President" voteFor="1" isQuestion="false" countiesParticipating="99" countiesReported="99" precinctsParticipating="1653" precinctsReported="1653" precinctsReportingPercent="100.00">
+        <ParticipatingCounties>
+            <County name="Adair" precinctsParticipating="5" precinctsReported="5" precinctsReportingPercent="100.00" />
+            <County name="O'Brien" precinctsParticipating="9" precinctsReported="9" precinctsReportingPercent="100.00" />
+            <County name="Polk" precinctsParticipating="176" precinctsReported="176" precinctsReportingPercent="100.00" />
+        </ParticipatingCounties>
+        <Choice key="104" text="Kamala D. Harris and Tim Walz" party="DEM" totalVotes="707278">
+            <VoteType name="Election Day" votes="358827">
+                <County name="Adair" votes="558" />
+                <County name="O'Brien" votes="911" />
+                <County name="Polk" votes="82148" />
+            </VoteType>
+            <VoteType name="Absentee" votes="348451">
+                <County name="Adair" votes="528" />
+                <County name="O'Brien" votes="517" />
+                <County name="Polk" votes="57927" />
+            </VoteType>
+        </Choice>
+        <Choice key="105" text="Donald J. Trump and JD Vance" party="REP" totalVotes="927019">
+            <VoteType name="Election Day" votes="608357">
+                <County name="Adair" votes="1915" />
+                <County name="O'Brien" votes="4503" />
+                <County name="Polk" votes="83216" />
+            </VoteType>
+            <VoteType name="Absentee" votes="318662">
+                <County name="Adair" votes="1001" />
+                <County name="O'Brien" votes="1495" />
+                <County name="Polk" votes="29024" />
+            </VoteType>
+        </Choice>
+        <Choice key="106" text="Chase Oliver and Mike ter Maat" party="LIB" totalVotes="7218">
+            <VoteType name="Election Day" votes="5207">
+                <County name="Adair" votes="14" />
+                <County name="O'Brien" votes="17" />
+                <County name="Polk" votes="953" />
+            </VoteType>
+            <VoteType name="Absentee" votes="2011">
+                <County name="Adair" votes="6" />
+                <County name="O'Brien" votes="5" />
+                <County name="Polk" votes="258" />
+            </VoteType>
+        </Choice>
+        <Choice key="110" text="Shiva Ayyadurai and Crystal Ellis" totalVotes="424">
+            <VoteType name="Election Day" votes="292">
+                <County name="Adair" votes="4" />
+                <County name="O'Brien" votes="0" />
+                <County name="Polk" votes="43" />
+            </VoteType>
+            <VoteType name="Absentee" votes="132">
+                <County name="Adair" votes="1" />
+                <County name="O'Brien" votes="0" />
+                <County name="Polk" votes="19" />
+            </VoteType>
+        </Choice>
+        <Choice key="107" text="Claudia De la Cruz and Karina Garcia" party="PSL" totalVotes="1427">
+            <VoteType name="Election Day" votes="912">
+                <County name="Adair" votes="0" />
+                <County name="O'Brien" votes="2" />
+                <County name="Polk" votes="245" />
+            </VoteType>
+            <VoteType name="Absentee" votes="515">
+                <County name="Adair" votes="1" />
+                <County name="O'Brien" votes="1" />
+                <County name="Polk" votes="76" />
+            </VoteType>
+        </Choice>
+        <Choice key="108" text="William P. Stodden and Stephanie H. Cholensky" party="SOC" totalVotes="361">
+            <VoteType name="Election Day" votes="239">
+                <County name="Adair" votes="2" />
+                <County name="O'Brien" votes="2" />
+                <County name="Polk" votes="50" />
+            </VoteType>
+            <VoteType name="Absentee" votes="122">
+                <County name="Adair" votes="0" />
+                <County name="O'Brien" votes="0" />
+                <County name="Polk" votes="8" />
+            </VoteType>
+        </Choice>
+        <Choice key="109" text="Robert F. Kennedy Jr and Nicole Shanahan" party="WTP" totalVotes="13122">
+            <VoteType name="Election Day" votes="9025">
+                <County name="Adair" votes="21" />
+                <County name="O'Brien" votes="34" />
+                <County name="Polk" votes="1225" />
+            </VoteType>
+            <VoteType name="Absentee" votes="4097">
+                <County name="Adair" votes="13" />
+                <County name="O'Brien" votes="14" />
+                <County name="Polk" votes="371" />
+            </VoteType>
+        </Choice>
+        <Choice key="0" text="Write-in" totalVotes="6657">
+            <VoteType name="Election Day" votes="4317">
+                <County name="Adair" votes="8" />
+                <County name="O'Brien" votes="19" />
+                <County name="Polk" votes="903" />
+            </VoteType>
+            <VoteType name="Absentee" votes="2340">
+                <County name="Adair" votes="8" />
+                <County name="O'Brien" votes="5" />
+                <County name="Polk" votes="372" />
+            </VoteType>
+        </Choice>
+    </Contest>
+    <Contest key="1300" text="United States Representative District 3" voteFor="1" isQuestion="false" countiesParticipating="21" countiesReported="21" precinctsParticipating="373" precinctsReported="373" precinctsReportingPercent="100.00">
+        <ParticipatingCounties>
+            <County name="Adair" precinctsParticipating="5" precinctsReported="5" precinctsReportingPercent="100.00" />
+            <County name="Polk" precinctsParticipating="176" precinctsReported="176" precinctsReportingPercent="100.00" />
+        </ParticipatingCounties>
+        <Choice key="111" text="Lanon Baccam" party="DEM" totalVotes="197962">
+            <VoteType name="Election Day" votes="113195">
+                <County name="Adair" votes="650" />
+                <County name="Polk" votes="82607" />
+            </VoteType>
+            <VoteType name="Absentee" votes="84767">
+                <County name="Adair" votes="524" />
+                <County name="Polk" votes="56312" />
+            </VoteType>
+        </Choice>
+        <Choice key="112" text="Zach Nunn" party="REP" totalVotes="213746">
+            <VoteType name="Election Day" votes="145250">
+                <County name="Adair" votes="1790" />
+                <County name="Polk" votes="81110" />
+            </VoteType>
+            <VoteType name="Absentee" votes="68496">
+                <County name="Adair" votes="981" />
+                <County name="Polk" votes="29860" />
+            </VoteType>
+        </Choice>
+        <Choice key="0" text="Write-in" totalVotes="1197">
+            <VoteType name="Election Day" votes="929">
+                <County name="Adair" votes="10" />
+                <County name="Polk" votes="607" />
+            </VoteType>
+            <VoteType name="Absentee" votes="268">
+                <County name="Adair" votes="0" />
+                <County name="Polk" votes="161" />
+            </VoteType>
+        </Choice>
+    </Contest>
+    <Contest key="14200" text="Supreme Court Justice - David May" voteFor="1" isQuestion="false" countiesParticipating="99" countiesReported="99" precinctsParticipating="1653" precinctsReported="1653" precinctsReportingPercent="100.00">
+        <ParticipatingCounties>
+            <County name="Adair" precinctsParticipating="5" precinctsReported="5" precinctsReportingPercent="100.00" />
+            <County name="O'Brien" precinctsParticipating="9" precinctsReported="9" precinctsReportingPercent="100.00" />
+            <County name="Polk" precinctsParticipating="176" precinctsReported="176" precinctsReportingPercent="100.00" />
+        </ParticipatingCounties>
+        <Choice key="102" text="Yes" totalVotes="776472">
+            <VoteType name="Election Day" votes="485447">
+                <County name="Adair" votes="1371" />
+                <County name="O'Brien" votes="3417" />
+                <County name="Polk" votes="68917" />
+            </VoteType>
+            <VoteType name="Absentee" votes="291025">
+                <County name="Adair" votes="723" />
+                <County name="O'Brien" votes="1011" />
+                <County name="Polk" votes="30619" />
+            </VoteType>
+        </Choice>
+        <Choice key="103" text="No" totalVotes="450373">
+            <VoteType name="Election Day" votes="249471">
+                <County name="Adair" votes="571" />
+                <County name="O'Brien" votes="734" />
+                <County name="Polk" votes="52550" />
+            </VoteType>
+            <VoteType name="Absentee" votes="200902">
+                <County name="Adair" votes="363" />
+                <County name="O'Brien" votes="281" />
+                <County name="Polk" votes="34825" />
+            </VoteType>
+        </Choice>
+    </Contest>
+    <Contest key="15000" text="District 1B Judge - Andrea J. Dryer" voteFor="1" isQuestion="true" countiesParticipating="6" countiesReported="6" precinctsParticipating="118" precinctsReported="118" precinctsReportingPercent="100.00">
+        <ParticipatingCounties>
+        </ParticipatingCounties>
+        <Choice key="001" text="Yes" totalVotes="51194">
+            <VoteType name="Election Day" votes="31333">
+            </VoteType>
+            <VoteType name="Absentee" votes="19861">
+            </VoteType>
+        </Choice>
+        <Choice key="002" text="No" totalVotes="18059">
+            <VoteType name="Election Day" votes="11749">
+            </VoteType>
+            <VoteType name="Absentee" votes="6310">
+            </VoteType>
+        </Choice>
+    </Contest>
+    </ElectionResult>

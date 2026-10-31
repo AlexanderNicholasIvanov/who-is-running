@@ -1,0 +1,114 @@
+<?xml version="1.0"?>
+<!--Election result snapshot imported from Tabulation System
+-->
+<ElectionResult>
+    <Timestamp>10/30/2026 3:04:57 PM CDT</Timestamp>
+    <ElectionName>2026 General Election</ElectionName>
+    <ElectionDate>11/3/2026</ElectionDate>
+    <Region>IA</Region>
+    <ElectionVoterTurnout totalVoters="0" ballotsCast="0" voterTurnout="0.00">
+        <Counties>
+            <County name="Adair" totalVoters="0" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="5" precinctsReported="0" precinctsReportingPercent="0.00" />
+            <County name="O'Brien" totalVoters="0" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="9" precinctsReported="0" precinctsReportingPercent="0.00" />
+            <County name="Polk" totalVoters="0" ballotsCast="0" voterTurnout="0.00" precinctsParticipating="176" precinctsReported="0" precinctsReportingPercent="0.00" />
+        </Counties>
+    </ElectionVoterTurnout>
+    <Contest key="1000" text="United States Senator" voteFor="1" isQuestion="false" countiesParticipating="99" countiesReported="0" precinctsParticipating="1666" precinctsReported="0" precinctsReportingPercent="0.00">
+        <ParticipatingCounties>
+            <County name="Adair" precinctsParticipating="5" precinctsReported="0" precinctsReportingPercent="0.00" />
+            <County name="O'Brien" precinctsParticipating="9" precinctsReported="0" precinctsReportingPercent="0.00" />
+            <County name="Polk" precinctsParticipating="176" precinctsReported="0" precinctsReportingPercent="0.00" />
+        </ParticipatingCounties>
+        <Choice key="101" text="Ashley Hinson" party="REP" totalVotes="0">
+            <VoteType name="Election Day" votes="0">
+                <County name="Adair" votes="0" />
+                <County name="O'Brien" votes="0" />
+                <County name="Polk" votes="0" />
+            </VoteType>
+            <VoteType name="Absentee" votes="0">
+                <County name="Adair" votes="0" />
+                <County name="O'Brien" votes="0" />
+                <County name="Polk" votes="0" />
+            </VoteType>
+        </Choice>
+        <Choice key="102" text="Josh Turek" party="DEM" totalVotes="0">
+            <VoteType name="Election Day" votes="0">
+                <County name="Adair" votes="0" />
+                <County name="O'Brien" votes="0" />
+                <County name="Polk" votes="0" />
+            </VoteType>
+            <VoteType name="Absentee" votes="0">
+                <County name="Adair" votes="0" />
+                <County name="O'Brien" votes="0" />
+                <County name="Polk" votes="0" />
+            </VoteType>
+        </Choice>
+        <Choice key="103" text="Thomas Laehn" party="LIB" totalVotes="0">
+            <VoteType name="Election Day" votes="0">
+                <County name="Adair" votes="0" />
+                <County name="O'Brien" votes="0" />
+                <County name="Polk" votes="0" />
+            </VoteType>
+            <VoteType name="Absentee" votes="0">
+                <County name="Adair" votes="0" />
+                <County name="O'Brien" votes="0" />
+                <County name="Polk" votes="0" />
+            </VoteType>
+        </Choice>
+        <Choice key="0" text="Write-in" totalVotes="0">
+            <VoteType name="Election Day" votes="0">
+                <County name="Adair" votes="0" />
+                <County name="O'Brien" votes="0" />
+                <County name="Polk" votes="0" />
+            </VoteType>
+            <VoteType name="Absentee" votes="0">
+                <County name="Adair" votes="0" />
+                <County name="O'Brien" votes="0" />
+                <County name="Polk" votes="0" />
+            </VoteType>
+        </Choice>
+    </Contest>
+    <Contest key="1500" text="Governor and Lt. Governor" voteFor="1" isQuestion="false" countiesParticipating="99" countiesReported="0" precinctsParticipating="1666" precinctsReported="0" precinctsReportingPercent="0.00">
+        <ParticipatingCounties>
+            <County name="Adair" precinctsParticipating="5" precinctsReported="0" precinctsReportingPercent="0.00" />
+            <County name="O'Brien" precinctsParticipating="9" precinctsReported="0" precinctsReportingPercent="0.00" />
+            <County name="Polk" precinctsParticipating="176" precinctsReported="0" precinctsReportingPercent="0.00" />
+        </ParticipatingCounties>
+        <Choice key="106" text="Zach Lahn and Derek Wulf" party="REP" totalVotes="0">
+            <VoteType name="Election Day" votes="0">
+                <County name="Adair" votes="0" />
+                <County name="O'Brien" votes="0" />
+                <County name="Polk" votes="0" />
+            </VoteType>
+            <VoteType name="Absentee" votes="0">
+                <County name="Adair" votes="0" />
+                <County name="O'Brien" votes="0" />
+                <County name="Polk" votes="0" />
+            </VoteType>
+        </Choice>
+        <Choice key="107" text="Rob Sand and Dave Muhlbauer" party="DEM" totalVotes="0">
+            <VoteType name="Election Day" votes="0">
+                <County name="Adair" votes="0" />
+                <County name="O'Brien" votes="0" />
+                <County name="Polk" votes="0" />
+            </VoteType>
+            <VoteType name="Absentee" votes="0">
+                <County name="Adair" votes="0" />
+                <County name="O'Brien" votes="0" />
+                <County name="Polk" votes="0" />
+            </VoteType>
+        </Choice>
+        <Choice key="0" text="Write-in" totalVotes="0">
+            <VoteType name="Election Day" votes="0">
+                <County name="Adair" votes="0" />
+                <County name="O'Brien" votes="0" />
+                <County name="Polk" votes="0" />
+            </VoteType>
+            <VoteType name="Absentee" votes="0">
+                <County name="Adair" votes="0" />
+                <County name="O'Brien" votes="0" />
+                <County name="Polk" votes="0" />
+            </VoteType>
+        </Choice>
+    </Contest>
+    </ElectionResult>

@@ -4,7 +4,9 @@ MEDSL publishes precinct-level returns for all 50 states and DC in one schema,
 covering federal, state and (where the state reports them) local offices. We
 reduce each file to the unique candidates per race, so this is who *appeared
 on the ballot* in a past November general election, not who filed to run.
-Statewide races also keep their vote totals by county, for the results map.
+Statewide races also keep their vote totals by county, for the results map,
+with runoffs (Georgia 2022) apart from the general election. 2018 also adds
+statewide primaries from MEDSL's separate primary returns, votes only.
 
 https://github.com/MEDSL  (one repository per election year)
 
@@ -34,7 +36,7 @@ from datetime import date
 from typing import Any
 
 from who_is_running.http import NotFound
-from who_is_running.models import STATEWIDE, Candidacy, Level, join_counties
+from who_is_running.models import STATEWIDE, Candidacy, Level, house_office, join_counties
 from who_is_running.results import CountyResult
 from who_is_running.sources.base import Source
 from who_is_running.text import decode_lines
@@ -63,7 +65,30 @@ STATES = [
 ]
 
 FEDERAL = {"PRESIDENT": "US President", "SENATE": "US Senate", "HOUSE": "US House"}
-STAGES = {"GEN": "general", "PRI": "primary", "RUN": "runoff", "RUNOFF": "runoff"}
+# MEDSL's `stage`. Recounts ("GEN RECOUNT", "GEN RECOUNT 2") repeat a few
+# counties' votes, so they get no stage and stay out of the vote totals.
+STAGES = {
+    "GEN": "general",
+    "PRI": "primary",
+    "RUN": "runoff",
+    "RUNOFF": "runoff",
+    "GEN RUNOFF": "runoff",  # Georgia 2022: the December 6 US Senate runoff
+    "PRI RUNOFF": "runoff",
+    "PRI, RUNOFF": "runoff",
+}
+# MEDSL's separate official primary returns (2018 only, about 20 states).
+PRIMARIES = {
+    2018: "https://raw.githubusercontent.com/MEDSL/primary-precinct-returns/HEAD/2018/"
+    "2018_precinct_primary.csv.zip",
+}
+# The states whose governor and US Senate primary totals match the certified
+# results (Florida's to within one vote, as MEDSL notes). Left out: MD (votes
+# doubled), MA (about 500 short), NV (masked counts), SC (no votes), KS
+# (counties missing), CT (off by up to 40), AZ and DE (wrong election dates),
+# DC (not checked); NC had no statewide primaries.
+PRIMARY_STATES = {
+    2018: frozenset({"AK", "FL", "HI", "MN", "MT", "OH", "OK", "TN", "VA", "WI"}),
+}
 PARTIES = {
     "DEMOCRAT": "DEM",
     "DEMOCRATIC": "DEM",  # 2016
@@ -173,7 +198,23 @@ class MedslSource(Source):
                             candidacies, results = parse_with_results(decode_lines(fh))
                         out.extend(candidacies)
                         self._results[year].extend(results)
+        if year in PRIMARIES:
+            self._results[year].extend(self._primary_results(year))
         return sorted(out)
+
+    def _primary_results(self, year: int) -> list[CountyResult]:
+        """County votes in statewide primaries. Only the votes: the candidate
+        lists stay general-election ballots."""
+        try:
+            archive = self.fetch(PRIMARIES[year])
+        except NotFound:
+            log.warning("medsl: no %d primary file", year)
+            return []
+        with zipfile.ZipFile(io.BytesIO(archive)) as zf:
+            (member,) = (m for m in zf.namelist() if m.lower().endswith(".csv"))
+            with zf.open(member) as fh:
+                lines = decode_lines(fh)
+                return parse_with_results(lines, primary_states=PRIMARY_STATES[year])[1]
 
     def results(self, year: int) -> list[CountyResult]:
         # Both come from the same (large) download, so it's parsed once.
@@ -186,8 +227,14 @@ def parse(lines: Iterable[str]) -> list[Candidacy]:
     return parse_with_results(lines)[0]
 
 
-def parse_with_results(lines: Iterable[str]) -> tuple[list[Candidacy], list[CountyResult]]:
+def parse_with_results(
+    lines: Iterable[str], *, primary_states: frozenset[str] | None = None
+) -> tuple[list[Candidacy], list[CountyResult]]:
     """Reduce precinct rows (header first) to one Candidacy per candidate per race.
+
+    ``primary_states`` marks a primary file (all states in one file) and keeps
+    only those states. Each party's primary is then its own race, and a
+    runoff is a primary runoff.
 
     A candidate on several party lines of the same race (fusion voting in
     New York, Connecticut, ...) becomes one row with the parties joined by "/".
@@ -206,12 +253,15 @@ def parse_with_results(lines: Iterable[str]) -> tuple[list[Candidacy], list[Coun
     county_names: dict[str, str] = {}
     race_counties: defaultdict[Candidacy, set[str]] = defaultdict(set)
     voted_in: defaultdict[Candidacy, set[str]] = defaultdict(set)
-    all_counties: set[str] = set()
+    all_counties: defaultdict[str, set[str]] = defaultdict(set)  # by state
     surnames: dict[Candidacy, str] = {}
     candidate_counties: defaultdict[Candidacy, set[str]] = defaultdict(set)
     reader = csv.reader(lines)
     header = next(reader, [])
+    state_col = header.index("state_po") if "state_po" in header else -1
     for row in reader:
+        if primary_states is not None and row[state_col] not in primary_states:
+            continue
         r = dict(zip(header, row, strict=False))
         # Wisconsin 2018 and all of 2016 use MEDSL's older column names.
         r.setdefault("county_name", r.get("county", ""))
@@ -254,6 +304,8 @@ def parse_with_results(lines: Iterable[str]) -> tuple[list[Candidacy], list[Coun
             office = FEDERAL[dataverse]
             if state == "DC" and office == "US Senate":
                 office = "US Senate (shadow)"  # DC elects a non-voting "shadow" senator
+            elif office == "US House":
+                office = house_office(state)  # DC's "US House Delegate"
         if r.get("special", "").upper() == "TRUE":
             office += " (special)"
         when = iso_date(r.get("date", ""))
@@ -279,13 +331,15 @@ def parse_with_results(lines: Iterable[str]) -> tuple[list[Candidacy], list[Coun
             source_candidate_id="",
         )
         party = party_of(r.get("party_simplified", ""), r.get("party_detailed", ""))
+        if primary_states is not None:
+            key = replace(key, party=party)  # one race per party's primary
         seen = parties.setdefault(key, [])
         if party and party not in seen:
             seen.append(party)
         votes = votes_of(r.get("votes", ""))
         if county:
             race_counties[_race(key)].add(county)
-            all_counties.add(county)
+            all_counties[state].add(county)
             if votes > 0:
                 voted_in[_race(key)].add(county)
         if level is not Level.LOCAL and key.district in ("", "AT-LARGE"):
@@ -340,9 +394,12 @@ def parse_with_results(lines: Iterable[str]) -> tuple[list[Candidacy], list[Coun
     def counties_of(key: Candidacy) -> str:
         # Some files list a race's candidates with 0 votes in every precinct
         # of the state (Ohio's state house), so a county counts only if the
-        # race got votes there, unless no county reported any.
-        seen_in = voted_in.get(_race(key)) or race_counties.get(_race(key), set())
-        return STATEWIDE if seen_in and seen_in >= all_counties else join_counties(seen_in)
+        # race got votes there, unless no county reported any. A small party's
+        # primary can get no votes in a county it was on the ballot in.
+        voted = voted_in.get(_race(key)) if primary_states is None else None
+        seen_in = voted or race_counties.get(_race(key), set())
+        statewide = seen_in and seen_in >= all_counties[key.state]
+        return STATEWIDE if statewide else join_counties(seen_in)
 
     candidacies = {
         key: replace(key, party="/".join(sorted(p)), counties=counties_of(key))
@@ -353,12 +410,17 @@ def parse_with_results(lines: Iterable[str]) -> tuple[list[Candidacy], list[Coun
         key, fips = precinct[0], precinct[1]
         # A file with no counties at all (Wisconsin 2018, Alaska 2022) still
         # gives statewide totals; they're all filed as not reported by county.
-        if (candidacies[key].counties == STATEWIDE and _race(key) not in split) or not all_counties:
+        if not key.election_type:
+            continue  # a recount of some counties, already counted
+        mapped = candidacies[key].counties == STATEWIDE and _race(key) not in split
+        if mapped or not all_counties[key.state]:
             county_votes[key, fips] += totals[precinct] if precinct in totals else by_mode[precinct]
     results = [
         CountyResult(
             state=key.state,
             election_year=key.election_year,
+            election_date=key.election_date,
+            stage=stage_of(key.election_type, primary=primary_states is not None),
             office=key.office,
             county_fips=fips,
             county=county_names[fips],
@@ -406,11 +468,16 @@ def _merge_spellings(
 
 
 def votes_of(raw: str) -> int:
-    """Vote counts are integers, sometimes written "12.0"; blanks and "*" (suppressed) are 0."""
+    """Vote counts are integers, sometimes written "12.0"; blanks, "*" and -1 (suppressed) are 0."""
     try:
-        return int(float(raw))
+        return max(0, int(float(raw)))
     except (ValueError, OverflowError):
         return 0
+
+
+def stage_of(election_type: str, *, primary: bool) -> str:
+    """The results stage (``results.STAGES``): a runoff in a primary file is a primary runoff."""
+    return "primary runoff" if primary and election_type == "runoff" else election_type
 
 
 def _race(candidacy: Candidacy) -> Candidacy:
