@@ -31,7 +31,7 @@ from datetime import date
 from typing import Any
 
 from who_is_running.http import NotFound
-from who_is_running.models import STATEWIDE, Candidacy, Level, join_counties
+from who_is_running.models import STATEWIDE, Candidacy, Level, house_office, join_counties
 from who_is_running.results import CountyResult
 from who_is_running.sources.base import Source
 from who_is_running.text import decode_lines
@@ -247,6 +247,8 @@ def parse_with_results(
             office = FEDERAL[dataverse]
             if state == "DC" and office == "US Senate":
                 office = "US Senate (shadow)"  # DC elects a non-voting "shadow" senator
+            elif office == "US House":
+                office = house_office(state)  # DC's "US House Delegate"
         if r.get("special", "").upper() == "TRUE":
             office += " (special)"
         when = iso_date(r.get("date", ""))

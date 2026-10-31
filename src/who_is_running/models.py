@@ -9,6 +9,21 @@ from enum import StrEnum
 STATEWIDE = "*"
 """``counties`` value for a race on the ballot in every county of the state."""
 
+HOUSE_DELEGATES = {
+    # DC and the territories each send one non-voting member to the US House.
+    "AS": "US House Delegate",
+    "DC": "US House Delegate",
+    "GU": "US House Delegate",
+    "MP": "US House Delegate",
+    "PR": "US House Resident Commissioner",
+    "VI": "US House Delegate",
+}
+
+
+def house_office(state: str) -> str:
+    """The ``office`` for a state's US House seat ("US House Delegate" in DC and territories)."""
+    return HOUSE_DELEGATES.get(state, "US House")
+
 
 class Level(StrEnum):
     FEDERAL = "federal"
