@@ -9,8 +9,9 @@ Statewide races also keep their vote totals by county, for the results map.
 https://github.com/MEDSL  (one repository per election year)
 
 Coverage is uneven: some states report no local races in some years (e.g.
-California 2018), and a few files carry only surnames (Texas 2022, 2024). Write-ins,
-ballot questions and turnout lines are dropped. 2020 is only on Harvard
+California 2018), and a few files carry only surnames (Texas 2022, 2024). Write-ins
+and turnout lines are dropped. Statewide ballot measures are kept as results
+only (see ``measures``); local ones are dropped. 2020 is only on Harvard
 Dataverse, behind an interactive download, so it isn't included.
 """
 
@@ -29,6 +30,7 @@ from datetime import date
 from typing import Any
 
 from who_is_running.http import NotFound
+from who_is_running.measures import choice_of
 from who_is_running.models import STATEWIDE, Candidacy, Level, join_counties
 from who_is_running.results import CountyResult
 from who_is_running.sources.base import Source
@@ -155,7 +157,8 @@ def parse_with_results(lines: Iterable[str]) -> tuple[list[Candidacy], list[Coun
     Each race records the counties its precincts are in, or "*" when that is
     every county in the file (one file is one state).
 
-    Statewide races also yield each candidate's votes per county. States
+    Statewide races also yield each candidate's votes per county, and so do
+    statewide ballot measures, with "Yes" and "No" as the candidates. States
     split a precinct's votes by how they were cast ("ELECTION DAY",
     "ABSENTEE", ...), and some also give a "TOTAL" row for the same
     precinct, so a precinct's TOTAL is used when there is one and its other
@@ -168,6 +171,8 @@ def parse_with_results(lines: Iterable[str]) -> tuple[list[Candidacy], list[Coun
     race_counties: defaultdict[Candidacy, set[str]] = defaultdict(set)
     voted_in: defaultdict[Candidacy, set[str]] = defaultdict(set)
     all_counties: set[str] = set()
+    measures: set[Candidacy] = set()  # Yes/No answers, which aren't candidacies
+    unsure: set[Candidacy] = set()  # answers whose row doesn't say it's a state measure
     reader = csv.reader(lines)
     header = next(reader, [])
     for row in reader:
@@ -180,10 +185,15 @@ def parse_with_results(lines: Iterable[str]) -> tuple[list[Candidacy], list[Coun
         # A few files carry HTML entities ("SCHOOLS&#39;").
         candidate = " ".join(html.unescape(r.get("candidate", "")).split())
         office = " ".join(html.unescape(r.get("office", "")).split())
-        if not office or NOT_CANDIDATES.search(candidate.upper()) or NOT_OFFICES.search(office):
-            continue
         dataverse = r.get("dataverse", "").upper()
-        level = level_of(dataverse, office)
+        # Statewide measures are STATE rows, or (in some files) rows with no dataverse.
+        choice = choice_of(candidate, office) if dataverse in ("STATE", "") else ""
+        if not office or (
+            not choice and (NOT_CANDIDATES.search(candidate.upper()) or NOT_OFFICES.search(office))
+        ):
+            continue
+        level = Level.STATE if choice else level_of(dataverse, office)
+        candidate = choice or candidate
         state = r.get("state_po", "")
         county = r.get("county_name", "").strip()
         if county.upper() == "NA":
@@ -209,7 +219,7 @@ def parse_with_results(lines: Iterable[str]) -> tuple[list[Candidacy], list[Coun
             # Senate and presidential races have no districts, though Arizona
             # 2024 gives Santa Cruz County's Senate rows "007".
             district=""
-            if dataverse in ("SENATE", "PRESIDENT")
+            if dataverse in ("SENATE", "PRESIDENT") or choice
             else district_of(r.get("district", "")),
             jurisdiction=jurisdiction,
             counties="",
@@ -221,7 +231,13 @@ def parse_with_results(lines: Iterable[str]) -> tuple[list[Candidacy], list[Coun
             source="medsl",
             source_candidate_id="",
         )
-        party = party_of(r.get("party_simplified", ""), r.get("party_detailed", ""))
+        if choice:
+            measures.add(key)
+            if not dataverse:
+                unsure.add(key)
+        party = (
+            "" if choice else party_of(r.get("party_simplified", ""), r.get("party_detailed", ""))
+        )
         seen = parties.setdefault(key, [])
         if party and party not in seen:
             seen.append(party)
@@ -254,9 +270,25 @@ def parse_with_results(lines: Iterable[str]) -> tuple[list[Candidacy], list[Coun
         key: replace(key, party="/".join(sorted(p)), counties=counties_of(key))
         for key, p in parties.items()
     }
+    # A measure is kept if it was on every county's ballot (or, in a file
+    # without counties, is marked as a state measure), offers both Yes and No,
+    # and isn't really a candidate race that lists "REJECTED" write-ins.
+    offices = {(k.state, k.office) for k in candidacies if k not in measures}
+    choices: defaultdict[Candidacy, set[str]] = defaultdict(set)
+    for key in measures:
+        choices[_race(key)].add(key.candidate_name)
+    kept = {
+        key
+        for key in measures
+        if len(choices[_race(key)]) == 2
+        and (key.state, key.office) not in offices
+        and (candidacies[key].counties == STATEWIDE or not (all_counties or key in unsure))
+    }
     county_votes: Counter[tuple[Candidacy, str]] = Counter()
     for precinct in totals.keys() | by_mode.keys():
         key, fips = precinct[0], precinct[1]
+        if key in measures and key not in kept:
+            continue
         # A file with no counties at all (Wisconsin 2018, Alaska 2022) still
         # gives statewide totals; they're all filed as not reported by county.
         if candidacies[key].counties == STATEWIDE or not all_counties:
@@ -275,7 +307,7 @@ def parse_with_results(lines: Iterable[str]) -> tuple[list[Candidacy], list[Coun
         )
         for (key, fips), votes in county_votes.items()
     ]
-    return list(candidacies.values()), results
+    return [c for key, c in candidacies.items() if key not in measures], results
 
 
 def votes_of(raw: str) -> int:

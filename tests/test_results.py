@@ -124,13 +124,180 @@ def test_only_statewide_races_keep_county_votes() -> None:
     assert {r.office for r in results} == {"US President"}
 
 
-def test_ballot_question_answers_are_not_candidates() -> None:
+MI_18_1 = (
+    "STATE PROPOSAL - 18-1: LEGISLATIVE INITIATIVE: COALITION TO REGULATE MARIJUANA LIKE ALCOHOL"
+)
+
+
+def test_statewide_measures_keep_yes_and_no_votes_by_county() -> None:
+    # Michigan 2018's Proposal 1: Eaton County reports TOTAL rows, Wayne by mode.
+    rows = [
+        _row('"0-22L, WARD 3"', MI_18_1, "YES", "NONPARTISAN", "TOTAL", 366, "EATON", "26045"),
+        _row('"0-22L, WARD 3"', MI_18_1, "NO", "NONPARTISAN", "TOTAL", 119, "EATON", "26045"),
+        _row('"0-23, WARD 3"', MI_18_1, "YES", "NONPARTISAN", "TOTAL", 790, "EATON", "26045"),
+        _row('"0-23, WARD 3"', MI_18_1, "NO", "NONPARTISAN", "TOTAL", 263, "EATON", "26045"),
+        _row("1", MI_18_1, "YES", "NONPARTISAN", "ELECTION DAY", 137, "WAYNE", "26163"),
+        _row("1", MI_18_1, "NO", "NONPARTISAN", "ELECTION DAY", 36, "WAYNE", "26163"),
+    ]
+    rows = [r.replace(",STATEWIDE,PRESIDENT,", ",STATEWIDE,STATE,") for r in rows]  # a STATE row
+    candidacies, results = parse_with_results([HEADER, *rows])
+
+    assert _votes(sorted(results)) == {
+        ("26045", "Yes"): 1156,
+        ("26045", "No"): 382,
+        ("26163", "Yes"): 137,
+        ("26163", "No"): 36,
+    }
+    assert {(r.office, r.party) for r in results} == {(MI_18_1, "")}
+    # Yes and No aren't people running for anything.
+    assert candidacies == []
+
+
+def test_measure_answers_are_read_as_yes_and_no() -> None:
+    # Florida's and Oklahoma's 2024 wording; Florida's overvote lines are dropped.
+    fl = "AMENDMENT NO 3: ADULT PERSONAL USE OF MARIJUANA"
+    ok = "STATE QUESTION NO. 834 LEGISLATIVE REFERENDUM NO. 377"
     results = _results(
-        _row("1", "INITIATIVE 83", "YES TO APPROVE", "", "TOTAL", 5, "KENAI", "2122", "", "STATE"),
-        _row("2", "INITIATIVE 83", "NO TO REJECT", "", "TOTAL", 5, "NOME", "2180", "", "STATE"),
+        _row("1", fl, "YES FOR APPROVAL", "", "TOTAL", 607, "KENAI", "2122", "", "STATE"),
+        _row("1", fl, "NO FOR REJECTION", "", "TOTAL", 484, "KENAI", "2122", "", "STATE"),
+        _row("1", fl, "OVERVOTES", "", "TOTAL", 1, "KENAI", "2122", "", "STATE"),
+        _row("10001", ok, "FOR THE PROPOSAL - YES", "", "ABSENTEE", 8, "KENAI", "2122", "", ""),
+        _row("10001", ok, "AGAINST THE PROPOSAL - NO", "", "ABSENTEE", 0, "KENAI", "2122", "", ""),
     )
 
-    assert results == []
+    assert {(r.office, r.candidate_name, r.votes) for r in results} == {
+        (fl, "Yes", 607),
+        (fl, "No", 484),
+        (ok, "Yes", 8),
+        (ok, "No", 0),
+    }
+
+
+def test_measures_not_on_every_ballot_are_dropped() -> None:
+    results = _results(
+        _row("1", "US PRESIDENT", "DONALD J TRUMP", "REPUBLICAN", "TOTAL", 5, "CASEY", "21045"),
+        _row("2", "US PRESIDENT", "DONALD J TRUMP", "REPUBLICAN", "TOTAL", 5, "ADAIR", "21001"),
+        # Kentucky 2022: a county's own question, with no dataverse.
+        _row("A104", "QUESTION", "YES", "", "TOTAL", 119, "CASEY", "21045", "", ""),
+        _row("A104", "QUESTION", "NO", "", "TOTAL", 85, "CASEY", "21045", "", ""),
+        # Local measures are never kept, even where they cover every county here.
+        *(
+            _row(p, "PROPOSITION 1", answer, "", "TOTAL", 3, county, fips, "", "LOCAL")
+            for p, county, fips in (("1", "CASEY", "21045"), ("2", "ADAIR", "21001"))
+            for answer in ("YES", "NO")
+        ),
+    )
+
+    assert {r.office for r in results} == {"US President"}
+
+
+def test_yes_no_lines_that_are_not_measures() -> None:
+    results = _results(
+        # Florida 2024: judges up for retention.
+        _row(
+            "1",
+            "SUPREME COURT - RETENTION - RENATHA FRANCIS",
+            "YES",
+            "NONPARTISAN",
+            "TOTAL",
+            620,
+            "ALACHUA",
+            "12001",
+            "JUSTICE OF THE SUPREME COURT",
+            "STATE",
+        ),
+        _row(
+            "1",
+            "SUPREME COURT - RETENTION - RENATHA FRANCIS",
+            "NO",
+            "NONPARTISAN",
+            "TOTAL",
+            380,
+            "ALACHUA",
+            "12001",
+            "JUSTICE OF THE SUPREME COURT",
+            "STATE",
+        ),
+        # Washington 2022's advisory votes answer Repealed or Maintained.
+        _row(
+            "RALSTON",
+            "WASHINGTON STATE - ADVISORY VOTE NO. 39",
+            "REPEALED",
+            "",
+            "TOTAL",
+            29,
+            "ALACHUA",
+            "12001",
+            "",
+            "STATE",
+        ),
+        _row(
+            "RALSTON",
+            "WASHINGTON STATE - ADVISORY VOTE NO. 39",
+            "MAINTAINED",
+            "",
+            "TOTAL",
+            3,
+            "ALACHUA",
+            "12001",
+            "",
+            "STATE",
+        ),
+        # Michigan 2022 counts rejected write-ins under each race, as "REJECTED".
+        _row(
+            "Akron Township Precinct 1",
+            "GOVERNOR",
+            "GRETCHEN WHITMER",
+            "DEMOCRAT",
+            "TOTAL",
+            187,
+            "ALACHUA",
+            "12001",
+            "",
+            "STATE",
+        ),
+        _row(
+            "Akron Township Precinct 1",
+            "GOVERNOR",
+            "REJECTED",
+            "",
+            "TOTAL",
+            1,
+            "ALACHUA",
+            "12001",
+            "",
+            "STATE",
+        ),
+        _row(
+            "Akron Township Precinct 1",
+            "GOVERNOR",
+            "YES",
+            "",
+            "TOTAL",
+            1,
+            "ALACHUA",
+            "12001",
+            "",
+            "STATE",
+        ),
+    )
+
+    assert {(r.office, r.candidate_name) for r in results} == {("GOVERNOR", "GRETCHEN WHITMER")}
+
+
+def test_measure_in_a_file_without_counties() -> None:
+    # Alaska 2022 reports by legislative district only. A STATE row is a state
+    # measure; without a dataverse there's no telling.
+    bm1 = "BM#1 CONSTITUTIONAL CONVENTION"
+    q = "QUESTION"
+    results = _results(
+        _row("01-600 Ketchikan No. 1", bm1, "YES", "", "ELECTION DAY", 103, "", "", "", "STATE"),
+        _row("01-600 Ketchikan No. 1", bm1, "NO", "", "ELECTION DAY", 368, "", "", "", "STATE"),
+        _row("01-600 Ketchikan No. 1", q, "YES", "", "ELECTION DAY", 1, "", "", "", ""),
+        _row("01-600 Ketchikan No. 1", q, "NO", "", "ELECTION DAY", 1, "", "", "", ""),
+    )
+
+    assert _votes(results) == {("", "Yes"): 103, ("", "No"): 368}
 
 
 def test_tally_lines_are_not_candidates() -> None:
@@ -260,6 +427,57 @@ def test_build_results(tmp_path: Path) -> None:
     assert set(national["races"]) == {"US President", "Governor"}
     assert national["races"]["Governor"]["DE"]["office"] == "GOVERNOR"
     assert set(national["races"]["US President"]) == {"AK", "DE", "SD"}
+
+
+def test_build_results_marks_measures_and_their_outcome(tmp_path: Path) -> None:
+    fl3 = "AMENDMENT NO 3: ADULT PERSONAL USE OF MARIJUANA"
+    wya = "CONSTITUTIONAL AMENDMENT A LOCAL GOVERNMENT INVESTMENT IN EQUITIES"
+    path = results_path(tmp_path / "data", "medsl", 2024)
+    write_csv(
+        path,
+        [
+            # County totals from MEDSL's Florida 2024 and Wyoming 2022 files.
+            CountyResult("FL", 2024, fl3, "12001", "ALACHUA", "Yes", "", 90219, "medsl"),
+            CountyResult("FL", 2024, fl3, "12001", "ALACHUA", "No", "", 45673, "medsl"),
+            CountyResult("FL", 2024, fl3, "12003", "BAKER", "Yes", "", 6513, "medsl"),
+            CountyResult("FL", 2024, fl3, "12003", "BAKER", "No", "", 8385, "medsl"),
+            CountyResult(
+                "FL",
+                2024,
+                "US President",
+                "12003",
+                "BAKER",
+                "DONALD J TRUMP",
+                "REP",
+                13183,
+                "medsl",
+            ),
+            CountyResult("WY", 2024, wya, "56001", "ALBANY", "Yes", "", 6734, "medsl"),
+            CountyResult("WY", 2024, wya, "56001", "ALBANY", "No", "", 5103, "medsl"),
+        ],
+    )
+
+    build_results(tmp_path / "data" / "results", tmp_path / "out")
+
+    fl = json.loads((tmp_path / "out" / "2024" / "FL.json").read_text(encoding="utf-8"))
+    measure, president = fl["races"]
+    assert "measure" not in president
+    assert measure["measure"] is True
+    # Always Yes then No, so the map can read county votes as [yes, no].
+    assert measure["candidates"] == [["Yes", "", 96732], ["No", "", 54058]]
+    assert measure["counties"]["12003"] == ["BAKER", [6513, 8385]]
+    # These two counties alone give Yes 64.1%, past Florida's 60%.
+    assert (measure["outcome"], measure["needs"]) == ("passed", "60%")
+
+    wy = json.loads((tmp_path / "out" / "2024" / "WY.json").read_text(encoding="utf-8"))
+    (amendment,) = wy["races"]
+    # Wyoming counts amendments against every ballot cast, which results don't hold.
+    assert amendment["measure"] is True
+    assert "outcome" not in amendment
+
+    national = json.loads((tmp_path / "out" / "2024" / "national.json").read_text("utf-8"))
+    assert national["measures"] == {"FL": [[fl3, 96732, 54058]], "WY": [[wya, 6734, 5103]]}
+    assert set(national["races"]["US President"]) == {"FL"}
 
 
 def test_build_results_draws_renamed_counties_on_the_map_shapes(tmp_path: Path) -> None:

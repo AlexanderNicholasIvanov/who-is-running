@@ -52,6 +52,18 @@ function summary(t) {
 // Candidates are partisan if any has a party; the map is about which party leads.
 const isPartisan = (race) => race.candidates.some(([, party]) => party);
 
+// Ballot measures: choices are always [Yes, No] (see build_site.py), shaded by which leads.
+function measureTally([yes, no]) {
+  const total = yes + no;
+  const side = yes > no ? "yes" : no > yes ? "no" : null;
+  return { total, yes, no, side, margin: total ? (Math.abs(yes - no) / total) * 100 : 0 };
+}
+const measureFill = (m) => (m.side ? `var(--map-${m.side}-${step(m.margin)})` : "url(#map-hatch-none)");
+const split = (m) => (m.total
+  ? `Yes ${pct((m.yes / m.total) * 100)} · No ${pct((m.no / m.total) * 100)}`
+  : "No votes reported");
+const measureCount = (n) => `${n} statewide ballot measure${n === 1 ? "" : "s"}`;
+
 const DEFS = `
   <defs>
     <pattern id="map-hatch-other" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
@@ -75,7 +87,6 @@ export function initMap({ manifest, fetchJSON, stateName, onState, onCounty }) {
   if (!years.length) return { showState() {} };
   els.section.hidden = false;
   els.year.replaceChildren(...years.map((y) => new Option(String(y), String(y))));
-  els.legend.innerHTML = legendHTML();
 
   let view = { state: null, race: null }; // state null = the whole country
   let nationalChoice = null; // which national race the country view shows
@@ -85,9 +96,16 @@ export function initMap({ manifest, fetchJSON, stateName, onState, onCounty }) {
   const yearInfo = () => manifest.results.find((r) => r.year === Number(els.year.value));
   const hasState = (st) => Boolean(yearInfo()?.states.includes(st));
 
-  function setRaces(names, preferred) {
-    els.race.replaceChildren(...names.map((n) => new Option(raceName(n), n)));
-    if (names.includes(preferred)) els.race.value = preferred;
+  function setRaces(names, preferred, measures = []) {
+    const options = names.map((n) => new Option(raceName(n), n));
+    if (measures.length) {
+      const group = document.createElement("optgroup");
+      group.label = "Ballot measures";
+      group.append(...measures.map((n) => new Option(raceName(n), n)));
+      options.push(group);
+    }
+    els.race.replaceChildren(...options);
+    if (names.includes(preferred) || measures.includes(preferred)) els.race.value = preferred;
   }
 
   async function render() {
@@ -113,6 +131,7 @@ export function initMap({ manifest, fetchJSON, stateName, onState, onCounty }) {
     const name = raceName(nationalChoice);
     els.back.hidden = true;
     els.title.textContent = `${name}, ${year}`;
+    els.legend.innerHTML = legendHTML();
     const rows = [];
     tips = new Map();
     const paths = Object.values(shapes.shapes).map((s) => {
@@ -120,9 +139,11 @@ export function initMap({ manifest, fetchJSON, stateName, onState, onCounty }) {
       const totals = race ? race.candidates.map((c) => c[2]) : [];
       const t = race ? tally(race.candidates, totals) : null;
       if (race) rows.push([s.name, t]);
+      const measures = national.measures?.[s.abbr]?.length;
       tips.set(s.abbr, () => (race
         ? tipHTML(s.name, race.candidates, totals, race.office)
-        : `<strong>${esc(s.name)}</strong><div class="tip-sub">No ${esc(name)} race in ${year}</div>`));
+        : `<strong>${esc(s.name)}</strong><div class="tip-sub">No ${esc(name)} race in ${year}</div>`)
+        + (measures ? `<div class="tip-sub">${esc(measureCount(measures))}</div>` : ""));
       const label = `${s.name}: ${race ? summary(t) : `no ${name} race in ${year}`}`;
       return `<path d="${s.d}" style="fill: ${race ? fill(t) : "var(--map-empty)"}" data-state="${esc(s.abbr)}"
         tabindex="0" role="button" aria-label="${esc(label)}"></path>`;
@@ -139,20 +160,27 @@ export function initMap({ manifest, fetchJSON, stateName, onState, onCounty }) {
     ]);
     if (mine !== token) return;
     const races = results.races.filter(isPartisan);
+    const measures = results.races.filter((r) => r.measure);
     // Opening a state shows the same race the country view does, when the state had it.
     const choice = nationalChoice ?? yearInfo().national[0];
-    setRaces(races.map((r) => r.office), view.race || national.races[choice]?.[st]?.office);
-    const race = races.find((r) => r.office === els.race.value);
+    setRaces(races.map((r) => r.office), view.race || national.races[choice]?.[st]?.office,
+      measures.map((r) => r.office));
+    const race = [...races, ...measures].find((r) => r.office === els.race.value);
     els.back.hidden = false;
     tips = new Map();
+    els.legend.innerHTML = race?.measure ? measureLegendHTML() : legendHTML();
     if (!race) {
       els.title.textContent = `${stateName(st)}, ${year}`;
       draw(shapes.viewBox, "", `<path class="map-outline" d="${shapes.outline}"></path>`);
-      els.note.textContent = `No partisan statewide races in ${stateName(st)} in ${year}.`;
+      els.note.textContent = `No partisan statewide races or ballot measures in ${stateName(st)} in ${year}.`;
       renderTable("", "County", []);
       return;
     }
     view.race = race.office;
+    if (race.measure) {
+      renderMeasure(year, st, race, shapes);
+      return;
+    }
     const name = raceName(race.office);
     els.title.textContent = `${stateName(st)}: ${name}, ${year}`;
     const rows = [];
@@ -183,6 +211,57 @@ export function initMap({ manifest, fetchJSON, stateName, onState, onCounty }) {
     }
     els.note.textContent = notes.join(" ");
     renderTable(`${name} results by county, ${stateName(st)} ${year}`, "County", rows);
+  }
+
+  function renderMeasure(year, st, race, shapes) {
+    const name = raceName(race.office);
+    els.title.textContent = `${stateName(st)}: ${name}, ${year}`;
+    const rows = [];
+    const paths = Object.entries(shapes.shapes).map(([fips, s]) => {
+      const county = race.counties[fips];
+      const countyName = county ? titleCase(county[0]) : s.name;
+      const m = county ? measureTally(county[1]) : null;
+      if (county) rows.push([countyName, m]);
+      tips.set(fips, () => (county
+        ? measureTipHTML(countyName, m)
+        : `<strong>${esc(s.name)}</strong><div class="tip-sub">No results reported for this county</div>`));
+      const label = `${countyName}: ${county ? split(m) : "no results"}`;
+      return `<path d="${s.d}" style="fill: ${county ? measureFill(m) : "url(#map-hatch-none)"}" data-county="${esc(fips)}"
+        data-name="${esc(countyName)}" tabindex="0" role="button" aria-label="${esc(label)}"></path>`;
+    });
+    draw(shapes.viewBox, paths.join(""), `<path class="map-outline" d="${shapes.outline}"></path>`);
+
+    const statewide = measureTally(race.candidates.map((c) => c[2]));
+    const notes = [`Statewide: ${split(statewide)}.`];
+    if (race.outcome) {
+      notes.push(`${race.outcome === "passed" ? "Passed" : "Failed"}: it needed ${race.needs} of the Yes and No votes.`);
+    } else if (statewide.total) {
+      notes.push(`Not marked passed or failed: some ${stateName(st)} measures need a supermajority or count against all ballots cast, which this data can't settle.`);
+    }
+    const unassigned = race.counties[""];
+    if (unassigned && statewide.total) {
+      const share = (unassigned[1].reduce((a, b) => a + b, 0) / statewide.total) * 100;
+      notes.push(`${pct(share)} of the votes weren't reported by county, so county shading leaves them out; the statewide split includes them.`);
+    }
+    const offMap = Object.keys(race.counties).filter((f) => f && !shapes.shapes[f]);
+    if (offMap.length) {
+      notes.push(`Not drawn: ${offMap.map((f) => titleCase(race.counties[f][0])).join(", ")}.`);
+    }
+    els.note.textContent = notes.join(" ");
+    rows.sort((a, b) => a[0].localeCompare(b[0]));
+    const share = (m, votes) => (m.total ? esc(pct((votes / m.total) * 100)) : "");
+    els.table.innerHTML = `<caption id="map-caption">${esc(`${name} results by county, ${stateName(st)} ${year}`)}</caption>
+      <thead><tr><th scope="col">County</th><th scope="col">Yes</th><th scope="col">No</th><th scope="col">Margin</th></tr></thead>
+      <tbody>${rows.map(([place, m]) => `<tr><th scope="row">${esc(place)}</th>
+        <td class="num">${share(m, m.yes)}</td><td class="num">${share(m, m.no)}</td>
+        <td class="num">${m.side ? `${m.side === "yes" ? "Yes" : "No"} by ${esc(m.margin.toFixed(1))} pts` : m.total ? "Tied" : "No votes"}</td></tr>`).join("")}</tbody>`;
+  }
+
+  function measureTipHTML(place, m) {
+    const line = (label, cls, votes) => `<tr><td><span class="swatch swatch-${cls}"></span>${label}</td>
+      <td class="num">${esc(fmt.format(votes))}</td><td class="num">${esc(pct((votes / m.total) * 100))}</td></tr>`;
+    return `<strong>${esc(place)}</strong><div class="tip-sub">${esc(split(m))}</div>
+      ${m.total ? `<table>${line("Yes", "yes", m.yes)}${line("No", "no", m.no)}</table>` : ""}`;
   }
 
   function draw(viewBox, paths, overlay) {
@@ -313,4 +392,12 @@ function legendHTML() {
     <span class="legend-step"><span class="legend-swatch legend-none"></span>No results</span>
     <span class="legend-step"><span class="legend-swatch legend-empty"></span>No such race that year</span>
     <span class="legend-unit">Winning margin, percentage points</span></div>`;
+}
+
+function measureLegendHTML() {
+  const ramp = (side, label) => `<div class="legend-row"><span class="legend-name">${label}</span>
+    ${STEP_LABELS.map((step, i) => `<span class="legend-step"><span class="legend-swatch" style="background: var(--map-${side}-${i})"></span>${step}</span>`).join("")}</div>`;
+  return `${ramp("yes", "Yes leads")}${ramp("no", "No leads")}
+    <div class="legend-row"><span class="legend-step"><span class="legend-swatch legend-none"></span>No results or tied</span>
+    <span class="legend-unit">Margin between Yes and No, percentage points</span></div>`;
 }
