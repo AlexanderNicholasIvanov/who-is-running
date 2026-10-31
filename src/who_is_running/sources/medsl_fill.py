@@ -234,7 +234,12 @@ ID_CANVASS = (
 )
 ID_2022_CONTESTS = {
     17248: "US Senate",
+    17251: "GOVERNOR",
     17252: "LIEUTENANT GOVERNOR",
+    17253: "SECRETARY OF STATE",
+    17254: "STATE CONTROLLER",
+    17255: "STATE TREASURER",
+    17256: "ATTORNEY GENERAL",
     17257: "SUPERINTENDENT OF PUBLIC INSTRUCTION",
 }
 
@@ -318,7 +323,8 @@ FILLS = [
         ("https://sos-prod.tnsosgovfiles.com/s3fs-public/document/20221108AllbyPrecinct.xlsx",),
         lambda b: parse_tn_precincts(b, {"Governor": "GOVERNOR"}),
     ),
-    # Power County is missing from these three; Oneida and Shoshone too from the last.
+    # Power County is missing from, or has no votes in, most statewide races, and
+    # Raul Labrador's attorney general votes are split over two spellings.
     Fill(
         "ID",
         2022,

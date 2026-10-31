@@ -11,6 +11,7 @@ from who_is_running.sources import medsl_fill
 from who_is_running.sources.medsl_fill import FILLS, Fill, apply, fill_results
 from who_is_running.xlsx import _column, sheets
 
+ID_CONTESTS = (17248, 17251, 17252, 17253, 17254, 17255, 17256, 17257)
 CENSUS = {"national_county.txt": fixture_bytes("census_fill_counties.txt")}
 
 
@@ -102,13 +103,14 @@ def test_tennessee_governor_adds_up_precincts_and_skips_write_ins() -> None:
 
 
 def test_idaho_canvass_uses_medsl_spelling_and_skips_totals() -> None:
-    web = FakeWeb(
-        {f"download/{i}/": fixture_bytes(f"id_canvass_{i}.csv") for i in (17248, 17252, 17257)}
-    )
+    web = FakeWeb({f"download/{i}/": fixture_bytes(f"id_canvass_{i}.csv") for i in ID_CONTESTS})
     medsl = [
         _candidacy("ID", "US Senate", "MIKE CRAPO", "REP"),
         _candidacy("ID", "US Senate", "SCOTT OH CLEVELAND", "IND"),
         _candidacy("ID", "LIEUTENANT GOVERNOR", "SCOTT BEDKE", "REP"),
+        # MEDSL splits his votes over two spellings; the fill counts them as one.
+        _candidacy("ID", "ATTORNEY GENERAL", "RAUL LABRADOR", "REP"),
+        _candidacy("ID", "ATTORNEY GENERAL", "RAUL R LABRADOR", "REP"),
         # Same name, other race: not a match for the senate race.
         _candidacy("ID", "GOVERNOR", "DAVID ROTH", "WRONG"),
     ]
@@ -120,6 +122,9 @@ def test_idaho_canvass_uses_medsl_spelling_and_skips_totals() -> None:
     assert votes["US Senate", "16077", "DAVID ROTH"] == 420
     assert votes["LIEUTENANT GOVERNOR", "16077", "SCOTT BEDKE"] == 1491
     assert votes["SUPERINTENDENT OF PUBLIC INSTRUCTION", "16003", "DEBBIE CRITCHFIELD"] == 1606
+    assert votes["GOVERNOR", "16077", "BRAD LITTLE"] == 1411  # MEDSL has 0 for Power
+    assert votes["ATTORNEY GENERAL", "16077", "RAUL LABRADOR"] == 1337
+    assert not any(r.candidate_name == "RAUL R LABRADOR" for r in rows)
     assert {r.county_fips for r in rows} == {"16003", "16077"}  # not the "Totals" row
     assert not any(r.candidate_name == "TOTAL VOTES CAST" for r in rows)
     parties = {(r.office, r.candidate_name): r.party for r in rows}
@@ -188,21 +193,19 @@ def test_unknown_county_is_an_error_not_a_guess() -> None:
 
 
 def test_apply_replaces_medsl_rows_for_the_race_and_marks_it_statewide() -> None:
-    canvass = {
-        f"download/{i}/": fixture_bytes(f"id_canvass_{i}.csv") for i in (17248, 17252, 17257)
-    }
+    canvass = {f"download/{i}/": fixture_bytes(f"id_canvass_{i}.csv") for i in ID_CONTESTS}
     web = FakeWeb({**CENSUS, **canvass})
     crapo = _candidacy("ID", "US Senate", "MIKE CRAPO", "REP")
     house = _candidacy("ID", "US House", "MIKE SIMPSON", "REP", district="02")
     medsl = [_result("ID", "US Senate", "16003", "MIKE CRAPO", 2850)]  # doubled
-    governor = _result("ID", "GOVERNOR", "16003", "BRAD LITTLE", 1500)
+    governor = _result("NV", "GOVERNOR", "32009", "JOE LOMBARDO", 338)  # no fill for it
 
     candidacies, results = apply(2022, web, [crapo, house], [*medsl, governor])
 
     assert [c.counties for c in candidacies] == [STATEWIDE, "ADAMS"]  # the House race is untouched
     votes = _votes(results)
     assert votes["US Senate", "16003", "MIKE CRAPO"] == 1425  # replaced, not added to
-    assert votes["GOVERNOR", "16003", "BRAD LITTLE"] == 1500  # not filled, kept
+    assert votes["GOVERNOR", "32009", "JOE LOMBARDO"] == 338  # kept
     assert sum(1 for r in results if r.source == "medsl") == 1
 
 
