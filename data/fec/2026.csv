@@ -109,12 +109,12 @@ AR,2026,,federal,US Senate,,,*,"RUSSELL, JAMES RICHARD MR III",DEM,,challenger,n
 AR,2026,,federal,US Senate,,,*,"SHOFFNER, HALLIE",DEM,,challenger,statutory_candidate,fec,S6AR00199
 AR,2026,,federal,US Senate,,,*,"WADLIN, JEFFREY FRANCIS",LIB,,challenger,statutory_candidate,fec,S6AR00223
 AR,2026,,federal,US Senate,,,*,"WHITFIELD, DANIEL ALLEN",DEM,,challenger,not_yet_statutory_candidate,fec,S0AR00218
-AS,2026,,federal,US House,,,*,"LEFAOSEU, TUIFAGALOA",N,,,not_yet_statutory_candidate,fec,H6AS00064
-AS,2026,,federal,US House,,,*,"VEAVEA, SEMANA",N,,,not_yet_statutory_candidate,fec,H6AS00056
-AS,2026,,federal,US House,00,,*,"AMATA, AUMUA",REP,,incumbent,statutory_candidate,fec,H4AS00036
-AS,2026,,federal,US House,00,,*,"KING YOUNG, SANDRA S",DEM,,challenger,not_yet_statutory_candidate,fec,H6AS01021
-AS,2026,,federal,US House,00,,*,"LANCASTER, ROSIE TAGO",N,,challenger,not_yet_statutory_candidate,fec,H8AS00052
-AS,2026,,federal,US House,00,,*,"SUITONU-CHAPMAN, MELEAGI",N,,challenger,not_yet_statutory_candidate,fec,H4AS00093
+AS,2026,,federal,US House Delegate,00,,*,"AMATA, AUMUA",REP,,incumbent,statutory_candidate,fec,H4AS00036
+AS,2026,,federal,US House Delegate,00,,*,"KING YOUNG, SANDRA S",DEM,,challenger,not_yet_statutory_candidate,fec,H6AS01021
+AS,2026,,federal,US House Delegate,00,,*,"LANCASTER, ROSIE TAGO",N,,challenger,not_yet_statutory_candidate,fec,H8AS00052
+AS,2026,,federal,US House Delegate,00,,*,"LEFAOSEU, TUIFAGALOA",N,,,not_yet_statutory_candidate,fec,H6AS00064
+AS,2026,,federal,US House Delegate,00,,*,"SUITONU-CHAPMAN, MELEAGI",N,,challenger,not_yet_statutory_candidate,fec,H4AS00093
+AS,2026,,federal,US House Delegate,00,,*,"VEAVEA, SEMANA",N,,,not_yet_statutory_candidate,fec,H6AS00056
 AS,2026,,federal,US Senate,,,*,"SOLOMON, GAVIN",REP,,challenger,not_yet_statutory_candidate,fec,S6AS00015
 AZ,2025,,federal,US House,07,,COCHISE;MARICOPA;PIMA;PINAL;SANTA CRUZ;YUMA,"BIES, DAVID",REP,,open_seat,not_yet_statutory_candidate,fec,H2AZ02436
 AZ,2025,,federal,US House,07,,COCHISE;MARICOPA;PIMA;PINAL;SANTA CRUZ;YUMA,"GRAYSON, RICHARD",OTH,,open_seat,not_yet_statutory_candidate,fec,H6AZ07071
@@ -785,30 +785,30 @@ CT,2026,,federal,US House,05,,FAIRFIELD;HARTFORD;LITCHFIELD;NEW HAVEN,"SHEA, CHR
 CT,2026,,federal,US House,05,,FAIRFIELD;HARTFORD;LITCHFIELD;NEW HAVEN,"SOLOMITA, WINTER",DEM,,challenger,not_yet_statutory_candidate,fec,H6CT05207
 CT,2026,,federal,US House,05,,FAIRFIELD;HARTFORD;LITCHFIELD;NEW HAVEN,"WAITE, JACKSON",DEM,,challenger,not_yet_statutory_candidate,fec,H6CT05215
 CT,2026,,federal,US Senate,,,*,"SOLOMON, GAVIN",REP,,challenger,not_yet_statutory_candidate,fec,S6CT05157
-DC,2026,,federal,US House,00,,*,"BROWN, DEIRDRE",DEM,,open_seat,not_yet_statutory_candidate,fec,H6DC00188
-DC,2026,,federal,US House,00,,*,"CHAFFIN, GORDON",DEM,,open_seat,statutory_candidate,fec,H6DC01038
-DC,2026,,federal,US House,00,,*,"EDEN, ARTEMUS",IND,,open_seat,not_yet_statutory_candidate,fec,H6DC00212
-DC,2026,,federal,US House,00,,*,"FREEMAN, KYMONE",OTH,,open_seat,not_yet_statutory_candidate,fec,H4DC00100
-DC,2026,,federal,US House,00,,*,"GREENFIELD, SAMUEL",DEM,,open_seat,not_yet_statutory_candidate,fec,H6DC01145
-DC,2026,,federal,US House,00,,*,"HOLBROOK, TRENT WILLIAM",DEM,,open_seat,statutory_candidate,fec,H6DC01103
-DC,2026,,federal,US House,00,,*,"JACZKO, GREGORY DR.",DEM,,open_seat,statutory_candidate,fec,H6DC01137
-DC,2026,,federal,US House,00,,*,"MATTHEWS, ROBERT",DEM,,open_seat,statutory_candidate,fec,H6DC01053
-DC,2026,,federal,US House,00,,*,"MAYE, GREG",DEM,,open_seat,not_yet_statutory_candidate,fec,H0DC01023
-DC,2026,,federal,US House,00,,*,"MCCLAIRN, JERRY MR JR",DEM,,open_seat,not_yet_statutory_candidate,fec,H6DC01020
-DC,2026,,federal,US House,00,,*,"MORRIS, VINCENT",DEM,,open_seat,not_yet_statutory_candidate,fec,H6DC00204
-DC,2026,,federal,US House,00,,*,"NORTON, ELEANOR HOLMES",DEM,,incumbent,statutory_candidate,fec,H0DC00058
-DC,2026,,federal,US House,00,,*,"PATTERSON, JACQUE DONALD DR SR",DEM,,open_seat,not_yet_statutory_candidate,fec,H6DC01061
-DC,2026,,federal,US House,00,,*,"PINTO, BROOKE",DEM,,open_seat,statutory_candidate,fec,H6DC00196
-DC,2026,,federal,US House,00,,*,"RANDOLPH, SYLVIA",REP,,open_seat,not_yet_statutory_candidate,fec,H6DC01129
-DC,2026,,federal,US House,00,,*,"READY, BRIAN",DEM,,open_seat,not_yet_statutory_candidate,fec,H6DC01087
-DC,2026,,federal,US House,00,,*,"RIMENSNYDER, NELSON F FREDERICK",REP,,open_seat,not_yet_statutory_candidate,fec,H4DC00092
-DC,2026,,federal,US House,00,,*,"RIOS, ANGEL ANTHONY MR.",DEM,,open_seat,not_yet_statutory_candidate,fec,H6DC01012
-DC,2026,,federal,US House,00,,*,"ROSADO, DENISE MS.",REP,,open_seat,statutory_candidate,fec,H6DC01111
-DC,2026,,federal,US House,00,,*,"SMITH, MICHAEL LAUREL MR.",DEM,,open_seat,not_yet_statutory_candidate,fec,H6DC01095
-DC,2026,,federal,US House,00,,*,"STEVENS, SANDI LEE MS",DEM,,open_seat,not_yet_statutory_candidate,fec,H6DC98018
-DC,2026,,federal,US House,00,,*,"WHITE, ROBERT C. JR.",DEM,,open_seat,statutory_candidate,fec,H6DC01079
-DC,2026,,federal,US House,00,,*,"WILLIAMS, KELLY",DEM,,open_seat,statutory_candidate,fec,H2DC01029
-DC,2026,,federal,US House,00,,*,"ZALESNE, KINNEY",DEM,,open_seat,statutory_candidate,fec,H6DC00170
+DC,2026,,federal,US House Delegate,00,,*,"BROWN, DEIRDRE",DEM,,open_seat,not_yet_statutory_candidate,fec,H6DC00188
+DC,2026,,federal,US House Delegate,00,,*,"CHAFFIN, GORDON",DEM,,open_seat,statutory_candidate,fec,H6DC01038
+DC,2026,,federal,US House Delegate,00,,*,"EDEN, ARTEMUS",IND,,open_seat,not_yet_statutory_candidate,fec,H6DC00212
+DC,2026,,federal,US House Delegate,00,,*,"FREEMAN, KYMONE",OTH,,open_seat,not_yet_statutory_candidate,fec,H4DC00100
+DC,2026,,federal,US House Delegate,00,,*,"GREENFIELD, SAMUEL",DEM,,open_seat,not_yet_statutory_candidate,fec,H6DC01145
+DC,2026,,federal,US House Delegate,00,,*,"HOLBROOK, TRENT WILLIAM",DEM,,open_seat,statutory_candidate,fec,H6DC01103
+DC,2026,,federal,US House Delegate,00,,*,"JACZKO, GREGORY DR.",DEM,,open_seat,statutory_candidate,fec,H6DC01137
+DC,2026,,federal,US House Delegate,00,,*,"MATTHEWS, ROBERT",DEM,,open_seat,statutory_candidate,fec,H6DC01053
+DC,2026,,federal,US House Delegate,00,,*,"MAYE, GREG",DEM,,open_seat,not_yet_statutory_candidate,fec,H0DC01023
+DC,2026,,federal,US House Delegate,00,,*,"MCCLAIRN, JERRY MR JR",DEM,,open_seat,not_yet_statutory_candidate,fec,H6DC01020
+DC,2026,,federal,US House Delegate,00,,*,"MORRIS, VINCENT",DEM,,open_seat,not_yet_statutory_candidate,fec,H6DC00204
+DC,2026,,federal,US House Delegate,00,,*,"NORTON, ELEANOR HOLMES",DEM,,incumbent,statutory_candidate,fec,H0DC00058
+DC,2026,,federal,US House Delegate,00,,*,"PATTERSON, JACQUE DONALD DR SR",DEM,,open_seat,not_yet_statutory_candidate,fec,H6DC01061
+DC,2026,,federal,US House Delegate,00,,*,"PINTO, BROOKE",DEM,,open_seat,statutory_candidate,fec,H6DC00196
+DC,2026,,federal,US House Delegate,00,,*,"RANDOLPH, SYLVIA",REP,,open_seat,not_yet_statutory_candidate,fec,H6DC01129
+DC,2026,,federal,US House Delegate,00,,*,"READY, BRIAN",DEM,,open_seat,not_yet_statutory_candidate,fec,H6DC01087
+DC,2026,,federal,US House Delegate,00,,*,"RIMENSNYDER, NELSON F FREDERICK",REP,,open_seat,not_yet_statutory_candidate,fec,H4DC00092
+DC,2026,,federal,US House Delegate,00,,*,"RIOS, ANGEL ANTHONY MR.",DEM,,open_seat,not_yet_statutory_candidate,fec,H6DC01012
+DC,2026,,federal,US House Delegate,00,,*,"ROSADO, DENISE MS.",REP,,open_seat,statutory_candidate,fec,H6DC01111
+DC,2026,,federal,US House Delegate,00,,*,"SMITH, MICHAEL LAUREL MR.",DEM,,open_seat,not_yet_statutory_candidate,fec,H6DC01095
+DC,2026,,federal,US House Delegate,00,,*,"STEVENS, SANDI LEE MS",DEM,,open_seat,not_yet_statutory_candidate,fec,H6DC98018
+DC,2026,,federal,US House Delegate,00,,*,"WHITE, ROBERT C. JR.",DEM,,open_seat,statutory_candidate,fec,H6DC01079
+DC,2026,,federal,US House Delegate,00,,*,"WILLIAMS, KELLY",DEM,,open_seat,statutory_candidate,fec,H2DC01029
+DC,2026,,federal,US House Delegate,00,,*,"ZALESNE, KINNEY",DEM,,open_seat,statutory_candidate,fec,H6DC00170
 DC,2026,,federal,US Senate,,,*,"EUGENE, EARVIN PHILLIP",REP,,challenger,not_yet_statutory_candidate,fec,S6DC00055
 DC,2026,,federal,US Senate,,,*,"SOLOMON, GAVIN",REP,,challenger,not_yet_statutory_candidate,fec,S6DC00014
 DC,2026,,federal,US Senate,,,*,"SOLOMON, GAVIN",REP,,challenger,not_yet_statutory_candidate,fec,S6DC00030
@@ -1384,9 +1384,9 @@ GA,2026,,federal,US Senate,,,*,"PILE, CHELSAE",REP,,challenger,not_yet_statutory
 GA,2026,,federal,US Senate,,,*,"SOLOMON, GAVIN",REP,,challenger,not_yet_statutory_candidate,fec,S6GA00473
 GA,2026,,federal,US Senate,,,*,"TEMPLE, RICK",REP,,challenger,not_yet_statutory_candidate,fec,S6GA00309
 GA,2026,,federal,US Senate,,,*,"WATKINS, VINSON L",REP,,challenger,not_yet_statutory_candidate,fec,S6GA00283
-GU,2026,,federal,US House,,,*,"TORRES, MARY CAMACHO",REP,,,statutory_candidate,fec,H6GU00059
-GU,2026,,federal,US House,00,,*,"LIMTIACO, ALICIA ANNE GARRIDO",DEM,,challenger,statutory_candidate,fec,H6GU01032
-GU,2026,,federal,US House,00,,*,"MOYLAN, JAMES C.",REP,,incumbent,statutory_candidate,fec,H2GU01031
+GU,2026,,federal,US House Delegate,00,,*,"LIMTIACO, ALICIA ANNE GARRIDO",DEM,,challenger,statutory_candidate,fec,H6GU01032
+GU,2026,,federal,US House Delegate,00,,*,"MOYLAN, JAMES C.",REP,,incumbent,statutory_candidate,fec,H2GU01031
+GU,2026,,federal,US House Delegate,00,,*,"TORRES, MARY CAMACHO",REP,,,statutory_candidate,fec,H6GU00059
 HI,2026,,federal,US House,01,,HONOLULU,"BELATTI, DELLA AU",DEM,,challenger,statutory_candidate,fec,H6HI01345
 HI,2026,,federal,US House,01,,HONOLULU,"BERNING, NATHAN M.",NON,,challenger,not_yet_statutory_candidate,fec,H6HI01386
 HI,2026,,federal,US House,01,,HONOLULU,"CASE, EDWARD",DEM,,incumbent,statutory_candidate,fec,H2HI02128
@@ -2424,8 +2424,8 @@ MO,2026,,federal,US House,08,,,"REICHARD, CHRISTOPHER",DEM,,challenger,statutory
 MO,2026,,federal,US House,08,,,"SMITH, JASON T",REP,,incumbent,statutory_candidate,fec,H4MO08162
 MO,2026,,federal,US House,08,,,"TUNE, JOHNATHON",REP,,challenger,not_yet_statutory_candidate,fec,H6MO08167
 MO,2026,,federal,US Senate,,,*,"SOLOMON, GAVIN",REP,,challenger,not_yet_statutory_candidate,fec,S6MO00487
-MP,2026,,federal,US House,01,,,"DELEON GUERRERO, GALVIN SABLAN",IND,,challenger,statutory_candidate,fec,H6MP01027
-MP,2026,,federal,US House,01,,,"KING-HINDS, KIMBERLYN KAY",REP,,incumbent,statutory_candidate,fec,H4MP01022
+MP,2026,,federal,US House Delegate,00,,*,"DELEON GUERRERO, GALVIN SABLAN",IND,,challenger,statutory_candidate,fec,H6MP01027
+MP,2026,,federal,US House Delegate,00,,*,"KING-HINDS, KIMBERLYN KAY",REP,,incumbent,statutory_candidate,fec,H4MP01022
 MS,2026,,federal,US House,01,,ALCORN;BENTON;CALHOUN;CHICKASAW;CHOCTAW;CLAY;DESOTO;ITAWAMBA;LAFAYETTE;LEE;LOWNDES;MARSHALL;MONROE;OKTIBBEHA;PONTOTOC;PRENTISS;TATE;TIPPAH;TISHOMINGO;UNION;WEBSTER,"BUCK, KELVIN ONEAL MR",DEM,,challenger,statutory_candidate,fec,H6MS01305
 MS,2026,,federal,US House,01,,ALCORN;BENTON;CALHOUN;CHICKASAW;CHOCTAW;CLAY;DESOTO;ITAWAMBA;LAFAYETTE;LEE;LOWNDES;MARSHALL;MONROE;OKTIBBEHA;PONTOTOC;PRENTISS;TATE;TIPPAH;TISHOMINGO;UNION;WEBSTER,"HALL, MONTRAVIUS",DEM,,challenger,not_yet_statutory_candidate,fec,H6MS01297
 MS,2026,,federal,US House,01,,ALCORN;BENTON;CALHOUN;CHICKASAW;CHOCTAW;CLAY;DESOTO;ITAWAMBA;LAFAYETTE;LEE;LOWNDES;MARSHALL;MONROE;OKTIBBEHA;PONTOTOC;PRENTISS;TATE;TIPPAH;TISHOMINGO;UNION;WEBSTER,"JOHNSON, CLIFF",DEM,,challenger,statutory_candidate,fec,H6MS01313
@@ -4180,6 +4180,7 @@ US,2026,,federal,US President,,,*,"BELL, WILLIAM",CIT,,challenger,not_yet_statut
 US,2026,,federal,US President,,,*,"BRISSON, JAMES M MR",DEM,,challenger,not_yet_statutory_candidate,fec,P60023991
 US,2026,,federal,US President,,,*,"CHAMBLEE, JOHNATHAN TROY MR.",DNC,,challenger,not_yet_statutory_candidate,fec,P60024593
 US,2026,,federal,US President,,,*,"CHESTNUT, KING JAMALL",REP,,,not_yet_statutory_candidate,fec,P40008542
+US,2026,,federal,US President,,,*,"CRENSHAW, JAMILL",REP,,,not_yet_statutory_candidate,fec,P60024825
 US,2026,,federal,US President,,,*,"ELLSWORTH, BARRY MR.",DEM,,challenger,not_yet_statutory_candidate,fec,P60024601
 US,2026,,federal,US President,,,*,"FOX, CHERUNDA LYNN",IND,,,not_yet_statutory_candidate,fec,P60005303
 US,2026,,federal,US President,,,*,"FOX, JIMMY LEE MR.",DEM,,challenger,not_yet_statutory_candidate,fec,P60023751
@@ -4408,15 +4409,15 @@ VA,2026,,federal,US Senate,,,*,"SOLOMON, GAVIN",REP,,challenger,not_yet_statutor
 VA,2026,,federal,US Senate,,,*,"SOLOMON, GAVIN",W,,,not_yet_statutory_candidate,fec,S6VA00267
 VA,2026,,federal,US Senate,,,*,"WARNER, MARK ROBERT",DEM,,incumbent,statutory_candidate,fec,S6VA00093
 VA,2026,,federal,US Senate,,,*,"WILLIAMS, DAVID EARL MR.",REP,,challenger,statutory_candidate,fec,S6VA00200
-VI,2026,,federal,US House,00,,*,"FRANCIS, RASHIDA",DEM,,challenger,not_yet_statutory_candidate,fec,H6VI01081
-VI,2026,,federal,US House,00,,*,"GIUSTO, ANDREW",REP,,challenger,not_yet_statutory_candidate,fec,H6VI01032
-VI,2026,,federal,US House,00,,*,"HANSEN, EMMETT II",DEM,,challenger,not_yet_statutory_candidate,fec,H4VI00138
-VI,2026,,federal,US House,00,,*,"HELENESE, NICOLE TERI ANN",DEM,,challenger,statutory_candidate,fec,H6VI01057
-VI,2026,,federal,US House,00,,*,"MOORHEAD, SHELLEY A.H.",IND,,challenger,not_yet_statutory_candidate,fec,H6VI00075
-VI,2026,,federal,US House,00,,*,"PLASKETT, STACEY",DEM,,incumbent,statutory_candidate,fec,H2VI00082
-VI,2026,,federal,US House,00,,*,"SARAUW, JANELLE KAREN",IND,,challenger,statutory_candidate,fec,H6VI01065
-VI,2026,,federal,US House,00,,*,"SMITH, DELIA LAVERNE MRS.",DEM,,challenger,statutory_candidate,fec,H6VI01073
-VI,2026,,federal,US House,00,,*,"SMITH, IDA",IND,,challenger,not_yet_statutory_candidate,fec,H4VI00153
+VI,2026,,federal,US House Delegate,00,,*,"FRANCIS, RASHIDA",DEM,,challenger,not_yet_statutory_candidate,fec,H6VI01081
+VI,2026,,federal,US House Delegate,00,,*,"GIUSTO, ANDREW",REP,,challenger,not_yet_statutory_candidate,fec,H6VI01032
+VI,2026,,federal,US House Delegate,00,,*,"HANSEN, EMMETT II",DEM,,challenger,not_yet_statutory_candidate,fec,H4VI00138
+VI,2026,,federal,US House Delegate,00,,*,"HELENESE, NICOLE TERI ANN",DEM,,challenger,statutory_candidate,fec,H6VI01057
+VI,2026,,federal,US House Delegate,00,,*,"MOORHEAD, SHELLEY A.H.",IND,,challenger,not_yet_statutory_candidate,fec,H6VI00075
+VI,2026,,federal,US House Delegate,00,,*,"PLASKETT, STACEY",DEM,,incumbent,statutory_candidate,fec,H2VI00082
+VI,2026,,federal,US House Delegate,00,,*,"SARAUW, JANELLE KAREN",IND,,challenger,statutory_candidate,fec,H6VI01065
+VI,2026,,federal,US House Delegate,00,,*,"SMITH, DELIA LAVERNE MRS.",DEM,,challenger,statutory_candidate,fec,H6VI01073
+VI,2026,,federal,US House Delegate,00,,*,"SMITH, IDA",IND,,challenger,not_yet_statutory_candidate,fec,H4VI00153
 VT,2026,,federal,US House,00,,*,"BALINT, REBECCA 'BECCA'",DEM,,incumbent,statutory_candidate,fec,H2VT01076
 VT,2026,,federal,US House,00,,*,"COESTER, C. MARK MR",REP,,challenger,statutory_candidate,fec,H4VT01056
 VT,2026,,federal,US House,00,,*,"GIUSTO, ANDREWS",UNI,,challenger,not_yet_statutory_candidate,fec,H6VT01051

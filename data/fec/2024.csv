@@ -75,10 +75,10 @@ AR,2024,,federal,US House,03,,BENTON;CARROLL;CRAWFORD;MADISON;SEBASTIAN;WASHINGT
 AR,2024,,federal,US House,04,,ASHLEY;BRADLEY;CALHOUN;CLARK;CLEVELAND;COLUMBIA;DALLAS;DREW;FRANKLIN;GARLAND;GRANT;HEMPSTEAD;HOT SPRING;HOWARD;JEFFERSON;JOHNSON;LAFAYETTE;LITTLE RIVER;LOGAN;MILLER;MONTGOMERY;NEVADA;NEWTON;OUACHITA;PIKE;POLK;POPE;PULASKI;SCOTT;SEBASTIAN;SEVIER;UNION;YELL,"HOWARD, RISI",DEM,,challenger,statutory_candidate,fec,H4AR04089
 AR,2024,,federal,US House,04,,ASHLEY;BRADLEY;CALHOUN;CLARK;CLEVELAND;COLUMBIA;DALLAS;DREW;FRANKLIN;GARLAND;GRANT;HEMPSTEAD;HOT SPRING;HOWARD;JEFFERSON;JOHNSON;LAFAYETTE;LITTLE RIVER;LOGAN;MILLER;MONTGOMERY;NEVADA;NEWTON;OUACHITA;PIKE;POLK;POPE;PULASKI;SCOTT;SEBASTIAN;SEVIER;UNION;YELL,"WESTERMAN, BRUCE",REP,,incumbent,statutory_candidate,fec,H4AR04048
 AR,2024,,federal,US Senate,,,*,"KASPARIAN, ANA",PRO,,challenger,not_yet_statutory_candidate,fec,S4AR00145
-AS,2024,,federal,US House,00,,*,"AMATA, AUMUA",REP,,incumbent,statutory_candidate,fec,H4AS00036
-AS,2024,,federal,US House,00,,*,"KUAEA, LOUISE LEALAI MRS.",DEM,,challenger,statutory_candidate,fec,H4AS01018
-AS,2024,,federal,US House,00,,*,"LANCASTER, ROSIE TAGO",NPA,,challenger,not_yet_statutory_candidate,fec,H8AS00052
-AS,2024,,federal,US House,00,,*,"SUITONU-CHAPMAN, MELEAGI",NPA,,challenger,not_yet_statutory_candidate,fec,H4AS00093
+AS,2024,,federal,US House Delegate,00,,*,"AMATA, AUMUA",REP,,incumbent,statutory_candidate,fec,H4AS00036
+AS,2024,,federal,US House Delegate,00,,*,"KUAEA, LOUISE LEALAI MRS.",DEM,,challenger,statutory_candidate,fec,H4AS01018
+AS,2024,,federal,US House Delegate,00,,*,"LANCASTER, ROSIE TAGO",NPA,,challenger,not_yet_statutory_candidate,fec,H8AS00052
+AS,2024,,federal,US House Delegate,00,,*,"SUITONU-CHAPMAN, MELEAGI",NPA,,challenger,not_yet_statutory_candidate,fec,H4AS00093
 AZ,2023,,federal,US House,01,,MARICOPA,"BECKSTROM, BRYCE",UN,,challenger,not_yet_statutory_candidate,fec,H4AZ01277
 AZ,2024,,federal,US House,01,,MARICOPA,"BACKIE, ROBERT",REP,,challenger,statutory_candidate,fec,H4AZ01335
 AZ,2024,,federal,US House,01,,MARICOPA,"BURTON, PAUL THOMAS",REP,,challenger,not_yet_statutory_candidate,fec,H4AZ01236
@@ -738,13 +738,13 @@ CT,2024,,federal,US Senate,,,*,"KRAWIECKI, ROBERT J",REP,,challenger,not_yet_sta
 CT,2024,,federal,US Senate,,,*,"MURPHY, CHRISTOPHER S",DEM,,incumbent,statutory_candidate,fec,S2CT00132
 CT,2024,,federal,US Senate,,,*,"PAGLINO, JUSTIN COBB DR",GRE,,challenger,statutory_candidate,fec,S4CT00195
 CT,2024,,federal,US Senate,,,*,"SMITH, GERARD",REP,,challenger,statutory_candidate,fec,S4CT00179
-DC,2024,,federal,US House,00,,*,"A BROWN, MICHAEL",IND,,challenger,statutory_candidate,fec,H4DC01033
-DC,2024,,federal,US House,00,,*,"ALEXANDER, MYRTLE PATRICIA DR.",REP,,challenger,not_yet_statutory_candidate,fec,H4DC01025
-DC,2024,,federal,US House,00,,*,"FREEMAN, KYMONE",OTH,,challenger,not_yet_statutory_candidate,fec,H4DC00100
-DC,2024,,federal,US House,00,,*,"MALONE, JOAN F M",REP,,challenger,not_yet_statutory_candidate,fec,H0DC00165
-DC,2024,,federal,US House,00,,*,"NORTON, ELEANOR HOLMES",DEM,,incumbent,statutory_candidate,fec,H0DC00058
-DC,2024,,federal,US House,00,,*,"WATTS, HELCHIC KOTON",OTH,,challenger,not_yet_statutory_candidate,fec,H4DC00118
-DC,2024,,federal,US House,00,,*,"WILLIAMS, KELLY",DEM,,challenger,statutory_candidate,fec,H2DC01029
+DC,2024,,federal,US House Delegate,00,,*,"A BROWN, MICHAEL",IND,,challenger,statutory_candidate,fec,H4DC01033
+DC,2024,,federal,US House Delegate,00,,*,"ALEXANDER, MYRTLE PATRICIA DR.",REP,,challenger,not_yet_statutory_candidate,fec,H4DC01025
+DC,2024,,federal,US House Delegate,00,,*,"FREEMAN, KYMONE",OTH,,challenger,not_yet_statutory_candidate,fec,H4DC00100
+DC,2024,,federal,US House Delegate,00,,*,"MALONE, JOAN F M",REP,,challenger,not_yet_statutory_candidate,fec,H0DC00165
+DC,2024,,federal,US House Delegate,00,,*,"NORTON, ELEANOR HOLMES",DEM,,incumbent,statutory_candidate,fec,H0DC00058
+DC,2024,,federal,US House Delegate,00,,*,"WATTS, HELCHIC KOTON",OTH,,challenger,not_yet_statutory_candidate,fec,H4DC00118
+DC,2024,,federal,US House Delegate,00,,*,"WILLIAMS, KELLY",DEM,,challenger,statutory_candidate,fec,H2DC01029
 DC,2024,,federal,US Senate,,,*,"BRANNUM, ROBERT VINSON",DEM,,challenger,not_yet_statutory_candidate,fec,S4DC00050
 DC,2024,,federal,US Senate,,,*,"DEAN, BRANDAUN LEFRED MAYOR",DEM,,challenger,not_yet_statutory_candidate,fec,S4DC00035
 DE,2023,,federal,US Senate,,,*,"BROWN, PAMELA MS.",DEM,,challenger,not_yet_statutory_candidate,fec,S4DE00110
@@ -1097,10 +1097,10 @@ GA,2024,,federal,US Senate,,,*,"BALENO, IRENE STEPHANIE",W,,challenger,not_yet_s
 GA,2024,,federal,US Senate,,,*,"BRANHAM, COURTNEY",NNE,,challenger,not_yet_statutory_candidate,fec,S4GA11368
 GA,2024,,federal,US Senate,,,*,"CAPPARELL, CHRIS",DEM,,challenger,not_yet_statutory_candidate,fec,S4GA11384
 GA,2024,,federal,US Senate,,,*,"CAPPARELL, CHRIS",REP,,challenger,not_yet_statutory_candidate,fec,S4GA11426
-GU,2024,,federal,US House,00,,*,"CRUZ, GINGER",DEM,,challenger,statutory_candidate,fec,H4GU01029
-GU,2024,,federal,US House,00,,*,"MOYLAN, JAMES C.",REP,,incumbent,statutory_candidate,fec,H2GU01031
-GU,2024,,federal,US House,00,,*,"SAN NICOLAS, MICHAEL F.Q. MR.",DEM,,challenger,statutory_candidate,fec,H8GU01020
-GU,2024,,federal,US House,00,,*,"SHELTON, AMANDA LEE",DEM,,challenger,statutory_candidate,fec,H4GU01011
+GU,2024,,federal,US House Delegate,00,,*,"CRUZ, GINGER",DEM,,challenger,statutory_candidate,fec,H4GU01029
+GU,2024,,federal,US House Delegate,00,,*,"MOYLAN, JAMES C.",REP,,incumbent,statutory_candidate,fec,H2GU01031
+GU,2024,,federal,US House Delegate,00,,*,"SAN NICOLAS, MICHAEL F.Q. MR.",DEM,,challenger,statutory_candidate,fec,H8GU01020
+GU,2024,,federal,US House Delegate,00,,*,"SHELTON, AMANDA LEE",DEM,,challenger,statutory_candidate,fec,H4GU01011
 HI,2024,,federal,US House,01,,HONOLULU,"CASE, EDWARD",DEM,,incumbent,statutory_candidate,fec,H2HI02128
 HI,2024,,federal,US House,01,,HONOLULU,"GRIFFIN, CALVIN",OTH,,challenger,not_yet_statutory_candidate,fec,H4HI01183
 HI,2024,,federal,US House,01,,HONOLULU,"HALE, CECIL R.",DEM,,challenger,not_yet_statutory_candidate,fec,H4HI01217
@@ -1923,12 +1923,12 @@ MO,2024,,federal,US Senate,,,*,"MAY, KARLA",DEM,,challenger,statutory_candidate,
 MO,2024,,federal,US Senate,,,*,NATHAN KLINE,GRE,,,not_yet_statutory_candidate,fec,S4MO00318
 MO,2024,,federal,US Senate,,,*,"YOUNG, JARED",IND,,challenger,statutory_candidate,fec,S4MO00284
 MO,2024,,federal,US Senate,,,*,"YOUNG, W. C.",LIB,,challenger,not_yet_statutory_candidate,fec,S4MO00300
-MP,2024,,federal,US House,00,,*,"GONZALES, JOHN OLIVER DELOS REYES",IND,,challenger,statutory_candidate,fec,H8MP00033
-MP,2024,,federal,US House,00,,*,"HOFSCHNEIDER, LIANA SABLAN",IND,,challenger,not_yet_statutory_candidate,fec,H4MP00024
-MP,2024,,federal,US House,00,,*,"RAYPHAND, JAMES MICHAEL",IND,,challenger,not_yet_statutory_candidate,fec,H4MP00032
-MP,2024,,federal,US House,00,,*,"SABLAN, GREGORIO KILILI CAMACHO REP.",DEM,,incumbent,not_yet_statutory_candidate,fec,H8MP00041
-MP,2024,,federal,US House,01,,,"KING-HINDS, KIMBERLYN KAY",REP,,challenger,statutory_candidate,fec,H4MP01022
-MP,2024,,federal,US House,01,,,"PROPST, EDWIN KENNETH",DEM,,challenger,statutory_candidate,fec,H4MP01048
+MP,2024,,federal,US House Delegate,00,,*,"GONZALES, JOHN OLIVER DELOS REYES",IND,,challenger,statutory_candidate,fec,H8MP00033
+MP,2024,,federal,US House Delegate,00,,*,"HOFSCHNEIDER, LIANA SABLAN",IND,,challenger,not_yet_statutory_candidate,fec,H4MP00024
+MP,2024,,federal,US House Delegate,00,,*,"KING-HINDS, KIMBERLYN KAY",REP,,challenger,statutory_candidate,fec,H4MP01022
+MP,2024,,federal,US House Delegate,00,,*,"PROPST, EDWIN KENNETH",DEM,,challenger,statutory_candidate,fec,H4MP01048
+MP,2024,,federal,US House Delegate,00,,*,"RAYPHAND, JAMES MICHAEL",IND,,challenger,not_yet_statutory_candidate,fec,H4MP00032
+MP,2024,,federal,US House Delegate,00,,*,"SABLAN, GREGORIO KILILI CAMACHO REP.",DEM,,incumbent,not_yet_statutory_candidate,fec,H8MP00041
 MS,2024,,federal,US House,01,,ALCORN;BENTON;CALHOUN;CHICKASAW;CHOCTAW;CLAY;DESOTO;ITAWAMBA;LAFAYETTE;LEE;LOWNDES;MARSHALL;MONROE;OKTIBBEHA;PONTOTOC;PRENTISS;TATE;TIPPAH;TISHOMINGO;UNION;WEBSTER,"BLACK, DIANNE DODSON",DEM,,challenger,statutory_candidate,fec,H2MS01148
 MS,2024,,federal,US House,01,,ALCORN;BENTON;CALHOUN;CHICKASAW;CHOCTAW;CLAY;DESOTO;ITAWAMBA;LAFAYETTE;LEE;LOWNDES;MARSHALL;MONROE;OKTIBBEHA;PONTOTOC;PRENTISS;TATE;TIPPAH;TISHOMINGO;UNION;WEBSTER,"KELLY, JOHN TRENT",REP,,incumbent,statutory_candidate,fec,H6MS01131
 MS,2024,,federal,US House,01,,ALCORN;BENTON;CALHOUN;CHICKASAW;CHOCTAW;CLAY;DESOTO;ITAWAMBA;LAFAYETTE;LEE;LOWNDES;MARSHALL;MONROE;OKTIBBEHA;PONTOTOC;PRENTISS;TATE;TIPPAH;TISHOMINGO;UNION;WEBSTER,"WILLIAMS, MATTHEW (BRONCO)",DEM,,challenger,not_yet_statutory_candidate,fec,H4MS01136
@@ -2857,17 +2857,17 @@ PA,2024,,federal,US Senate,,,*,"TOMASETTI, BRANDI",REP,,challenger,not_yet_statu
 PA,2024,,federal,US Senate,,,*,"VODVARKA, JOSEPH JOHN",REP,,challenger,statutory_candidate,fec,S4PA00196
 PA,2024,,federal,US Senate,,,*,"WIDMANN, CORY JAMES",REP,,challenger,not_yet_statutory_candidate,fec,S4PA00261
 PA,2024,,federal,US Senate,,,*,"WRIGHT-MCDONALD, REECE MASTER",IND,,challenger,not_yet_statutory_candidate,fec,S4PA00253
-PR,2024,,federal,US House,00,,*,"CRUZ VELEZ, EDGARDO",NON,,challenger,not_yet_statutory_candidate,fec,H4PR01085
-PR,2024,,federal,US House,00,,*,"GONZALEZ COLON, JENNIFFER",PNP,,incumbent,statutory_candidate,fec,H6PR00082
-PR,2024,,federal,US House,00,,*,"HERNANDEZ RIVERA, PABLO JOSE",DEM,,challenger,statutory_candidate,fec,H4PR01010
-PR,2024,,federal,US House,00,,*,"MELENDEZ, JOSE E",REP,,challenger,statutory_candidate,fec,H4PR01036
-PR,2024,,federal,US House,00,,*,"RAMIREZ MORALES, VIVIANA",REP,,challenger,not_yet_statutory_candidate,fec,H4PR01077
-PR,2024,,federal,US House,00,,*,"RAMIREZ-FORT, MARIGDALIA KALETH DR.",NPP,,challenger,not_yet_statutory_candidate,fec,H4PR01028
-PR,2024,,federal,US House,00,,*,"RIVERA-LASSEN, ANA IRMA",DEM,,challenger,statutory_candidate,fec,H4PR01069
-PR,2024,,federal,US House,00,,*,"ROMAN, ELMER LUIS",NPP,,challenger,statutory_candidate,fec,H4PR01051
-PR,2024,,federal,US House,00,,*,"SOTIRIOU DROZ, MELIN ARGYRO",DEM,,challenger,not_yet_statutory_candidate,fec,H4PR01044
-PR,2024,,federal,US House,00,,*,"VELAZQUEZ CORREA, ROBERTO KARLO",OTH,,challenger,not_yet_statutory_candidate,fec,H4PR00111
-PR,2024,,federal,US House,00,,*,"VILLAFANE RAMOS, WILLIAM ELY",NPP,,challenger,statutory_candidate,fec,H4PR00103
+PR,2024,,federal,US House Resident Commissioner,00,,*,"CRUZ VELEZ, EDGARDO",NON,,challenger,not_yet_statutory_candidate,fec,H4PR01085
+PR,2024,,federal,US House Resident Commissioner,00,,*,"GONZALEZ COLON, JENNIFFER",PNP,,incumbent,statutory_candidate,fec,H6PR00082
+PR,2024,,federal,US House Resident Commissioner,00,,*,"HERNANDEZ RIVERA, PABLO JOSE",DEM,,challenger,statutory_candidate,fec,H4PR01010
+PR,2024,,federal,US House Resident Commissioner,00,,*,"MELENDEZ, JOSE E",REP,,challenger,statutory_candidate,fec,H4PR01036
+PR,2024,,federal,US House Resident Commissioner,00,,*,"RAMIREZ MORALES, VIVIANA",REP,,challenger,not_yet_statutory_candidate,fec,H4PR01077
+PR,2024,,federal,US House Resident Commissioner,00,,*,"RAMIREZ-FORT, MARIGDALIA KALETH DR.",NPP,,challenger,not_yet_statutory_candidate,fec,H4PR01028
+PR,2024,,federal,US House Resident Commissioner,00,,*,"RIVERA-LASSEN, ANA IRMA",DEM,,challenger,statutory_candidate,fec,H4PR01069
+PR,2024,,federal,US House Resident Commissioner,00,,*,"ROMAN, ELMER LUIS",NPP,,challenger,statutory_candidate,fec,H4PR01051
+PR,2024,,federal,US House Resident Commissioner,00,,*,"SOTIRIOU DROZ, MELIN ARGYRO",DEM,,challenger,not_yet_statutory_candidate,fec,H4PR01044
+PR,2024,,federal,US House Resident Commissioner,00,,*,"VELAZQUEZ CORREA, ROBERTO KARLO",OTH,,challenger,not_yet_statutory_candidate,fec,H4PR00111
+PR,2024,,federal,US House Resident Commissioner,00,,*,"VILLAFANE RAMOS, WILLIAM ELY",NPP,,challenger,statutory_candidate,fec,H4PR00103
 RI,2023,,federal,US House,01,,BRISTOL;NEWPORT;PROVIDENCE,"ABNEY, MARVIN L.",DEM,,open_seat,statutory_candidate,fec,H4RI01281
 RI,2023,,federal,US House,01,,BRISTOL;NEWPORT;PROVIDENCE,"AUTIELLO, NICHOLAS",DEM,,open_seat,statutory_candidate,fec,H4RI01190
 RI,2023,,federal,US House,01,,BRISTOL;NEWPORT;PROVIDENCE,"BARNES, MICKEDA SEBASTIANA",DEM,,open_seat,not_yet_statutory_candidate,fec,H4RI01158
@@ -5097,9 +5097,9 @@ VA,2024,,federal,US Senate,,,*,"VITIELLO, RON",REP,,challenger,statutory_candida
 VA,2024,,federal,US Senate,,,*,"WALLACE, TJ",DEM,,challenger,not_yet_statutory_candidate,fec,S4VA00288
 VA,2024,,federal,US Senate,,,*,"WALLACE, TJ",REP,,challenger,not_yet_statutory_candidate,fec,S4VA00304
 VA,2024,,federal,US Senate,,,*,"XIONG, TIGER DR.",IND,,challenger,not_yet_statutory_candidate,fec,S4VA00270
-VI,2024,,federal,US House,00,,*,"PICKARD, RONALD",REP,,challenger,statutory_candidate,fec,H4VI01011
-VI,2024,,federal,US House,00,,*,"PLASKETT, STACEY",DEM,,incumbent,statutory_candidate,fec,H2VI00082
-VI,2024,,federal,US House,00,,*,"SMITH, IDA",IND,,challenger,not_yet_statutory_candidate,fec,H4VI00153
+VI,2024,,federal,US House Delegate,00,,*,"PICKARD, RONALD",REP,,challenger,statutory_candidate,fec,H4VI01011
+VI,2024,,federal,US House Delegate,00,,*,"PLASKETT, STACEY",DEM,,incumbent,statutory_candidate,fec,H2VI00082
+VI,2024,,federal,US House Delegate,00,,*,"SMITH, IDA",IND,,challenger,not_yet_statutory_candidate,fec,H4VI00153
 VT,2024,,federal,US House,00,,*,"BALINT, REBECCA 'BECCA'",DEM,,incumbent,statutory_candidate,fec,H2VT01076
 VT,2024,,federal,US House,00,,*,"COESTER, C. MARK MR",REP,,challenger,statutory_candidate,fec,H4VT01056
 VT,2024,,federal,US House,00,,*,"DIAMONDSTONE, JILL ""JESSY""",OTH,,challenger,not_yet_statutory_candidate,fec,H4VT00132
