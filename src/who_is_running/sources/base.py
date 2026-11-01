@@ -60,3 +60,12 @@ class Source(ABC):
         Written beside the results as ``data/results/<source>/<year>.json``.
         """
         return {}
+
+    def kept_states(self, year: int) -> set[str]:
+        """States this run couldn't read, though they may have data. Called after
+        ``candidacies`` and again after ``results``.
+
+        The pipeline keeps their rows (and results status) from the files it's
+        replacing, so one state's outage doesn't drop it from the site.
+        """
+        return set()

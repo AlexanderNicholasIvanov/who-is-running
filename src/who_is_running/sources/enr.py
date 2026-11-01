@@ -16,6 +16,11 @@ The results are unofficial and change all night (and for weeks of canvassing),
 so the map labels them as such, and certified MEDSL results replace them once
 they exist (see ``build_site.build_results``).
 
+A state whose file can't be read (the site is down or mid-update, or it turns
+away the machine asking: Clarity answers GitHub's runners with an empty page)
+is skipped with a warning, and the pipeline keeps that state's rows from the
+previous run (``kept_states``). The other states still update.
+
 The same files list every contest on the state's ballot before any votes are
 counted, so they double as candidate lists: state, legislative, judicial and
 the local races the state's site carries (``candidacies``). Federal races are
@@ -167,6 +172,7 @@ class EnrSource(Source):
         self._status: dict[int, dict[str, Any]] = {}
         self._counties: dict[str, tuple[str, str]] | None = None
         self._feeds: dict[tuple[int, str], tuple[str, str] | None] = {}
+        self._unread: dict[int, set[str]] = {}
 
     def available_years(self) -> list[int]:
         return sorted(FEEDS)
@@ -209,6 +215,9 @@ class EnrSource(Source):
     def results_status(self, year: int) -> dict[str, Any]:
         return self._status.get(year, {})
 
+    def kept_states(self, year: int) -> set[str]:
+        return self._unread.get(year, set())
+
     def _state_results(
         self, year: int, state: str, feed: Feed
     ) -> tuple[list[CountyResult], dict[str, Any]] | None:
@@ -232,6 +241,22 @@ class EnrSource(Source):
         return self._feeds[year, state]
 
     def _download(self, year: int, state: str, feed: Feed) -> tuple[str, str] | None:
+        try:
+            return self._try_download(year, state, feed)
+        except (OSError, ValueError, KeyError, NotFound, zipfile.BadZipFile) as err:
+            # Down, mid-update, or turning this machine away: keep the state's
+            # previous rows rather than dropping it from the map, and go on
+            # with the other states.
+            log.warning(
+                "enr: couldn't read %s's file (%s: %s); keeping its previous rows",
+                state,
+                type(err).__name__,
+                str(err)[:200],
+            )
+            self._unread.setdefault(year, set()).add(state)
+            return None
+
+    def _try_download(self, year: int, state: str, feed: Feed) -> tuple[str, str] | None:
         if feed.kind != "clarity":
             try:
                 return decode(self._get(feed.site)), feed.site
@@ -247,9 +272,9 @@ class EnrSource(Source):
         except NotFound:
             log.warning("enr: %s election %s not found", state, eid)
             return None
-        # Missing or broken files past this point mean the site is mid-update:
-        # let the error through so the previous file is kept, rather than
-        # dropping the state from the map until the next run.
+        if not version.isdigit():
+            # Clarity's bot check answers 202 with an empty page.
+            raise ValueError(f"current_ver.txt is {version[:40]!r}, not a version number")
         archive = self._get(f"{feed.site}/{eid}/{version}/reports/detailxml.zip")
         with zipfile.ZipFile(io.BytesIO(archive)) as zf:
             return decode(zf.read("detail.xml")), f"{feed.site}/{eid}/"
