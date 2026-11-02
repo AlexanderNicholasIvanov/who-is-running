@@ -197,13 +197,68 @@ def test_unlisted_election_is_skipped(monkeypatch: pytest.MonkeyPatch) -> None:
     assert not any("current_ver" in url for url in web.requested)
 
 
-def test_missing_report_mid_update_keeps_the_previous_file(monkeypatch: pytest.MonkeyPatch) -> None:
+MN_2024 = "https://electionresultsfiles.sos.mn.gov/20241105/allracesbycounty.txt"
+
+
+def _state_lines(path: Path, state: str) -> list[str]:
+    return [s for s in path.read_text(encoding="utf-8").splitlines() if s.startswith(f"{state},")]
+
+
+@pytest.mark.parametrize(
+    "route, body",
+    [
+        # Clarity turning a GitHub runner away: 202 with an empty page.
+        ("/IA/127077/current_ver.txt", b""),
+        # Mid-update: the version is published before its report.
+        ("/IA/127077/382865/reports/detailxml.zip", None),
+        ("/IA/127077/382865/reports/detailxml.zip", b"<html>busy</html>"),
+    ],
+)
+def test_unreadable_state_keeps_its_previous_rows_and_the_rest_update(
+    route: str, body: bytes | None, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    feeds = {"IA": Feed(f"{enr.CLARITY}/IA", "127077"), "MN": Feed(MN_2024, kind="minnesota")}
+    monkeypatch.setattr(enr, "FEEDS", {2026: feeds})
+    # A run that could read Iowa: its candidates, and the 2024 counts as if 2026's.
+    good = _web(fixture_bytes("enr_ia_2026.xml"))
+    run(EnrSource(good), [2026], tmp_path)
+    good.routes["/IA/127077/382865/reports/detailxml.zip"] = _zip(fixture_bytes("enr_ia_2024.xml"))
+    run(EnrSource(good), [2026], tmp_path)
+    ia_candidates = _state_lines(tmp_path / "enr" / "2026.csv", "IA")
+    results = results_path(tmp_path, "enr", 2026)
+    ia_results = _state_lines(results, "IA")
+    ia_status = json.loads(results.with_suffix(".json").read_text(encoding="utf-8"))["IA"]
+
+    # Then one that can't, while Minnesota's file is up.
+    bad = _web(fixture_bytes("enr_ia_2024.xml"))
+    bad.routes[MN_2024] = fixture_bytes("enr_mn_2024.txt")
+    if body is None:
+        del bad.routes[route]
+    else:
+        bad.routes[route] = body
+    source = EnrSource(bad)
+    run(source, [2026], tmp_path)
+
+    assert source.kept_states(2026) == {"IA"}
+    assert ia_candidates and _state_lines(tmp_path / "enr" / "2026.csv", "IA") == ia_candidates
+    assert _state_lines(tmp_path / "enr" / "2026.csv", "MN")
+    assert ia_results and _state_lines(results, "IA") == ia_results
+    assert _state_lines(results, "MN")
+    status = json.loads(results.with_suffix(".json").read_text(encoding="utf-8"))
+    assert status["IA"] == ia_status
+    assert status["MN"]["url"] == MN_2024
+
+
+def test_unreadable_state_with_nothing_to_keep_is_left_out(monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.setattr(enr, "FEEDS", {2026: {"IA": Feed(f"{enr.CLARITY}/IA", "127077")}})
     web = _web(b"")
-    del web.routes["/IA/127077/382865/reports/detailxml.zip"]
+    web.routes["/IA/127077/current_ver.txt"] = b""
+    source = EnrSource(web)
 
-    with pytest.raises(Exception, match="detailxml"):
-        EnrSource(web).results(2026)
+    assert source.candidacies(2026) == []
+    assert source.results(2026) == []
+    assert source.kept_states(2026) == {"IA"}
+    assert not any("detailxml" in url for url in web.requested)
 
 
 def test_refresh_years_cover_the_candidates_and_the_canvass() -> None:
