@@ -103,12 +103,15 @@ Where a state also held a runoff or primary for a statewide race, an **Election*
 - MEDSL's precinct files can differ slightly from certified totals (2020 president: within 0.01% nationally). 2020 has no Indiana (see the MEDSL caveat above), so the map hatches it as having no results. In 2016, New Hampshire's city wards have no county in MEDSL's file, so each city's wards are filed under the county the city lies in, and Vermont's presidential lines have no party, so Clinton and Trump are given theirs. A race whose file gives no district but where no candidate got votes in at least 90% of the counties it was on the ballot in (2016's State House in New Hampshire and Vermont, Maryland 2018's circuit court clerks) is really a set of district races, so it isn't mapped. There are no results before 2016. For 2026, election-night results from the `enr` source show for the states it covers, labelled unofficial, with the share of precincts reporting and when the state last updated them; each county's tooltip gives its precincts reporting. When MEDSL publishes certified 2026 results, they replace the live ones state by state.
 - Shapes come from [us-atlas](https://github.com/topojson/us-atlas) (Census Bureau 1:10M boundaries, ISC license). `who-is-running build-geo` regenerates `web/geo/` from it.
 
-Preview locally:
+### Run it on your computer
 
-```sh
-uv run who-is-running build-site --out _site
-python -m http.server 8000 --directory _site   # then open http://localhost:8000
-```
+You need [uv](https://docs.astral.sh/uv/). Then:
+
+- **Windows:** double-click `run-site.cmd`.
+- **macOS / Linux:** run `./run-site.sh`.
+- **Any system:** run `uv run who-is-running serve`.
+
+Each of these builds the site from `data/` into `_site/`, serves it at http://localhost:8000 and opens it in your browser. If port 8000 is taken, another free port is used. Only this computer can open it. Keep the window open while you use the site; press Ctrl+C or close the window to stop. `git pull` first to get the latest data the daily refresh committed. Options (`--port`, `--no-browser`, `--no-build`) work with the launchers too, e.g. `run-site.cmd --port 9000`.
 
 ## Adding a source
 

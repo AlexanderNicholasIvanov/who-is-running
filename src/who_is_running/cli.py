@@ -1,4 +1,4 @@
-"""Command-line entry point: ``who-is-running fetch|sources|build-site|build-geo``."""
+"""Command-line entry point: ``who-is-running fetch|sources|build-site|serve|build-geo``."""
 
 from __future__ import annotations
 
@@ -8,7 +8,7 @@ import sys
 from datetime import date
 from pathlib import Path
 
-from who_is_running import geo
+from who_is_running import geo, serve
 from who_is_running.build_site import build
 from who_is_running.http import http_get
 from who_is_running.pipeline import run
@@ -48,6 +48,14 @@ def main(argv: list[str] | None = None) -> int:
     site.add_argument("--web-dir", type=Path, default=Path("web"))
     site.add_argument("--out", type=Path, default=Path("_site"))
 
+    show = sub.add_parser("serve", help="build the website and open it in a browser")
+    show.add_argument("--data-dir", type=Path, default=Path("data"))
+    show.add_argument("--web-dir", type=Path, default=Path("web"))
+    show.add_argument("--out", type=Path, default=Path("_site"))
+    show.add_argument("--port", type=int, default=serve.PORT)
+    show.add_argument("--no-build", action="store_true", help="serve the last build as it is")
+    show.add_argument("--no-browser", action="store_true", help="don't open a browser")
+
     shapes = sub.add_parser("build-geo", help="regenerate the map's state and county shapes")
     shapes.add_argument("--out", type=Path, default=Path("web/geo"))
 
@@ -59,10 +67,19 @@ def main(argv: list[str] | None = None) -> int:
             print(f"{name:8} {cls.description}")
         return 0
 
-    if args.command == "build-site":
+    if args.command == "build-site" or (args.command == "serve" and not args.no_build):
         manifest = build(args.data_dir, args.web_dir, args.out)
         rows = sum(f["rows"] for f in manifest["files"])
         logging.info("built %s: %d files, %d rows", args.out, len(manifest["files"]), rows)
+
+    if args.command == "serve":
+        if not (args.out / "index.html").exists():
+            logging.error("%s has no site in it; run without --no-build", args.out)
+            return 1
+        serve.serve(args.out, args.port, open_browser=not args.no_browser)
+        return 0
+
+    if args.command == "build-site":
         return 0
 
     if args.command == "build-geo":
