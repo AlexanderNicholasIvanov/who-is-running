@@ -4,3 +4,5 @@
 *.xls binary
 # Ranked-choice report fixtures kept byte for byte (one is UTF-16).
 tests/fixtures/rcv_*.txt binary
+# cmd.exe misreads batch files with LF line endings.
+*.cmd text eol=crlf
