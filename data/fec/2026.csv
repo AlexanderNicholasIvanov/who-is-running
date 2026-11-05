@@ -454,7 +454,7 @@ CA,2026,,federal,US House,30,,,"REEVES, DARRELL MR.",DEM,,challenger,not_yet_sta
 CA,2026,,federal,US House,30,,,"STARZINSKI, ALAN MICHAEL MR JR",DEM,,challenger,not_yet_statutory_candidate,fec,H6CA30227
 CA,2026,,federal,US House,30,,,"TENNYSON, CAMERON",DEM,,challenger,statutory_candidate,fec,H6CA30268
 CA,2026,,federal,US House,31,,,"CHING, ERIC J",REP,,challenger,statutory_candidate,fec,H2CA39151
-CA,2026,,federal,US House,31,,,"CISNEROS, GILBERT",DEM,,challenger,statutory_candidate,fec,H8CA39174
+CA,2026,,federal,US House,31,,,"CISNEROS, GILBERT",DEM,,incumbent,statutory_candidate,fec,H8CA39174
 CA,2026,,federal,US House,31,,,"LEVI, ERSKINE LINCOLN MR JR",REP,,challenger,not_yet_statutory_candidate,fec,H4CA31196
 CA,2026,,federal,US House,32,,,"AHUJA, CHRISTOPHER",DEM,,challenger,statutory_candidate,fec,H4CA32145
 CA,2026,,federal,US House,32,,,"BENAMI, DORY",DEM,,challenger,statutory_candidate,fec,H6CA32215
@@ -871,7 +871,7 @@ FL,2026,,federal,US House,01,,,"FRANKMAN, JOHN",REP,,challenger,statutory_candid
 FL,2026,,federal,US House,01,,,"HAFNER, ERIC",REP,,challenger,not_yet_statutory_candidate,fec,H6FL01424
 FL,2026,,federal,US House,01,,,"KEEBAUGH, CHARLES CLAYTON",REP,,challenger,not_yet_statutory_candidate,fec,H6FL01333
 FL,2026,,federal,US House,01,,,"MILLS, RALPH JOHN III",REP,,challenger,statutory_candidate,fec,H6FL01143
-FL,2026,,federal,US House,01,,,"PATRONIS, JIMMY JR.",REP,,challenger,statutory_candidate,fec,H6FL01390
+FL,2026,,federal,US House,01,,,"PATRONIS, JIMMY JR.",REP,,incumbent,statutory_candidate,fec,H6FL01390
 FL,2026,,federal,US House,01,,,"PLUMER, TAYLA",REP,,challenger,not_yet_statutory_candidate,fec,H6FL01259
 FL,2026,,federal,US House,01,,,"SABAT, RAMEZ ELIAS",BTC,,challenger,not_yet_statutory_candidate,fec,H6FL01531
 FL,2026,,federal,US House,01,,,"SOLOMON, GAVIN",W,,,not_yet_statutory_candidate,fec,H6FL01556
