@@ -230,7 +230,7 @@ CA,2026,,federal,US House,01,,,"CASTANEDALEAL, WENDY",DEM,,challenger,not_yet_st
 CA,2026,,federal,US House,01,,,"DENNEY, AUDREY",DEM,,challenger,statutory_candidate,fec,H6CA01251
 CA,2026,,federal,US House,01,,,"GALLAGHER, JAMES",REP,,challenger,statutory_candidate,fec,H6CA01285
 CA,2026,,federal,US House,01,,,"LAMALFA, DOUG",REP,,incumbent,statutory_candidate,fec,H2CA02142
-CA,2026,,federal,US House,01,,,"MCGUIRE, MIKE",DEM,,challenger,statutory_candidate,fec,H6CA01269
+CA,2026,,federal,US House,01,,,"MCGUIRE, MIKE",DEM,,incumbent,statutory_candidate,fec,H6CA01269
 CA,2026,,federal,US House,01,,,"MINNER, RICHARD T",IND,,challenger,not_yet_statutory_candidate,fec,H6CA01301
 CA,2026,,federal,US House,01,,,"SALEGUI, JAMES",DEM,,challenger,statutory_candidate,fec,H6CA01228
 CA,2026,,federal,US House,01,,,"SOLOMON, GAVIN",W,,,not_yet_statutory_candidate,fec,H6CA01327
@@ -344,7 +344,7 @@ CA,2026,,federal,US House,14,,,"ORTEGA, MATT",DEM,,open_seat,statutory_candidate
 CA,2026,,federal,US House,14,,,"QADIR, ABRAR",DEM,,open_seat,statutory_candidate,fec,H6CA14130
 CA,2026,,federal,US House,14,,,"RIDENOUR, SHERIENE",DEM,,open_seat,statutory_candidate,fec,H6CA14239
 CA,2026,,federal,US House,14,,,"SWALWELL, ERIC MICHAEL",DEM,,incumbent,statutory_candidate,fec,H2CA15094
-CA,2026,,federal,US House,14,,,"WAHAB, AISHA",DEM,,open_seat,statutory_candidate,fec,H0CA15213
+CA,2026,,federal,US House,14,,,"WAHAB, AISHA",DEM,,incumbent,statutory_candidate,fec,H0CA15213
 CA,2026,,federal,US House,14,,,"WIECKOWSKI, BOB",DEM,,open_seat,not_yet_statutory_candidate,fec,H6CA14221
 CA,2026,,federal,US House,14,,,"ZEVALLOS, VICTOR",NPA,,open_seat,not_yet_statutory_candidate,fec,H6CA14254
 CA,2026,,federal,US House,15,,,"DANG, ANTHONY VAN",DEM,,challenger,statutory_candidate,fec,H6CA15202
@@ -929,7 +929,7 @@ FL,2026,,federal,US House,06,,,"BAKER, AARON",REP,,challenger,statutory_candidat
 FL,2026,,federal,US House,06,,,"BANGDIWALA, PURVA",NPA,,challenger,not_yet_statutory_candidate,fec,H6FL06282
 FL,2026,,federal,US House,06,,,"BILZERIAN, DANIEL BRANDON",REP,,challenger,statutory_candidate,fec,H6FL06415
 FL,2026,,federal,US House,06,,,"COOPER, ROBERT DAVID MR II",DEM,,challenger,statutory_candidate,fec,H6FL06381
-FL,2026,,federal,US House,06,,,"FINE, RANDY",REP,,challenger,statutory_candidate,fec,H6FL06258
+FL,2026,,federal,US House,06,,,"FINE, RANDY",REP,,incumbent,statutory_candidate,fec,H6FL06258
 FL,2026,,federal,US House,06,,,"FURRY, WILL",REP,,challenger,statutory_candidate,fec,H6FL06373
 FL,2026,,federal,US House,06,,,"GAMBARO, CHARLES",REP,,challenger,statutory_candidate,fec,H6FL06357
 FL,2026,,federal,US House,06,,,"GIST, MICHAEL",NPA,,challenger,statutory_candidate,fec,H6FL06423
@@ -1316,7 +1316,7 @@ GA,2026,,federal,US House,12,,BULLOCH;BURKE;CANDLER;COLUMBIA;EFFINGHAM;EMANUEL;E
 GA,2026,,federal,US House,12,,BULLOCH;BURKE;CANDLER;COLUMBIA;EFFINGHAM;EMANUEL;EVANS;GLASCOCK;JEFFERSON;JENKINS;JOHNSON;LAURENS;LINCOLN;MCDUFFIE;MONTGOMERY;RICHMOND;SCREVEN;TATTNALL;TOOMBS;TREUTLEN;WARREN;WASHINGTON;WHEELER;WILKES,"SMITH, CERETTA",DEM,,challenger,statutory_candidate,fec,H6GA12080
 GA,2026,,federal,US House,12,,BULLOCH;BURKE;CANDLER;COLUMBIA;EFFINGHAM;EMANUEL;EVANS;GLASCOCK;JEFFERSON;JENKINS;JOHNSON;LAURENS;LINCOLN;MCDUFFIE;MONTGOMERY;RICHMOND;SCREVEN;TATTNALL;TOOMBS;TREUTLEN;WARREN;WASHINGTON;WHEELER;WILKES,"STEPHENS, ROBERT CHRISTOPHER",DEM,,challenger,statutory_candidate,fec,H6GA12072
 GA,2026,,federal,US House,12,,BULLOCH;BURKE;CANDLER;COLUMBIA;EFFINGHAM;EMANUEL;EVANS;GLASCOCK;JEFFERSON;JENKINS;JOHNSON;LAURENS;LINCOLN;MCDUFFIE;MONTGOMERY;RICHMOND;SCREVEN;TATTNALL;TOOMBS;TREUTLEN;WARREN;WASHINGTON;WHEELER;WILKES,"WOODSON, BRIANNA COURTNEY ESTELLE",DEM,,challenger,statutory_candidate,fec,H6GA12064
-GA,2026,,federal,US House,13,,CLAYTON;DEKALB;GWINNETT;HENRY;NEWTON;ROCKDALE,"BLAIR, EVERTON",DEM,,challenger,statutory_candidate,fec,H6GA13062
+GA,2026,,federal,US House,13,,CLAYTON;DEKALB;GWINNETT;HENRY;NEWTON;ROCKDALE,"BLAIR, EVERTON",DEM,,incumbent,statutory_candidate,fec,H6GA13062
 GA,2026,,federal,US House,13,,CLAYTON;DEKALB;GWINNETT;HENRY;NEWTON;ROCKDALE,"BONNER, JONATHAN",DEM,,challenger,statutory_candidate,fec,H6GA13047
 GA,2026,,federal,US House,13,,CLAYTON;DEKALB;GWINNETT;HENRY;NEWTON;ROCKDALE,"BOURNE, PETER ALDWIN",REP,,challenger,not_yet_statutory_candidate,fec,H6GA13112
 GA,2026,,federal,US House,13,,CLAYTON;DEKALB;GWINNETT;HENRY;NEWTON;ROCKDALE,"CHAVEZ, JONATHAN",REP,,challenger,not_yet_statutory_candidate,fec,H2GA04201
@@ -3883,7 +3883,7 @@ TX,2026,,federal,US House,18,,,"EDWARDS, AMANDA",DEM,,challenger,statutory_candi
 TX,2026,,federal,US House,18,,,"GREEN, ALEXANDER",DEM,,incumbent,statutory_candidate,fec,H4TX09095
 TX,2026,,federal,US House,18,,,"HUEY, STEPHEN",DEM,,challenger,statutory_candidate,fec,H6TX18372
 TX,2026,,federal,US House,18,,,"MARTIN, ISAIAH MR.",DEM,,challenger,not_yet_statutory_candidate,fec,H4TX18153
-TX,2026,,federal,US House,18,,,"MENEFEE, CHRISTIAN",DEM,,challenger,statutory_candidate,fec,H6TX18232
+TX,2026,,federal,US House,18,,,"MENEFEE, CHRISTIAN",DEM,,incumbent,statutory_candidate,fec,H6TX18232
 TX,2026,,federal,US House,18,,,"SAJNA, CYRUS MR",REP,,challenger,not_yet_statutory_candidate,fec,H0TX14234
 TX,2026,,federal,US House,18,,,"TURNER, SYLVESTER",DEM,,incumbent,statutory_candidate,fec,H4TX18237
 TX,2026,,federal,US House,18,,,"VENCES, ELIZABETH MRS",REP,,challenger,statutory_candidate,fec,H6TX18489
