@@ -3709,7 +3709,7 @@ TN,2026,,federal,US House,09,,,"THOMPSON, JEREMY",REP,,challenger,statutory_cand
 TN,2026,,federal,US House,09,,,"TORINO, JAMES PHD",DEM,,challenger,statutory_candidate,fec,H6TN05355
 TN,2026,,federal,US House,09,,,"WARNER, WILLIAM TODD",REP,,challenger,statutory_candidate,fec,H6TN09472
 TN,2026,,federal,US House,09,,,"WILLIAMS, M LATROY",DEM,,challenger,not_yet_statutory_candidate,fec,H6TN09415
-TN,2026,,federal,US Senate,,,*,"BRADSHAW, MARQUITA",DEM,,challenger,not_yet_statutory_candidate,fec,S4TN00542
+TN,2026,,federal,US Senate,,,*,"BRADSHAW, MARQUITA",DEM,,challenger,statutory_candidate,fec,S4TN00542
 TN,2026,,federal,US Senate,,,*,"BREWER, MARIA A",DEM,,challenger,statutory_candidate,fec,S6TN00380
 TN,2026,,federal,US Senate,,,*,"CHANDLER, THARON",IND,,,not_yet_statutory_candidate,fec,S4TN00583
 TN,2026,,federal,US Senate,,,*,"HAGERTY, BILL",REP,,incumbent,statutory_candidate,fec,S0TN00169
@@ -4178,6 +4178,7 @@ US,2025,,federal,US President,,,*,"WILSON, SOMMER LEE",W,,challenger,not_yet_sta
 US,2026,,federal,US President,,,*,"ATHANS, JAMES N/A JR.",REP,,challenger,not_yet_statutory_candidate,fec,P60024668
 US,2026,,federal,US President,,,*,"BELL, WILLIAM",CIT,,challenger,not_yet_statutory_candidate,fec,P60024452
 US,2026,,federal,US President,,,*,"BRISSON, JAMES M MR",DEM,,challenger,not_yet_statutory_candidate,fec,P60023991
+US,2026,,federal,US President,,,*,"CASANOVA, ASHLEY",REP,,,not_yet_statutory_candidate,fec,P60024833
 US,2026,,federal,US President,,,*,"CHAMBLEE, JOHNATHAN TROY MR.",DNC,,challenger,not_yet_statutory_candidate,fec,P60024593
 US,2026,,federal,US President,,,*,"CHESTNUT, KING JAMALL",REP,,,not_yet_statutory_candidate,fec,P40008542
 US,2026,,federal,US President,,,*,"CRENSHAW, JAMILL",REP,,,not_yet_statutory_candidate,fec,P60024825
