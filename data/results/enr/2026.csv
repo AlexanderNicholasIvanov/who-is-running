@@ -59,8 +59,8 @@ CO,2026,2026-11-03,general,ATTORNEY GENERAL,08055,HUERFANO,Jena Griswold,DEM,186
 CO,2026,2026-11-03,general,ATTORNEY GENERAL,08055,HUERFANO,Michael J. Allen,REP,1877,enr
 CO,2026,2026-11-03,general,ATTORNEY GENERAL,08057,JACKSON,Jena Griswold,DEM,125,enr
 CO,2026,2026-11-03,general,ATTORNEY GENERAL,08057,JACKSON,Michael J. Allen,REP,503,enr
-CO,2026,2026-11-03,general,ATTORNEY GENERAL,08059,JEFFERSON,Jena Griswold,DEM,188555,enr
-CO,2026,2026-11-03,general,ATTORNEY GENERAL,08059,JEFFERSON,Michael J. Allen,REP,117365,enr
+CO,2026,2026-11-03,general,ATTORNEY GENERAL,08059,JEFFERSON,Jena Griswold,DEM,188557,enr
+CO,2026,2026-11-03,general,ATTORNEY GENERAL,08059,JEFFERSON,Michael J. Allen,REP,117366,enr
 CO,2026,2026-11-03,general,ATTORNEY GENERAL,08061,KIOWA,Jena Griswold,DEM,82,enr
 CO,2026,2026-11-03,general,ATTORNEY GENERAL,08061,KIOWA,Michael J. Allen,REP,614,enr
 CO,2026,2026-11-03,general,ATTORNEY GENERAL,08063,KIT CARSON,Jena Griswold,DEM,480,enr
@@ -123,7 +123,7 @@ CO,2026,2026-11-03,general,ATTORNEY GENERAL,08119,TELLER,Jena Griswold,DEM,4695,
 CO,2026,2026-11-03,general,ATTORNEY GENERAL,08119,TELLER,Michael J. Allen,REP,8945,enr
 CO,2026,2026-11-03,general,ATTORNEY GENERAL,08121,WASHINGTON,Jena Griswold,DEM,328,enr
 CO,2026,2026-11-03,general,ATTORNEY GENERAL,08121,WASHINGTON,Michael J. Allen,REP,1926,enr
-CO,2026,2026-11-03,general,ATTORNEY GENERAL,08123,WELD,Jena Griswold,DEM,66425,enr
+CO,2026,2026-11-03,general,ATTORNEY GENERAL,08123,WELD,Jena Griswold,DEM,66427,enr
 CO,2026,2026-11-03,general,ATTORNEY GENERAL,08123,WELD,Michael J. Allen,REP,80969,enr
 CO,2026,2026-11-03,general,ATTORNEY GENERAL,08125,YUMA,Jena Griswold,DEM,728,enr
 CO,2026,2026-11-03,general,ATTORNEY GENERAL,08125,YUMA,Michael J. Allen,REP,2967,enr
@@ -341,9 +341,9 @@ CO,2026,2026-11-03,general,GOVERNOR,08059,JEFFERSON,Eric Mulder / Wayne Harlos,L
 CO,2026,2026-11-03,general,GOVERNOR,08059,JEFFERSON,Erik Underwood / Frank Atwood,APV,1108,enr
 CO,2026,2026-11-03,general,GOVERNOR,08059,JEFFERSON,Greg Lopez / Taralyn Romero,UAF,9453,enr
 CO,2026,2026-11-03,general,GOVERNOR,08059,JEFFERSON,Jeff Peckman / T.J. Cole,UNI,858,enr
-CO,2026,2026-11-03,general,GOVERNOR,08059,JEFFERSON,Phil Weiser / Lesley Dahlkemper,DEM,199894,enr
+CO,2026,2026-11-03,general,GOVERNOR,08059,JEFFERSON,Phil Weiser / Lesley Dahlkemper,DEM,199897,enr
 CO,2026,2026-11-03,general,GOVERNOR,08059,JEFFERSON,Stephen T. Hamilton / James K Treibert,ACN,2050,enr
-CO,2026,2026-11-03,general,GOVERNOR,08059,JEFFERSON,Victor Marx / George Washington Markert,REP,89160,enr
+CO,2026,2026-11-03,general,GOVERNOR,08059,JEFFERSON,Victor Marx / George Washington Markert,REP,89161,enr
 CO,2026,2026-11-03,general,GOVERNOR,08061,KIOWA,Eric Mulder / Wayne Harlos,LBR,7,enr
 CO,2026,2026-11-03,general,GOVERNOR,08061,KIOWA,Erik Underwood / Frank Atwood,APV,5,enr
 CO,2026,2026-11-03,general,GOVERNOR,08061,KIOWA,Greg Lopez / Taralyn Romero,UAF,52,enr
@@ -565,7 +565,7 @@ CO,2026,2026-11-03,general,GOVERNOR,08123,WELD,Eric Mulder / Wayne Harlos,LBR,28
 CO,2026,2026-11-03,general,GOVERNOR,08123,WELD,Erik Underwood / Frank Atwood,APV,540,enr
 CO,2026,2026-11-03,general,GOVERNOR,08123,WELD,Greg Lopez / Taralyn Romero,UAF,5070,enr
 CO,2026,2026-11-03,general,GOVERNOR,08123,WELD,Jeff Peckman / T.J. Cole,UNI,331,enr
-CO,2026,2026-11-03,general,GOVERNOR,08123,WELD,Phil Weiser / Lesley Dahlkemper,DEM,68973,enr
+CO,2026,2026-11-03,general,GOVERNOR,08123,WELD,Phil Weiser / Lesley Dahlkemper,DEM,68975,enr
 CO,2026,2026-11-03,general,GOVERNOR,08123,WELD,Stephen T. Hamilton / James K Treibert,ACN,1469,enr
 CO,2026,2026-11-03,general,GOVERNOR,08123,WELD,Victor Marx / George Washington Markert,REP,69420,enr
 CO,2026,2026-11-03,general,GOVERNOR,08125,YUMA,Eric Mulder / Wayne Harlos,LBR,67,enr
@@ -726,9 +726,9 @@ CO,2026,2026-11-03,general,SECRETARY OF STATE,08057,JACKSON,Celeste Landry,FWD,6
 CO,2026,2026-11-03,general,SECRETARY OF STATE,08057,JACKSON,James Wiley,REP,478,enr
 CO,2026,2026-11-03,general,SECRETARY OF STATE,08057,JACKSON,Sean Vadney,LBR,10,enr
 CO,2026,2026-11-03,general,SECRETARY OF STATE,08059,JEFFERSON,Amanda Campbell,ACN,2283,enr
-CO,2026,2026-11-03,general,SECRETARY OF STATE,08059,JEFFERSON,Amanda Gonzalez,DEM,195339,enr
+CO,2026,2026-11-03,general,SECRETARY OF STATE,08059,JEFFERSON,Amanda Gonzalez,DEM,195342,enr
 CO,2026,2026-11-03,general,SECRETARY OF STATE,08059,JEFFERSON,Celeste Landry,FWD,2056,enr
-CO,2026,2026-11-03,general,SECRETARY OF STATE,08059,JEFFERSON,James Wiley,REP,101667,enr
+CO,2026,2026-11-03,general,SECRETARY OF STATE,08059,JEFFERSON,James Wiley,REP,101668,enr
 CO,2026,2026-11-03,general,SECRETARY OF STATE,08059,JEFFERSON,Sean Vadney,LBR,5197,enr
 CO,2026,2026-11-03,general,SECRETARY OF STATE,08061,KIOWA,Amanda Campbell,ACN,8,enr
 CO,2026,2026-11-03,general,SECRETARY OF STATE,08061,KIOWA,Amanda Gonzalez,DEM,88,enr
@@ -886,7 +886,7 @@ CO,2026,2026-11-03,general,SECRETARY OF STATE,08121,WASHINGTON,Celeste Landry,FW
 CO,2026,2026-11-03,general,SECRETARY OF STATE,08121,WASHINGTON,James Wiley,REP,1855,enr
 CO,2026,2026-11-03,general,SECRETARY OF STATE,08121,WASHINGTON,Sean Vadney,LBR,37,enr
 CO,2026,2026-11-03,general,SECRETARY OF STATE,08123,WELD,Amanda Campbell,ACN,1717,enr
-CO,2026,2026-11-03,general,SECRETARY OF STATE,08123,WELD,Amanda Gonzalez,DEM,67206,enr
+CO,2026,2026-11-03,general,SECRETARY OF STATE,08123,WELD,Amanda Gonzalez,DEM,67208,enr
 CO,2026,2026-11-03,general,SECRETARY OF STATE,08123,WELD,Celeste Landry,FWD,891,enr
 CO,2026,2026-11-03,general,SECRETARY OF STATE,08123,WELD,James Wiley,REP,75014,enr
 CO,2026,2026-11-03,general,SECRETARY OF STATE,08123,WELD,Sean Vadney,LBR,2842,enr
@@ -1015,9 +1015,9 @@ CO,2026,2026-11-03,general,STATE TREASURER,08057,JACKSON,Jeff Bridges,DEM,121,en
 CO,2026,2026-11-03,general,STATE TREASURER,08057,JACKSON,Jodie Barr,LBR,13,enr
 CO,2026,2026-11-03,general,STATE TREASURER,08057,JACKSON,Kevin Grantham,REP,491,enr
 CO,2026,2026-11-03,general,STATE TREASURER,08057,JACKSON,Marilee Langner Sturgis,APV,4,enr
-CO,2026,2026-11-03,general,STATE TREASURER,08059,JEFFERSON,Jeff Bridges,DEM,187728,enr
+CO,2026,2026-11-03,general,STATE TREASURER,08059,JEFFERSON,Jeff Bridges,DEM,187730,enr
 CO,2026,2026-11-03,general,STATE TREASURER,08059,JEFFERSON,Jodie Barr,LBR,7372,enr
-CO,2026,2026-11-03,general,STATE TREASURER,08059,JEFFERSON,Kevin Grantham,REP,107990,enr
+CO,2026,2026-11-03,general,STATE TREASURER,08059,JEFFERSON,Kevin Grantham,REP,107991,enr
 CO,2026,2026-11-03,general,STATE TREASURER,08059,JEFFERSON,Marilee Langner Sturgis,APV,1081,enr
 CO,2026,2026-11-03,general,STATE TREASURER,08061,KIOWA,Jeff Bridges,DEM,76,enr
 CO,2026,2026-11-03,general,STATE TREASURER,08061,KIOWA,Jodie Barr,LBR,12,enr
@@ -1143,7 +1143,7 @@ CO,2026,2026-11-03,general,STATE TREASURER,08121,WASHINGTON,Jeff Bridges,DEM,306
 CO,2026,2026-11-03,general,STATE TREASURER,08121,WASHINGTON,Jodie Barr,LBR,49,enr
 CO,2026,2026-11-03,general,STATE TREASURER,08121,WASHINGTON,Kevin Grantham,REP,1882,enr
 CO,2026,2026-11-03,general,STATE TREASURER,08121,WASHINGTON,Marilee Langner Sturgis,APV,7,enr
-CO,2026,2026-11-03,general,STATE TREASURER,08123,WELD,Jeff Bridges,DEM,65065,enr
+CO,2026,2026-11-03,general,STATE TREASURER,08123,WELD,Jeff Bridges,DEM,65067,enr
 CO,2026,2026-11-03,general,STATE TREASURER,08123,WELD,Jodie Barr,LBR,4003,enr
 CO,2026,2026-11-03,general,STATE TREASURER,08123,WELD,Kevin Grantham,REP,77219,enr
 CO,2026,2026-11-03,general,STATE TREASURER,08123,WELD,Marilee Langner Sturgis,APV,610,enr
@@ -1335,8 +1335,8 @@ CO,2026,2026-11-03,general,US Senate,08059,JEFFERSON,Adam Withrow,UNI,1600,enr
 CO,2026,2026-11-03,general,US Senate,08059,JEFFERSON,Blake Huber,LBR,3876,enr
 CO,2026,2026-11-03,general,US Senate,08059,JEFFERSON,Bob Chew,FWD,10389,enr
 CO,2026,2026-11-03,general,US Senate,08059,JEFFERSON,Christopher Baum,APV,451,enr
-CO,2026,2026-11-03,general,US Senate,08059,JEFFERSON,John Hickenlooper,DEM,197356,enr
-CO,2026,2026-11-03,general,US Senate,08059,JEFFERSON,Mark Baisley,REP,96760,enr
+CO,2026,2026-11-03,general,US Senate,08059,JEFFERSON,John Hickenlooper,DEM,197359,enr
+CO,2026,2026-11-03,general,US Senate,08059,JEFFERSON,Mark Baisley,REP,96761,enr
 CO,2026,2026-11-03,general,US Senate,08061,KIOWA,Adam Withrow,UNI,4,enr
 CO,2026,2026-11-03,general,US Senate,08061,KIOWA,Blake Huber,LBR,6,enr
 CO,2026,2026-11-03,general,US Senate,08061,KIOWA,Bob Chew,FWD,10,enr
@@ -1527,7 +1527,7 @@ CO,2026,2026-11-03,general,US Senate,08123,WELD,Adam Withrow,UNI,676,enr
 CO,2026,2026-11-03,general,US Senate,08123,WELD,Blake Huber,LBR,2146,enr
 CO,2026,2026-11-03,general,US Senate,08123,WELD,Bob Chew,FWD,4574,enr
 CO,2026,2026-11-03,general,US Senate,08123,WELD,Christopher Baum,APV,242,enr
-CO,2026,2026-11-03,general,US Senate,08123,WELD,John Hickenlooper,DEM,68936,enr
+CO,2026,2026-11-03,general,US Senate,08123,WELD,John Hickenlooper,DEM,68938,enr
 CO,2026,2026-11-03,general,US Senate,08123,WELD,Mark Baisley,REP,73312,enr
 CO,2026,2026-11-03,general,US Senate,08125,YUMA,Adam Withrow,UNI,5,enr
 CO,2026,2026-11-03,general,US Senate,08125,YUMA,Blake Huber,LBR,52,enr
@@ -3226,22 +3226,22 @@ MN,2026,2026-11-03,general,ATTORNEY GENERAL,27173,YELLOW MEDICINE,Ronald J. Schu
 MN,2026,2026-11-03,general,GOVERNOR,27001,AITKIN,Amy Klobuchar and Ben Schierer,DFL,3194,enr
 MN,2026,2026-11-03,general,GOVERNOR,27001,AITKIN,Lisa Demuth and Ryan Wilson,REP,5624,enr
 MN,2026,2026-11-03,general,GOVERNOR,27001,AITKIN,Steven Young and Jane Kirby,GP,133,enr
-MN,2026,2026-11-03,general,GOVERNOR,27003,ANOKA,Amy Klobuchar and Ben Schierer,DFL,93834,enr
-MN,2026,2026-11-03,general,GOVERNOR,27003,ANOKA,Lisa Demuth and Ryan Wilson,REP,84683,enr
-MN,2026,2026-11-03,general,GOVERNOR,27003,ANOKA,Steven Young and Jane Kirby,GP,3375,enr
+MN,2026,2026-11-03,general,GOVERNOR,27003,ANOKA,Amy Klobuchar and Ben Schierer,DFL,93837,enr
+MN,2026,2026-11-03,general,GOVERNOR,27003,ANOKA,Lisa Demuth and Ryan Wilson,REP,84694,enr
+MN,2026,2026-11-03,general,GOVERNOR,27003,ANOKA,Steven Young and Jane Kirby,GP,3376,enr
 MN,2026,2026-11-03,general,GOVERNOR,27005,BECKER,Amy Klobuchar and Ben Schierer,DFL,5892,enr
 MN,2026,2026-11-03,general,GOVERNOR,27005,BECKER,Lisa Demuth and Ryan Wilson,REP,10601,enr
 MN,2026,2026-11-03,general,GOVERNOR,27005,BECKER,Steven Young and Jane Kirby,GP,272,enr
 MN,2026,2026-11-03,general,GOVERNOR,27007,BELTRAMI,Amy Klobuchar and Ben Schierer,DFL,9931,enr
 MN,2026,2026-11-03,general,GOVERNOR,27007,BELTRAMI,Lisa Demuth and Ryan Wilson,REP,9881,enr
 MN,2026,2026-11-03,general,GOVERNOR,27007,BELTRAMI,Steven Young and Jane Kirby,GP,329,enr
-MN,2026,2026-11-03,general,GOVERNOR,27009,BENTON,Amy Klobuchar and Ben Schierer,DFL,6381,enr
-MN,2026,2026-11-03,general,GOVERNOR,27009,BENTON,Lisa Demuth and Ryan Wilson,REP,11933,enr
+MN,2026,2026-11-03,general,GOVERNOR,27009,BENTON,Amy Klobuchar and Ben Schierer,DFL,6382,enr
+MN,2026,2026-11-03,general,GOVERNOR,27009,BENTON,Lisa Demuth and Ryan Wilson,REP,11934,enr
 MN,2026,2026-11-03,general,GOVERNOR,27009,BENTON,Steven Young and Jane Kirby,GP,341,enr
 MN,2026,2026-11-03,general,GOVERNOR,27011,BIG STONE,Amy Klobuchar and Ben Schierer,DFL,887,enr
 MN,2026,2026-11-03,general,GOVERNOR,27011,BIG STONE,Lisa Demuth and Ryan Wilson,REP,1485,enr
 MN,2026,2026-11-03,general,GOVERNOR,27011,BIG STONE,Steven Young and Jane Kirby,GP,38,enr
-MN,2026,2026-11-03,general,GOVERNOR,27013,BLUE EARTH,Amy Klobuchar and Ben Schierer,DFL,15952,enr
+MN,2026,2026-11-03,general,GOVERNOR,27013,BLUE EARTH,Amy Klobuchar and Ben Schierer,DFL,15953,enr
 MN,2026,2026-11-03,general,GOVERNOR,27013,BLUE EARTH,Lisa Demuth and Ryan Wilson,REP,13129,enr
 MN,2026,2026-11-03,general,GOVERNOR,27013,BLUE EARTH,Steven Young and Jane Kirby,GP,634,enr
 MN,2026,2026-11-03,general,GOVERNOR,27015,BROWN,Amy Klobuchar and Ben Schierer,DFL,4123,enr
@@ -3250,8 +3250,8 @@ MN,2026,2026-11-03,general,GOVERNOR,27015,BROWN,Steven Young and Jane Kirby,GP,1
 MN,2026,2026-11-03,general,GOVERNOR,27017,CARLTON,Amy Klobuchar and Ben Schierer,DFL,9096,enr
 MN,2026,2026-11-03,general,GOVERNOR,27017,CARLTON,Lisa Demuth and Ryan Wilson,REP,8039,enr
 MN,2026,2026-11-03,general,GOVERNOR,27017,CARLTON,Steven Young and Jane Kirby,GP,336,enr
-MN,2026,2026-11-03,general,GOVERNOR,27019,CARVER,Amy Klobuchar and Ben Schierer,DFL,29716,enr
-MN,2026,2026-11-03,general,GOVERNOR,27019,CARVER,Lisa Demuth and Ryan Wilson,REP,31097,enr
+MN,2026,2026-11-03,general,GOVERNOR,27019,CARVER,Amy Klobuchar and Ben Schierer,DFL,29718,enr
+MN,2026,2026-11-03,general,GOVERNOR,27019,CARVER,Lisa Demuth and Ryan Wilson,REP,31098,enr
 MN,2026,2026-11-03,general,GOVERNOR,27019,CARVER,Steven Young and Jane Kirby,GP,763,enr
 MN,2026,2026-11-03,general,GOVERNOR,27021,CASS,Amy Klobuchar and Ben Schierer,DFL,5619,enr
 MN,2026,2026-11-03,general,GOVERNOR,27021,CASS,Lisa Demuth and Ryan Wilson,REP,10753,enr
@@ -3271,15 +3271,15 @@ MN,2026,2026-11-03,general,GOVERNOR,27029,CLEARWATER,Steven Young and Jane Kirby
 MN,2026,2026-11-03,general,GOVERNOR,27031,COOK,Amy Klobuchar and Ben Schierer,DFL,2362,enr
 MN,2026,2026-11-03,general,GOVERNOR,27031,COOK,Lisa Demuth and Ryan Wilson,REP,955,enr
 MN,2026,2026-11-03,general,GOVERNOR,27031,COOK,Steven Young and Jane Kirby,GP,60,enr
-MN,2026,2026-11-03,general,GOVERNOR,27033,COTTONWOOD,Amy Klobuchar and Ben Schierer,DFL,1519,enr
+MN,2026,2026-11-03,general,GOVERNOR,27033,COTTONWOOD,Amy Klobuchar and Ben Schierer,DFL,1520,enr
 MN,2026,2026-11-03,general,GOVERNOR,27033,COTTONWOOD,Lisa Demuth and Ryan Wilson,REP,3209,enr
 MN,2026,2026-11-03,general,GOVERNOR,27033,COTTONWOOD,Steven Young and Jane Kirby,GP,91,enr
 MN,2026,2026-11-03,general,GOVERNOR,27035,CROW WING,Amy Klobuchar and Ben Schierer,DFL,12832,enr
 MN,2026,2026-11-03,general,GOVERNOR,27035,CROW WING,Lisa Demuth and Ryan Wilson,REP,22232,enr
 MN,2026,2026-11-03,general,GOVERNOR,27035,CROW WING,Steven Young and Jane Kirby,GP,545,enr
-MN,2026,2026-11-03,general,GOVERNOR,27037,DAKOTA,Amy Klobuchar and Ben Schierer,DFL,137677,enr
-MN,2026,2026-11-03,general,GOVERNOR,27037,DAKOTA,Lisa Demuth and Ryan Wilson,REP,89052,enr
-MN,2026,2026-11-03,general,GOVERNOR,27037,DAKOTA,Steven Young and Jane Kirby,GP,4078,enr
+MN,2026,2026-11-03,general,GOVERNOR,27037,DAKOTA,Amy Klobuchar and Ben Schierer,DFL,137680,enr
+MN,2026,2026-11-03,general,GOVERNOR,27037,DAKOTA,Lisa Demuth and Ryan Wilson,REP,89053,enr
+MN,2026,2026-11-03,general,GOVERNOR,27037,DAKOTA,Steven Young and Jane Kirby,GP,4079,enr
 MN,2026,2026-11-03,general,GOVERNOR,27039,DODGE,Amy Klobuchar and Ben Schierer,DFL,3732,enr
 MN,2026,2026-11-03,general,GOVERNOR,27039,DODGE,Lisa Demuth and Ryan Wilson,REP,6393,enr
 MN,2026,2026-11-03,general,GOVERNOR,27039,DODGE,Steven Young and Jane Kirby,GP,212,enr
@@ -3288,11 +3288,11 @@ MN,2026,2026-11-03,general,GOVERNOR,27041,DOUGLAS,Lisa Demuth and Ryan Wilson,RE
 MN,2026,2026-11-03,general,GOVERNOR,27041,DOUGLAS,Steven Young and Jane Kirby,GP,290,enr
 MN,2026,2026-11-03,general,GOVERNOR,27043,FARIBAULT,Amy Klobuchar and Ben Schierer,DFL,2183,enr
 MN,2026,2026-11-03,general,GOVERNOR,27043,FARIBAULT,Lisa Demuth and Ryan Wilson,REP,4094,enr
-MN,2026,2026-11-03,general,GOVERNOR,27043,FARIBAULT,Steven Young and Jane Kirby,GP,126,enr
+MN,2026,2026-11-03,general,GOVERNOR,27043,FARIBAULT,Steven Young and Jane Kirby,GP,127,enr
 MN,2026,2026-11-03,general,GOVERNOR,27045,FILLMORE,Amy Klobuchar and Ben Schierer,DFL,4064,enr
 MN,2026,2026-11-03,general,GOVERNOR,27045,FILLMORE,Lisa Demuth and Ryan Wilson,REP,5903,enr
 MN,2026,2026-11-03,general,GOVERNOR,27045,FILLMORE,Steven Young and Jane Kirby,GP,212,enr
-MN,2026,2026-11-03,general,GOVERNOR,27047,FREEBORN,Amy Klobuchar and Ben Schierer,DFL,5794,enr
+MN,2026,2026-11-03,general,GOVERNOR,27047,FREEBORN,Amy Klobuchar and Ben Schierer,DFL,5795,enr
 MN,2026,2026-11-03,general,GOVERNOR,27047,FREEBORN,Lisa Demuth and Ryan Wilson,REP,7354,enr
 MN,2026,2026-11-03,general,GOVERNOR,27047,FREEBORN,Steven Young and Jane Kirby,GP,250,enr
 MN,2026,2026-11-03,general,GOVERNOR,27049,GOODHUE,Amy Klobuchar and Ben Schierer,DFL,10663,enr
@@ -3301,30 +3301,30 @@ MN,2026,2026-11-03,general,GOVERNOR,27049,GOODHUE,Steven Young and Jane Kirby,GP
 MN,2026,2026-11-03,general,GOVERNOR,27051,GRANT,Amy Klobuchar and Ben Schierer,DFL,1083,enr
 MN,2026,2026-11-03,general,GOVERNOR,27051,GRANT,Lisa Demuth and Ryan Wilson,REP,1931,enr
 MN,2026,2026-11-03,general,GOVERNOR,27051,GRANT,Steven Young and Jane Kirby,GP,53,enr
-MN,2026,2026-11-03,general,GOVERNOR,27053,HENNEPIN,Amy Klobuchar and Ben Schierer,DFL,488159,enr
-MN,2026,2026-11-03,general,GOVERNOR,27053,HENNEPIN,Lisa Demuth and Ryan Wilson,REP,162357,enr
+MN,2026,2026-11-03,general,GOVERNOR,27053,HENNEPIN,Amy Klobuchar and Ben Schierer,DFL,488171,enr
+MN,2026,2026-11-03,general,GOVERNOR,27053,HENNEPIN,Lisa Demuth and Ryan Wilson,REP,162360,enr
 MN,2026,2026-11-03,general,GOVERNOR,27053,HENNEPIN,Steven Young and Jane Kirby,GP,12857,enr
 MN,2026,2026-11-03,general,GOVERNOR,27055,HOUSTON,Amy Klobuchar and Ben Schierer,DFL,4059,enr
-MN,2026,2026-11-03,general,GOVERNOR,27055,HOUSTON,Lisa Demuth and Ryan Wilson,REP,5052,enr
+MN,2026,2026-11-03,general,GOVERNOR,27055,HOUSTON,Lisa Demuth and Ryan Wilson,REP,5053,enr
 MN,2026,2026-11-03,general,GOVERNOR,27055,HOUSTON,Steven Young and Jane Kirby,GP,153,enr
-MN,2026,2026-11-03,general,GOVERNOR,27057,HUBBARD,Amy Klobuchar and Ben Schierer,DFL,4259,enr
+MN,2026,2026-11-03,general,GOVERNOR,27057,HUBBARD,Amy Klobuchar and Ben Schierer,DFL,4260,enr
 MN,2026,2026-11-03,general,GOVERNOR,27057,HUBBARD,Lisa Demuth and Ryan Wilson,REP,7303,enr
 MN,2026,2026-11-03,general,GOVERNOR,27057,HUBBARD,Steven Young and Jane Kirby,GP,214,enr
-MN,2026,2026-11-03,general,GOVERNOR,27059,ISANTI,Amy Klobuchar and Ben Schierer,DFL,6699,enr
-MN,2026,2026-11-03,general,GOVERNOR,27059,ISANTI,Lisa Demuth and Ryan Wilson,REP,13731,enr
+MN,2026,2026-11-03,general,GOVERNOR,27059,ISANTI,Amy Klobuchar and Ben Schierer,DFL,6700,enr
+MN,2026,2026-11-03,general,GOVERNOR,27059,ISANTI,Lisa Demuth and Ryan Wilson,REP,13732,enr
 MN,2026,2026-11-03,general,GOVERNOR,27059,ISANTI,Steven Young and Jane Kirby,GP,390,enr
-MN,2026,2026-11-03,general,GOVERNOR,27061,ITASCA,Amy Klobuchar and Ben Schierer,DFL,9342,enr
+MN,2026,2026-11-03,general,GOVERNOR,27061,ITASCA,Amy Klobuchar and Ben Schierer,DFL,9344,enr
 MN,2026,2026-11-03,general,GOVERNOR,27061,ITASCA,Lisa Demuth and Ryan Wilson,REP,12251,enr
 MN,2026,2026-11-03,general,GOVERNOR,27061,ITASCA,Steven Young and Jane Kirby,GP,324,enr
 MN,2026,2026-11-03,general,GOVERNOR,27063,JACKSON,Amy Klobuchar and Ben Schierer,DFL,1473,enr
 MN,2026,2026-11-03,general,GOVERNOR,27063,JACKSON,Lisa Demuth and Ryan Wilson,REP,3304,enr
 MN,2026,2026-11-03,general,GOVERNOR,27063,JACKSON,Steven Young and Jane Kirby,GP,101,enr
 MN,2026,2026-11-03,general,GOVERNOR,27065,KANABEC,Amy Klobuchar and Ben Schierer,DFL,2407,enr
-MN,2026,2026-11-03,general,GOVERNOR,27065,KANABEC,Lisa Demuth and Ryan Wilson,REP,5034,enr
+MN,2026,2026-11-03,general,GOVERNOR,27065,KANABEC,Lisa Demuth and Ryan Wilson,REP,5035,enr
 MN,2026,2026-11-03,general,GOVERNOR,27065,KANABEC,Steven Young and Jane Kirby,GP,128,enr
-MN,2026,2026-11-03,general,GOVERNOR,27067,KANDIYOHI,Amy Klobuchar and Ben Schierer,DFL,7288,enr
-MN,2026,2026-11-03,general,GOVERNOR,27067,KANDIYOHI,Lisa Demuth and Ryan Wilson,REP,12012,enr
-MN,2026,2026-11-03,general,GOVERNOR,27067,KANDIYOHI,Steven Young and Jane Kirby,GP,228,enr
+MN,2026,2026-11-03,general,GOVERNOR,27067,KANDIYOHI,Amy Klobuchar and Ben Schierer,DFL,7292,enr
+MN,2026,2026-11-03,general,GOVERNOR,27067,KANDIYOHI,Lisa Demuth and Ryan Wilson,REP,12016,enr
+MN,2026,2026-11-03,general,GOVERNOR,27067,KANDIYOHI,Steven Young and Jane Kirby,GP,229,enr
 MN,2026,2026-11-03,general,GOVERNOR,27069,KITTSON,Amy Klobuchar and Ben Schierer,DFL,847,enr
 MN,2026,2026-11-03,general,GOVERNOR,27069,KITTSON,Lisa Demuth and Ryan Wilson,REP,1193,enr
 MN,2026,2026-11-03,general,GOVERNOR,27069,KITTSON,Steven Young and Jane Kirby,GP,17,enr
@@ -3337,7 +3337,7 @@ MN,2026,2026-11-03,general,GOVERNOR,27073,LAC QUI PARLE,Steven Young and Jane Ki
 MN,2026,2026-11-03,general,GOVERNOR,27075,LAKE,Amy Klobuchar and Ben Schierer,DFL,3297,enr
 MN,2026,2026-11-03,general,GOVERNOR,27075,LAKE,Lisa Demuth and Ryan Wilson,REP,2575,enr
 MN,2026,2026-11-03,general,GOVERNOR,27075,LAKE,Steven Young and Jane Kirby,GP,99,enr
-MN,2026,2026-11-03,general,GOVERNOR,27077,LAKE OF THE WOODS,Amy Klobuchar and Ben Schierer,DFL,517,enr
+MN,2026,2026-11-03,general,GOVERNOR,27077,LAKE OF THE WOODS,Amy Klobuchar and Ben Schierer,DFL,518,enr
 MN,2026,2026-11-03,general,GOVERNOR,27077,LAKE OF THE WOODS,Lisa Demuth and Ryan Wilson,REP,1311,enr
 MN,2026,2026-11-03,general,GOVERNOR,27077,LAKE OF THE WOODS,Steven Young and Jane Kirby,GP,28,enr
 MN,2026,2026-11-03,general,GOVERNOR,27079,LE SUEUR,Amy Klobuchar and Ben Schierer,DFL,4933,enr
@@ -3346,7 +3346,7 @@ MN,2026,2026-11-03,general,GOVERNOR,27079,LE SUEUR,Steven Young and Jane Kirby,G
 MN,2026,2026-11-03,general,GOVERNOR,27081,LINCOLN,Amy Klobuchar and Ben Schierer,DFL,822,enr
 MN,2026,2026-11-03,general,GOVERNOR,27081,LINCOLN,Lisa Demuth and Ryan Wilson,REP,1677,enr
 MN,2026,2026-11-03,general,GOVERNOR,27081,LINCOLN,Steven Young and Jane Kirby,GP,37,enr
-MN,2026,2026-11-03,general,GOVERNOR,27083,LYON,Amy Klobuchar and Ben Schierer,DFL,3815,enr
+MN,2026,2026-11-03,general,GOVERNOR,27083,LYON,Amy Klobuchar and Ben Schierer,DFL,3816,enr
 MN,2026,2026-11-03,general,GOVERNOR,27083,LYON,Lisa Demuth and Ryan Wilson,REP,6428,enr
 MN,2026,2026-11-03,general,GOVERNOR,27083,LYON,Steven Young and Jane Kirby,GP,161,enr
 MN,2026,2026-11-03,general,GOVERNOR,27085,MCLEOD,Amy Klobuchar and Ben Schierer,DFL,5804,enr
@@ -3362,25 +3362,25 @@ MN,2026,2026-11-03,general,GOVERNOR,27091,MARTIN,Amy Klobuchar and Ben Schierer,
 MN,2026,2026-11-03,general,GOVERNOR,27091,MARTIN,Lisa Demuth and Ryan Wilson,REP,5751,enr
 MN,2026,2026-11-03,general,GOVERNOR,27091,MARTIN,Steven Young and Jane Kirby,GP,169,enr
 MN,2026,2026-11-03,general,GOVERNOR,27093,MEEKER,Amy Klobuchar and Ben Schierer,DFL,3363,enr
-MN,2026,2026-11-03,general,GOVERNOR,27093,MEEKER,Lisa Demuth and Ryan Wilson,REP,7826,enr
+MN,2026,2026-11-03,general,GOVERNOR,27093,MEEKER,Lisa Demuth and Ryan Wilson,REP,7825,enr
 MN,2026,2026-11-03,general,GOVERNOR,27093,MEEKER,Steven Young and Jane Kirby,GP,178,enr
-MN,2026,2026-11-03,general,GOVERNOR,27095,MILLE LACS,Amy Klobuchar and Ben Schierer,DFL,3781,enr
-MN,2026,2026-11-03,general,GOVERNOR,27095,MILLE LACS,Lisa Demuth and Ryan Wilson,REP,8014,enr
+MN,2026,2026-11-03,general,GOVERNOR,27095,MILLE LACS,Amy Klobuchar and Ben Schierer,DFL,3782,enr
+MN,2026,2026-11-03,general,GOVERNOR,27095,MILLE LACS,Lisa Demuth and Ryan Wilson,REP,8015,enr
 MN,2026,2026-11-03,general,GOVERNOR,27095,MILLE LACS,Steven Young and Jane Kirby,GP,246,enr
 MN,2026,2026-11-03,general,GOVERNOR,27097,MORRISON,Amy Klobuchar and Ben Schierer,DFL,3662,enr
-MN,2026,2026-11-03,general,GOVERNOR,27097,MORRISON,Lisa Demuth and Ryan Wilson,REP,12404,enr
+MN,2026,2026-11-03,general,GOVERNOR,27097,MORRISON,Lisa Demuth and Ryan Wilson,REP,12405,enr
 MN,2026,2026-11-03,general,GOVERNOR,27097,MORRISON,Steven Young and Jane Kirby,GP,255,enr
-MN,2026,2026-11-03,general,GOVERNOR,27099,MOWER,Amy Klobuchar and Ben Schierer,DFL,7729,enr
-MN,2026,2026-11-03,general,GOVERNOR,27099,MOWER,Lisa Demuth and Ryan Wilson,REP,7629,enr
+MN,2026,2026-11-03,general,GOVERNOR,27099,MOWER,Amy Klobuchar and Ben Schierer,DFL,7730,enr
+MN,2026,2026-11-03,general,GOVERNOR,27099,MOWER,Lisa Demuth and Ryan Wilson,REP,7630,enr
 MN,2026,2026-11-03,general,GOVERNOR,27099,MOWER,Steven Young and Jane Kirby,GP,346,enr
 MN,2026,2026-11-03,general,GOVERNOR,27101,MURRAY,Amy Klobuchar and Ben Schierer,DFL,1161,enr
 MN,2026,2026-11-03,general,GOVERNOR,27101,MURRAY,Lisa Demuth and Ryan Wilson,REP,2755,enr
-MN,2026,2026-11-03,general,GOVERNOR,27101,MURRAY,Steven Young and Jane Kirby,GP,60,enr
+MN,2026,2026-11-03,general,GOVERNOR,27101,MURRAY,Steven Young and Jane Kirby,GP,61,enr
 MN,2026,2026-11-03,general,GOVERNOR,27103,NICOLLET,Amy Klobuchar and Ben Schierer,DFL,8640,enr
 MN,2026,2026-11-03,general,GOVERNOR,27103,NICOLLET,Lisa Demuth and Ryan Wilson,REP,7645,enr
 MN,2026,2026-11-03,general,GOVERNOR,27103,NICOLLET,Steven Young and Jane Kirby,GP,307,enr
 MN,2026,2026-11-03,general,GOVERNOR,27105,NOBLES,Amy Klobuchar and Ben Schierer,DFL,2523,enr
-MN,2026,2026-11-03,general,GOVERNOR,27105,NOBLES,Lisa Demuth and Ryan Wilson,REP,3966,enr
+MN,2026,2026-11-03,general,GOVERNOR,27105,NOBLES,Lisa Demuth and Ryan Wilson,REP,3967,enr
 MN,2026,2026-11-03,general,GOVERNOR,27105,NOBLES,Steven Young and Jane Kirby,GP,116,enr
 MN,2026,2026-11-03,general,GOVERNOR,27107,NORMAN,Amy Klobuchar and Ben Schierer,DFL,1142,enr
 MN,2026,2026-11-03,general,GOVERNOR,27107,NORMAN,Lisa Demuth and Ryan Wilson,REP,1432,enr
@@ -3404,7 +3404,7 @@ MN,2026,2026-11-03,general,GOVERNOR,27119,POLK,Amy Klobuchar and Ben Schierer,DF
 MN,2026,2026-11-03,general,GOVERNOR,27119,POLK,Lisa Demuth and Ryan Wilson,REP,7335,enr
 MN,2026,2026-11-03,general,GOVERNOR,27119,POLK,Steven Young and Jane Kirby,GP,208,enr
 MN,2026,2026-11-03,general,GOVERNOR,27121,POPE,Amy Klobuchar and Ben Schierer,DFL,2149,enr
-MN,2026,2026-11-03,general,GOVERNOR,27121,POPE,Lisa Demuth and Ryan Wilson,REP,3839,enr
+MN,2026,2026-11-03,general,GOVERNOR,27121,POPE,Lisa Demuth and Ryan Wilson,REP,3840,enr
 MN,2026,2026-11-03,general,GOVERNOR,27121,POPE,Steven Young and Jane Kirby,GP,90,enr
 MN,2026,2026-11-03,general,GOVERNOR,27123,RAMSEY,Amy Klobuchar and Ben Schierer,DFL,187910,enr
 MN,2026,2026-11-03,general,GOVERNOR,27123,RAMSEY,Lisa Demuth and Ryan Wilson,REP,55044,enr
@@ -3419,7 +3419,7 @@ MN,2026,2026-11-03,general,GOVERNOR,27129,RENVILLE,Amy Klobuchar and Ben Schiere
 MN,2026,2026-11-03,general,GOVERNOR,27129,RENVILLE,Lisa Demuth and Ryan Wilson,REP,4294,enr
 MN,2026,2026-11-03,general,GOVERNOR,27129,RENVILLE,Steven Young and Jane Kirby,GP,102,enr
 MN,2026,2026-11-03,general,GOVERNOR,27131,RICE,Amy Klobuchar and Ben Schierer,DFL,16080,enr
-MN,2026,2026-11-03,general,GOVERNOR,27131,RICE,Lisa Demuth and Ryan Wilson,REP,14440,enr
+MN,2026,2026-11-03,general,GOVERNOR,27131,RICE,Lisa Demuth and Ryan Wilson,REP,14441,enr
 MN,2026,2026-11-03,general,GOVERNOR,27131,RICE,Steven Young and Jane Kirby,GP,608,enr
 MN,2026,2026-11-03,general,GOVERNOR,27133,ROCK,Amy Klobuchar and Ben Schierer,DFL,1457,enr
 MN,2026,2026-11-03,general,GOVERNOR,27133,ROCK,Lisa Demuth and Ryan Wilson,REP,2946,enr
@@ -3427,14 +3427,14 @@ MN,2026,2026-11-03,general,GOVERNOR,27133,ROCK,Steven Young and Jane Kirby,GP,54
 MN,2026,2026-11-03,general,GOVERNOR,27135,ROSEAU,Amy Klobuchar and Ben Schierer,DFL,1767,enr
 MN,2026,2026-11-03,general,GOVERNOR,27135,ROSEAU,Lisa Demuth and Ryan Wilson,REP,4761,enr
 MN,2026,2026-11-03,general,GOVERNOR,27135,ROSEAU,Steven Young and Jane Kirby,GP,85,enr
-MN,2026,2026-11-03,general,GOVERNOR,27137,ST. LOUIS,Amy Klobuchar and Ben Schierer,DFL,60793,enr
+MN,2026,2026-11-03,general,GOVERNOR,27137,ST. LOUIS,Amy Klobuchar and Ben Schierer,DFL,60795,enr
 MN,2026,2026-11-03,general,GOVERNOR,27137,ST. LOUIS,Lisa Demuth and Ryan Wilson,REP,37158,enr
-MN,2026,2026-11-03,general,GOVERNOR,27137,ST. LOUIS,Steven Young and Jane Kirby,GP,2096,enr
+MN,2026,2026-11-03,general,GOVERNOR,27137,ST. LOUIS,Steven Young and Jane Kirby,GP,2097,enr
 MN,2026,2026-11-03,general,GOVERNOR,27139,SCOTT,Amy Klobuchar and Ben Schierer,DFL,38619,enr
 MN,2026,2026-11-03,general,GOVERNOR,27139,SCOTT,Lisa Demuth and Ryan Wilson,REP,39897,enr
 MN,2026,2026-11-03,general,GOVERNOR,27139,SCOTT,Steven Young and Jane Kirby,GP,1241,enr
 MN,2026,2026-11-03,general,GOVERNOR,27141,SHERBURNE,Amy Klobuchar and Ben Schierer,DFL,16503,enr
-MN,2026,2026-11-03,general,GOVERNOR,27141,SHERBURNE,Lisa Demuth and Ryan Wilson,REP,29978,enr
+MN,2026,2026-11-03,general,GOVERNOR,27141,SHERBURNE,Lisa Demuth and Ryan Wilson,REP,29979,enr
 MN,2026,2026-11-03,general,GOVERNOR,27141,SHERBURNE,Steven Young and Jane Kirby,GP,731,enr
 MN,2026,2026-11-03,general,GOVERNOR,27143,SIBLEY,Amy Klobuchar and Ben Schierer,DFL,2180,enr
 MN,2026,2026-11-03,general,GOVERNOR,27143,SIBLEY,Lisa Demuth and Ryan Wilson,REP,4914,enr
@@ -3455,7 +3455,7 @@ MN,2026,2026-11-03,general,GOVERNOR,27153,TODD,Amy Klobuchar and Ben Schierer,DF
 MN,2026,2026-11-03,general,GOVERNOR,27153,TODD,Lisa Demuth and Ryan Wilson,REP,8163,enr
 MN,2026,2026-11-03,general,GOVERNOR,27153,TODD,Steven Young and Jane Kirby,GP,172,enr
 MN,2026,2026-11-03,general,GOVERNOR,27155,TRAVERSE,Amy Klobuchar and Ben Schierer,DFL,525,enr
-MN,2026,2026-11-03,general,GOVERNOR,27155,TRAVERSE,Lisa Demuth and Ryan Wilson,REP,986,enr
+MN,2026,2026-11-03,general,GOVERNOR,27155,TRAVERSE,Lisa Demuth and Ryan Wilson,REP,987,enr
 MN,2026,2026-11-03,general,GOVERNOR,27155,TRAVERSE,Steven Young and Jane Kirby,GP,25,enr
 MN,2026,2026-11-03,general,GOVERNOR,27157,WABASHA,Amy Klobuchar and Ben Schierer,DFL,4245,enr
 MN,2026,2026-11-03,general,GOVERNOR,27157,WABASHA,Lisa Demuth and Ryan Wilson,REP,6752,enr
@@ -3464,7 +3464,7 @@ MN,2026,2026-11-03,general,GOVERNOR,27159,WADENA,Amy Klobuchar and Ben Schierer,
 MN,2026,2026-11-03,general,GOVERNOR,27159,WADENA,Lisa Demuth and Ryan Wilson,REP,4720,enr
 MN,2026,2026-11-03,general,GOVERNOR,27159,WADENA,Steven Young and Jane Kirby,GP,110,enr
 MN,2026,2026-11-03,general,GOVERNOR,27161,WASECA,Amy Klobuchar and Ben Schierer,DFL,2973,enr
-MN,2026,2026-11-03,general,GOVERNOR,27161,WASECA,Lisa Demuth and Ryan Wilson,REP,5233,enr
+MN,2026,2026-11-03,general,GOVERNOR,27161,WASECA,Lisa Demuth and Ryan Wilson,REP,5234,enr
 MN,2026,2026-11-03,general,GOVERNOR,27161,WASECA,Steven Young and Jane Kirby,GP,176,enr
 MN,2026,2026-11-03,general,GOVERNOR,27163,WASHINGTON,Amy Klobuchar and Ben Schierer,DFL,85593,enr
 MN,2026,2026-11-03,general,GOVERNOR,27163,WASHINGTON,Lisa Demuth and Ryan Wilson,REP,61509,enr
@@ -3475,11 +3475,11 @@ MN,2026,2026-11-03,general,GOVERNOR,27165,WATONWAN,Steven Young and Jane Kirby,G
 MN,2026,2026-11-03,general,GOVERNOR,27167,WILKIN,Amy Klobuchar and Ben Schierer,DFL,845,enr
 MN,2026,2026-11-03,general,GOVERNOR,27167,WILKIN,Lisa Demuth and Ryan Wilson,REP,1684,enr
 MN,2026,2026-11-03,general,GOVERNOR,27167,WILKIN,Steven Young and Jane Kirby,GP,35,enr
-MN,2026,2026-11-03,general,GOVERNOR,27169,WINONA,Amy Klobuchar and Ben Schierer,DFL,11709,enr
-MN,2026,2026-11-03,general,GOVERNOR,27169,WINONA,Lisa Demuth and Ryan Wilson,REP,10674,enr
+MN,2026,2026-11-03,general,GOVERNOR,27169,WINONA,Amy Klobuchar and Ben Schierer,DFL,11711,enr
+MN,2026,2026-11-03,general,GOVERNOR,27169,WINONA,Lisa Demuth and Ryan Wilson,REP,10675,enr
 MN,2026,2026-11-03,general,GOVERNOR,27169,WINONA,Steven Young and Jane Kirby,GP,522,enr
-MN,2026,2026-11-03,general,GOVERNOR,27171,WRIGHT,Amy Klobuchar and Ben Schierer,DFL,28550,enr
-MN,2026,2026-11-03,general,GOVERNOR,27171,WRIGHT,Lisa Demuth and Ryan Wilson,REP,45987,enr
+MN,2026,2026-11-03,general,GOVERNOR,27171,WRIGHT,Amy Klobuchar and Ben Schierer,DFL,28551,enr
+MN,2026,2026-11-03,general,GOVERNOR,27171,WRIGHT,Lisa Demuth and Ryan Wilson,REP,45988,enr
 MN,2026,2026-11-03,general,GOVERNOR,27171,WRIGHT,Steven Young and Jane Kirby,GP,1209,enr
 MN,2026,2026-11-03,general,GOVERNOR,27173,YELLOW MEDICINE,Amy Klobuchar and Ben Schierer,DFL,1447,enr
 MN,2026,2026-11-03,general,GOVERNOR,27173,YELLOW MEDICINE,Lisa Demuth and Ryan Wilson,REP,3057,enr
@@ -4532,10 +4532,10 @@ MN,2026,2026-11-03,general,US Senate,27001,AITKIN,Marisa Simonetti,IND,180,enr
 MN,2026,2026-11-03,general,US Senate,27001,AITKIN,Michele Tafoya,REP,5689,enr
 MN,2026,2026-11-03,general,US Senate,27001,AITKIN,Peggy Flanagan,DFL,2964,enr
 MN,2026,2026-11-03,general,US Senate,27001,AITKIN,Rebecca Whiting,LIB,112,enr
-MN,2026,2026-11-03,general,US Senate,27003,ANOKA,Marisa Simonetti,IND,2860,enr
-MN,2026,2026-11-03,general,US Senate,27003,ANOKA,Michele Tafoya,REP,86553,enr
-MN,2026,2026-11-03,general,US Senate,27003,ANOKA,Peggy Flanagan,DFL,90026,enr
-MN,2026,2026-11-03,general,US Senate,27003,ANOKA,Rebecca Whiting,LIB,2283,enr
+MN,2026,2026-11-03,general,US Senate,27003,ANOKA,Marisa Simonetti,IND,2861,enr
+MN,2026,2026-11-03,general,US Senate,27003,ANOKA,Michele Tafoya,REP,86555,enr
+MN,2026,2026-11-03,general,US Senate,27003,ANOKA,Peggy Flanagan,DFL,90031,enr
+MN,2026,2026-11-03,general,US Senate,27003,ANOKA,Rebecca Whiting,LIB,2284,enr
 MN,2026,2026-11-03,general,US Senate,27005,BECKER,Marisa Simonetti,IND,302,enr
 MN,2026,2026-11-03,general,US Senate,27005,BECKER,Michele Tafoya,REP,10671,enr
 MN,2026,2026-11-03,general,US Senate,27005,BECKER,Peggy Flanagan,DFL,5548,enr
@@ -4546,14 +4546,14 @@ MN,2026,2026-11-03,general,US Senate,27007,BELTRAMI,Peggy Flanagan,DFL,9670,enr
 MN,2026,2026-11-03,general,US Senate,27007,BELTRAMI,Rebecca Whiting,LIB,315,enr
 MN,2026,2026-11-03,general,US Senate,27009,BENTON,Marisa Simonetti,IND,300,enr
 MN,2026,2026-11-03,general,US Senate,27009,BENTON,Michele Tafoya,REP,11954,enr
-MN,2026,2026-11-03,general,US Senate,27009,BENTON,Peggy Flanagan,DFL,6105,enr
+MN,2026,2026-11-03,general,US Senate,27009,BENTON,Peggy Flanagan,DFL,6106,enr
 MN,2026,2026-11-03,general,US Senate,27009,BENTON,Rebecca Whiting,LIB,285,enr
 MN,2026,2026-11-03,general,US Senate,27011,BIG STONE,Marisa Simonetti,IND,45,enr
 MN,2026,2026-11-03,general,US Senate,27011,BIG STONE,Michele Tafoya,REP,1520,enr
 MN,2026,2026-11-03,general,US Senate,27011,BIG STONE,Peggy Flanagan,DFL,816,enr
 MN,2026,2026-11-03,general,US Senate,27011,BIG STONE,Rebecca Whiting,LIB,23,enr
 MN,2026,2026-11-03,general,US Senate,27013,BLUE EARTH,Marisa Simonetti,IND,541,enr
-MN,2026,2026-11-03,general,US Senate,27013,BLUE EARTH,Michele Tafoya,REP,13372,enr
+MN,2026,2026-11-03,general,US Senate,27013,BLUE EARTH,Michele Tafoya,REP,13373,enr
 MN,2026,2026-11-03,general,US Senate,27013,BLUE EARTH,Peggy Flanagan,DFL,15455,enr
 MN,2026,2026-11-03,general,US Senate,27013,BLUE EARTH,Rebecca Whiting,LIB,376,enr
 MN,2026,2026-11-03,general,US Senate,27015,BROWN,Marisa Simonetti,IND,225,enr
@@ -4565,8 +4565,8 @@ MN,2026,2026-11-03,general,US Senate,27017,CARLTON,Michele Tafoya,REP,8058,enr
 MN,2026,2026-11-03,general,US Senate,27017,CARLTON,Peggy Flanagan,DFL,8764,enr
 MN,2026,2026-11-03,general,US Senate,27017,CARLTON,Rebecca Whiting,LIB,243,enr
 MN,2026,2026-11-03,general,US Senate,27019,CARVER,Marisa Simonetti,IND,751,enr
-MN,2026,2026-11-03,general,US Senate,27019,CARVER,Michele Tafoya,REP,32259,enr
-MN,2026,2026-11-03,general,US Senate,27019,CARVER,Peggy Flanagan,DFL,27941,enr
+MN,2026,2026-11-03,general,US Senate,27019,CARVER,Michele Tafoya,REP,32262,enr
+MN,2026,2026-11-03,general,US Senate,27019,CARVER,Peggy Flanagan,DFL,27946,enr
 MN,2026,2026-11-03,general,US Senate,27019,CARVER,Rebecca Whiting,LIB,597,enr
 MN,2026,2026-11-03,general,US Senate,27021,CASS,Marisa Simonetti,IND,233,enr
 MN,2026,2026-11-03,general,US Senate,27021,CASS,Michele Tafoya,REP,10857,enr
@@ -4582,14 +4582,14 @@ MN,2026,2026-11-03,general,US Senate,27025,CHISAGO,Peggy Flanagan,DFL,10100,enr
 MN,2026,2026-11-03,general,US Senate,27025,CHISAGO,Rebecca Whiting,LIB,422,enr
 MN,2026,2026-11-03,general,US Senate,27027,CLAY,Marisa Simonetti,IND,454,enr
 MN,2026,2026-11-03,general,US Senate,27027,CLAY,Michele Tafoya,REP,11467,enr
-MN,2026,2026-11-03,general,US Senate,27027,CLAY,Peggy Flanagan,DFL,14469,enr
+MN,2026,2026-11-03,general,US Senate,27027,CLAY,Peggy Flanagan,DFL,14470,enr
 MN,2026,2026-11-03,general,US Senate,27027,CLAY,Rebecca Whiting,LIB,352,enr
 MN,2026,2026-11-03,general,US Senate,27029,CLEARWATER,Marisa Simonetti,IND,69,enr
 MN,2026,2026-11-03,general,US Senate,27029,CLEARWATER,Michele Tafoya,REP,2822,enr
 MN,2026,2026-11-03,general,US Senate,27029,CLEARWATER,Peggy Flanagan,DFL,1035,enr
 MN,2026,2026-11-03,general,US Senate,27029,CLEARWATER,Rebecca Whiting,LIB,47,enr
 MN,2026,2026-11-03,general,US Senate,27031,COOK,Marisa Simonetti,IND,37,enr
-MN,2026,2026-11-03,general,US Senate,27031,COOK,Michele Tafoya,REP,968,enr
+MN,2026,2026-11-03,general,US Senate,27031,COOK,Michele Tafoya,REP,969,enr
 MN,2026,2026-11-03,general,US Senate,27031,COOK,Peggy Flanagan,DFL,2330,enr
 MN,2026,2026-11-03,general,US Senate,27031,COOK,Rebecca Whiting,LIB,40,enr
 MN,2026,2026-11-03,general,US Senate,27033,COTTONWOOD,Marisa Simonetti,IND,101,enr
@@ -4601,8 +4601,8 @@ MN,2026,2026-11-03,general,US Senate,27035,CROW WING,Michele Tafoya,REP,22464,en
 MN,2026,2026-11-03,general,US Senate,27035,CROW WING,Peggy Flanagan,DFL,12070,enr
 MN,2026,2026-11-03,general,US Senate,27035,CROW WING,Rebecca Whiting,LIB,431,enr
 MN,2026,2026-11-03,general,US Senate,27037,DAKOTA,Marisa Simonetti,IND,3220,enr
-MN,2026,2026-11-03,general,US Senate,27037,DAKOTA,Michele Tafoya,REP,92314,enr
-MN,2026,2026-11-03,general,US Senate,27037,DAKOTA,Peggy Flanagan,DFL,132809,enr
+MN,2026,2026-11-03,general,US Senate,27037,DAKOTA,Michele Tafoya,REP,92316,enr
+MN,2026,2026-11-03,general,US Senate,27037,DAKOTA,Peggy Flanagan,DFL,132812,enr
 MN,2026,2026-11-03,general,US Senate,27037,DAKOTA,Rebecca Whiting,LIB,2414,enr
 MN,2026,2026-11-03,general,US Senate,27039,DODGE,Marisa Simonetti,IND,213,enr
 MN,2026,2026-11-03,general,US Senate,27039,DODGE,Michele Tafoya,REP,6434,enr
@@ -4612,8 +4612,8 @@ MN,2026,2026-11-03,general,US Senate,27041,DOUGLAS,Marisa Simonetti,IND,327,enr
 MN,2026,2026-11-03,general,US Senate,27041,DOUGLAS,Michele Tafoya,REP,14063,enr
 MN,2026,2026-11-03,general,US Senate,27041,DOUGLAS,Peggy Flanagan,DFL,6720,enr
 MN,2026,2026-11-03,general,US Senate,27041,DOUGLAS,Rebecca Whiting,LIB,275,enr
-MN,2026,2026-11-03,general,US Senate,27043,FARIBAULT,Marisa Simonetti,IND,171,enr
-MN,2026,2026-11-03,general,US Senate,27043,FARIBAULT,Michele Tafoya,REP,4133,enr
+MN,2026,2026-11-03,general,US Senate,27043,FARIBAULT,Marisa Simonetti,IND,172,enr
+MN,2026,2026-11-03,general,US Senate,27043,FARIBAULT,Michele Tafoya,REP,4134,enr
 MN,2026,2026-11-03,general,US Senate,27043,FARIBAULT,Peggy Flanagan,DFL,2017,enr
 MN,2026,2026-11-03,general,US Senate,27043,FARIBAULT,Rebecca Whiting,LIB,96,enr
 MN,2026,2026-11-03,general,US Senate,27045,FILLMORE,Marisa Simonetti,IND,194,enr
@@ -4622,7 +4622,7 @@ MN,2026,2026-11-03,general,US Senate,27045,FILLMORE,Peggy Flanagan,DFL,3893,enr
 MN,2026,2026-11-03,general,US Senate,27045,FILLMORE,Rebecca Whiting,LIB,154,enr
 MN,2026,2026-11-03,general,US Senate,27047,FREEBORN,Marisa Simonetti,IND,235,enr
 MN,2026,2026-11-03,general,US Senate,27047,FREEBORN,Michele Tafoya,REP,7392,enr
-MN,2026,2026-11-03,general,US Senate,27047,FREEBORN,Peggy Flanagan,DFL,5622,enr
+MN,2026,2026-11-03,general,US Senate,27047,FREEBORN,Peggy Flanagan,DFL,5623,enr
 MN,2026,2026-11-03,general,US Senate,27047,FREEBORN,Rebecca Whiting,LIB,133,enr
 MN,2026,2026-11-03,general,US Senate,27049,GOODHUE,Marisa Simonetti,IND,428,enr
 MN,2026,2026-11-03,general,US Senate,27049,GOODHUE,Michele Tafoya,REP,13570,enr
@@ -4633,15 +4633,15 @@ MN,2026,2026-11-03,general,US Senate,27051,GRANT,Michele Tafoya,REP,1953,enr
 MN,2026,2026-11-03,general,US Senate,27051,GRANT,Peggy Flanagan,DFL,1002,enr
 MN,2026,2026-11-03,general,US Senate,27051,GRANT,Rebecca Whiting,LIB,46,enr
 MN,2026,2026-11-03,general,US Senate,27053,HENNEPIN,Marisa Simonetti,IND,7513,enr
-MN,2026,2026-11-03,general,US Senate,27053,HENNEPIN,Michele Tafoya,REP,172616,enr
-MN,2026,2026-11-03,general,US Senate,27053,HENNEPIN,Peggy Flanagan,DFL,478302,enr
-MN,2026,2026-11-03,general,US Senate,27053,HENNEPIN,Rebecca Whiting,LIB,5948,enr
+MN,2026,2026-11-03,general,US Senate,27053,HENNEPIN,Michele Tafoya,REP,172620,enr
+MN,2026,2026-11-03,general,US Senate,27053,HENNEPIN,Peggy Flanagan,DFL,478312,enr
+MN,2026,2026-11-03,general,US Senate,27053,HENNEPIN,Rebecca Whiting,LIB,5951,enr
 MN,2026,2026-11-03,general,US Senate,27055,HOUSTON,Marisa Simonetti,IND,166,enr
 MN,2026,2026-11-03,general,US Senate,27055,HOUSTON,Michele Tafoya,REP,4981,enr
-MN,2026,2026-11-03,general,US Senate,27055,HOUSTON,Peggy Flanagan,DFL,4012,enr
+MN,2026,2026-11-03,general,US Senate,27055,HOUSTON,Peggy Flanagan,DFL,4013,enr
 MN,2026,2026-11-03,general,US Senate,27055,HOUSTON,Rebecca Whiting,LIB,121,enr
 MN,2026,2026-11-03,general,US Senate,27057,HUBBARD,Marisa Simonetti,IND,181,enr
-MN,2026,2026-11-03,general,US Senate,27057,HUBBARD,Michele Tafoya,REP,7329,enr
+MN,2026,2026-11-03,general,US Senate,27057,HUBBARD,Michele Tafoya,REP,7330,enr
 MN,2026,2026-11-03,general,US Senate,27057,HUBBARD,Peggy Flanagan,DFL,4045,enr
 MN,2026,2026-11-03,general,US Senate,27057,HUBBARD,Rebecca Whiting,LIB,225,enr
 MN,2026,2026-11-03,general,US Senate,27059,ISANTI,Marisa Simonetti,IND,360,enr
@@ -4649,7 +4649,7 @@ MN,2026,2026-11-03,general,US Senate,27059,ISANTI,Michele Tafoya,REP,13751,enr
 MN,2026,2026-11-03,general,US Senate,27059,ISANTI,Peggy Flanagan,DFL,6327,enr
 MN,2026,2026-11-03,general,US Senate,27059,ISANTI,Rebecca Whiting,LIB,366,enr
 MN,2026,2026-11-03,general,US Senate,27061,ITASCA,Marisa Simonetti,IND,409,enr
-MN,2026,2026-11-03,general,US Senate,27061,ITASCA,Michele Tafoya,REP,12232,enr
+MN,2026,2026-11-03,general,US Senate,27061,ITASCA,Michele Tafoya,REP,12233,enr
 MN,2026,2026-11-03,general,US Senate,27061,ITASCA,Peggy Flanagan,DFL,8940,enr
 MN,2026,2026-11-03,general,US Senate,27061,ITASCA,Rebecca Whiting,LIB,310,enr
 MN,2026,2026-11-03,general,US Senate,27063,JACKSON,Marisa Simonetti,IND,121,enr
@@ -4658,12 +4658,12 @@ MN,2026,2026-11-03,general,US Senate,27063,JACKSON,Peggy Flanagan,DFL,1352,enr
 MN,2026,2026-11-03,general,US Senate,27063,JACKSON,Rebecca Whiting,LIB,62,enr
 MN,2026,2026-11-03,general,US Senate,27065,KANABEC,Marisa Simonetti,IND,134,enr
 MN,2026,2026-11-03,general,US Senate,27065,KANABEC,Michele Tafoya,REP,5049,enr
-MN,2026,2026-11-03,general,US Senate,27065,KANABEC,Peggy Flanagan,DFL,2295,enr
+MN,2026,2026-11-03,general,US Senate,27065,KANABEC,Peggy Flanagan,DFL,2296,enr
 MN,2026,2026-11-03,general,US Senate,27065,KANABEC,Rebecca Whiting,LIB,106,enr
 MN,2026,2026-11-03,general,US Senate,27067,KANDIYOHI,Marisa Simonetti,IND,278,enr
-MN,2026,2026-11-03,general,US Senate,27067,KANDIYOHI,Michele Tafoya,REP,12130,enr
-MN,2026,2026-11-03,general,US Senate,27067,KANDIYOHI,Peggy Flanagan,DFL,6879,enr
-MN,2026,2026-11-03,general,US Senate,27067,KANDIYOHI,Rebecca Whiting,LIB,208,enr
+MN,2026,2026-11-03,general,US Senate,27067,KANDIYOHI,Michele Tafoya,REP,12134,enr
+MN,2026,2026-11-03,general,US Senate,27067,KANDIYOHI,Peggy Flanagan,DFL,6881,enr
+MN,2026,2026-11-03,general,US Senate,27067,KANDIYOHI,Rebecca Whiting,LIB,209,enr
 MN,2026,2026-11-03,general,US Senate,27069,KITTSON,Marisa Simonetti,IND,29,enr
 MN,2026,2026-11-03,general,US Senate,27069,KITTSON,Michele Tafoya,REP,1177,enr
 MN,2026,2026-11-03,general,US Senate,27069,KITTSON,Peggy Flanagan,DFL,809,enr
@@ -4682,24 +4682,24 @@ MN,2026,2026-11-03,general,US Senate,27075,LAKE,Peggy Flanagan,DFL,3235,enr
 MN,2026,2026-11-03,general,US Senate,27075,LAKE,Rebecca Whiting,LIB,79,enr
 MN,2026,2026-11-03,general,US Senate,27077,LAKE OF THE WOODS,Marisa Simonetti,IND,28,enr
 MN,2026,2026-11-03,general,US Senate,27077,LAKE OF THE WOODS,Michele Tafoya,REP,1317,enr
-MN,2026,2026-11-03,general,US Senate,27077,LAKE OF THE WOODS,Peggy Flanagan,DFL,487,enr
+MN,2026,2026-11-03,general,US Senate,27077,LAKE OF THE WOODS,Peggy Flanagan,DFL,488,enr
 MN,2026,2026-11-03,general,US Senate,27077,LAKE OF THE WOODS,Rebecca Whiting,LIB,28,enr
 MN,2026,2026-11-03,general,US Senate,27079,LE SUEUR,Marisa Simonetti,IND,289,enr
-MN,2026,2026-11-03,general,US Senate,27079,LE SUEUR,Michele Tafoya,REP,9285,enr
+MN,2026,2026-11-03,general,US Senate,27079,LE SUEUR,Michele Tafoya,REP,9286,enr
 MN,2026,2026-11-03,general,US Senate,27079,LE SUEUR,Peggy Flanagan,DFL,4572,enr
 MN,2026,2026-11-03,general,US Senate,27079,LE SUEUR,Rebecca Whiting,LIB,191,enr
-MN,2026,2026-11-03,general,US Senate,27081,LINCOLN,Marisa Simonetti,IND,56,enr
+MN,2026,2026-11-03,general,US Senate,27081,LINCOLN,Marisa Simonetti,IND,57,enr
 MN,2026,2026-11-03,general,US Senate,27081,LINCOLN,Michele Tafoya,REP,1638,enr
 MN,2026,2026-11-03,general,US Senate,27081,LINCOLN,Peggy Flanagan,DFL,795,enr
 MN,2026,2026-11-03,general,US Senate,27081,LINCOLN,Rebecca Whiting,LIB,41,enr
-MN,2026,2026-11-03,general,US Senate,27083,LYON,Marisa Simonetti,IND,195,enr
+MN,2026,2026-11-03,general,US Senate,27083,LYON,Marisa Simonetti,IND,196,enr
 MN,2026,2026-11-03,general,US Senate,27083,LYON,Michele Tafoya,REP,6438,enr
 MN,2026,2026-11-03,general,US Senate,27083,LYON,Peggy Flanagan,DFL,3667,enr
 MN,2026,2026-11-03,general,US Senate,27083,LYON,Rebecca Whiting,LIB,114,enr
 MN,2026,2026-11-03,general,US Senate,27085,MCLEOD,Marisa Simonetti,IND,335,enr
 MN,2026,2026-11-03,general,US Senate,27085,MCLEOD,Michele Tafoya,REP,11332,enr
 MN,2026,2026-11-03,general,US Senate,27085,MCLEOD,Peggy Flanagan,DFL,5357,enr
-MN,2026,2026-11-03,general,US Senate,27085,MCLEOD,Rebecca Whiting,LIB,209,enr
+MN,2026,2026-11-03,general,US Senate,27085,MCLEOD,Rebecca Whiting,LIB,210,enr
 MN,2026,2026-11-03,general,US Senate,27087,MAHNOMEN,Marisa Simonetti,IND,42,enr
 MN,2026,2026-11-03,general,US Senate,27087,MAHNOMEN,Michele Tafoya,REP,1009,enr
 MN,2026,2026-11-03,general,US Senate,27087,MAHNOMEN,Peggy Flanagan,DFL,895,enr
@@ -4713,22 +4713,22 @@ MN,2026,2026-11-03,general,US Senate,27091,MARTIN,Michele Tafoya,REP,5841,enr
 MN,2026,2026-11-03,general,US Senate,27091,MARTIN,Peggy Flanagan,DFL,2476,enr
 MN,2026,2026-11-03,general,US Senate,27091,MARTIN,Rebecca Whiting,LIB,141,enr
 MN,2026,2026-11-03,general,US Senate,27093,MEEKER,Marisa Simonetti,IND,218,enr
-MN,2026,2026-11-03,general,US Senate,27093,MEEKER,Michele Tafoya,REP,7855,enr
+MN,2026,2026-11-03,general,US Senate,27093,MEEKER,Michele Tafoya,REP,7854,enr
 MN,2026,2026-11-03,general,US Senate,27093,MEEKER,Peggy Flanagan,DFL,3112,enr
 MN,2026,2026-11-03,general,US Senate,27093,MEEKER,Rebecca Whiting,LIB,159,enr
 MN,2026,2026-11-03,general,US Senate,27095,MILLE LACS,Marisa Simonetti,IND,229,enr
 MN,2026,2026-11-03,general,US Senate,27095,MILLE LACS,Michele Tafoya,REP,8044,enr
-MN,2026,2026-11-03,general,US Senate,27095,MILLE LACS,Peggy Flanagan,DFL,3576,enr
+MN,2026,2026-11-03,general,US Senate,27095,MILLE LACS,Peggy Flanagan,DFL,3577,enr
 MN,2026,2026-11-03,general,US Senate,27095,MILLE LACS,Rebecca Whiting,LIB,182,enr
 MN,2026,2026-11-03,general,US Senate,27097,MORRISON,Marisa Simonetti,IND,279,enr
 MN,2026,2026-11-03,general,US Senate,27097,MORRISON,Michele Tafoya,REP,12366,enr
 MN,2026,2026-11-03,general,US Senate,27097,MORRISON,Peggy Flanagan,DFL,3451,enr
 MN,2026,2026-11-03,general,US Senate,27097,MORRISON,Rebecca Whiting,LIB,214,enr
 MN,2026,2026-11-03,general,US Senate,27099,MOWER,Marisa Simonetti,IND,337,enr
-MN,2026,2026-11-03,general,US Senate,27099,MOWER,Michele Tafoya,REP,7605,enr
+MN,2026,2026-11-03,general,US Senate,27099,MOWER,Michele Tafoya,REP,7606,enr
 MN,2026,2026-11-03,general,US Senate,27099,MOWER,Peggy Flanagan,DFL,7522,enr
 MN,2026,2026-11-03,general,US Senate,27099,MOWER,Rebecca Whiting,LIB,256,enr
-MN,2026,2026-11-03,general,US Senate,27101,MURRAY,Marisa Simonetti,IND,61,enr
+MN,2026,2026-11-03,general,US Senate,27101,MURRAY,Marisa Simonetti,IND,62,enr
 MN,2026,2026-11-03,general,US Senate,27101,MURRAY,Michele Tafoya,REP,2751,enr
 MN,2026,2026-11-03,general,US Senate,27101,MURRAY,Peggy Flanagan,DFL,1111,enr
 MN,2026,2026-11-03,general,US Senate,27101,MURRAY,Rebecca Whiting,LIB,55,enr
@@ -4738,7 +4738,7 @@ MN,2026,2026-11-03,general,US Senate,27103,NICOLLET,Peggy Flanagan,DFL,8243,enr
 MN,2026,2026-11-03,general,US Senate,27103,NICOLLET,Rebecca Whiting,LIB,207,enr
 MN,2026,2026-11-03,general,US Senate,27105,NOBLES,Marisa Simonetti,IND,110,enr
 MN,2026,2026-11-03,general,US Senate,27105,NOBLES,Michele Tafoya,REP,3908,enr
-MN,2026,2026-11-03,general,US Senate,27105,NOBLES,Peggy Flanagan,DFL,2515,enr
+MN,2026,2026-11-03,general,US Senate,27105,NOBLES,Peggy Flanagan,DFL,2516,enr
 MN,2026,2026-11-03,general,US Senate,27105,NOBLES,Rebecca Whiting,LIB,85,enr
 MN,2026,2026-11-03,general,US Senate,27107,NORMAN,Marisa Simonetti,IND,67,enr
 MN,2026,2026-11-03,general,US Senate,27107,NORMAN,Michele Tafoya,REP,1488,enr
@@ -4750,7 +4750,7 @@ MN,2026,2026-11-03,general,US Senate,27109,OLMSTED,Peggy Flanagan,DFL,45906,enr
 MN,2026,2026-11-03,general,US Senate,27109,OLMSTED,Rebecca Whiting,LIB,887,enr
 MN,2026,2026-11-03,general,US Senate,27111,OTTER TAIL,Marisa Simonetti,IND,469,enr
 MN,2026,2026-11-03,general,US Senate,27111,OTTER TAIL,Michele Tafoya,REP,20086,enr
-MN,2026,2026-11-03,general,US Senate,27111,OTTER TAIL,Peggy Flanagan,DFL,10075,enr
+MN,2026,2026-11-03,general,US Senate,27111,OTTER TAIL,Peggy Flanagan,DFL,10076,enr
 MN,2026,2026-11-03,general,US Senate,27111,OTTER TAIL,Rebecca Whiting,LIB,402,enr
 MN,2026,2026-11-03,general,US Senate,27113,PENNINGTON,Marisa Simonetti,IND,82,enr
 MN,2026,2026-11-03,general,US Senate,27113,PENNINGTON,Michele Tafoya,REP,3336,enr
@@ -4765,15 +4765,15 @@ MN,2026,2026-11-03,general,US Senate,27117,PIPESTONE,Michele Tafoya,REP,2859,enr
 MN,2026,2026-11-03,general,US Senate,27117,PIPESTONE,Peggy Flanagan,DFL,1060,enr
 MN,2026,2026-11-03,general,US Senate,27117,PIPESTONE,Rebecca Whiting,LIB,45,enr
 MN,2026,2026-11-03,general,US Senate,27119,POLK,Marisa Simonetti,IND,176,enr
-MN,2026,2026-11-03,general,US Senate,27119,POLK,Michele Tafoya,REP,7403,enr
+MN,2026,2026-11-03,general,US Senate,27119,POLK,Michele Tafoya,REP,7405,enr
 MN,2026,2026-11-03,general,US Senate,27119,POLK,Peggy Flanagan,DFL,4156,enr
 MN,2026,2026-11-03,general,US Senate,27119,POLK,Rebecca Whiting,LIB,193,enr
 MN,2026,2026-11-03,general,US Senate,27121,POPE,Marisa Simonetti,IND,101,enr
-MN,2026,2026-11-03,general,US Senate,27121,POPE,Michele Tafoya,REP,3881,enr
+MN,2026,2026-11-03,general,US Senate,27121,POPE,Michele Tafoya,REP,3883,enr
 MN,2026,2026-11-03,general,US Senate,27121,POPE,Peggy Flanagan,DFL,1994,enr
 MN,2026,2026-11-03,general,US Senate,27121,POPE,Rebecca Whiting,LIB,88,enr
 MN,2026,2026-11-03,general,US Senate,27123,RAMSEY,Marisa Simonetti,IND,3248,enr
-MN,2026,2026-11-03,general,US Senate,27123,RAMSEY,Michele Tafoya,REP,57335,enr
+MN,2026,2026-11-03,general,US Senate,27123,RAMSEY,Michele Tafoya,REP,57336,enr
 MN,2026,2026-11-03,general,US Senate,27123,RAMSEY,Peggy Flanagan,DFL,185997,enr
 MN,2026,2026-11-03,general,US Senate,27123,RAMSEY,Rebecca Whiting,LIB,2791,enr
 MN,2026,2026-11-03,general,US Senate,27125,RED LAKE,Marisa Simonetti,IND,39,enr
@@ -4781,7 +4781,7 @@ MN,2026,2026-11-03,general,US Senate,27125,RED LAKE,Michele Tafoya,REP,1206,enr
 MN,2026,2026-11-03,general,US Senate,27125,RED LAKE,Peggy Flanagan,DFL,607,enr
 MN,2026,2026-11-03,general,US Senate,27125,RED LAKE,Rebecca Whiting,LIB,37,enr
 MN,2026,2026-11-03,general,US Senate,27127,REDWOOD,Marisa Simonetti,IND,121,enr
-MN,2026,2026-11-03,general,US Senate,27127,REDWOOD,Michele Tafoya,REP,4629,enr
+MN,2026,2026-11-03,general,US Senate,27127,REDWOOD,Michele Tafoya,REP,4630,enr
 MN,2026,2026-11-03,general,US Senate,27127,REDWOOD,Peggy Flanagan,DFL,1868,enr
 MN,2026,2026-11-03,general,US Senate,27127,REDWOOD,Rebecca Whiting,LIB,85,enr
 MN,2026,2026-11-03,general,US Senate,27129,RENVILLE,Marisa Simonetti,IND,124,enr
@@ -4793,19 +4793,19 @@ MN,2026,2026-11-03,general,US Senate,27131,RICE,Michele Tafoya,REP,14643,enr
 MN,2026,2026-11-03,general,US Senate,27131,RICE,Peggy Flanagan,DFL,15686,enr
 MN,2026,2026-11-03,general,US Senate,27131,RICE,Rebecca Whiting,LIB,373,enr
 MN,2026,2026-11-03,general,US Senate,27133,ROCK,Marisa Simonetti,IND,76,enr
-MN,2026,2026-11-03,general,US Senate,27133,ROCK,Michele Tafoya,REP,2910,enr
+MN,2026,2026-11-03,general,US Senate,27133,ROCK,Michele Tafoya,REP,2912,enr
 MN,2026,2026-11-03,general,US Senate,27133,ROCK,Peggy Flanagan,DFL,1399,enr
 MN,2026,2026-11-03,general,US Senate,27133,ROCK,Rebecca Whiting,LIB,58,enr
 MN,2026,2026-11-03,general,US Senate,27135,ROSEAU,Marisa Simonetti,IND,95,enr
 MN,2026,2026-11-03,general,US Senate,27135,ROSEAU,Michele Tafoya,REP,4762,enr
 MN,2026,2026-11-03,general,US Senate,27135,ROSEAU,Peggy Flanagan,DFL,1672,enr
-MN,2026,2026-11-03,general,US Senate,27135,ROSEAU,Rebecca Whiting,LIB,77,enr
+MN,2026,2026-11-03,general,US Senate,27135,ROSEAU,Rebecca Whiting,LIB,78,enr
 MN,2026,2026-11-03,general,US Senate,27137,ST. LOUIS,Marisa Simonetti,IND,1865,enr
-MN,2026,2026-11-03,general,US Senate,27137,ST. LOUIS,Michele Tafoya,REP,37254,enr
-MN,2026,2026-11-03,general,US Senate,27137,ST. LOUIS,Peggy Flanagan,DFL,59589,enr
+MN,2026,2026-11-03,general,US Senate,27137,ST. LOUIS,Michele Tafoya,REP,37255,enr
+MN,2026,2026-11-03,general,US Senate,27137,ST. LOUIS,Peggy Flanagan,DFL,59593,enr
 MN,2026,2026-11-03,general,US Senate,27137,ST. LOUIS,Rebecca Whiting,LIB,1304,enr
 MN,2026,2026-11-03,general,US Senate,27139,SCOTT,Marisa Simonetti,IND,1152,enr
-MN,2026,2026-11-03,general,US Senate,27139,SCOTT,Michele Tafoya,REP,40991,enr
+MN,2026,2026-11-03,general,US Senate,27139,SCOTT,Michele Tafoya,REP,40993,enr
 MN,2026,2026-11-03,general,US Senate,27139,SCOTT,Peggy Flanagan,DFL,36693,enr
 MN,2026,2026-11-03,general,US Senate,27139,SCOTT,Rebecca Whiting,LIB,904,enr
 MN,2026,2026-11-03,general,US Senate,27141,SHERBURNE,Marisa Simonetti,IND,717,enr
@@ -4813,7 +4813,7 @@ MN,2026,2026-11-03,general,US Senate,27141,SHERBURNE,Michele Tafoya,REP,30178,en
 MN,2026,2026-11-03,general,US Senate,27141,SHERBURNE,Peggy Flanagan,DFL,15649,enr
 MN,2026,2026-11-03,general,US Senate,27141,SHERBURNE,Rebecca Whiting,LIB,653,enr
 MN,2026,2026-11-03,general,US Senate,27143,SIBLEY,Marisa Simonetti,IND,149,enr
-MN,2026,2026-11-03,general,US Senate,27143,SIBLEY,Michele Tafoya,REP,4995,enr
+MN,2026,2026-11-03,general,US Senate,27143,SIBLEY,Michele Tafoya,REP,4997,enr
 MN,2026,2026-11-03,general,US Senate,27143,SIBLEY,Peggy Flanagan,DFL,1970,enr
 MN,2026,2026-11-03,general,US Senate,27143,SIBLEY,Rebecca Whiting,LIB,102,enr
 MN,2026,2026-11-03,general,US Senate,27145,STEARNS,Marisa Simonetti,IND,1090,enr
@@ -4834,10 +4834,10 @@ MN,2026,2026-11-03,general,US Senate,27151,SWIFT,Peggy Flanagan,DFL,1418,enr
 MN,2026,2026-11-03,general,US Senate,27151,SWIFT,Rebecca Whiting,LIB,49,enr
 MN,2026,2026-11-03,general,US Senate,27153,TODD,Marisa Simonetti,IND,210,enr
 MN,2026,2026-11-03,general,US Senate,27153,TODD,Michele Tafoya,REP,8102,enr
-MN,2026,2026-11-03,general,US Senate,27153,TODD,Peggy Flanagan,DFL,2696,enr
-MN,2026,2026-11-03,general,US Senate,27153,TODD,Rebecca Whiting,LIB,184,enr
+MN,2026,2026-11-03,general,US Senate,27153,TODD,Peggy Flanagan,DFL,2697,enr
+MN,2026,2026-11-03,general,US Senate,27153,TODD,Rebecca Whiting,LIB,186,enr
 MN,2026,2026-11-03,general,US Senate,27155,TRAVERSE,Marisa Simonetti,IND,31,enr
-MN,2026,2026-11-03,general,US Senate,27155,TRAVERSE,Michele Tafoya,REP,1001,enr
+MN,2026,2026-11-03,general,US Senate,27155,TRAVERSE,Michele Tafoya,REP,1002,enr
 MN,2026,2026-11-03,general,US Senate,27155,TRAVERSE,Peggy Flanagan,DFL,492,enr
 MN,2026,2026-11-03,general,US Senate,27155,TRAVERSE,Rebecca Whiting,LIB,10,enr
 MN,2026,2026-11-03,general,US Senate,27157,WABASHA,Marisa Simonetti,IND,200,enr
@@ -4845,7 +4845,7 @@ MN,2026,2026-11-03,general,US Senate,27157,WABASHA,Michele Tafoya,REP,6816,enr
 MN,2026,2026-11-03,general,US Senate,27157,WABASHA,Peggy Flanagan,DFL,4040,enr
 MN,2026,2026-11-03,general,US Senate,27157,WABASHA,Rebecca Whiting,LIB,149,enr
 MN,2026,2026-11-03,general,US Senate,27159,WADENA,Marisa Simonetti,IND,134,enr
-MN,2026,2026-11-03,general,US Senate,27159,WADENA,Michele Tafoya,REP,4700,enr
+MN,2026,2026-11-03,general,US Senate,27159,WADENA,Michele Tafoya,REP,4701,enr
 MN,2026,2026-11-03,general,US Senate,27159,WADENA,Peggy Flanagan,DFL,1554,enr
 MN,2026,2026-11-03,general,US Senate,27159,WADENA,Rebecca Whiting,LIB,74,enr
 MN,2026,2026-11-03,general,US Senate,27161,WASECA,Marisa Simonetti,IND,177,enr
@@ -4854,7 +4854,7 @@ MN,2026,2026-11-03,general,US Senate,27161,WASECA,Peggy Flanagan,DFL,2805,enr
 MN,2026,2026-11-03,general,US Senate,27161,WASECA,Rebecca Whiting,LIB,113,enr
 MN,2026,2026-11-03,general,US Senate,27163,WASHINGTON,Marisa Simonetti,IND,1992,enr
 MN,2026,2026-11-03,general,US Senate,27163,WASHINGTON,Michele Tafoya,REP,63846,enr
-MN,2026,2026-11-03,general,US Senate,27163,WASHINGTON,Peggy Flanagan,DFL,81779,enr
+MN,2026,2026-11-03,general,US Senate,27163,WASHINGTON,Peggy Flanagan,DFL,81780,enr
 MN,2026,2026-11-03,general,US Senate,27163,WASHINGTON,Rebecca Whiting,LIB,1673,enr
 MN,2026,2026-11-03,general,US Senate,27165,WATONWAN,Marisa Simonetti,IND,82,enr
 MN,2026,2026-11-03,general,US Senate,27165,WATONWAN,Michele Tafoya,REP,2385,enr
@@ -4864,13 +4864,13 @@ MN,2026,2026-11-03,general,US Senate,27167,WILKIN,Marisa Simonetti,IND,53,enr
 MN,2026,2026-11-03,general,US Senate,27167,WILKIN,Michele Tafoya,REP,1694,enr
 MN,2026,2026-11-03,general,US Senate,27167,WILKIN,Peggy Flanagan,DFL,775,enr
 MN,2026,2026-11-03,general,US Senate,27167,WILKIN,Rebecca Whiting,LIB,37,enr
-MN,2026,2026-11-03,general,US Senate,27169,WINONA,Marisa Simonetti,IND,354,enr
-MN,2026,2026-11-03,general,US Senate,27169,WINONA,Michele Tafoya,REP,10639,enr
+MN,2026,2026-11-03,general,US Senate,27169,WINONA,Marisa Simonetti,IND,355,enr
+MN,2026,2026-11-03,general,US Senate,27169,WINONA,Michele Tafoya,REP,10640,enr
 MN,2026,2026-11-03,general,US Senate,27169,WINONA,Peggy Flanagan,DFL,11616,enr
 MN,2026,2026-11-03,general,US Senate,27169,WINONA,Rebecca Whiting,LIB,292,enr
 MN,2026,2026-11-03,general,US Senate,27171,WRIGHT,Marisa Simonetti,IND,1259,enr
 MN,2026,2026-11-03,general,US Senate,27171,WRIGHT,Michele Tafoya,REP,46518,enr
-MN,2026,2026-11-03,general,US Senate,27171,WRIGHT,Peggy Flanagan,DFL,26926,enr
+MN,2026,2026-11-03,general,US Senate,27171,WRIGHT,Peggy Flanagan,DFL,26927,enr
 MN,2026,2026-11-03,general,US Senate,27171,WRIGHT,Rebecca Whiting,LIB,980,enr
 MN,2026,2026-11-03,general,US Senate,27173,YELLOW MEDICINE,Marisa Simonetti,IND,91,enr
 MN,2026,2026-11-03,general,US Senate,27173,YELLOW MEDICINE,Michele Tafoya,REP,3098,enr

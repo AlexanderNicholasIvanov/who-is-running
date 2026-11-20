@@ -2543,6 +2543,7 @@ NC,2026,,federal,US House,08,,,"CLARK, KEVIN ROY",DEM,,challenger,not_yet_statut
 NC,2026,,federal,US House,08,,,"HARRIS, MARK E",REP,,challenger,statutory_candidate,fec,H6NC09200
 NC,2026,,federal,US House,08,,,"HARRIS, MARK E",REP,,incumbent,statutory_candidate,fec,H4NC08066
 NC,2026,,federal,US House,08,,,"OPPENHEIM, JESSE",DEM,,challenger,statutory_candidate,fec,H6NC08194
+NC,2026,,federal,US House,08,,,"POWELL, TYLER EDWARD MR",REP,,,not_yet_statutory_candidate,fec,H6NC08228
 NC,2026,,federal,US House,08,,,"WATSON, COLBY",DEM,,challenger,statutory_candidate,fec,H6NC08202
 NC,2026,,federal,US House,08,,,"WHITEHEAD, ROBERT W MR.",GRE,,challenger,not_yet_statutory_candidate,fec,H6NC08210
 NC,2026,,federal,US House,09,,,"BIBLER, LOREN DAVID",DEM,,challenger,not_yet_statutory_candidate,fec,H6NC09242
@@ -2616,6 +2617,7 @@ NC,2026,,federal,US Senate,,,*,"MCGINNIS, BRIAN",GRE,,open_seat,statutory_candid
 NC,2026,,federal,US Senate,,,*,"MORROW, MICHELE",REP,,open_seat,statutory_candidate,fec,S6NC00522
 NC,2026,,federal,US Senate,,,*,"NICKEL, WILEY",DEM,,open_seat,statutory_candidate,fec,S6NC00340
 NC,2026,,federal,US Senate,,,*,"NILSSON, ROBERT ANDERS MR",REP,,open_seat,not_yet_statutory_candidate,fec,S6NC00357
+NC,2026,,federal,US Senate,,,*,"POWELL, TYLER EDWARD",DEM,,,not_yet_statutory_candidate,fec,S6NC00639
 NC,2026,,federal,US Senate,,,*,"QUICK, ORRICK ROMAINE",DEM,,open_seat,not_yet_statutory_candidate,fec,S6NC00423
 NC,2026,,federal,US Senate,,,*,"SIBHATU, LICHIA WOLDEGABREAL",REP,,open_seat,not_yet_statutory_candidate,fec,S2NC00547
 NC,2026,,federal,US Senate,,,*,"SOLOMON, GAVIN",REP,,open_seat,not_yet_statutory_candidate,fec,S6NC00571
