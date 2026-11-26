@@ -3327,7 +3327,7 @@ OK,2026,,federal,US Senate,,,*,"SWEARENGIN, TAMMY",REP,,challenger,statutory_can
 OK,2026,,federal,US Senate,,,*,"THOMAS, N'KIYLA JASMINE - ANN",DEM,,challenger,statutory_candidate,fec,S6OK04163
 OK,2026,,federal,US Senate,,,*,"WASHINGTON, WAYNE LONNY DR.",REP,,challenger,not_yet_statutory_candidate,fec,S6OK04221
 OK,2026,,federal,US Senate,,,*,"YEN, ERVIN STONE DR",DEM,,challenger,statutory_candidate,fec,S6OK04270
-OR,2026,,federal,US House,,,*,"QUINCE, PETER L",02,,,not_yet_statutory_candidate,fec,H6OR02314
+OR,2026,,federal,US House,,,*,"QUINCE, PETER L",02,,,statutory_candidate,fec,H6OR02314
 OR,2026,,federal,US House,01,,CLATSOP;COLUMBIA;MULTNOMAH;TILLAMOOK;WASHINGTON,"BONAMICI, SUZANNE MS.",DEM,,incumbent,statutory_candidate,fec,H2OR01133
 OR,2026,,federal,US House,01,,CLATSOP;COLUMBIA;MULTNOMAH;TILLAMOOK;WASHINGTON,"CHAUDHRY-AHMAD, JAMIL O",DEM,,challenger,statutory_candidate,fec,H4OR01121
 OR,2026,,federal,US House,01,,CLATSOP;COLUMBIA;MULTNOMAH;TILLAMOOK;WASHINGTON,"KAHL, BARBARA J DR DVM",REP,,challenger,statutory_candidate,fec,H6OR01308
